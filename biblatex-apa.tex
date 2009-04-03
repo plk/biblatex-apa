@@ -1,0 +1,349 @@
+% $Id$
+\documentclass{ltxdockit}
+\usepackage[utf8]{inputenc}
+\usepackage[british]{babel}
+\usepackage[strict,babel=once]{csquotes}
+\usepackage{shortvrb}
+\usepackage{svninfo}
+\usepackage{ifthen}
+\MakeAutoQuote{«}{»}
+\MakeShortVerb{\|}
+
+\newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
+                       {\texttt{(APA #2)}}%
+                       {\texttt{(APA #2 Example #1)}}}
+
+
+\titlepage{%
+  title={APA \sty{biblatex} style},
+  subtitle={Citation and References macros for \sty{biblatex}},
+  url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
+  author={Philip Kime},
+  email={Philip@kime.org.uk},
+  revision={0.3},
+  date={\svnToday}}
+
+\hypersetup{%
+  pdftitle={APA \sty{biblatex} style},
+  pdfsubject={APA Citation and References macros for \sty{biblatex}},
+  pdfauthor={Philip Kime},
+  pdfkeywords={latex, biblatex, APA, style}}
+
+\begin{document}
+\svnInfo $Id$
+
+\printtitlepage
+\tableofcontents
+
+\section{Introduction}
+\label{int}
+
+\subsection{About}
+
+This package is a \sty{biblatex} style for APA (American Psychological
+Association) style compliant documents typeset in \latex. It
+implements a citation style (\path{apa.cbx}) and a references section style
+(\path{apa.bbx}). The styles are loaded just like any other \sty{biblatex}
+styles but I wouldn't try to use the citation and references styles
+separately as they rely on each other, macro-wise, in places.
+
+In this document and in the code, the specific APA requirements are
+referred to by the section and (if appropriate) the example number of the
+APA Style Guide (5th Edition).
+
+\subsection{Requirements}
+
+You will need to be using \sty{csquotes} ($\geq$ 4.3) and \sty{biblatex}
+($\geq$ 0.8b). If you want to take advantage of the \sty{biblatex}
+|\DeclareQuotePunctuation| facility to enforce the APA required «American
+punctuation», you should use the \sty{babel} package with the «american»
+option (see \sty{biblatex} manual section |3.9.1|). You can of course use
+other languages but in such cases, to adhere to APA «American» punctuation
+rules (following commas moved inside closing quotes etc.), then you should
+set up |\DeclareQuotePunctuation| yourself as per section |4.6.5| of the
+\sty{biblatex} manual.
+
+If you are using the |apa.cls| \latex class, you need be using version
+$\geq$ 1.3.4. The class should be invoked with the |noapacite| class option
+as per the |apa.cls| documentation. Without this class option, the
+|apa.cls| class will automatically try to use plain \bibtex with the
+|apacite| style which is completely incompatible with \sty{biblatex}.
+
+\subsection{License}
+
+Permission is granted to copy, distribute and/or modify this software under
+the terms of the \latex Project Public License, version
+1.3c\footnote{\url{http://www.latex-project.org/lppl.txt}}. The current
+maintainer is Philip Kime (\textcopyright\ 2008).
+
+\subsection{History}
+
+When I started using \sty{biblatex}, I assumed there would be an APA style
+when I went looking. I was wrong. I started to try to make one and realised
+why there was none. The APA style manual is enormous; the citation and
+references specifications run to about 60 pages and are very specific in
+terms of formatting. They are also not entirely consistent but then again,
+it is rare to have such a thorough specification to work from. There are
+some parts of the requirements which are impossible to automatically
+satisfy given the current reliance of \sty{biblatex} (as of version
+\texttt{0.8}) on \bibtex . These limitations are described below.
+
+\subsection{Acknowledgments}
+
+I wished I could acknowledge someone as then this wouldn't have been such a
+huge piece of work \ldots\ thanks to Philipp Lehman for \sty{biblatex} which
+really has been a major advance over pure \bibtex.
+
+\section{Use}
+\label{use}
+Put the \path{.cbx} and \path{.bbx} files in your texmf tree, usually:\\
+
+\noindent\path{<texmf>/tex/latex/biblatex/cbx/apa.cbx}\\
+\path{<texmf>/tex/latex/biblatex/bbx/apa.bbx}\\
+
+\noindent Specify the style in the usual way when loading \sty{biblatex}. 
+
+\begin{ltxcode}
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage[style=apa]{biblatex}
+\end{ltxcode}
+
+\noindent Note that the APA manual requires the forcing of titles into
+``sentence case'', that is, initial cap followed by lower case for sentence
+units, with the exception of names and material from languages which do not
+follow English capitalisation. As of version 0.8a, \sty{biblatex} has a
+|\MakeSentenceCase| macro which deals with this. So, in the traditional
+\bibtex way, capitalise correctly in the |.bib| file, protecting names etc.
+with the usual brace pairs and the style will take care of forcing the
+APA-style sentence case in the References section. Unlike the References
+section, titles in citations in the APA style appear in normal case and the
+style will ensure this too.
+
+\subsection{Options}
+\label{use:options}
+
+\subsubsection{noremoteinfo}
+
+This option can be set at a global level:
+
+\begin{ltxcode}
+\usepackage[noremoteinfo,style=apa]{biblatex}
+\end{ltxcode}
+
+or on a per-entry basis in the \path{.bib} file:
+
+\begin{ltxcode}
+OPTIONS = {noremoteinfo}
+\end{ltxcode}
+
+It has the effect of suppressing the printing of any URL and retrieval
+information. This is because many people get their \path{.bib} entries from
+services like PubMED which always include URL or DOI information in the
+entries. Users may not want to always have this information displayed in
+their References section since it clutters things up. By default,
+\sty{biblatex-apa} will always display such information if it is available
+in the \path{.bib} entry
+
+\subsection{Limitations}
+\label{use:limit}
+There are certain limitations you need to bear in mind when using these
+styles. The APA manual is written without any regard for automation of the
+citation and references styles---it just tells you how it wants things to
+look and the implicit assumption is that you would type out everything by
+hand if necessary. Having said that, the vast majority of the APA citations
+and references style is implemented, there are just a few exceptions which
+are either hardly worth the coding pain for such rare cases or which are
+impossible due to \sty{biblatex} limitations. It is likely that with future
+\sty{biblatex} versions some or indeed all of these limitations may be
+lifted but that's not likely until after \sty{biblatex} version
+\texttt{1.0}, according to the |biblatex| author Philipp Lehman.
+
+\subsubsection{Citation Limitations}
+
+\begin{itemize}
+\item \apa{3.95} Disambiguation of truncated author name lists. This is
+  currently impossible to automate via a \sty{biblatex} style. The
+  \sty{maxnames} and \sty{minnames} options of \sty{biblatex} only serve to
+  specify the truncation limits but do not disambiguate name lists which
+  truncate to the same string. This cannot be reliably done in the style
+  since it would need to build a backwards and forward list of identical
+  truncations and map these onto the internal \sty{fullhash} field of
+  \sty{biblatex} in order to determine which truncations need
+  disambiguating. Since there is no way of knowing, when you truncate
+  something, whether something later in the document would have the same
+  truncation (without \path{.aux} file support anyway), this is not really
+  possible. It's also further complicated by the fact that \bibtex doesn't
+  really support name lists in a way which would make this possible and
+  since the main name list processing is done in \sty{biblatex} by \bibtex
+  still, there isn't much that can be done about this at the moment until
+  \sty{biblatex} moves to using something other than \bibtex for its data.
+  See the following Usenet thread:\\
+
+  \url{http://groups.google.com/group/comp.text.tex/browse_thread/thread/f3c50d7065159ad4#}\\
+
+  A related issue is that the \sty{uniquename} option doesn't work in lists
+  of authors, again because all the name processing is done by \bibtex.
+  Currently, \sty{biblatex} disambiguates non-unique names in lists by
+  using the \sty{labelyear} mechanisms which is against APA style (and most
+  styles since this is supposed to disambiguate same author(s)/different
+  year situations) but there's nothing really that can be done about it at
+  the moment. Thankfully, these two problems are not that common and only
+  occur when you have long lists of authors which share many members with
+  variations in initials etc.
+\item There are some anomalies like \apa[17]{4.16} where two years are
+  supposed to be cited but one of the years is embedded in the \path{.bib}
+  entry in information that is not parsed out. There isn't much to be done
+  about this at the moment apart from copying some of the information into
+  other fields like |ORIGYEAR| as in \apa[40]{4.16}. There isn't even that
+  option in \apa[17]{4.16} because |ORIGYEAR| and |YEAR| are the opposite
+  way round to all other such examples.
+\item If you use |\marginpar| or other commands that reset the paragraph
+  counter, then the code which tracks citations within paragraphs in order
+  to decide whether to print a year or not will probably break. There is
+  probably some esoteric way of making this not happen but I'm not enough
+  of a \tex hacker to deal with this at the moment. Then again, the APA
+  guide explicitly states that year elision is reset per paragraph and so
+  if you add extra pseudo-paragraphs etc. it's probably your own fault if
+  it breaks \ldots 
+\end{itemize}
+
+\subsubsection{Reference Section Limitations}
+
+\begin{description}
+\item\apa{4.08} Can't deal yet with authors listed as «with».
+\item\apa[36]{4.16} Can't specify separate Volume and Series editors in
+  this way. See the example in \path{biblatex-apa-test-references.bib} for
+  an alternative that should be acceptable for APA style.
+\item\apa[17,40]{4.16} It's rather hard and/or messy to automatically and
+  properly format things like the additional «retrieved/reprint from»
+  sections. It is possible using the |XREF| field and custom citation
+  drivers in the references but this means setting \sty{mincrossrefs} to 1,
+  which breaks the APA requirement to only include main-body cited works
+  \apa{4.01}. It's also not obvious which field to use to contain the
+  introductory string. Also, there is no way to automatically |XREF| the
+  page range in the reprint specification in, for example, \apa[40]{4.16}.
+  This will have to wait until \sty{biblatex} gets a real data model
+  backend. The |ADDENDUM| field will have to do for now.
+\end{description}
+
+\section{Details}
+
+The detailed information for this style are contained in the example document and
+accompanying \path{.bib} files:
+\begin{description}
+\item[\path{biblatex-apa.tex}] This document.
+\item[\path{biblatex-apa-test.tex}]\footnote{\path{biblatex-apa-test.pdf}
+    is also provided and is the typeset version of this \latex source
+    file.} This document typesets just about every useful example from
+  \apa{3.94}--\apa{3.103} and \apa{4.01}--\apa{4.16}. The examples in it
+  aim to look as much like the APA manual examples as possible. All
+  citation examples in the document are real examples using a \path{.bib}
+  file. This document also typesets every Reference section example from
+  \apa{4.16}.
+\item[\path{biblatex-apa-test-citations.bib}] This contains the \path{.bib}
+  entries for the citations examples. You won't find anything of interest
+  in this file---it's just used to provide real date for the citation
+  examples.
+\item[\path{biblatex-apa-test-references.bib}] This contains the
+  \path{.bib} entries for all of the examples in \apa{4.16}. This file is
+  the main documentation for the |biblatex-apa| implementation of the APA
+  References section style. To see how the style deals with a particular
+  example from \apa{4.16}, look it up in here. Every example is marked with
+  the APA example number and has explanatory notes.
+\item[\path{biblatex-apa.cbx}] The |biblatex-apa| citations style. It is
+  decently structured with comments but shouldn't need to be read for
+  normal use.
+\item[\path{biblatex-apa.bbx}] The |biblatex-apa| references style. It is
+  decently structured with comments but shouldn't need to be read for
+  normal use.
+\end{description}
+
+\subsection{Citations}
+
+\apa{3.103} requires that there should be no parentheses around the year of
+the citation when the citation itself occurs within parenthesis. This would
+be really too much to completely automate as it is without the remit of a
+citation style since it requires knowledge of the current typesetting
+state. So, the new citation command
+
+\begin{ltxsyntax}
+\cmditem{nptextcite}[prenote][postnote]{key}<punctuation>
+\end{ltxsyntax}
+
+\noindent is provided for such situations. It is identical to |\textcite|
+but does not put parentheses around the year and separates items with
+commas. See examples using this command in \path{biblatex-apa-test.tex}.
+
+The requirement in \apa{3.95} for years only in the first cite in a
+paragraph is tricky but was possible to do with some rather deep \tex magic
+which nobody should be under any illusions about: I found out how to do it
+by reading the UK \tex FAQ.
+
+\subsection{References}
+
+The references style was based on the \sty{biblatex} default
+|authoryear-comp| style but is so heavily modified, it's almost
+unrecognisable. Some general notes:
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item Many things in brackets at the end of the reference entries in the
+  examples in \apa{4.16} can be dealt with by simply including them in the
+  |ADDENDUM| \path{.bib} field. This shouldn't be necessary too often but
+  sometimes it's the best (only) way of dealing with an example.
+\item There are occasions where there is no sensible \path{.bib} key to
+  use. This applies to things like |MOVIE| and |VIDEO| entries mainly. The
+  format of these requires that different roles (Director, Producer etc.)
+  are separately specified for different names. This is not really possible
+  for the usual |AUTHOR| or |EDITOR| fields (again, another limitation of
+  \bibtex, see \ref{use:limit} above). In such cases, I have resorted to
+  the \sty{biblatex} custom |NAME| and |NAMETYPE| fields which are not very
+  portable but until \bibtex is replaced by something more flexible, there
+  is no way round this without making things very messy.
+\item APA style sometimes refers to the «series» of a multi-volume work
+  \apa[36]{4.16}. This corresponds to the |MAINTITLE| field in the
+  \path{.bib} and \emph{not} the |SERIES| field.
+\item In the entries, I sometimes use |DATE| and sometimes use
+  |YEAR/MONTH/DAY|. These can generally be used interchangeably, see
+  \sty{biblatex} docs. The same applies to |URLDATE| and
+  |URLYEAR/URLMONTH/URLDAY|.
+\item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
+  they are given as roman numerals, as required by \apa{4.03}.
+\end{itemize}
+
+\noindent Examples from \apa{4.16} in |biblatex-apa-test-references.bib|
+which cannot be dealt with cleanly are marked with the line
+
+\begin{verbatim}
+%%%%%%%%%%%%%%%%%%%%%%%%%% NOT COMPLETE %%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{verbatim}
+
+\noindent and a comment explaining the issue.
+
+\section{Revision history}
+
+\begin{changelog}
+
+\begin{release}{0.1}{2008-12-01}
+\item Initial release
+\end{release}
+
+\begin{release}{0.2}{2008-12-06}
+\item Added |noremoteinfo| option (see section \ref{use:options}).
+\item Fixed bbx bug with more than 7 authors still printing names after «et al». Was
+  due to resetting maxnames to 999.
+\item Removed the customised (hacked) |apa-biblatex.cls| class from the package as
+  |apa.cls| version 1.3.4 is compatible with \sty{biblatex}.
+\item Altered documentation about requiring the «american» babel option.
+  This is not required if you set up |\DeclareQuotePunctuation| yourself.
+\item Added minimum required version of \sty{csquotes}.
+\item Minor doc tweaks.
+\end{release}
+
+\begin{release}{0.3}{2008-12-21}
+\item Updated to use new fields (|EVENTTITLE|) and new options
+  (|usetranslator|) from \sty{biblatex} 0.8b.
+\end{release}
+
+\end{changelog}
+\end{document}

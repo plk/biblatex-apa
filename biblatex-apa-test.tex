@@ -1,0 +1,258 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage{shortvrb}
+\usepackage{ifthen}
+\usepackage{color}
+\usepackage{MnSymbol}
+\MakeShortVerb{\|}
+
+% Biblatex
+\usepackage[citestyle=apa,%
+            bibstyle=apa,%
+            bibtex8=true,%
+            bibencoding=inputenc]{biblatex}
+
+\newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
+                       {\textcolor{blue}{\texttt{(APA #2)}}}%
+                       {\textcolor{blue}{\texttt{(APA #2 Example #1)}}}}
+
+\setlength{\parskip}{3ex}
+\bibliography{biblatex-apa-test-citations,biblatex-apa-test-references}
+
+\def\apaex#1{\hbox{\hspace{-4em}\texttt{\small \detokenize{#1}}}\\ $\rcurvearrowse$ \textbf{#1}}
+
+% This just makes it easier to find a specific (APA 4.16) example in the
+% typeset references section
+\reversemarginpar
+\renewbibmacro*{begentry}{\marginpar{\footnotesize \textcolor{blue}{\thefield{entrykey}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% END PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\section*{|biblatex-apa| style examples}
+
+This file typesets just about all useful examples from
+\apa{3.94}--\apa{3.103} and \apa{4.01}--\apa{4.16}. The references section
+includes every example from \apa{4.16}. Please refer to the
+|biblatex-apa-test-references.bib| file for details on the references
+entries. The |.bib| key for each entry in the References section is listed
+for convenience in the left margin. The keys are not arbitrary and consist
+of the APA section they are taken from (4.16), followed by a colon,
+followed by the example number. This makes it easier to cross-reference
+the typeset examples with the commented |.bib| file. I chose not to put the
+examples in the References section in example number order so that the APA
+requirements for References list alphabetisation and order could also be
+demonstrated.
+
+\section*{Citations}
+
+\noindent Please see accompanying file |biblatex-apa-test-citations.bib|
+for the bibliographic entries which these examples use.
+
+\noindent\apa{3.94}\\
+Here is a simple citation:\\
+\apaex{\textcite{3.94}}
+
+\noindent Here is a parenthetical cite:\\
+\apaex{\parencite{3.94}}\\
+As part of what the APA manual calls a ``textual discussion'', you would
+use lower-level |biblatex| commands:\\
+\apaex{\citeyear{3.94}}\\
+\apaex{\citeauthor{3.94}}\\
+Note that the \texttt{.bib} entries for these examples have a ``Jr.'' affix
+which is not showing up here, as required.
+
+\noindent\apa{3.95}\\
+Citations like\\
+\apaex{\textcite{3.95a}}\\
+which have two authors are never name-truncated after the first cite:\\
+\apaex{\textcite{3.95a}}
+
+\noindent First citation of 3--5 author entry:\\
+\apaex{\textcite{3.95b}}
+
+\noindent Subsequent first citations in a paragraph:\\
+\apaex{\textcite{3.95b}}\\
+Subsequent citations within a paragraph:\\
+\apaex{\textcite{3.95b}}
+
+\noindent\textcolor{red}{Note: The name list disambiguation required in the
+  \emph{Exception:} clause here in the APA manual cannot be automated
+  currently in |biblatex|. This is due to the underlying reliance on
+  |bibtex|. See |biblatex-apa| docs.}
+
+\noindent The following citation should be name truncated on first cite
+since it has six or more authors:\\
+\apaex{\textcite{3.95c}}
+
+\noindent Multiple-authors in running text are separated by ``and''.
+However, in parenthetical cites, multiple authors are separated by ``\&'':\\
+\apaex{\textcite{3.95d}}\\
+\apaex{\parencite{3.95e}}
+
+\noindent\apa{3.96}\\
+First cite of an author with a |SHORTAUTHOR| field in the
+entry (usually an institution), shows the |AUTHOR| and also the |SHORTAUTHOR| field:\\
+\apaex{\textcite{3.96}}\\
+Thereafter, just the |SHORTAUTHOR|:\\
+\apaex{\textcite{3.96}}
+
+\noindent\apa{3.97}\\
+Use |SHORTTITLE| field of the entry if it exists:\\
+\apaex{\parencite{3.97a}}\\
+Books, reports etc. use italics instead of quotes:\\
+\apaex{\textcite{3.97b}}
+
+\noindent\apa{3.98}\\
+Citations of an entry with an author who shares a
+surname with another entry always appears with initials:\\
+\apaex{\textcite{3.98a}}\\
+and\\
+\apaex{\textcite{3.98b}}\\
+\textcolor{red}{Note: The second example in \apa{3.98} is currently
+  impossible to automate because of name list parsing in BibTeX. See
+ |biblatex-apa| docs}.
+
+\noindent\apa{3.99}\\
+Citations of different works by the same author in a
+compact style:\\
+\apaex{\parencite{3.99a,3.99b}}\\
+\apaex{\parencite{3.99c,3.99d,3.99e}}
+
+\noindent Citations of works by same authors in the same
+year:\\
+\apaex{\parencite{3.99f,3.99g,3.99h,3.99i,3.99j,3.99k}}
+
+\noindent Compact citations in alphabetic order:\\
+\apaex{\parencite{3.99l,3.99m,3.99n}}
+
+\noindent Compact citations with special order:\\
+\apaex{\parencites{3.99o}[see also][]{3.99p,3.99q}}
+
+\noindent\apa{3.100}\\
+Old works with no sensible year use translation
+postnote.\\
+\textcolor{red}{Note: The example in the APA manual cannot be
+  automatically format as presented as it is using a citation infix
+  (``trans.'' between the name and year) which is not supported by
+  |biblatex|. However, it also allows a postnote after the year, which is fine}:\\
+\apaex{\parencite[][Pakaluk translation]{3.100a}}\\
+Entries with an |ORIGYEAR| field will automatically use it:\\
+\apaex{\textcite{3.100b}}
+
+\noindent\apa{3.101}\\
+These examples are easily dealt with using standard |biblatex| functionality.\\
+\apaex{\parencite[][332]{3.101a}}\\
+\apaex{\parencite[][chap. 3]{3.101b}}\\
+\apaex{\parencite[][5]{3.101c}}\\
+\apaex{\parencite[][Conclusion section, para. 1]{3.101d}}
+
+\noindent\apa{3.103}\\
+Within parentheses, use the |\nptextcite| command which is equivalent to
+the |\textcite| command but omits the parenthesis and uses commas instead.
+See the |biblatex-apa| docs. The example from the APA manual:\\
+\apaex{(\nptextcite[see Table 2 of][]{3.103a} for complete data)}
+
+\subsection*{Citation examples mentioned in the APA guidelines on References}
+
+\noindent Please see accompanying file |biblatex-apa-test-references.bib|
+for the bibliographic entries which these examples use.
+
+\noindent\apa[4]{4.16}\\
+Citation of a work with more than six authors:\\
+\apaex{\parencite{4.16:4}}
+
+\noindent\apa[5]{4.16}\\
+Citation of a work in press:\\
+\apaex{\parencite{4.16:5}}
+
+\noindent\apa[8]{4.16}\\
+Citation of a work with no author/editor:\\
+\apaex{\parencite{4.16:8}}
+
+\noindent\apa[9]{4.16}\\
+Citation of a work with no author/editor and truncated title:\\
+\apaex{\parencite{4.16:9}}
+
+\noindent\apa[12]{4.16}\\
+This would be dealt with in the same way as examples 8 and 9, with a
+|SHORTTITLE| field.
+
+\noindent\apa[17]{4.16}\\
+\textcolor{red}{Note: The citation of both years cannot be done
+  automatically as such entries don't have their |NOTE| field parsed in
+  order to extract the retrieval year. Also, we can't really use |ORIGYEAR|
+  in such entries as the position of the |ORIGYEAR| and |YEAR| information
+  is the opposite way round to all other such examples (examples 32 and 39)}.
+
+\noindent\apa[22]{4.16}\\
+Secondary sources can be dealt with using standard |biblatex|
+functionality:\\
+\apaex{(\nptextcite[as cited in][]{4.16:22})}
+
+\noindent\apa[26]{4.16}\\
+Titles of books with no author/editor again. Note that in the APA manual,
+this example is incorrect as the citation is not italics as required by \apa{3.97}:\\
+\apaex{\parencite{4.16:26}}
+
+\noindent\apa[28]{4.16}\\
+Year ranges in entry--nothing special here, just uses the |YEAR| field:\\
+\apaex{\parencite{4.16:28}}
+
+\noindent\apa[29]{4.16}\\
+Note that the style defines some macros you can use to format the short
+forms of the DSM version titles. See |biblatex-apa-test-references.bib|.
+First mention of a DSM edition:\\
+\apaex{\textcite{4.16:29}}\\
+Subsequently, the |SHORTHAND| field is used:\\
+\apaex{\textcite{4.16:29}}
+
+\noindent\apa[32]{4.16}\\
+Translation with |ORIGYEAR| field in entry:\\
+\apaex{\parencite{4.16:32}}
+
+\noindent\apa[35]{4.16}\\
+Citation for work in press:\\
+\apaex{\parencite{4.16:35}}
+
+\noindent\apa[39]{4.16}\\
+Another |ORIGYEAR| example:\\
+\apaex{\parencite{4.16:39}}
+
+\noindent\apa[40]{4.16}\\
+A rather clumsy |ORIGYEAR| example since we simply duplicate the |ORIGYEAR|
+information from the |ADDENDUM| field which is not parsed. There is no
+other way to do this at present. It's suspicious also because the
+|ORIGYEAR| field doesn't really contain the original year but the year of
+the reprint. However, it's not so bad since the example citation requires
+the year of the reprint and the year of the cited work and that's what we have:\\
+\apaex{\parencite{4.16:40}}
+
+\noindent\apa[69]{4.16}\\
+Citing music:\\
+\apaex{\citetitle{4.16:69b} \parencite[][track 5]{4.16:69b}}
+
+\newpage
+\nocite{*}
+% Exclude the citation examples from the References section - only want to
+% see (APA 4.16) examples there.
+\printbibliography[notkeyword=noinclude]
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

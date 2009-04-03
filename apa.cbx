@@ -1,0 +1,418 @@
+%% apa.cbx
+%% Copyright 2008 Philip Kime
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is Philip Kime.
+%%
+%% This work consists of the files:
+%%
+%% apa.cbx (biblatex citation style)
+%% apa.bbx (biblatex references style)
+%% biblatex-apa.pdf (Style documentation)
+%% biblatex-apa.tex (Style documentation source)
+%% biblatex-apa-test.pdf (Style examples)
+%% biblatex-apa-test.tex (Style examples source)
+%% biblatex-apa-test-citations.bib (Style examples - citations)
+%% biblatex-apa-test-references.bib (Style examples - references)
+%% apa-biblatex.cls (Optional modified apa.cls for use with biblatex)
+
+\ProvidesFile{apa.cbx}
+[\blx@cbxid $Id$]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 3.99) year postfix is not emphasised or italic
+
+\DeclareFieldFormat{labelyear}{\mknumalph{#1}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 3.94) requires comma separator between authors and years
+
+\renewcommand*{\nameyeardelim}{\addcomma\space}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 3.95) ampersand separator in parenthetical cites
+
+\DeclareCiteCommand{\parencite}[\mkbibparens]
+  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
+   \usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {}
+  {\usebibmacro{postnote}}
+
+\DeclareCiteCommand*{\parencite}[\mkbibparens]
+  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
+   \usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}}
+  {}
+  {\usebibmacro{postnote}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 3.95) 3-5 authors have "et al." after first cite. This doesn't
+%            work properly in general with disambiguation of "et al"s
+%            due to BibTeX limitations, see docs.
+
+% #1 = last name
+% #2 = last name (initials)
+% #3 = first name
+% #4 = first name (initials)
+% #5 = name prefix, a.k.a. 'von part'
+% #6 = name prefix (initials)
+% #7 = name affix, a.k.a. 'junior part'
+% #8 = name affix (initials)
+
+\newbibmacro*{labelname:doname}[8]{%
+  \ifcase\value{uniquename}%
+     \usebibmacro{name:last}{#1}{#3}{#5}{#7}%
+   \or
+     \usebibmacro{name:first-last}{#1}{#4}{#5}{#8}%
+   \or
+     \usebibmacro{name:first-last}{#1}{#3}{#5}{#7}%
+   \fi
+   \usebibmacro{name:andothers}}
+
+
+\DeclareNameFormat{labelname}{%
+  \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
+    {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
+    {\ifthenelse{\value{listtotal}>5}
+      {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
+       \ifnum\value{listcount}>2 \relax\fi}
+      {\ifciteseen
+       {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
+        \ifnum\value{listcount}=3 \relax\fi
+        \ifnum\value{listcount}=4 \relax\fi
+        \ifnum\value{listcount}=5 \relax\fi}
+       {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 3.96) Groups as names
+
+
+\DeclareNameFormat{shortauthor}{\ifciteseen
+                                 {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
+                                 {\mkbibbrackets{\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}}
+
+\DeclareFieldFormat{shorthand}{\ifciteseen
+                                {#1}
+                                {\mkbibbrackets{#1}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 3.95) Year only in first cite in paragraph.
+% (APA 3.96) Deal with SHORTAUTHOR fields
+% (APA 3.99) Multiple same author cites in a compact citation call do not
+%            need to be repeated but the full years must be repeated with
+%            their labelyear postfixes
+%            "in press" labelyear needs a short dash to join to label
+% (APA 3.100) If no date, use "n.d." without parentheses and with a comma
+%             and space before.
+% (APA 4.16 Example 32) Cite ORIGYEAR/YEAR if ORIGYEAR present
+
+
+
+% We use a macro to hold a list of already cited keys
+% within each paragraph. We reset this list with every
+% new paragraph
+\gdef\cbx@parayear{\empty}
+
+% Needs special magic to be able to play with everypar.
+% See http://www.tex.ac.uk/cgi-bin/texfaq2html?label=subverttoks
+
+\let\mypkg@@everypar\everypar
+\newtoks\mypkg@everypar
+\mypkg@everypar\expandafter{\the\everypar}
+\mypkg@@everypar{\mypkgs@ownstuff\the\mypkg@everypar}
+\def\mypkgs@ownstuff{%
+% Here is where we reset the parayear counter
+  \global\let\cbx@parayear=\empty
+}
+\let\everypar\mypkg@everypar
+
+\newbibmacro*{cite}{%
+  \iffieldundef{shorthand}
+    {\iffieldequals{namehash}{\cbx@lasthash}
+      {\setunit{\compcitedelim}
+       \usebibmacro{cite:pyear+labelyear}}%
+      {\ifnameundef{labelname}
+        {\usebibmacro{cite:noname}%
+         \setunit{\nameyeardelim}%
+         \iffieldundef{year}
+           {\usebibmacro{cite:noyear}}
+           {\usebibmacro{cite:pyear+labelyear}%
+            \savefield{namehash}{\cbx@lasthash}}}
+        {\cbx@tempa
+         \ifnameundef{shortauthor}
+           {\printnames{labelname}}
+           {\ifciteseen
+             {\printnames{labelname}}
+             {\printnames{author}\space\printnames{shortauthor}}}}}}%
+    {\cbx@tempa
+      \usebibmacro{cite:init}%
+      \usebibmacro{cite:shorthand}}%
+  \setunit{\nameyeardelim}%
+  \iffieldundef{year}
+     {\usebibmacro{cite:noyear}}
+     {\usebibmacro{cite:pyear+labelyear}%
+      \savefield{namehash}{\cbx@lasthash}}%
+  \global\let\cbx@tempa=\multicitedelim}
+
+\newbibmacro*{textcite}{%
+  \iffieldequals{namehash}{\cbx@lasthash}
+% Multiple cites in one command
+    {\iffieldundef{shorthand}
+      {\setunit{\compcitedelim}%
+       \usebibmacro{cite:pyear+labelyear}}
+      {\setunit{\compcitedelim}%
+       \usebibmacro{cite:shorthand}}}
+% Single cite
+    {\cbx@tempa
+     \ifnameundef{labelname}
+  % No author/editor
+       {\iffieldundef{shorthand}
+    % Cite using title
+         {\usebibmacro{cite:noname}%
+          \setunit{\global\booltrue{cbx:parens}\addspace\bibleftparen}%
+          \usebibmacro{cite:pyear+labelyear}}
+    % Cite using shorthand
+         {\usebibmacro{cite:shorthand}}}
+  % Normal cite with author/editor
+       {\iffieldundef{shorthand}
+    % Normal full cite
+         {\ifnameundef{shortauthor}
+      % Normal full cite
+           {\printnames{labelname}}
+      % Cite using short author
+           {\ifciteseen
+             {\printnames{labelname}}
+             {\printnames{author}\space\printnames{shortauthor}}}}%
+    % Cite using shorthand
+         {\usebibmacro{cite:shorthand}}
+  % Year
+        \setunit{\iffieldundef{year}
+                 {\addcomma\addspace}
+                 {\global\booltrue{cbx:parens}\addspace\bibleftparen}}
+        \iffieldundef{year}%
+          {\usebibmacro{cite:noyear}}%
+          {\usebibmacro{cite:pyear+labelyear}}%
+        \savefield{namehash}{\cbx@lasthash}}}%
+  \gdef\cbx@tempa{\ifbool{cbx:parens}
+                   {\bibrightparen\global\boolfalse{cbx:parens}}
+                   {}%
+                  \multicitedelim}}
+
+\newcommand{\apashortdash}{-}
+
+\newbibmacro*{cite:pyear+labelyear}{%
+  \xifinlist{\thefield{entrykey}}{\cbx@parayear}
+  {}
+  {\iffieldundef{year}
+    {}
+    {\printtext[bibhyperref]{%
+       \printfield[noformat]{origyear}\setunit*{\addslash}%
+       \printfield{year}%
+       \iffieldequalstr{year}{in press}
+         {\setunit{\apashortdash}\printfield{labelyear}}
+         {\printfield{labelyear}}}}%
+   \listxadd\cbx@parayear{\thefield{entrykey}}}}
+
+\newbibmacro*{cite:shorthand}{%
+  \ifciteseen
+    {\printtext[bibhyperref]{\printfield{shorthand}}}
+    {\printnames{labelname}%
+     \setunit{\nameyeardelim}%
+     \printfield{title}\space\printfield{shorthand}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 3.97) Fall back to title for citations without authors
+
+\DeclareFieldFormat{citetitle}{\mkbibquote{#1}}
+\DeclareFieldFormat[book]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[report]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[periodical]{citetitle}{\mkbibemph{#1}}
+
+\newbibmacro*{cite:noname}{%
+    \printfield[citetitle]{labeltitle}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 3.100) Fall back to "n.d." for citations without dates
+%             Strings defined in apa.bbx
+
+\newbibmacro*{cite:noyear}{%
+  \printtext{\biblcstring{nodate}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 3.103) No parens round year for cites when the cite is in
+%             parentheses. Use new command \nptextcite for such cites.
+
+\DeclareCiteCommand{\nptextcite}
+  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
+   \usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{nptextcite}}
+  {}
+  {\iffieldundef{postnote}
+     {}
+     {\ifbool{cbx:parens}
+        {\postnotedelim}
+	{\addcomma\addspace}%
+      \printfield{postnote}}}
+
+\newbibmacro*{nptextcite}{%
+  \iffieldequals{namehash}{\cbx@lasthash}
+    {\iffieldundef{shorthand}
+       {\setunit{\compcitedelim}%
+        \usebibmacro{cite:pyear+labelyear}}
+       {\setunit{\compcitedelim}%
+        \usebibmacro{cite:shorthand}}}
+    {\cbx@tempa
+     \ifnameundef{labelname}
+       {\iffieldundef{shorthand}
+          {\usebibmacro{cite:noname}%
+	   \setunit{%
+	     \global\booltrue{cbx:parens}%
+	     \addcomma\addspace}%
+	   \usebibmacro{cite:pyear+labelyear}}
+          {\usebibmacro{cite:shorthand}}}
+       {\printnames{labelname}%
+	\setunit{%
+	  \global\booltrue{cbx:parens}%
+	  \addcomma\addspace}%
+        \iffieldundef{shorthand}
+          {\iffieldundef{year}
+             {\usebibmacro{cite:noyear}}
+             {\usebibmacro{cite:pyear+labelyear}}}
+          {\usebibmacro{cite:shorthand}}%
+        \savefield{namehash}{\cbx@lasthash}}}%
+  \gdef\cbx@tempa{%
+    \ifbool{cbx:parens}
+      {\addcomma\global\boolfalse{cbx:parens}}
+      {}%
+    \multicitedelim}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+% Unchanged from authoryear-comp.cbx (biblatex v0.8)
+
+\newbool{cbx:parens}
+
+\newbibmacro*{cite:init}{%
+  \global\boolfalse{cbx:parens}%
+  \global\let\cbx@tempa=\empty
+  \global\undef\cbx@lasthash}
+
+\newbibmacro*{citeyear}{%
+  \iffieldundef{shorthand}
+    {\iffieldundef{year}
+       {\cbx@tempa
+        \usebibmacro{cite:noyear}%
+        \usebibmacro{cite:init}}
+       {\iffieldequals{namehash}{\cbx@lasthash}
+          {\setunit{\compcitedelim}%
+           \usebibmacro{cite:year+labelyear}}
+          {\cbx@tempa
+           \usebibmacro{cite:year+labelyear}%
+           \savefield{namehash}{\cbx@lasthash}}}}
+    {\cbx@tempa
+     \usebibmacro{cite:shorthand}%
+     \usebibmacro{cite:init}}%
+  \global\let\cbx@tempa=\multicitedelim}
+
+\newbibmacro*{cite:year}{%
+  \printtext[bibhyperref]{\printfield{year}}}
+
+\newbibmacro*{cite:labelyear}{%
+  \printtext[bibhyperref]{\printfield{labelyear}}}
+
+\newbibmacro*{cite:year+labelyear}{%
+  \iffieldundef{year}
+    {}
+    {\printtext[bibhyperref]{%
+       \printfield{year}%
+       \printfield{labelyear}}}}
+
+\DeclareCiteCommand{\cite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {}
+  {\usebibmacro{postnote}}
+
+\DeclareCiteCommand*{\cite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}}
+  {}
+  {\usebibmacro{postnote}}
+
+\DeclareCiteCommand{\footcite}[\mkbibfootnote]
+  {\bibsentence
+   \usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {}
+  {\usebibmacro{postnote}}
+
+\DeclareCiteCommand{\textcite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{textcite}}
+  {}
+  {\iffieldundef{postnote}
+     {\ifbool{cbx:parens}
+        {\bibrightparen}
+	{}}
+     {\ifbool{cbx:parens}
+        {\postnotedelim}
+	{\addspace\bibleftparen}%
+      \printfield{postnote}\bibrightparen}}
+
+\endinput

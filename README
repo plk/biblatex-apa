@@ -1,0 +1,35 @@
+Version 0.3
+
+Permission is granted to copy, distribute and/or modify this software under
+the terms of the LaTeX Project Public License, version
+1.3c (http://www.latex-project.org/lppl.txt). The current
+maintainer is Philip Kime (© 2008).
+
+This package is a biblatex style for APA (American Psychological
+Association) style compliant documents typeset in LaTeX. It
+implements a citation style (apa.cbx) and a references section style
+(apa.bbx). The styles are loaded just like any other biblatex
+styles but I wouldn't try to use the citation and references styles
+separately as they rely on each other, macro-wise, in places.
+
+In this document and in the code, the specific APA requirements are
+referred to by the section and (if appropriate) the example number of the
+APA Style Guide (5th Edition).
+
+You will need to be using csquotes >= 4.3 and biblatex >= 0.8b. If you want
+to take advantage of the biblatex \DeclareQuotePunctuation facility
+to enforce the APA required "American punctuation", you should use the
+babel package with the "american" option (see biblatex manual
+section |3.9.1|). You can of course use other languages but in such cases,
+to adhere to APA "American" punctuation rules (following commas moved
+inside closing quotes etc.), then you should set up
+\DeclareQuotePunctuation yourself as per section 4.6.5 of the
+biblatex manual.
+
+You can also use this with apa.cls version 1.3.4 or greater by using the 
+"noapacite" class option to that class package (which prevents it from
+trying to use plain bibtex with the apacite package).
+
+Please refer first to biblatex-apa.pdf for the main documentation.
+
+
