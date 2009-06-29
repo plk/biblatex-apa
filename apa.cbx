@@ -237,7 +237,7 @@
        \printfield[noformat]{origyear}\setunit*{\addslash}%
        \printfield{year}%
        \iffieldequalstr{year}{in press}
-         {\setunit{\apashortdash}\printfield{labelyear}}
+         {\setunit{\apashortdash}\printfield{labelyear}\setunit{\relax}}% \relax just in case printfield doesn't do anything and so \setunit isn't consumed and turns up later, unwanted.
          {\printfield{labelyear}}}}%
    \listxadd\cbx@parayear{\thefield{entrykey}}}}
 
