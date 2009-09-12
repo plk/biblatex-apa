@@ -1,0 +1,74 @@
+\ProvidesFile{american-apa.lbx}
+\InheritBibliographyExtras{american}
+
+% (APA 4.03) The example abbreviations
+% (APA 4.09) Months are not abbreviated (but other things are so
+%            can't set a blanket abbreviate=false in options)
+
+\NewBibliographyString{revisededition}
+\NewBibliographyString{secondedition}
+\NewBibliographyString{supplement}
+\NewBibliographyString{part}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{nodate}
+\NewBibliographyString{messagepostedto}
+\NewBibliographyString{emaillist}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+
+\DeclareBibliographyStrings{%
+  inherit          = {american},
+  revisededition   = {{Revised\space Edition}{rev\adddotspace ed\adddot}},
+  secondedition    = {{2nd Edition}{2nd\adddotspace ed\adddot}},
+  part             = {{Part}{pt\adddot}},
+  techreport       = {{Technical\space Report}{Tech\adddotspace Rep\adddot}},
+  supplement       = {{Supplement}{suppl\adddot}},
+  page             = {{Page}{{}p\adddot}},
+  pages            = {{Pages}{{}pp\adddot}},
+  on               = {{on}{on}},
+  retrieved        = {{retrieved}{besucht}},
+  available        = {{available}{available}},
+  from             = {{from}{from}},
+  messagepostedto  = {{message\space posted\space to}{message\space posted\space to}},
+  emaillist        = {{electronic\space mailing\space list}{electronic\space mailing\space list}},
+  archivedat       = {{archived\space at}{archived\space at}},
+  nodate           = {{no\space date}{{}n\adddot d\adddot}},
+  reviewof         = {{Review\space of}{review\space of}},
+  paragraph        = {{\P}{\P}},
+  paragraphs       = {{\P\P}{\P\P}},
+  january          = {{January}{January}},
+  february         = {{February}{February}},
+  march            = {{March}{March}},
+  april            = {{April}{April}},
+  may              = {{May}{May}},
+  june             = {{June}{June}},
+  july             = {{July}{July}},
+  august           = {{August}{August}},
+  september        = {{September}{September}},
+  october          = {{October}{October}},
+  november         = {{November}{November}},
+  december         = {{December}{December}},
+  origyear         = {{original\space work\space published}{original\space work\space published}},
+  typechair        = {{Chair}{Chair}},
+  typechairs       = {{Chairs}{Chairs}},
+  typevolume       = {{Volume\space Editor}{Vol\adddot\space Ed\adddot}},
+  typevolumes      = {{Volume\space Editors}{Vol\adddot\space Eds\adddot}},
+  typeseries       = {{Series\space Editor}{Series\space Ed\adddot}},
+  typeseriess      = {{Series\space Editors}{Series\space Eds\adddot}},
+  typevolseries    = {{Series\space and\space Volume\space Editor}{Series\space\& Vol\adddot\space Ed\adddot}},
+  typevolseriess   = {{Series\space and\space Volume\space Editors}{Series\space\& Vol\adddot\space Eds\adddot}},
+}
+
+\endinput

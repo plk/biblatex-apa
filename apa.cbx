@@ -1,5 +1,5 @@
 %% apa.cbx
-%% Copyright 2008 Philip Kime
+%% Copyright 2009 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -25,6 +25,14 @@
 %% biblatex-apa-test-references.bib (Style examples - references)
 
 \ProvidesFile{apa.cbx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set up bib strings and abbreviations (see american-apa.lbx)
+
+\DeclareLanguageMapping{american}{american-apa}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 3.99) year postfix is not emphasised or italic

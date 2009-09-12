@@ -19,7 +19,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={0.3},
+  revision={0.5},
   date={\today}}
 
 \hypersetup{%
@@ -39,11 +39,12 @@
 \subsection{About}
 
 This package is a \sty{biblatex} style for APA (American Psychological
-Association) style compliant documents typeset in \latex. It
-implements a citation style (\path{apa.cbx}) and a references section style
-(\path{apa.bbx}). The styles are loaded just like any other \sty{biblatex}
-styles but I wouldn't try to use the citation and references styles
-separately as they rely on each other, macro-wise, in places.
+Association) style compliant documents typeset in \latex. It implements a
+citation style (\path{apa.cbx}), a references section style
+(\path{apa.bbx}) and a string localisation file (\path{american-apa.lbx})
+for «american» English. The styles are loaded just like any other
+\sty{biblatex} styles but I wouldn't try to use the citation and references
+styles separately as they rely on each other, macro-wise, in places.
 
 In this document and in the code, the specific APA requirements are
 referred to by the section and (if appropriate) the example number of the
@@ -54,9 +55,9 @@ APA Style Guide (5th Edition).
 You will need to be using \sty{csquotes} ($\geq$ 4.3) and \sty{biblatex}
 ($\geq$ 0.8b). If you want to take advantage of the \sty{biblatex}
 |\DeclareQuotePunctuation| facility to enforce the APA required «American
-punctuation», you should use the \sty{babel} package with the «american»
+punctuation», you should normally use the \sty{babel} package with the «american»
 option (see \sty{biblatex} manual section |3.9.1|). You can of course use
-other languages but in such cases, to adhere to APA «American» punctuation
+other languages but in such cases, to adhere to APA «american» punctuation
 rules (following commas moved inside closing quotes etc.), then you should
 set up |\DeclareQuotePunctuation| yourself as per section |4.6.5| of the
 \sty{biblatex} manual.
@@ -72,7 +73,7 @@ as per the |apa.cls| documentation. Without this class option, the
 Permission is granted to copy, distribute and/or modify this software under
 the terms of the \latex Project Public License, version
 1.3c\footnote{\url{http://www.latex-project.org/lppl.txt}}. The current
-maintainer is Philip Kime (\textcopyright\ 2008).
+maintainer is Philip Kime (\textcopyright\ 2009).
 
 \subsection{History}
 
@@ -94,10 +95,11 @@ really has been a major advance over pure \bibtex.
 
 \section{Use}
 \label{use}
-Put the \path{.cbx} and \path{.bbx} files in your texmf tree, usually:\\
+Put the \path{.cbx}, \path{.bbx} and \path{.lbx} files in your texmf tree, usually:\\
 
 \noindent\path{<texmf>/tex/latex/biblatex/cbx/apa.cbx}\\
 \path{<texmf>/tex/latex/biblatex/bbx/apa.bbx}\\
+\path{<texmf>/tex/latex/biblatex/lbx/american-apa.lbx}\\
 
 \noindent Specify the style in the usual way when loading \sty{biblatex}. 
 
@@ -108,7 +110,7 @@ Put the \path{.cbx} and \path{.bbx} files in your texmf tree, usually:\\
 \end{ltxcode}
 
 \noindent Note that the APA manual requires the forcing of titles into
-``sentence case'', that is, initial cap followed by lower case for sentence
+«sentence case», that is, initial cap followed by lower case for sentence
 units, with the exception of names and material from languages which do not
 follow English capitalisation. As of version 0.8a, \sty{biblatex} has a
 |\MakeSentenceCase| macro which deals with this. So, in the traditional
@@ -117,6 +119,25 @@ with the usual brace pairs and the style will take care of forcing the
 APA-style sentence case in the References section. Unlike the References
 section, titles in citations in the APA style appear in normal case and the
 style will ensure this too.
+
+\subsection{Localisation}
+
+Localisation is provided for APA-specific strings in the accompanying
+|.lbx| files. To use these files, put an appropriate mapping in your
+document preamble, after loading \sty{biblatex}. Here is an example to load
+the German localisation strings. This assumes that you are using the
+\sty{babel} package with the appropriate language option:
+
+\begin{ltxcode}
+\DeclareLanguageMapping{german}{german-apa}
+\end{ltxcode}
+
+This loads the |german-apa.lbx| file which in turn, loads the |german.lbx|
+file and augments it with APA specific strings.
+
+The APA manual does not mention nor sanction any non «american» English
+strings but it is quite common for non-English journals to ask for APA style
+bibliographies and so this must be supported.
 
 \subsection{Options}
 \label{use:options}
@@ -342,6 +363,17 @@ which cannot be dealt with cleanly are marked with the line
 \item Updated to use new fields (|EVENTTITLE|) and new options
   (|usetranslator|) from \sty{biblatex} 0.8b.
 \end{release}
+
+\begin{release}{0.4}{2009-07-24}
+\item Fixed bug were multiple year ranges were not displayed properly.
+\item Updated to remove pre-\sty{biblatex} 0.8e macros error.
+\end{release}
+
+\begin{release}{0.5}{2009-09-12}
+\item Replaced literal string with localised form in url macro
+\item Moved localisation strings into \sty{lbx} file using |\DeclareLanguageMapping|
+\end{release}
+
 
 \end{changelog}
 \end{document}

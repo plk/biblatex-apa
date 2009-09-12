@@ -1,5 +1,5 @@
 %% apa.bbx
-%% Copyright 2008 Philip Kime
+%% Copyright 2009 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -93,6 +93,7 @@
                             citetracker=true,%
                             maxnames=999,%
                             minnames=999,%
+                            abbreviate=true,%
                             mincrossrefs=999}
 
 %
@@ -178,74 +179,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.03) The example abbreviations
-% (APA 4.09) Months are not abbreviated (but other things are so
-%            can't set a blanket abbreviate=false in options)
+% Set up bib strings and abbreviations (see american-apa.lbx)
+% Set up some standard APA formats
 
-\NewBibliographyString{revisededition}
-\NewBibliographyString{secondedition}
-\NewBibliographyString{supplement}
-\NewBibliographyString{part}
-\NewBibliographyString{typechair}
-\NewBibliographyString{typechairs}
-\NewBibliographyString{typevolume}
-\NewBibliographyString{typevolumes}
-\NewBibliographyString{typeseries}
-\NewBibliographyString{typeseriess}
-\NewBibliographyString{typevolseries}
-\NewBibliographyString{typevolseriess}
-\NewBibliographyString{on}
-\NewBibliographyString{retrieved}
-\NewBibliographyString{available}
-\NewBibliographyString{from}
-\NewBibliographyString{nodate}
-\NewBibliographyString{messagepostedto}
-\NewBibliographyString{emaillist}
-\NewBibliographyString{archivedat}
-\NewBibliographyString{origyear}
-\NewBibliographyString{reviewof}
-
-\DefineBibliographyStrings{american}{%
-  revisededition   = {rev\adddotspace ed\adddot},
-  secondedition    = {2nd\adddotspace ed\adddot},
-  part             = {pt\adddot},
-  techreport       = {Tech\adddotspace Rep\adddot},
-  supplement       = {suppl\adddot}
-  page             = {{}p\adddot},
-  pages            = {{}pp\adddot},
-  on               = {on},
-  retrieved        = {retrieved},
-  available        = {available},
-  from             = {from},
-  messagepostedto  = {message posted to},
-  emaillist        = {electronic mailing list},
-  archivedat       = {archived at},
-  nodate           = {{}n\adddot d\adddot},
-  reviewof         = {review of},
-  paragraph        = {\P},
-  paragraphs       = {\P\P},
-  origyear         = {original work published},
-  january          = {January},
-  february         = {February},
-  march            = {March},
-  april            = {April},
-  may              = {May},
-  june             = {June},
-  july             = {July},
-  august           = {August},
-  september        = {September},
-  october          = {October},
-  november         = {November},
-  december         = {December},
-  typechair        = {Chair},
-  typechairs       = {Chairs},
-  typevolume       = {Vol\adddot\space Ed\adddot},
-  typevolumes      = {Vol\adddot\space Eds\adddot},
-  typeseries       = {Series\space Ed\adddot},
-  typeseriess      = {Series\space Eds\adddot},
-  typevolseries    = {Series\space\& Vol\adddot\space Ed\adddot},
-  typevolseriess   = {Series\space\& Vol\adddot\space Eds\adddot},
-}
+\DeclareLanguageMapping{american}{american-apa}
 
 \DeclareFieldFormat{volume}{\apanum{#1}}
 \DeclareFieldFormat{series}{#1}
@@ -981,13 +918,14 @@
   \ifthenelse{\boolean{bbx:gnoreminfo}\OR\boolean{bbx:lnoreminfo}}
     {\global\boolfalse{bbx:lnoreminfo}}
     {\appto\@apaar{retrieved}% default
-     \iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
+      \iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
      \ifthenelse{\iffieldundef{url}\AND%
                  \iffieldundef{urldate}\AND%
                  \iffieldundef{urlyear}}
        {}
        {\ifthenelse{\iffieldundef{entrysubtype}\OR%
-                    \iffieldequalstr{entrysubtype}{newspaper}}
+                    \iffieldequalstr{entrysubtype}{newspaper}\OR%
+                    \iffieldequalstr{entrysubtype}{data}}
          {\iffieldundef{abstract}
            {\printtext{\bibcpstring{\@apaar}}}
            {\printtext{\bibcpstring{abstract}}\addspace%
@@ -1010,7 +948,8 @@
            \printtext{\bibstring{archivedat}%
            \setunit{\addspace}}}{}%
         \ifthenelse{\iffieldundef{entrysubtype}\OR%
-                    \iffieldequalstr{entrysubtype}{newspaper}}
+                    \iffieldequalstr{entrysubtype}{newspaper}\OR%
+                    \iffieldequalstr{entrysubtype}{data}}
           {\printtext{\bibstring{from}\space}}{}%
         \printlist{organization}%
         \setunit*{\addcolon\addspace}%
