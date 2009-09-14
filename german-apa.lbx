@@ -1,0 +1,55 @@
+\ProvidesFile{german-apa.lbx}
+\InheritBibliographyExtras{german}
+
+% (APA 4.03) The example abbreviations
+% (APA 4.09) Months are not abbreviated (but other things are so
+%            can't set a blanket abbreviate=false in options)
+
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{nodate}
+\NewBibliographyString{messagepostedto}
+\NewBibliographyString{emaillist}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+
+\DeclareBibliographyStrings{%
+  inherit          = {german},
+  revisededition   = {{\"Uberarbeitete\space Auflage}{\"Uberarb.\adddotspace Aufl\adddot}},
+  page             = {{Seite}{{}S\adddot}},
+  pages            = {{Seiten}{{}S\adddot}},
+  on               = {{am}{am}},
+  retrieved        = {{Zugriff}{Zugriff}},
+  available        = {{Erh\"altlich}{Erh\"altlich}},
+  from             = {{unter}{unter}},
+  messagepostedto  = {Nachrich\space ver\"offentlicht\space in\space}{Nachrich\space ver\"offentlicht\space in\space}},
+  emaillist        = {{Nachricht\space ver\"offentlicht\space in\space Mailing-Liste}{Nachricht\space ver\"offentlicht\space in\space Mailing-Liste}},
+  archivedat       = {{archiviert\space unter}{archiviert\space unter}},
+  nodate           = {{ohne\space Datum}{{}o\adddot D\adddot}},
+  reviewof         = {{\"Uberprüfung\space der}{\"Uberprüfung\space der}},
+  paragraph        = {{Absatz}{Abs\adddot}},
+  paragraphs       = {{Abs\"atze}{Abs\adddot}},
+  origyear         = {{Original\space ver\"offentlicht}{Original\space ver\"offentlicht}},
+  typechair        = {{Konferenzstuhl}{Konferenzstuhl}},
+  typechairs       = {{Konferenzst\"uhle}{Konferenzst\"uhle}},
+  typevolume       = {{Band\space Herausgeber}{Bd\adddot\space Hrsg\adddot}},
+  typevolumes      = {{Band\space Herausgeber}{Bd\adddot\space Hrsg\adddot}},
+  typeseries       = {{Reihe\space Herausgeber}{Reihe\space Hrsg\adddot}},
+  typeseriess      = {{Reihe\space Herausgeber}{Reihe\space Hrsg\adddot}},
+  typevolseries    = {{Reihe\space und\space Band\space Herausgeber}{Reihe\space\& Bd\adddot\space Hrsg\adddot}},
+  typevolseriess   = {{Reihe\space und\space Band\space Herausgeber}{Reihe\space\& Bd\adddot\space Hrsg\adddot}},
+}
+
+\endinput

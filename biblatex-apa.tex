@@ -41,23 +41,27 @@
 This package is a \sty{biblatex} style for APA (American Psychological
 Association) style compliant documents typeset in \latex. It implements a
 citation style (\path{apa.cbx}), a references section style
-(\path{apa.bbx}) and a string localisation file (\path{american-apa.lbx})
-for «american» English. The styles are loaded just like any other
-\sty{biblatex} styles but I wouldn't try to use the citation and references
-styles separately as they rely on each other, macro-wise, in places.
+(\path{apa.bbx}) and string localisation files (\path{<language>-apa.lbx}).
+Currently there are only string localisations for «American» English and
+German--if you can help with any other languages, please mail me; the
+localisation |.lbx| files are very small and simple and it would be a small
+translation task for the few APA-specific strings needed.
+The styles are loaded just like any other \sty{biblatex} styles but I
+wouldn't try to use the citation and references styles separately as they
+rely on each other, macro-wise, in places.
 
 In this document and in the code, the specific APA requirements are
 referred to by the section and (if appropriate) the example number of the
 APA Style Guide (5th Edition).
 
-\subsection{Requirements}
+\subsection{Requirements}\label{req}
 
 You will need to be using \sty{csquotes} ($\geq$ 4.3) and \sty{biblatex}
 ($\geq$ 0.8b). If you want to take advantage of the \sty{biblatex}
-|\DeclareQuotePunctuation| facility to enforce the APA required «American
-punctuation», you should normally use the \sty{babel} package with the «american»
+|\DeclareQuotePunctuation| facility to enforce the APA required «American»
+punctuation, you should normally use the \sty{babel} package with the «american»
 option (see \sty{biblatex} manual section |3.9.1|). You can of course use
-other languages but in such cases, to adhere to APA «american» punctuation
+other languages but in such cases, to adhere to APA «American» punctuation
 rules (following commas moved inside closing quotes etc.), then you should
 set up |\DeclareQuotePunctuation| yourself as per section |4.6.5| of the
 \sty{biblatex} manual.
@@ -99,7 +103,7 @@ Put the \path{.cbx}, \path{.bbx} and \path{.lbx} files in your texmf tree, usual
 
 \noindent\path{<texmf>/tex/latex/biblatex/cbx/apa.cbx}\\
 \path{<texmf>/tex/latex/biblatex/bbx/apa.bbx}\\
-\path{<texmf>/tex/latex/biblatex/lbx/american-apa.lbx}\\
+\path{<texmf>/tex/latex/biblatex/lbx/<language>-apa.lbx}\\
 
 \noindent Specify the style in the usual way when loading \sty{biblatex}. 
 
@@ -133,9 +137,20 @@ the German localisation strings. This assumes that you are using the
 \end{ltxcode}
 
 This loads the |german-apa.lbx| file which in turn, loads the |german.lbx|
-file and augments it with APA specific strings.
+file and augments it with APA-specific strings. If you are not using the
+babel «american» option, they you may need to set up the
+|\DeclareQuotePunctuation| option as mentioned in section \ref{req} above.
+You would only need to do this if, for some strange reason, a non-american
+journal required the (rather horrible) american practice of moving final
+punctuation marks inside closing quotes.
 
-The APA manual does not mention nor sanction any non «american» English
+If using the «american» babel language, there is no need to do anything as 
+
+\begin{ltxcode}
+\DeclareLanguageMapping{american}{american-apa}
+\end{ltxcode}
+
+is the default. The APA manual does not mention nor sanction any non «American» English
 strings but it is quite common for non-English journals to ask for APA style
 bibliographies and so this must be supported.
 
@@ -371,7 +386,7 @@ which cannot be dealt with cleanly are marked with the line
 
 \begin{release}{0.5}{2009-09-12}
 \item Replaced literal string with localised form in url macro
-\item Moved localisation strings into \sty{lbx} file using |\DeclareLanguageMapping|
+\item Moved localisation strings into \sty{.lbx} files using |\DeclareLanguageMapping|
 \end{release}
 
 
