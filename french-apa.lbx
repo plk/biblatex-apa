@@ -1,0 +1,67 @@
+\ProvidesFile{french-apa.lbx}
+\InheritBibliographyExtras{french}
+
+% (APA 4.03) The example abbreviations
+% (APA 4.09) Months are not abbreviated (but other things are so
+%            can't set a blanket abbreviate=false in options)
+
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{nodate}
+\NewBibliographyString{messagepostedto}
+\NewBibliographyString{emaillist}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+
+\DeclareBibliographyStrings{%
+  inherit          = {french},
+  january          = {{janvier}{janvier}},
+  february         = {{f\'evrier}{f\'evrier}},
+  march            = {{mars}{mars}},
+  april            = {{avril}{avril}},
+  may              = {{mai}{mai}},
+  june             = {{juin}{juin}},
+  july             = {{juillet}{juillet}},
+  august           = {{ao\^ut}{ao\^ut}},
+  september        = {{septembre}{septembre}},
+  october          = {{octobre}{octobre}},
+  november         = {{novembre}{novembre}},
+  december         = {{d\'ecembre}{d\'ecembre}},
+  revisededition   = {{\'Edition\space R\'evis\'e}{\'Ed\adddot\space R\'ev\adddot}},
+  page             = {{Page}{{}p\adddot}},
+  pages            = {{Pages}{{}pp\adddot}},
+  on               = {{le}{le}},
+  retrieved        = {{R\'ecup\'er\'ee}{R\'ecup\'er\'ee}},
+  available        = {{disponible}{disponible}},
+  from             = {{\`a\space partir\space de}{\`a\space partir\space de}},
+  messagepostedto  = {message\space post\'e\space \`a}{message\space post\'e\space \`a}},
+  emaillist        = {{message\space post\'e\space \`a\space email-liste}{message\space post\'e\space \`a\space email-liste}},
+  archivedat       = {{archiv\'es\space \`a}{archiv\'es\space \`a}},
+  nodate           = {{pas\space de\space date}{{}p\adddot d\adddot}},
+  reviewof         = {{critique\space de}{critique\space de}},
+  paragraph        = {{\P}{\P}},
+  paragraphs       = {{\P\P}{\P\P}},
+  origyear         = {{Date\space de\space premi\`ere publication}{Date\space de\space premi\`ere publication}},
+  typechair        = {{Ma\^itre\space de\space Conf\'erence}{Ma\^itre\space de\space Conf\'erence}},
+  typechairs       = {{Ma\^itres\space de\space Conf\'erence}{Ma\^itres\space de\space Conf\'erence}},
+  typevolume       = {{R\'edacteur\space du\space volume}{R\'ed\adddot\space vol\adddot}},
+  typevolumes      = {{R\'edacteur\space du\space volume}{R\'eds\adddot\space vol\adddot}},
+  typeseries       = {{R\'edacteur\space de\space la\space s\'erie}{R\'ed\adddot\space ser\adddot}},
+  typeseriess      = {{R\'edacteurs\space de\space la\space s\'erie}{R\'eds\adddot\space ser\adddot}},
+  typevolseries    = {{R\'edacteur\space de\space la\space s\'erie\space et\space du volume}{Red\adddot\space vol\space\&\space ser\adddot}},
+  typevolseriess   = {{Directeurs\space de\space Publication\space et\space R\'edacteurs\space en\space chef}{Reds\adddot\space vol\space\&\space ser\adddot}},
+}
+
+\endinput
