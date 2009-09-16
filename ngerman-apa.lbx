@@ -1,5 +1,5 @@
-\ProvidesFile{german-apa.lbx}
-\InheritBibliographyExtras{german}
+\ProvidesFile{ngerman-apa.lbx}
+\InheritBibliographyExtras{ngerman}
 
 % (APA 4.03) The example abbreviations
 % (APA 4.09) Months are not abbreviated (but other things are so
@@ -26,7 +26,7 @@
 \NewBibliographyString{reviewof}
 
 \DeclareBibliographyStrings{%
-  inherit          = {german},
+  inherit          = {ngerman},
   january          = {{Januar}{Januar}},
   february         = {{Februar}{Februar}},
   march            = {{M\"arz}{M\"arz}},
@@ -70,7 +70,7 @@
 %            "02".
 
 
-\DefineBibliographyExtras{german}{%
+\DefineBibliographyExtras{ngerman}{%
   \def\bibdatelong{%
     \thefield{year},\space%
     \mkbibmonth{\thefield{month}}\nobreakspace

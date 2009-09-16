@@ -180,10 +180,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Set up bib strings and abbreviations (see american-apa.lbx)
 % Set up some standard APA formats
-
-\DeclareLanguageMapping{american}{american-apa}
 
 \DeclareFieldFormat{volume}{\apanum{#1}}
 \DeclareFieldFormat{series}{#1}
@@ -235,20 +232,7 @@
 %            and modified. This takes the leading "0" from days like
 %            "02".
 
-\DefineBibliographyExtras{american}{%
-  \def\bibdatelong{%
-    \thefield{year},\space%
-    \mkbibmonth{\thefield{month}}\nobreakspace
-    \@tempcnta0\thefield{day} \the\@tempcnta}%
-  \def\bibdateshort{%
-    \thefield{month}/\thefield{day}/\thefield{year}}%
-  \def\biburldatelong{%
-    \@tempcnta0\thefield{urlday} %
-    \mkbibmonth{\thefield{urlmonth}}\nobreakspace
-    \the\@tempcnta,\space\thefield{urlyear}}%
-  \def\biburldateshort{%
-    \thefield{urlmonth}/\thefield{urlday}/\thefield{urlyear}}%
-}
+% See language localisation file <language>-apa.lbx, default "american-apa.lbx"
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

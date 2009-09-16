@@ -54,7 +54,7 @@ In this document and in the code, the specific APA requirements are
 referred to by the section and (if appropriate) the example number of the
 APA Style Guide (5th Edition).
 
-\subsection{Requirements}\label{req}
+\subsection{Requirements}\label{ref:req}
 
 You will need to be using \sty{csquotes} ($\geq$ 4.3) and \sty{biblatex}
 ($\geq$ 0.8b). If you want to take advantage of the \sty{biblatex}
@@ -97,7 +97,7 @@ I wished I could acknowledge someone as then this wouldn't have been such a
 huge piece of work \ldots\ thanks to Philipp Lehman for \sty{biblatex} which
 really has been a major advance over pure \bibtex.
 
-\section{Use}
+\section{Use}\label{ref:use}
 \label{use}
 Put the \path{.cbx}, \path{.bbx} and \path{.lbx} files in your texmf tree, usually:\\
 
@@ -111,6 +111,7 @@ Put the \path{.cbx}, \path{.bbx} and \path{.lbx} files in your texmf tree, usual
 \usepackage[american]{babel}
 \usepackage{csquotes}
 \usepackage[style=apa]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
 \end{ltxcode}
 
 \noindent Note that the APA manual requires the forcing of titles into
@@ -128,9 +129,23 @@ style will ensure this too.
 
 Localisation is provided for APA-specific strings in the accompanying
 |.lbx| files. To use these files, put an appropriate mapping in your
-document preamble, after loading \sty{biblatex}. Here is an example to load
-the German localisation strings. This assumes that you are using the
-\sty{babel} package with the appropriate language option:
+document preamble, after loading \sty{biblatex}.
+
+Normal use will invoke babel with the «american» babel language. After
+loading babel and biblatex, put this in the preamble (see full preamble
+example in section \ref{ref:use} above):
+
+\begin{ltxcode}
+\DeclareLanguageMapping{american}{american-apa}
+\end{ltxcode}
+
+The APA manual does not mention nor sanction any non «American» English
+strings but it is quite common for non-English journals to ask for APA style
+bibliographies and so this must be supported.
+
+Here is an example to load the German localisation strings. This assumes
+that you are using the \sty{babel} package with the appropriate language
+option:
 
 \begin{ltxcode}
 \DeclareLanguageMapping{german}{german-apa}
@@ -139,20 +154,10 @@ the German localisation strings. This assumes that you are using the
 This loads the |german-apa.lbx| file which in turn, loads the |german.lbx|
 file and augments it with APA-specific strings. If you are not using the
 babel «american» option, they you may need to set up the
-|\DeclareQuotePunctuation| option as mentioned in section \ref{req} above.
+|\DeclareQuotePunctuation| option as mentioned in section \ref{ref:req} above.
 You would only need to do this if, for some strange reason, a non-american
 journal required the (rather horrible) american practice of moving final
 punctuation marks inside closing quotes.
-
-If using the «american» babel language, there is no need to do anything as 
-
-\begin{ltxcode}
-\DeclareLanguageMapping{american}{american-apa}
-\end{ltxcode}
-
-is the default. The APA manual does not mention nor sanction any non «American» English
-strings but it is quite common for non-English journals to ask for APA style
-bibliographies and so this must be supported.
 
 \subsection{Options}
 \label{use:options}
@@ -380,13 +385,15 @@ which cannot be dealt with cleanly are marked with the line
 \end{release}
 
 \begin{release}{0.4}{2009-07-24}
-\item Fixed bug were multiple year ranges were not displayed properly.
+\item Fixed bug where multiple year ranges were not displayed properly.
 \item Updated to remove pre-\sty{biblatex} 0.8e macros error.
 \end{release}
 
-\begin{release}{0.5}{2009-09-12}
-\item Replaced literal string with localised form in url macro
-\item Moved localisation strings into \sty{.lbx} files using |\DeclareLanguageMapping|
+\begin{release}{0.5}{2009-09-17}
+\item Replaced literal string with localised form in url macro.
+\item Moved localisation strings into \sty{.lbx} files.
+\item |\DeclareLanguageMapping| is now needed in preamble.
+\item Moved |\DeclareBibliographyExtras| into \sty{.lbx} files.
 \end{release}
 
 
