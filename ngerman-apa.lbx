@@ -78,12 +78,30 @@
   \def\bibdateshort{%
     \thefield{month}/\thefield{day}/\thefield{year}}%
   \def\biburldatelong{%
-    \@tempcnta0\thefield{urlday} %
+    \@tempcnta0\thefield{urlday}%
     \mkbibmonth{\thefield{urlmonth}}\nobreakspace
     \the\@tempcnta,\space\thefield{urlyear}}%
   \def\biburldateshort{%
     \thefield{urlmonth}/\thefield{urlday}/\thefield{urlyear}}%
 }
+
+% These date formats are more suitable for German journals but aren't
+% strictly APA compliant
+
+% \DefineBibliographyExtras{german}{%
+%  \def\bibdatelong{%
+%    \thefield{year},\space%
+%    \@tempcnta0\thefield{day} \the\@tempcnta .\nobreakspace%
+%  \mkbibmonth{\thefield{month}}}%
+%   \def\bibdateshort{%
+%     \thefield{day}/\thefield{month}/\thefield{year}}%
+%   \def\biburldatelong{%
+%     \@tempcnta0\thefield{urlday} \the\@tempcnta .\space%
+%     \mkbibmonth{\thefield{urlmonth}}\space%
+%     \thefield{urlyear}}%
+%   \def\biburldateshort{%
+%     \thefield{urlday}/\thefield{urlmonth}/\thefield{urlyear}}%
+% }
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

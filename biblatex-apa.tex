@@ -159,6 +159,21 @@ You would only need to do this if, for some strange reason, a non-american
 journal required the (rather horrible) american practice of moving final
 punctuation marks inside closing quotes.
 
+\subsubsection{Date formats}
+
+Obviously, an American style uses month/day/year formats. European formats
+are usually day/month/year. The APA style dictates long date formats and so
+this is not really apparent in the bibliography. There is an APA standard
+for long date formats which may not be correct for European journals using
+roughly APA formatting standards (German journals tend to have a different
+long date format, for example). The «american» babel option will give you
+APA compliant US date formats. The \sty{.lbx} files default to the US
+format but contain an alternative |\DefineBibliographyExtras| command which
+is more tuned to the likely required language date format. Simply comment the
+default and uncomment the alternative block if you need this. There is a
+comment in the file to mark the alternative date format code. Note that
+such alternative date formats are not strictly APA compliant.
+
 \subsection{Options}
 \label{use:options}
 
