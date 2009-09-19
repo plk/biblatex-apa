@@ -404,12 +404,16 @@ which cannot be dealt with cleanly are marked with the line
 \item Updated to remove pre-\sty{biblatex} 0.8e macros error.
 \end{release}
 
-\begin{release}{0.5}{2009-09-17}
+\begin{release}{0.5}{2009-09-19}
 \item Replaced literal string with localised form in url macro.
 \item Moved localisation strings into \sty{.lbx} files.
 \item |\DeclareLanguageMapping| is now needed in preamble.
 \item Moved |\DeclareBibliographyExtras| into \sty{.lbx} files.
 \item Some support for alternative localised date formats.
+\item Fixed slant/italic font problem since the |\mkbibemph| macro had
+  changed in \sty{biblatex} 0.8e.
+\item Fixed |liststop| error which was preventing name lists with two
+  entries from having the comma before the ampersand.
 \end{release}
 
 
