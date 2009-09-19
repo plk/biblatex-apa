@@ -221,7 +221,7 @@
 % (APA 4.16 Example 4) \finalandcomma also before \andothersdelim
 
 \AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
-                       \ifnum\value{liststop}>2 \finalandcomma\fi
+                       \ifnum\value{liststop}>1 \finalandcomma\fi
                        \addspace\&\space}%
                      \renewcommand*{\andothersdelim}{\finalandcomma\space}}
 
