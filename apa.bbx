@@ -43,15 +43,16 @@
 % All examples in the APA manual are actually in a slanted font, not
 % italic.
 
-\renewrobustcmd{\mkbibemph}[1]{%
-  \textsl{#1\blx@uspunctmark}\relax
-  \blx@ifpuncthook{\blx@setpuncthook\textsl}{}}
+\renewrobustcmd*{\mkbibemph}{\textsl}
+\protected\long\def\blx@imc@mkbibemph#1{%
+  \textsl{#1}\relax
+  \blx@imc@setpunctfont\textsl}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% APA defines no particular hanging indent but this makes it look like the
+% Apa defines no particular hanging indent but this makes it look like the
 % examples in the style manual.
 
 \setlength{\bibhang}{2.5em}
