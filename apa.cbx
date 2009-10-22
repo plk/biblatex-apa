@@ -156,26 +156,22 @@
 \let\everypar\mypkg@everypar
 
 \newbibmacro*{cite}{%
-  \iffieldundef{shorthand}
-    {\iffieldequals{namehash}{\cbx@lasthash}
-      {\setunit{\compcitedelim}
-       \usebibmacro{cite:pyear+labelyear}}%
-      {\ifnameundef{labelname}
-        {\usebibmacro{cite:noname}%
-         \setunit{\nameyeardelim}%
-         \iffieldundef{year}
-           {\usebibmacro{cite:noyear}}
-           {\usebibmacro{cite:pyear+labelyear}%
-            \savefield{namehash}{\cbx@lasthash}}}
-        {\cbx@tempa
-         \ifnameundef{shortauthor}
-           {\printnames{labelname}}
-           {\ifciteseen
-             {\printnames{labelname}}
-             {\printnames{author}\space\printnames{shortauthor}}}}}}%
-    {\cbx@tempa
-      \usebibmacro{cite:init}%
-      \usebibmacro{cite:shorthand}}%
+  \iffieldequals{namehash}{\cbx@lasthash}
+   {\setunit{\compcitedelim}
+    \usebibmacro{cite:pyear+labelyear}}%
+    {\ifnameundef{labelname}
+     {\usebibmacro{cite:noname}%
+       \setunit{\nameyeardelim}%
+      \iffieldundef{year}
+        {\usebibmacro{cite:noyear}}
+        {\usebibmacro{cite:pyear+labelyear}%
+         \savefield{namehash}{\cbx@lasthash}}}
+     {\cbx@tempa
+      \ifnameundef{shortauthor}
+        {\printnames{labelname}}
+        {\ifciteseen
+          {\printnames{labelname}}
+          {\printnames{author}\space\printnames{shortauthor}}}}}%
   \setunit{\nameyeardelim}%
   \iffieldundef{year}
      {\usebibmacro{cite:noyear}}
@@ -186,11 +182,8 @@
 \newbibmacro*{textcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
 % Multiple cites in one command
-    {\iffieldundef{shorthand}
-      {\setunit{\compcitedelim}%
-       \usebibmacro{cite:pyear+labelyear}}
-      {\setunit{\compcitedelim}%
-       \usebibmacro{cite:shorthand}}}
+    {\setunit{\compcitedelim}%
+     \usebibmacro{cite:pyear+labelyear}}
 % Single cite
     {\cbx@tempa
      \ifnameundef{labelname}
@@ -203,17 +196,14 @@
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
   % Normal cite with author/editor
-       {\iffieldundef{shorthand}
+  % Normal full cite
+       {\ifnameundef{shortauthor}
     % Normal full cite
-         {\ifnameundef{shortauthor}
-      % Normal full cite
+         {\printnames{labelname}}
+    % Cite using short author
+         {\ifciteseen
            {\printnames{labelname}}
-      % Cite using short author
-           {\ifciteseen
-             {\printnames{labelname}}
-             {\printnames{author}\space\printnames{shortauthor}}}}%
-    % Cite using shorthand
-         {\usebibmacro{cite:shorthand}}
+           {\printnames{author}\space\printnames{shortauthor}}}%
   % Year
         \setunit{\iffieldundef{year}
                  {\addcomma\addspace}
@@ -296,30 +286,23 @@
 
 \newbibmacro*{nptextcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
-    {\iffieldundef{shorthand}
-       {\setunit{\compcitedelim}%
-        \usebibmacro{cite:pyear+labelyear}}
-       {\setunit{\compcitedelim}%
-        \usebibmacro{cite:shorthand}}}
+    {\setunit{\compcitedelim}%
+     \usebibmacro{cite:pyear+labelyear}}
     {\cbx@tempa
      \ifnameundef{labelname}
-       {\iffieldundef{shorthand}
-          {\usebibmacro{cite:noname}%
+       {\usebibmacro{cite:noname}%
 	   \setunit{%
 	     \global\booltrue{cbx:parens}%
 	     \addcomma\addspace}%
 	   \usebibmacro{cite:pyear+labelyear}}
-          {\usebibmacro{cite:shorthand}}}
        {\printnames{labelname}%
 	\setunit{%
 	  \global\booltrue{cbx:parens}%
 	  \addcomma\addspace}%
-        \iffieldundef{shorthand}
-          {\iffieldundef{year}
-             {\usebibmacro{cite:noyear}}
-             {\usebibmacro{cite:pyear+labelyear}}}
-          {\usebibmacro{cite:shorthand}}%
-        \savefield{namehash}{\cbx@lasthash}}}%
+        \iffieldundef{year}
+           {\usebibmacro{cite:noyear}}
+           {\usebibmacro{cite:pyear+labelyear}}}
+        \savefield{namehash}{\cbx@lasthash}}%
   \gdef\cbx@tempa{%
     \ifbool{cbx:parens}
       {\addcomma\global\boolfalse{cbx:parens}}
@@ -329,9 +312,25 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% No shorthand
+% 
 
+\newbibmacro*{citeyear}{%
+  \iffieldundef{year}
+    {\cbx@tempa
+     \usebibmacro{cite:noyear}%
+     \usebibmacro{cite:init}}
+    {\iffieldequals{namehash}{\cbx@lasthash}
+       {\setunit{\compcitedelim}%
+        \usebibmacro{cite:year+labelyear}}
+       {\cbx@tempa
+        \usebibmacro{cite:year+labelyear}%
+        \savefield{namehash}{\cbx@lasthash}}}
+  \global\let\cbx@tempa=\multicitedelim}
 
-
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -343,23 +342,6 @@
   \global\boolfalse{cbx:parens}%
   \global\let\cbx@tempa=\empty
   \global\undef\cbx@lasthash}
-
-\newbibmacro*{citeyear}{%
-  \iffieldundef{shorthand}
-    {\iffieldundef{year}
-       {\cbx@tempa
-        \usebibmacro{cite:noyear}%
-        \usebibmacro{cite:init}}
-       {\iffieldequals{namehash}{\cbx@lasthash}
-          {\setunit{\compcitedelim}%
-           \usebibmacro{cite:year+labelyear}}
-          {\cbx@tempa
-           \usebibmacro{cite:year+labelyear}%
-           \savefield{namehash}{\cbx@lasthash}}}}
-    {\cbx@tempa
-     \usebibmacro{cite:shorthand}%
-     \usebibmacro{cite:init}}%
-  \global\let\cbx@tempa=\multicitedelim}
 
 \newbibmacro*{cite:year}{%
   \printtext[bibhyperref]{\printfield{year}}}
