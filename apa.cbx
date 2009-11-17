@@ -157,27 +157,31 @@
 
 \newbibmacro*{cite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
-   {\setunit{\compcitedelim}
+% Multiple cites in one command
+   {\setunit{\compcitedelim}%
     \usebibmacro{cite:pyear+labelyear}}%
-    {\ifnameundef{labelname}
+% Single cite
+   {\ifnameundef{labelname}
+% No author/editor
      {\usebibmacro{cite:noname}%
        \setunit{\nameyeardelim}%
       \iffieldundef{year}
         {\usebibmacro{cite:noyear}}
         {\usebibmacro{cite:pyear+labelyear}%
          \savefield{namehash}{\cbx@lasthash}}}
+% Normal cite
      {\cbx@tempa
       \ifnameundef{shortauthor}
         {\printnames{labelname}}
         {\ifciteseen
           {\printnames{labelname}}
-          {\printnames{author}\space\printnames{shortauthor}}}}}%
-  \setunit{\nameyeardelim}%
-  \iffieldundef{year}
-     {\usebibmacro{cite:noyear}}
-     {\usebibmacro{cite:pyear+labelyear}%
-      \savefield{namehash}{\cbx@lasthash}}%
-  \global\let\cbx@tempa=\multicitedelim}
+          {\printnames{author}\space\printnames{shortauthor}}}%
+      \setunit{\nameyeardelim}%
+      \iffieldundef{year}
+        {\usebibmacro{cite:noyear}}
+        {\usebibmacro{cite:pyear+labelyear}%
+         \savefield{namehash}{\cbx@lasthash}}%
+      \global\let\cbx@tempa=\multicitedelim}}}
 
 \newbibmacro*{textcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
