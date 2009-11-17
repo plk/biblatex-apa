@@ -19,7 +19,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={0.5},
+  revision={0.6},
   date={\today}}
 
 \hypersetup{%
@@ -415,6 +415,11 @@ which cannot be dealt with cleanly are marked with the line
   entries from having the comma before the ampersand.
 \end{release}
 
+\begin{release}{0.6}{2009-11-18}
+\item Corrected two bugs in |cite| macro which left a trailing space after
+  multiple cites and actually cited the year twice for multiple cite
+  commands in some circumstances.
+\end{release}
 
 \end{changelog}
 \end{document}
