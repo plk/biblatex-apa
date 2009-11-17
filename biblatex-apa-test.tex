@@ -142,7 +142,7 @@ postnote.\\
   (``trans.'' between the name and year) which is not supported by
   |biblatex|. However, it also allows a postnote after the year, which is fine}:\\
 \apaex{\parencite[][Pakaluk translation]{3.100a}}\\
-Entries with an |ORIGYEAR| field will automatically use it:\\
+Entries with an |ORIGDATE| field will automatically use it:\\
 \apaex{\textcite{3.100b}}
 
 \noindent\apa{3.101}\\
@@ -186,8 +186,8 @@ This would be dealt with in the same way as examples 8 and 9, with a
 \noindent\apa[17]{4.16}\\
 \textcolor{red}{Note: The citation of both years cannot be done
   automatically as such entries don't have their |NOTE| field parsed in
-  order to extract the retrieval year. Also, we can't really use |ORIGYEAR|
-  in such entries as the position of the |ORIGYEAR| and |YEAR| information
+  order to extract the retrieval year. Also, we can't really use |ORIGDATE|
+  in such entries as the position of the |ORIGDATE| and |DATE| information
   is the opposite way round to all other such examples (examples 32 and 39)}.
 
 \noindent\apa[22]{4.16}\\
@@ -213,7 +213,7 @@ Subsequently, the |SHORTHAND| field is used:\\
 \apaex{\textcite{4.16:29}}
 
 \noindent\apa[32]{4.16}\\
-Translation with |ORIGYEAR| field in entry:\\
+Translation with |ORIGDATE| field in entry:\\
 \apaex{\parencite{4.16:32}}
 
 \noindent\apa[35]{4.16}\\
@@ -221,14 +221,14 @@ Citation for work in press:\\
 \apaex{\parencite{4.16:35}}
 
 \noindent\apa[39]{4.16}\\
-Another |ORIGYEAR| example:\\
+Another |ORIGDATE| example:\\
 \apaex{\parencite{4.16:39}}
 
 \noindent\apa[40]{4.16}\\
-A rather clumsy |ORIGYEAR| example since we simply duplicate the |ORIGYEAR|
+A rather clumsy |ORIGDATE| example since we simply duplicate the |ORIGDATE|
 information from the |ADDENDUM| field which is not parsed. There is no
 other way to do this at present. It's suspicious also because the
-|ORIGYEAR| field doesn't really contain the original year but the year of
+|ORIGDATE| field doesn't really contain the original year but the year of
 the reprint. However, it's not so bad since the example citation requires
 the year of the reprint and the year of the cited work and that's what we have:\\
 \apaex{\parencite{4.16:40}}

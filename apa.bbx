@@ -205,7 +205,7 @@
      \setunit*{\addspace}}
     {\printnames[][1-7]{author}%
      \newunit\newblock}%
-  \usebibmacro{year+labelyear}}
+  \usebibmacro{labelyear+extrayear}}
 
 \DeclareNameFormat{author}{\ifthenelse{\value{listcount}=7}
                                {\printtext{\andothersdelim\bibstring{andothers}}}
@@ -252,15 +252,15 @@
       {\addcomma\space\printfield{month}}}
     {\addcomma\space\printfield{issue}}}
 
-\newbibmacro*{year+labelyear}{%
-  \iffieldundef{year}
+\newbibmacro*{labelyear+extrayear}{%
+  \iffieldundef{labelyear}
     {\iffieldundef{origyear}
       {\printtext[parens]{\usebibmacro{cite:noyear}}}
       {\printtext[parens]{\printfield[noformat]{origyear}}}}
     {\ifthenelse{\iffieldundef{month}\AND\iffieldundef{issue}}
-       {\printtext[parens]{\printfield{year}\printfield{labelyear}}}
+       {\printtext[parens]{\printfield{labelyear}\printfield{extrayear}}}
        {\iffieldundef{day}
-          {\printtext[parens]{\printfield{year}%
+          {\printtext[parens]{\printfield{labelyear}%
            \usebibmacro{monthorissue}}}
           {\printtext[parens]{\bibdate}}}}}
 
@@ -343,7 +343,7 @@
        \ifnameundef{namea}\AND%
        \ifnameundef{nameb}}
         {\newunit\newblock
-         \usebibmacro{year+labelyear}}
+         \usebibmacro{labelyear+extrayear}}
         {}}}
 
 \renewbibmacro*{maintitle}{%
@@ -473,7 +473,7 @@
        % various year placement tests
        \clearname{editor}\global\booltrue{bbx:editorinauthpos}%
        \setunit{\adddot\addspace}%
-       \usebibmacro{year+labelyear}%
+       \usebibmacro{labelyear+extrayear}%
        \setunit{\adddot\addspace}}}
 
 %
@@ -838,7 +838,7 @@
      \setunit{\addspace}%
      \printtext[parens]{\printfield{namebtype}}}
   \newunit
-  \usebibmacro{year+labelyear}}
+  \usebibmacro{labelyear+extrayear}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1504,11 +1504,11 @@
          {\iffieldundef{day}
             {\printfield{month}%
              \setunit{\addspace}%
-             \printfield{year}}
+             \printfield{labelyear}}
             {\printtext{\bibdate}}}
          {\printfield{issue}%
           \setunit{\addspace}%
-          \printfield{year}}}}%
+          \printfield{labelyear}}}}%
   \newunit}
 
 \newbibmacro*{location+publisher}{%
@@ -1527,7 +1527,7 @@
        \setunit*{\addcomma\space}%
        \printlist{institution}%
        \setunit*{\addcomma\space}%
-       \printfield{year}}%
+       \printfield{labelyear}}%
      \newunit}
     {}}
 
@@ -1542,7 +1542,7 @@
        {\iffieldundef{day}
           {\printfield{month}%
            \setunit{\addspace}%
-           \printfield{year}}
+           \printfield{labelyear}}
           {\printtext{\bibdate}}}}}
 
 \endinput

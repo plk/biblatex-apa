@@ -56,7 +56,7 @@ APA Style Guide (5th Edition).
 \subsection{Requirements}\label{ref:req}
 
 You will need to be using \sty{csquotes} ($\geq$ 4.3) and \sty{biblatex}
-($\geq$ 0.8b). If you want to take advantage of the \sty{biblatex}
+($\geq$ 0.9). If you want to take advantage of the \sty{biblatex}
 |\DeclareQuotePunctuation| facility to enforce the APA required «American»
 punctuation, you should normally use the \sty{babel} package with the «american»
 option (see \sty{biblatex} manual section |3.9.1|). You can of course use
@@ -248,8 +248,8 @@ lifted but that's not likely until after \sty{biblatex} version
   supposed to be cited but one of the years is embedded in the \path{.bib}
   entry in information that is not parsed out. There isn't much to be done
   about this at the moment apart from copying some of the information into
-  other fields like |ORIGYEAR| as in \apa[40]{4.16}. There isn't even that
-  option in \apa[17]{4.16} because |ORIGYEAR| and |YEAR| are the opposite
+  other fields like |ORIGDATE| as in \apa[40]{4.16}. There isn't even that
+  option in \apa[17]{4.16} because |ORIGDATE| and |DATE| are the opposite
   way round to all other such examples.
 \item If you use |\marginpar| or other commands that reset the paragraph
   counter, then the code which tracks citations within paragraphs in order
@@ -356,10 +356,6 @@ unrecognisable. Some general notes:
 \item APA style sometimes refers to the «series» of a multi-volume work
   \apa[36]{4.16}. This corresponds to the |MAINTITLE| field in the
   \path{.bib} and \emph{not} the |SERIES| field.
-\item In the entries, I sometimes use |DATE| and sometimes use
-  |YEAR/MONTH/DAY|. These can generally be used interchangeably, see
-  \sty{biblatex} docs. The same applies to |URLDATE| and
-  |URLYEAR/URLMONTH/URLDAY|.
 \item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
   they are given as roman numerals, as required by \apa{4.03}.
 \end{itemize}
@@ -413,6 +409,10 @@ which cannot be dealt with cleanly are marked with the line
   changed in \sty{biblatex} 0.8e.
 \item Fixed |liststop| error which was preventing name lists with two
   entries from having the comma before the ampersand.
+\end{release}
+
+\begin{release}{0.6}{2009-11-20}
+\item Updated for \sty{biblatex} 0.9
 \end{release}
 
 
