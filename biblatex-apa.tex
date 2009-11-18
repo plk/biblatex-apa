@@ -19,7 +19,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={0.5},
+  revision={0.7},
   date={\today}}
 
 \hypersetup{%
@@ -412,7 +412,16 @@ which cannot be dealt with cleanly are marked with the line
 \end{release}
 
 \begin{release}{0.6}{2009-11-20}
+\item Corrected two bugs in |cite| macro which left a trailing space after
+  multiple cites and actually cited the year twice for multiple cite
+  commands in some circumstances.
+\item Corrected bug where |\textcite| would leave a stray open bracket on
+  the stack when year was suppressed withing a paragraph.
+\end{release}
+
+\begin{release}{0.7}{2009-11-20}
 \item Updated for \sty{biblatex} 0.9
+\item Updated for APA 6th edition
 \end{release}
 
 
