@@ -225,7 +225,7 @@
 
 \newbibmacro*{cite:pyear+labelyear}{%
   \xifinlist{\thefield{entrykey}}{\cbx@parayear}
-  {}
+  {\setunit{\relax}}% \relax so any setunit from textcite is overriden
   {\iffieldundef{year}
     {}
     {\printtext[bibhyperref]{%
