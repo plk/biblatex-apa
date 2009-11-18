@@ -415,10 +415,12 @@ which cannot be dealt with cleanly are marked with the line
   entries from having the comma before the ampersand.
 \end{release}
 
-\begin{release}{0.6}{2009-11-18}
+\begin{release}{0.6}{2009-11-20}
 \item Corrected two bugs in |cite| macro which left a trailing space after
   multiple cites and actually cited the year twice for multiple cite
   commands in some circumstances.
+\item Corrected bug where |\textcite| would leave a stray open bracket on
+  the stack when year was suppressed withing a paragraph.
 \end{release}
 
 \end{changelog}
