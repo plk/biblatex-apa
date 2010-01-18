@@ -48,10 +48,10 @@
 
 \DeclareCiteCommand{\parencite}[\mkbibparens]
   {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
+   \global\let\cbx@parayear=\empty%
    \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \global\let\cbx@parayear=\empty%
    \printtext[bibhyperref]{\usebibmacro{cite}}}
   {}
   {\usebibmacro{postnote}}
