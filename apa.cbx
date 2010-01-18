@@ -51,7 +51,7 @@
    \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
+   \printtext[bibhyperref]{\usebibmacro{cite}}}
   {}
   {\usebibmacro{postnote}}
 
@@ -60,7 +60,7 @@
    \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{citeyear}}
+   \printtext[bibhyperref]{\usebibmacro{citeyear}}}
   {}
   {\usebibmacro{postnote}}
 
@@ -228,17 +228,16 @@
   {\setunit{\relax}}% \relax so any setunit from textcite is overriden
   {\iffieldundef{year}
     {}
-    {\printtext[bibhyperref]{%
-       \printfield[noformat]{origyear}\setunit*{\addslash}%
+    {\printfield[noformat]{origyear}\setunit*{\addslash}%
        \printfield{year}%
        \iffieldequalstr{year}{in press}
          {\setunit{\apashortdash}\printfield{labelyear}\setunit{\relax}}% \relax just in case printfield doesn't do anything and so \setunit isn't consumed and turns up later, unwanted.
-         {\printfield{labelyear}}}}%
+         {\printfield{labelyear}}}%
    \listxadd\cbx@parayear{\thefield{entrykey}}}}
 
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
-    {\printtext[bibhyperref]{\printfield{shorthand}}}
+    {\printfield{shorthand}}
     {\printnames{labelname}%
      \setunit{\nameyeardelim}%
      \printfield{title}\space\printfield{shorthand}}}
@@ -279,7 +278,7 @@
    \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{nptextcite}}
+   \printtext[bibhyperref]{\usebibmacro{nptextcite}}}
   {}
   {\iffieldundef{postnote}
      {}
@@ -337,9 +336,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-% Unchanged from authoryear-comp.cbx (biblatex v0.8)
-
 \newbool{cbx:parens}
 
 \newbibmacro*{cite:init}{%
@@ -348,23 +344,22 @@
   \global\undef\cbx@lasthash}
 
 \newbibmacro*{cite:year}{%
-  \printtext[bibhyperref]{\printfield{year}}}
+  \printfield{year}}
 
 \newbibmacro*{cite:labelyear}{%
-  \printtext[bibhyperref]{\printfield{labelyear}}}
+  \printfield{labelyear}}
 
 \newbibmacro*{cite:year+labelyear}{%
   \iffieldundef{year}
     {}
-    {\printtext[bibhyperref]{%
-       \printfield{year}%
-       \printfield{labelyear}}}}
+    {\printfield{year}%
+       \printfield{labelyear}}}
 
 \DeclareCiteCommand{\cite}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
+   \printtext[bibhyperref]{\usebibmacro{cite}}}
   {}
   {\usebibmacro{postnote}}
 
@@ -372,7 +367,7 @@
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{citeyear}}
+   \printtext[bibhyperref]{\usebibmacro{citeyear}}}
   {}
   {\usebibmacro{postnote}}
 
@@ -381,7 +376,7 @@
    \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
+   \printtext[bibhyperref]{\usebibmacro{cite}}}
   {}
   {\usebibmacro{postnote}}
 
@@ -389,7 +384,7 @@
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{textcite}}
+   \printtext[bibhyperref]{\usebibmacro{textcite}}}
   {}
   {\iffieldundef{postnote}
      {\ifbool{cbx:parens}
