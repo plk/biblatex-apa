@@ -205,7 +205,7 @@
      \setunit*{\addspace}}
     {\printnames[][1-7]{author}%
      \newunit\newblock}%
-  \usebibmacro{year+labelyear}}
+  \usebibmacro{labelyear+extrayear}}
 
 \DeclareNameFormat{author}{\ifthenelse{\value{listcount}=7}
                                {\printtext{\andothersdelim\bibstring{andothers}}}
@@ -252,17 +252,17 @@
       {\addcomma\space\printfield{month}}}
     {\addcomma\space\printfield{issue}}}
 
-\newbibmacro*{year+labelyear}{%
-  \iffieldundef{year}
+\newbibmacro*{labelyear+extrayear}{%
+  \iffieldundef{labelyear}
     {\iffieldundef{origyear}
       {\printtext[parens]{\usebibmacro{cite:noyear}}}
       {\printtext[parens]{\printfield[noformat]{origyear}}}}
     {\ifthenelse{\iffieldundef{month}\AND\iffieldundef{issue}}
-       {\printtext[parens]{\printfield{year}\printfield{labelyear}}}
+       {\printtext[parens]{\printfield{labelyear}\printfield{extrayear}}}
        {\iffieldundef{day}
-          {\printtext[parens]{\printfield{year}%
+          {\printtext[parens]{\printfield{labelyear}%
            \usebibmacro{monthorissue}}}
-          {\printtext[parens]{\bibdate}}}}}
+          {\printtext[parens]{\printdate}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -343,7 +343,7 @@
        \ifnameundef{namea}\AND%
        \ifnameundef{nameb}}
         {\newunit\newblock
-         \usebibmacro{year+labelyear}}
+         \usebibmacro{labelyear+extrayear}}
         {}}}
 
 \renewbibmacro*{maintitle}{%
@@ -473,7 +473,7 @@
        % various year placement tests
        \clearname{editor}\global\booltrue{bbx:editorinauthpos}%
        \setunit{\adddot\addspace}%
-       \usebibmacro{year+labelyear}%
+       \usebibmacro{labelyear+extrayear}%
        \setunit{\adddot\addspace}}}
 
 %
@@ -583,8 +583,8 @@
 \renewbibmacro*{editorstrg}{%
   \iffieldundef{editortype}
     {\ifthenelse{\value{editor}>1\OR\ifandothers{editor}}
-       {\bibcpstring{typeeditors}}
-       {\bibcpstring{typeeditor}}}
+       {\bibcpstring{editors}}
+       {\bibcpstring{editor}}}
     {\ifthenelse{\value{editor}>1\OR\ifandothers{editor}}
          {\bibcpstring{type\thefield{editortype}s}}
          {\bibcpstring{type\thefield{editortype}}}}}
@@ -626,7 +626,7 @@
 %   YEAR and ORIGYEAR are different
 
 \newbibmacro*{origyear}{%
-  \ifthenelse{\NOT\iffieldundef{year}\AND\NOT\iffieldsequal{year}{origyear}}
+  \ifthenelse{\NOT\iffieldundef{labelyear}\AND\NOT\iffieldsequal{labelyear}{origyear}}
     {\printfield{origyear}}
     {}}
 
@@ -838,7 +838,7 @@
      \setunit{\addspace}%
      \printtext[parens]{\printfield{namebtype}}}
   \newunit
-  \usebibmacro{year+labelyear}}
+  \usebibmacro{labelyear+extrayear}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1504,11 +1504,11 @@
          {\iffieldundef{day}
             {\printfield{month}%
              \setunit{\addspace}%
-             \printfield{year}}
-            {\printtext{\bibdate}}}
+             \printfield{labelyear}}
+            {\printdate}}
          {\printfield{issue}%
           \setunit{\addspace}%
-          \printfield{year}}}}%
+          \printfield{labelyear}}}}%
   \newunit}
 
 \newbibmacro*{location+publisher}{%
@@ -1527,7 +1527,7 @@
        \setunit*{\addcomma\space}%
        \printlist{institution}%
        \setunit*{\addcomma\space}%
-       \printfield{year}}%
+       \printfield{labelyear}}%
      \newunit}
     {}}
 
@@ -1535,14 +1535,14 @@
   \printlist{location}}
 
 \renewbibmacro*{date}{%
-  \iffieldundef{year}
+  \iffieldundef{labelyear}
     {}
     {\iffieldundef{month}
        {}
        {\iffieldundef{day}
           {\printfield{month}%
            \setunit{\addspace}%
-           \printfield{year}}
-          {\printtext{\bibdate}}}}}
+           \printfield{labelyear}}
+          {\printdate}}}}
 
 \endinput
