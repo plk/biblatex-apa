@@ -96,7 +96,8 @@
                             maxnames=999,%
                             minnames=999,%
                             abbreviate=true,%
-                            mincrossrefs=999}
+                            mincrossrefs=999,%
+                            alldates=long}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -920,7 +921,7 @@
         \setunit{\addspace}%
         \iffieldundef{urlyear}
           {}
-          {\printtext[urldate]{\biburldatelong}%
+          {\printurldate%
            \setunit*{\addcomma\addspace}}
         \iffieldequalstr{entrysubtype}{news}%
           {\printtext{\bibcpstring{messagepostedto}\space}}{}%
