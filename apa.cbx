@@ -230,8 +230,11 @@
     {}
     {\printfield[noformat]{origyear}\setunit*{\addslash}%
        \printfield{labelyear}%
-       \iffieldequalstr{pubstate}{in press}
-         {\setunit{\apashortdash}\printfield{extrayear}\setunit{\relax}}% \relax just in case printfield doesn't do anything and so \setunit isn't consumed and turns up later, unwanted.
+       \iffieldequalstr{labelyear}{in press}
+         {\iffieldundef{extrayear}
+           {\setunit{\relax}}
+           {\setunit{\apashortdash}}%
+         \printfield{extrayear}}
          {\printfield{extrayear}}}%
    \listxadd\cbx@parayear{\thefield{entrykey}}}}
 
