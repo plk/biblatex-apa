@@ -206,6 +206,15 @@ impossible due to \sty{biblatex} limitations. It is likely that with future
 lifted but that's not likely until after \sty{biblatex} version
 \texttt{1.0}, according to the |biblatex| author Philipp Lehman.
 
+\subsubsection{maxnames/minnames}
+
+You can't reset these |biblatex| options in your document--you'll get a
+message about conflicting options. These are set to ``999'' in |apa.bbx|
+because of the tricky requirements for APA name list truncation. The
+truncation is then done in the author list code rather than by using these
+options. Sorry. This will be changed when |biblatex| moves to using |biber|
+as a backend with a more sophisticated data model.
+
 \subsubsection{Citation Limitations}
 
 \begin{itemize}
