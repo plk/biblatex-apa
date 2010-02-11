@@ -19,7 +19,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={0.6},
+  revision={0.8},
   date={\today}}
 
 \hypersetup{%
@@ -56,7 +56,7 @@ APA Style Guide (5th Edition).
 \subsection{Requirements}\label{ref:req}
 
 You will need to be using \sty{csquotes} ($\geq$ 4.3) and \sty{biblatex}
-($\geq$ 0.8b but $<$ 0.9). If you want to take advantage of the \sty{biblatex}
+($\geq$ 0.9). If you want to take advantage of the \sty{biblatex}
 |\DeclareQuotePunctuation| facility to enforce the APA required «American»
 punctuation, you should normally use the \sty{babel} package with the «american»
 option (see \sty{biblatex} manual section |3.9.1|). You can of course use
@@ -379,6 +379,11 @@ which cannot be dealt with cleanly are marked with the line
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{0.8}{2010-02-15}
+\item Fixed bug with spaces after nptextcite
+\item Updated for |biblatex| 0.9
+\end{release}
 
 \begin{release}{0.7}{2010-01-20}
 \item Made hyperref links more consistent, using the whole citation and not

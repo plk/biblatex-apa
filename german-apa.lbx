@@ -65,47 +65,35 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.09) Format for dates in references. Copied from english.lbx
-%            and modified. This takes the leading "0" from days like
-%            "02".
+% (APA 4.09) Format for dates in references. Dates for URL references
+% are formatted differently to those which are normal dates.
 
 
 \DefineBibliographyExtras{german}{%
-  \def\bibdatelong{%
-    \thefield{year},\space%
-    \mkbibmonth{\thefield{month}}\nobreakspace
-    \@tempcnta0\thefield{day} \the\@tempcnta}%
-  \def\bibdateshort{%
-    \thefield{month}/\thefield{day}/\thefield{year}}%
-  \def\biburldatelong{%
-    \@tempcnta0\thefield{urlday}%
-    \mkbibmonth{\thefield{urlmonth}}\nobreakspace
-    \the\@tempcnta,\space\thefield{urlyear}}%
-  \def\biburldateshort{%
-    \thefield{urlmonth}/\thefield{urlday}/\thefield{urlyear}}%
-}
-
-% These date formats are more suitable for German journals but aren't
-% strictly APA compliant
-
-% \DefineBibliographyExtras{german}{%
-%  \def\bibdatelong{%
-%    \thefield{year},\space%
-%    \@tempcnta0\thefield{day} \the\@tempcnta .\nobreakspace%
-%  \mkbibmonth{\thefield{month}}}%
-%   \def\bibdateshort{%
-%     \thefield{day}/\thefield{month}/\thefield{year}}%
-%   \def\biburldatelong{%
-%     \@tempcnta0\thefield{urlday} \the\@tempcnta .\space%
-%     \mkbibmonth{\thefield{urlmonth}}\space%
-%     \thefield{urlyear}}%
-%   \def\biburldateshort{%
-%     \thefield{urlday}/\thefield{urlmonth}/\thefield{urlyear}}%
-% }
-
+  \protected\def\mkbibdatelong#1#2#3{%
+    \ifthenelse{\equal{#1}{urlyear}}
+      {\iffieldundef{#2}
+        {}
+        {\mkbibmonth{\thefield{#2}}%
+          \iffieldundef{#3}
+          {\iffieldundef{#1}{}{\space}}
+          {\nobreakspace}}%
+        \iffieldundef{#3}
+        {}
+        {\stripzeros{\thefield{#3}}%
+          \iffieldundef{#1}{}{,\space}}%
+        \thefield{#1}}
+      {\iffieldundef{#1}
+        {}
+        {\thefield{#1},\space}%
+        \iffieldundef{#2}
+        {}
+        {\mkbibmonth{\thefield{#2}}%
+          \iffieldundef{#3}
+          {}
+          {\nobreakspace\stripzeros{\thefield{#3}}}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \endinput

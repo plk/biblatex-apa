@@ -67,4 +67,37 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 4.09) Format for dates in references. Dates for URL references
+% are formatted differently to those which are normal dates.
+
+
+\DefineBibliographyExtras{american}{%
+  \protected\def\mkbibdatelong#1#2#3{%
+    \ifthenelse{\equal{#1}{urlyear}}
+      {\iffieldundef{#2}
+        {}
+        {\mkbibmonth{\thefield{#2}}%
+          \iffieldundef{#3}
+          {\iffieldundef{#1}{}{\space}}
+          {\nobreakspace}}%
+        \iffieldundef{#3}
+        {}
+        {\stripzeros{\thefield{#3}}%
+          \iffieldundef{#1}{}{,\space}}%
+        \thefield{#1}}
+      {\iffieldundef{#1}
+        {}
+        {\thefield{#1},\space}%
+        \iffieldundef{#2}
+        {}
+        {\mkbibmonth{\thefield{#2}}%
+          \iffieldundef{#3}
+          {}
+          {\nobreakspace\stripzeros{\thefield{#3}}}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \endinput
