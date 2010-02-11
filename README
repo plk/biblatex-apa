@@ -1,9 +1,9 @@
-Version 0.6
+Version 0.8
 
 Permission is granted to copy, distribute and/or modify this software under
 the terms of the LaTeX Project Public License, version
 1.3c (http://www.latex-project.org/lppl.txt). The current
-maintainer is Philip Kime (© 2009).
+maintainer is Philip Kime (© 2010).
 
 This package is a biblatex style for APA (American Psychological
 Association) style compliant documents typeset in LaTeX. It
@@ -16,7 +16,7 @@ In this document and in the code, the specific APA requirements are
 referred to by the section and (if appropriate) the example number of the
 APA Style Guide (5th Edition).
 
-You will need to be using csquotes >= 4.3 and biblatex >= 0.8b. If you want
+You will need to be using csquotes >= 4.3 and biblatex >= 0.9. If you want
 to take advantage of the biblatex \DeclareQuotePunctuation facility
 to enforce the APA required "American punctuation", you should use the
 babel package with the "american" option (see biblatex manual
