@@ -19,7 +19,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={0.7},
+  revision={0.8},
   date={\today}}
 
 \hypersetup{%
@@ -166,13 +166,7 @@ this is not really apparent in the bibliography. There is an APA standard
 for long date formats which may not be correct for European journals using
 roughly APA formatting standards (German journals tend to have a different
 long date format, for example). The «american» babel option will give you
-APA compliant US date formats. The \sty{.lbx} files default to the US
-format but contain an alternative |\DefineBibliographyExtras| command which
-is more tuned to the likely required language date format. Simply comment the
-default and uncomment the alternative block if you need this. There is a
-comment in the file to mark the alternative date format code. Note that
-such alternative date formats are not strictly APA compliant.
-
+APA compliant US date formats.
 \subsection{Options}
 \label{use:options}
 
@@ -212,6 +206,15 @@ impossible due to \sty{biblatex} limitations. It is likely that with future
 lifted but that's not likely until after \sty{biblatex} version
 \texttt{1.0}, according to the |biblatex| author Philipp Lehman.
 
+\subsubsection{maxnames/minnames}
+
+You can't reset these |biblatex| options in your document--you'll get a
+message about conflicting options. These are set to ``999'' in |apa.bbx|
+because of the tricky requirements for APA name list truncation. The
+truncation is then done in the author list code rather than by using these
+options. Sorry. This will be changed when |biblatex| moves to using |biber|
+as a backend with a more sophisticated data model.
+
 \subsubsection{Citation Limitations}
 
 \begin{itemize}
@@ -248,8 +251,8 @@ lifted but that's not likely until after \sty{biblatex} version
   supposed to be cited but one of the years is embedded in the \path{.bib}
   entry in information that is not parsed out. There isn't much to be done
   about this at the moment apart from copying some of the information into
-  other fields like |ORIGDATE| as in \apa[40]{4.16}. There isn't even that
-  option in \apa[17]{4.16} because |ORIGDATE| and |DATE| are the opposite
+  other fields like |ORIGYEAR| as in \apa[40]{4.16}. There isn't even that
+  option in \apa[17]{4.16} because |ORIGYEAR| and |YEAR| are the opposite
   way round to all other such examples.
 \item If you use |\marginpar| or other commands that reset the paragraph
   counter, then the code which tracks citations within paragraphs in order
@@ -356,6 +359,10 @@ unrecognisable. Some general notes:
 \item APA style sometimes refers to the «series» of a multi-volume work
   \apa[36]{4.16}. This corresponds to the |MAINTITLE| field in the
   \path{.bib} and \emph{not} the |SERIES| field.
+\item In the entries, I sometimes use |DATE| and sometimes use
+  |YEAR/MONTH/DAY|. These can generally be used interchangeably, see
+  \sty{biblatex} docs. The same applies to |URLDATE| and
+  |URLYEAR/URLMONTH/URLDAY|.
 \item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
   they are given as roman numerals, as required by \apa{4.03}.
 \end{itemize}
@@ -373,9 +380,9 @@ which cannot be dealt with cleanly are marked with the line
 
 \begin{changelog}
 
-\begin{release}{0.7}{2010-03-10}
-\item Updated for \sty{biblatex} 0.9
-\item Updated for APA 6th edition
+\begin{release}{0.8}{2010-02-15}
+\item Fixed bug with spaces after nptextcite
+\item Updated for |biblatex| 0.9
 \end{release}
 
 \begin{release}{0.7}{2010-01-20}
@@ -428,6 +435,8 @@ which cannot be dealt with cleanly are marked with the line
 \begin{release}{0.1}{2008-12-01}
 \item Initial release
 \end{release}
+
+
 
 \end{changelog}
 \end{document}

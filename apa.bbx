@@ -96,7 +96,8 @@
                             maxnames=999,%
                             minnames=999,%
                             abbreviate=true,%
-                            mincrossrefs=999}
+                            mincrossrefs=999,%
+                            alldates=long}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -583,8 +584,8 @@
 \renewbibmacro*{editorstrg}{%
   \iffieldundef{editortype}
     {\ifthenelse{\value{editor}>1\OR\ifandothers{editor}}
-       {\bibcpstring{typeeditors}}
-       {\bibcpstring{typeeditor}}}
+       {\bibcpstring{editors}}
+       {\bibcpstring{editor}}}
     {\ifthenelse{\value{editor}>1\OR\ifandothers{editor}}
          {\bibcpstring{type\thefield{editortype}s}}
          {\bibcpstring{type\thefield{editortype}}}}}
@@ -626,7 +627,7 @@
 %   YEAR and ORIGYEAR are different
 
 \newbibmacro*{origyear}{%
-  \ifthenelse{\NOT\iffieldundef{year}\AND\NOT\iffieldsequal{year}{origyear}}
+  \ifthenelse{\NOT\iffieldundef{labelyear}\AND\NOT\iffieldsequal{labelyear}{origyear}}
     {\printfield{origyear}}
     {}}
 
@@ -920,7 +921,7 @@
         \setunit{\addspace}%
         \iffieldundef{urlyear}
           {}
-          {\printtext[urldate]{\biburldatelong}%
+          {\printurldate%
            \setunit*{\addcomma\addspace}}
         \iffieldequalstr{entrysubtype}{news}%
           {\printtext{\bibcpstring{messagepostedto}\space}}{}%
@@ -1505,7 +1506,7 @@
             {\printfield{month}%
              \setunit{\addspace}%
              \printfield{labelyear}}
-            {\printtext{\printdate}}}
+            {\printdate}}
          {\printfield{issue}%
           \setunit{\addspace}%
           \printfield{labelyear}}}}%
@@ -1535,7 +1536,7 @@
   \printlist{location}}
 
 \renewbibmacro*{date}{%
-  \iffieldundef{year}
+  \iffieldundef{labelyear}
     {}
     {\iffieldundef{month}
        {}
@@ -1543,6 +1544,6 @@
           {\printfield{month}%
            \setunit{\addspace}%
            \printfield{labelyear}}
-          {\printtext{\printdate}}}}}
+          {\printdate}}}}
 
 \endinput

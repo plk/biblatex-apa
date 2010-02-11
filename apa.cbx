@@ -30,7 +30,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 3.99) year postfix is not emphasised or italic
 
-\DeclareFieldFormat{labelyear}{\mknumalph{#1}}
+\DeclareFieldFormat{extrayear}{\mknumalph{#1}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,7 +48,6 @@
 
 \DeclareCiteCommand{\parencite}[\mkbibparens]
   {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
-   \global\let\cbx@parayear=\empty%
    \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
@@ -130,8 +129,8 @@
 % (APA 3.96) Deal with SHORTAUTHOR fields
 % (APA 3.99) Multiple same author cites in a compact citation call do not
 %            need to be repeated but the full years must be repeated with
-%            their labelyear postfixes
-%            "in press" labelyear needs a short dash to join to label
+%            their extrayear postfixes
+%            "in press" extrayear needs a short dash to join to label
 % (APA 3.100) If no date, use "n.d." without parentheses and with a comma
 %             and space before.
 % (APA 4.16 Example 32) Cite ORIGYEAR/YEAR if ORIGYEAR present
@@ -160,15 +159,15 @@
   \iffieldequals{namehash}{\cbx@lasthash}
 % Multiple cites in one command
    {\setunit{\compcitedelim}%
-    \usebibmacro{cite:pyear+labelyear}}%
+    \usebibmacro{cite:plabelyear+extrayear}}%
 % Single cite
    {\ifnameundef{labelname}
 % No author/editor
      {\usebibmacro{cite:noname}%
        \setunit{\nameyeardelim}%
-      \iffieldundef{year}
+      \iffieldundef{labelyear}
         {\usebibmacro{cite:noyear}}
-        {\usebibmacro{cite:pyear+labelyear}%
+        {\usebibmacro{cite:plabelyear+extrayear}%
          \savefield{namehash}{\cbx@lasthash}}}
 % Normal cite
      {\cbx@tempa
@@ -178,9 +177,9 @@
           {\printnames{labelname}}
           {\printnames{author}\space\printnames{shortauthor}}}%
       \setunit{\nameyeardelim}%
-      \iffieldundef{year}
+      \iffieldundef{labelyear}
         {\usebibmacro{cite:noyear}}
-        {\usebibmacro{cite:pyear+labelyear}%
+        {\usebibmacro{cite:plabelyear+extrayear}%
          \savefield{namehash}{\cbx@lasthash}}%
       \global\let\cbx@tempa=\multicitedelim}}}
 
@@ -188,7 +187,7 @@
   \iffieldequals{namehash}{\cbx@lasthash}
 % Multiple cites in one command
     {\setunit{\compcitedelim}%
-     \usebibmacro{cite:pyear+labelyear}}
+     \usebibmacro{cite:plabelyear+extrayear}}
 % Single cite
     {\cbx@tempa
      \ifnameundef{labelname}
@@ -197,7 +196,7 @@
     % Cite using title
          {\usebibmacro{cite:noname}%
           \setunit{\global\booltrue{cbx:parens}\addspace\bibleftparen}%
-          \usebibmacro{cite:pyear+labelyear}}
+          \usebibmacro{cite:plabelyear+extrayear}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
   % Normal cite with author/editor
@@ -210,12 +209,12 @@
            {\printnames{labelname}}
            {\printnames{author}\space\printnames{shortauthor}}}%
   % Year
-        \setunit{\iffieldundef{year}
+        \setunit{\iffieldundef{labelyear}
                  {\addcomma\addspace}
                  {\global\booltrue{cbx:parens}\addspace\bibleftparen}}
-        \iffieldundef{year}%
+        \iffieldundef{labelyear}%
           {\usebibmacro{cite:noyear}}%
-          {\usebibmacro{cite:pyear+labelyear}}%
+          {\usebibmacro{cite:plabelyear+extrayear}}%
         \savefield{namehash}{\cbx@lasthash}}}%
   \gdef\cbx@tempa{\ifbool{cbx:parens}
                    {\bibrightparen\global\boolfalse{cbx:parens}}
@@ -224,16 +223,19 @@
 
 \newcommand{\apashortdash}{-}
 
-\newbibmacro*{cite:pyear+labelyear}{%
+\newbibmacro*{cite:plabelyear+extrayear}{%
   \xifinlist{\thefield{entrykey}}{\cbx@parayear}
   {\setunit{\relax}}% \relax so any setunit from textcite is overriden
-  {\iffieldundef{year}
+  {\iffieldundef{labelyear}
     {}
     {\printfield[noformat]{origyear}\setunit*{\addslash}%
-       \printfield{year}%
-       \iffieldequalstr{year}{in press}
-         {\setunit{\apashortdash}\printfield{labelyear}\setunit{\relax}}% \relax just in case printfield doesn't do anything and so \setunit isn't consumed and turns up later, unwanted.
-         {\printfield{labelyear}}}%
+       \printfield{labelyear}%
+       \iffieldequalstr{labelyear}{in press}
+         {\iffieldundef{extrayear}
+           {\setunit{\relax}}
+           {\setunit{\apashortdash}}%
+         \printfield{extrayear}}
+         {\printfield{extrayear}}}%
    \listxadd\cbx@parayear{\thefield{entrykey}}}}
 
 \newbibmacro*{cite:shorthand}{%
@@ -291,21 +293,21 @@
 \newbibmacro*{nptextcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
     {\setunit{\compcitedelim}%
-     \usebibmacro{cite:pyear+labelyear}}
+     \usebibmacro{cite:plabelyear+extrayear}}
     {\cbx@tempa
      \ifnameundef{labelname}
        {\usebibmacro{cite:noname}%
 	   \setunit{%
 	     \global\booltrue{cbx:parens}%
 	     \addcomma\addspace}%
-	   \usebibmacro{cite:pyear+labelyear}}
+	   \usebibmacro{cite:plabelyear+extrayear}}
        {\printnames{labelname}%
 	\setunit{%
 	  \global\booltrue{cbx:parens}%
 	  \addcomma\addspace}%
-        \iffieldundef{year}
+        \iffieldundef{labelyear}
            {\usebibmacro{cite:noyear}}
-           {\usebibmacro{cite:pyear+labelyear}}}
+           {\usebibmacro{cite:plabelyear+extrayear}}}%
         \savefield{namehash}{\cbx@lasthash}}%
   \gdef\cbx@tempa{%
     \ifbool{cbx:parens}
@@ -321,15 +323,15 @@
 % 
 
 \newbibmacro*{citeyear}{%
-  \iffieldundef{year}
+  \iffieldundef{labelyear}
     {\cbx@tempa
      \usebibmacro{cite:noyear}%
      \usebibmacro{cite:init}}
     {\iffieldequals{namehash}{\cbx@lasthash}
        {\setunit{\compcitedelim}%
-        \usebibmacro{cite:year+labelyear}}
+        \usebibmacro{cite:labelyear+extrayear}}
        {\cbx@tempa
-        \usebibmacro{cite:year+labelyear}%
+        \usebibmacro{cite:labelyear+extrayear}%
         \savefield{namehash}{\cbx@lasthash}}}
   \global\let\cbx@tempa=\multicitedelim}
 
@@ -344,17 +346,17 @@
   \global\let\cbx@tempa=\empty
   \global\undef\cbx@lasthash}
 
-\newbibmacro*{cite:year}{%
-  \printfield{year}}
-
 \newbibmacro*{cite:labelyear}{%
   \printfield{labelyear}}
 
-\newbibmacro*{cite:year+labelyear}{%
-  \iffieldundef{year}
+\newbibmacro*{cite:extrayear}{%
+  \printfield{extrayear}}
+
+\newbibmacro*{cite:labelyear+extrayear}{%
+  \iffieldundef{labelyear}
     {}
-    {\printfield{year}%
-       \printfield{labelyear}}}
+    {\printfield{labelyear}%
+       \printfield{extrayear}}}
 
 \DeclareCiteCommand{\cite}
   {\usebibmacro{cite:init}%
