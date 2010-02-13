@@ -109,10 +109,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 3.96) Groups as names
+% (APA 6.13) Groups as names
+%            SHORTAUTHOR brackets in parencites
 
-
-\DeclareNameFormat{shortauthor}{\ifciteseen
+\DeclareNameFormat{sabrackets}{\ifciteseen
                                  {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
                                  {\mkbibbrackets{\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}}
 
@@ -125,7 +125,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 3.96) Deal with SHORTAUTHOR fields
+% (APA 6.13) Deal with SHORTAUTHOR fields
 % (APA 3.99) Multiple same author cites in a compact citation call do not
 %            need to be repeated but the full years must be repeated with
 %            their extrayear postfixes
@@ -153,8 +153,8 @@
       \ifnameundef{shortauthor}
         {\printnames{labelname}}
         {\ifciteseen
-          {\printnames{labelname}}
-          {\printnames{author}\space\printnames{shortauthor}}}%
+          {\printnames{shortauthor}}
+          {\printnames{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\nameyeardelim}%
       \iffieldundef{labelyear}
         {\usebibmacro{cite:noyear}}
@@ -164,7 +164,7 @@
 
 \newbibmacro*{textcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
-% Multiple cites in one command
+% Compact cite - more than one thing for same author
     {\setunit{\compcitedelim}%
      \usebibmacro{cite:plabelyear+extrayear}}
 % Single cite
@@ -185,12 +185,18 @@
          {\printnames{labelname}}
     % Cite using short author
          {\ifciteseen
-           {\printnames{labelname}}
-           {\printnames{author}\space\printnames{shortauthor}}}%
+           {\printnames{shortauthor}}
+           {\printnames{author}}}%
   % Year
         \setunit{\iffieldundef{labelyear}
-                 {\addcomma\addspace}
+                 {\nameyeardelim}
                  {\global\booltrue{cbx:parens}\addspace\bibleftparen}}
+  % Put the shortauthor inside the year brackets if necessary
+        \ifnameundef{shortauthor}
+         {}
+         {\ifciteseen
+           {}
+           {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
         \iffieldundef{labelyear}%
           {\usebibmacro{cite:noyear}}%
           {\usebibmacro{cite:plabelyear+extrayear}}%
@@ -212,8 +218,7 @@
            {\setunit{\relax}}
            {\setunit{\apashortdash}}%
          \printfield{extrayear}}
-         {\printfield{extrayear}}}%
-   \listxadd\cbx@parayear{\thefield{entrykey}}}
+         {\printfield{extrayear}}}}%
 
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
@@ -244,6 +249,11 @@
 %             Strings defined in apa.bbx
 
 \newbibmacro*{cite:noyear}{%
+  \ifnameundef{shortauthor}
+    {}
+    {\ifciteseen
+      {}
+      {\printnames{shortauthor}\setunit{\nameyeardelim}}}
   \printtext{\biblcstring{nodate}}}
 
 %
@@ -264,7 +274,7 @@
      {}
      {\ifbool{cbx:parens}
         {\postnotedelim}
-	{\addcomma\addspace}%
+	{\nameyeardelim}%
       \printfield{postnote}}}
 
 \newbibmacro*{nptextcite}{%
@@ -276,12 +286,12 @@
        {\usebibmacro{cite:noname}%
 	   \setunit{%
 	     \global\booltrue{cbx:parens}%
-	     \addcomma\addspace}%
+	     \nameyeardelim}%
 	   \usebibmacro{cite:plabelyear+extrayear}}
        {\printnames{labelname}%
 	\setunit{%
 	  \global\booltrue{cbx:parens}%
-	  \addcomma\addspace}%
+	  \nameyeardelim}%
         \iffieldundef{labelyear}
            {\usebibmacro{cite:noyear}}
            {\usebibmacro{cite:plabelyear+extrayear}}}%
