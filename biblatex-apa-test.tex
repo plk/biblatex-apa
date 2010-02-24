@@ -10,10 +10,10 @@
 \MakeShortVerb{\|}
 
 % Biblatex
-\usepackage[citestyle=apa,%
-            bibstyle=apa,%
-            bibtex8=true,%
-            bibencoding=inputenc]{biblatex}
+\usepackage[style=apa,%
+            backend=biber,%
+            bibencoding=inputenc,%
+            uniquename=false]{biblatex}
 
 \newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
                        {\textcolor{blue}{\texttt{(APA #2)}}}%
@@ -164,44 +164,44 @@ to pretend that the parenthetical examples are the first in the text.
 \end{tabular}
 \end{center}
 
-% \noindent\apa{3.96}\\
-% First cite of an author with a |SHORTAUTHOR| field in the
-% entry (usually an institution), shows the |AUTHOR| and also the |SHORTAUTHOR| field:\\
-% \apaex{\textcite{3.96}}\\
-% Thereafter, just the |SHORTAUTHOR|:\\
-% \apaex{\textcite{3.96}}
+\noindent\apa{6.14}\\
+Citations of an entry with an author who shares a
+surname with another entry always appears with initials:\\
+\apaex{\textcite{6.14}}\\
+and\\
+\apaex{\textcite{7.01:3b}}\\\\
+\textcolor{red}{Note: The second citation key here is taken from the APA
+  references section as it is repeated there. This example is currently impossible to automate as
+  it is, due to the nature of name list parsing in BibTeX. Disambiguation
+  works between single names and not names within lists at the moment. See
+ |biblatex-apa| docs. This is planned to be fully supported with |biblatex|
+ 2.x which should include the necessary underlying functionality}.
 
-% \noindent\apa{3.97}\\
-% Use |SHORTTITLE| field of the entry if it exists:\\
-% \apaex{\parencite{3.97a}}\\
-% Books, reports etc. use italics instead of quotes:\\
-% \apaex{\textcite{3.97b}}
+\noindent\apa{6.15}\\
+Use |SHORTTITLE| field of the entry if it exists:\\
+\apaex{\parencite{6.15a}}\\
+Books, reports etc. use italics instead of quotes:\\
+\apaex{\textcite{6.15b}}
+Citing anonymous author:\\
+\apaex{\textcite{6.15c}}
 
-% \noindent\apa{3.98}\\
-% Citations of an entry with an author who shares a
-% surname with another entry always appears with initials:\\
-% \apaex{\textcite{3.98a}}\\
-% and\\
-% \apaex{\textcite{3.98b}}\\
-% \textcolor{red}{Note: The second example in \apa{3.98} is currently
-%   impossible to automate because of name list parsing in BibTeX. See
-%  |biblatex-apa| docs}.
+\noindent\apa{6.16}\\
+Two or more works withing the same parentheses:\\
+\apaex{\parencite{6.16a,6.16b}}\\
+\apaex{\parencite{6.16c,6.16d,6.16e}}
 
-% \noindent\apa{3.99}\\
-% Citations of different works by the same author in a
-% compact style:\\
-% \apaex{\parencite{3.99a,3.99b}}\\
-% \apaex{\parencite{3.99c,3.99d,3.99e}}
+\noindent Citations of works by same authors in the same  year:\\
+\apaex{\parencite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\\\
+\textcolor{red}{Note: This example, (p. 178 APA Manual 6th edition, 2nd
+  printing) is slightly odd as the ``in-press-a'' is not indicated and
+  should be ``in-press'' since no other in press items are listed for the
+  same authors in the example.}
 
-% \noindent Citations of works by same authors in the same
-% year:\\
-% \apaex{\parencite{3.99f,3.99g,3.99h,3.99i,3.99j,3.99k}}
+\noindent Compact citations in alphabetic order:\\
+\apaex{\parencite{6.16k,6.16l}}
 
-% \noindent Compact citations in alphabetic order:\\
-% \apaex{\parencite{3.99l,3.99m,3.99n}}
-
-% \noindent Compact citations with special order:\\
-% \apaex{\parencites{3.99o}[see also][]{3.99p,3.99q}}
+\noindent Compact citations with special order:\\
+\apaex{\parencites{6.16m}[see also][]{6.16n,6.16o}}
 
 % \noindent\apa{3.100}\\
 % Old works with no sensible year use translation
