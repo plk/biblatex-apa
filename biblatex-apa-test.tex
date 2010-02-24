@@ -203,29 +203,38 @@ Two or more works withing the same parentheses:\\
 \noindent Compact citations with special order:\\
 \apaex{\parencites{6.16m}[see also][]{6.16n,6.16o}}
 
-% \noindent\apa{3.100}\\
-% Old works with no sensible year use translation
-% postnote.\\
-% \textcolor{red}{Note: The example in the APA manual cannot be
-%   automatically format as presented as it is using a citation infix
-%   (``trans.'' between the name and year) which is not supported by
-%   |biblatex|. However, it also allows a postnote after the year, which is fine}:\\
-% \apaex{\parencite[][Pakaluk translation]{3.100a}}\\
-% Entries with an |ORIGYEAR| field will automatically use it:\\
-% \apaex{\textcite{3.100b}}
+\noindent\apa{6.17}\\
+Secondary sources:\\
+\apaex{\parencite[as cited in][]{6.17}}\\
 
-% \noindent\apa{3.101}\\
-% These examples are easily dealt with using standard |biblatex| functionality.\\
-% \apaex{\parencite[][332]{3.101a}}\\
-% \apaex{\parencite[][chap. 3]{3.101b}}\\
-% \apaex{\parencite[][5]{3.101c}}\\
-% \apaex{\parencite[][Conclusion section, para. 1]{3.101d}}
+\noindent\apa{6.18}\\
+Classical works:\\
+\apaex{(\citeauthor{6.18a}, trans. \citeyear{6.18a})}\\
+\textcolor{red}{Note: The example is managed using lower-level cite
+  commands. This is another example of the APA not really thinking about
+  automated processing and specifying an anomalous infix format. It would
+  be better and probably acceptable for it to be:}\\
+\apaex{\parencite[][trans.]{6.18a}}\\\\
+Entries with an |ORIGYEAR| field will automatically use it:\\
+\apaex{\textcite{6.18b}}\\\\
+The other examples of standard classical texts in this section should just
+be typed by hand--there is little benefit to automating these examples and
+they wouldn't usually be in the References section anyway.
 
-% \noindent\apa{3.103}\\
-% Within parentheses, use the |\nptextcite| command which is equivalent to
-% the |\textcite| command but omits the parenthesis and uses commas instead.
-% See the |biblatex-apa| docs. The example from the APA manual:\\
-% \apaex{(\nptextcite[see Table 2 of][]{3.103a} for complete data)}
+\noindent\apa{6.19}\\
+These examples are easily dealt with using standard |biblatex| functionality.\\
+\apaex{\parencite[][10]{6.19a}}\\
+\apaex{\parencite[][Chapter 3]{6.19b}}\\
+
+\noindent\apa{6.20}\\
+Such cases are just typed out--they have no Reference section entry and
+don't therefore have a bibliography database entry.
+
+\noindent\apa{6.21}\\
+Within parentheses, use the |\nptextcite| command which is equivalent to
+the |\textcite| command but omits the parenthesis and uses commas instead.
+See the |biblatex-apa| docs.\\
+\apaex{(\nptextcite[see Table 3 of][]{6.21} for complete data)}
 
 % \subsection*{Citation examples mentioned in the APA guidelines on References}
 
