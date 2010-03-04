@@ -176,7 +176,7 @@
 % (APA 6.25) Works by the same author have the full author
 %            name, not an eliding dash. Author is always
 %            last name first.
-% (APA 7.01 Example 2) Ellipsis in 7th position and then nothing until last
+% (APA 6.27) Ellipsis in 7th position and then nothing until last
 
 \DeclareNameFormat{apaauthor}{%
   \ifthenelse{\value{listcount}=7}
@@ -197,10 +197,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.25) References section delimiters are ampersands, not " and "
+% (APA 6.27) References section delimiters are ampersands, not " and "
 %            Needs to be in this hook otherwise it sets this for all
 %            citations too.
-% (APA 7.01 Example 2) Use blank for long lists
+% (APA 6.27) Use blank for long lists
 
 \AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
     \ifthenelse{\value{listcount}>7}
@@ -221,17 +221,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.09) Use "(n.d.)." for references with no year. This depends
+% (APA 6.28) Use "(n.d.)." for references with no year. This depends
 %            on the noyear macros and strings from apa.cbx
-% (APA 4.09) Months and days go into parenthesis with year, if set
+%            Months and days go into parenthesis with year, if set
 % (APA 4.16 Example 7) Issue goes where month normally goes if it
 %            is set.
+
+% Make sure endmonth gets an expansion too
+\DeclareFieldFormat{endmonth}{\mkbibmonth{#1}}
 
 \newbibmacro*{monthorissue}{%
   \iffieldundef{issue}
     {\iffieldundef{month}
       {}
-      {\addcomma\space\printfield{month}}}
+      {\addcomma\space\printfield{month}%
+      \iffieldundef{endmonth}{}{/\printfield{endmonth}}}}
     {\addcomma\space\printfield{issue}}}
 
 \newbibmacro*{labelyear+extrayear}{%
@@ -271,8 +275,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.11) Articles that aren't newspapers don't have
-%            prefix for pages.
+% (APA 7.01 Example 10) Articles that aren't newspapers don't have
+%                       prefix for pages.
 
 \DeclareFieldFormat[article]{pages}{\iffieldequalstr{entrysubtype}{newspaper}
                                       {\mkpageprefix{#1}}
@@ -462,7 +466,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 9,10,11) Even non-numeral pages need prefix
+% (APA 7.01 Example 20) Even non-numeral pages need prefix
 
 \NumCheckSetup{\ifcurrentfield{pages}
   {\DeclareNumChars{.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}}
