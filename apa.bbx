@@ -173,16 +173,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.04) Works by the same author have the full author
+% (APA 6.25) Works by the same author have the full author
 %            name, not an eliding dash. Author is always
 %            last name first.
 % (APA 7.01 Example 2) Ellipsis in 7th position and then nothing until last
 
-\DeclareNameFormat{apaauthor}{\ifthenelse{\value{listcount}=7}
-                               {\addcomma\addspace\ldots}
-                               {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
-                                 {}
-                                 {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}
+\DeclareNameFormat{apaauthor}{%
+  \ifthenelse{\value{listcount}=7}
+    {\addcomma\addspace\ldots}
+    {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
+      {}
+      {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}
 
 \renewbibmacro*{author}{%
   \ifnameundef{author}
@@ -196,16 +197,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.08) References section delimiters are ampersands, not " and "
+% (APA 6.25) References section delimiters are ampersands, not " and "
 %            Needs to be in this hook otherwise it sets this for all
 %            citations too.
-% (APA 4.16 Example 4) \finalandcomma also before \andothersdelim
+% (APA 7.01 Example 2) Use blank for long lists
 
 \AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
     \ifthenelse{\value{listcount}>7}
       {}
-      {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}}%
-  \renewcommand*{\andothersdelim}{\finalandcomma\space}}
+      {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -882,48 +882,46 @@
 \DeclareFieldFormat{urldate}{#1}
 \DeclareFieldFormat{eprinttype}{#1}
 
-% \renewbibmacro*{url+urldate}{%
-%   \ifthenelse{\boolean{bbx:gnoreminfo}\OR\boolean{bbx:lnoreminfo}}
-%     {\global\boolfalse{bbx:lnoreminfo}}
-%     {\appto\@apaar{retrieved}% default
-%       \iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
-%      \ifthenelse{\iffieldundef{url}\AND%
-%                  \iffieldundef{urldate}\AND%
-%                  \iffieldundef{urlyear}}
-%        {}
-%        {\ifthenelse{\iffieldundef{entrysubtype}\OR%
-%                     \iffieldequalstr{entrysubtype}{newspaper}\OR%
-%                     \iffieldequalstr{entrysubtype}{data}}
-%          {\iffieldundef{abstract}
-%            {\printtext{\bibcpstring{\@apaar}}}
-%            {\printtext{\bibcpstring{abstract}}\addspace%
-%             \printtext{\bibstring{\@apaar}}}}
-%          {}
-%         \setunit{\addspace}%
-%         \iffieldundef{urlyear}
-%           {}
-%           {\printurldate%
-%            \setunit*{\addcomma\addspace}}
-%         \iffieldequalstr{entrysubtype}{news}%
-%           {\printtext{\bibcpstring{messagepostedto}\space}}{}%
-%         \iffieldequalstr{entrysubtype}{mailarchive}%
-%           {\printtext{\bibcpstring{messagepostedto}}%
-%            \setunit{\addspace}%
-%            \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
-%            \setunit{\addspace}%
-%            \printtext{\bibstring{emaillist}}%
-%            \setunit{\addcomma\addspace}%
-%            \printtext{\bibstring{archivedat}%
-%            \setunit{\addspace}}}{}%
-%         \ifthenelse{\iffieldundef{entrysubtype}\OR%
-%                     \iffieldequalstr{entrysubtype}{newspaper}\OR%
-%                     \iffieldequalstr{entrysubtype}{data}}
-%           {\printtext{\bibstring{from}\space}}{}%
-%         \printlist{organization}%
-%         \setunit*{\addcolon\addspace}%
-%         \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
-%         \setunit*{\addcolon\addspace}%
-%         \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}}
+\renewbibmacro*{url+urldate}{%
+    \appto\@apaar{retrieved}% default
+      \iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
+     \ifthenelse{\iffieldundef{url}\AND%
+                 \iffieldundef{urldate}\AND%
+                 \iffieldundef{urlyear}}
+       {}
+       {\ifthenelse{\iffieldundef{entrysubtype}\OR%
+                    \iffieldequalstr{entrysubtype}{newspaper}\OR%
+                    \iffieldequalstr{entrysubtype}{data}}
+         {\iffieldundef{abstract}
+           {\printtext{\bibcpstring{\@apaar}}}
+           {\printtext{\bibcpstring{abstract}}\addspace%
+            \printtext{\bibstring{\@apaar}}}}
+         {}
+        \setunit{\addspace}%
+        \iffieldundef{urlyear}
+          {}
+          {\printurldate%
+           \setunit*{\addcomma\addspace}}
+        \iffieldequalstr{entrysubtype}{news}%
+          {\printtext{\bibcpstring{messagepostedto}\space}}{}%
+        \iffieldequalstr{entrysubtype}{mailarchive}%
+          {\printtext{\bibcpstring{messagepostedto}}%
+           \setunit{\addspace}%
+           \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
+           \setunit{\addspace}%
+           \printtext{\bibstring{emaillist}}%
+           \setunit{\addcomma\addspace}%
+           \printtext{\bibstring{archivedat}%
+           \setunit{\addspace}}}{}%
+        \ifthenelse{\iffieldundef{entrysubtype}\OR%
+                    \iffieldequalstr{entrysubtype}{newspaper}\OR%
+                    \iffieldequalstr{entrysubtype}{data}}
+          {\printtext{\bibstring{from}\space}}{}%
+        \printlist{organization}%
+        \setunit*{\addcolon\addspace}%
+        \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
+        \setunit*{\addcolon\addspace}%
+        \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1434,15 +1432,18 @@
 
 \renewbibmacro*{doi+eprint+url}{%
   \iftoggle{bbx:doi}
-    {\printfield{doi}\renewcommand*{\finentrypunct}{\relax}}
+    {\printfield{doi}%
+     \iffieldundef{doi}{}{\renewcommand*{\finentrypunct}{\relax}}}
     {}%
   \newunit\newblock
   \iftoggle{bbx:eprint}
-    {\usebibmacro{eprint}\renewcommand*{\finentrypunct}{\relax}}
+    {\usebibmacro{eprint}%
+     \iffieldundef{eprint}{}{\renewcommand*{\finentrypunct}{\relax}}}
     {}%
   \newunit\newblock
   \iftoggle{bbx:url}
-    {\usebibmacro{url+urldate}\renewcommand*{\finentrypunct}{\relax}}
+    {\usebibmacro{url+urldate}%
+     \iffieldundef{url}{}{\renewcommand*{\finentrypunct}{\relax}}}
     {}}
 
 
