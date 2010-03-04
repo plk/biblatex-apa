@@ -102,28 +102,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Options and associated booleans to control suppression of 
-% URL and retrieval data if it is not desired. This is to
-% accommodate people getting .bib entries from things like
-% PubMED which always gives a URL field etc. but users may
-% not want this information displayed. URL retrieval info
-% may be suppressed at a global level (package option)
-% or on a per-entry basis
-
-% Global package option
-\newbool{bbx:gnoreminfo}
-\setboolean{bbx:gnoreminfo}{false}
-\DeclareBibliographyOption{noremoteinfo}[true]{\setboolean{bbx:gnoreminfo}{#1}}
-
-% Local per-entry option
-\newbool{bbx:lnoreminfo}
-\setboolean{bbx:lnoreminfo}{false}
-\DeclareEntryOption{noremoteinfo}[true]{\setboolean{bbx:lnoreminfo}{#1}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 4.12, 4.13) Additional material sometimes goes in parens
 %                  after title. This bool tracks the parens.
@@ -198,19 +176,21 @@
 % (APA 4.04) Works by the same author have the full author
 %            name, not an eliding dash. Author is always
 %            last name first.
-% (APA 4.16 Example 4) truncate with "et al" after 6th
+% (APA 7.01 Example 2) Ellipsis in 7th position and then nothing until last
+
+\DeclareNameFormat{apaauthor}{\ifthenelse{\value{listcount}=7}
+                               {\addcomma\addspace\ldots}
+                               {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
+                                 {}
+                                 {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}
 
 \renewbibmacro*{author}{%
   \ifnameundef{author}
     {\usebibmacro{labeltitle}%
      \setunit*{\addspace}}
-    {\printnames[][1-7]{author}%
+    {\printnames[apaauthor]{author}%
      \newunit\newblock}%
   \usebibmacro{labelyear+extrayear}}
-
-\DeclareNameFormat{author}{\ifthenelse{\value{listcount}=7}
-                               {\printtext{\andothersdelim\bibstring{andothers}}}
-                               {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -222,9 +202,10 @@
 % (APA 4.16 Example 4) \finalandcomma also before \andothersdelim
 
 \AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
-                       \ifnum\value{liststop}>1 \finalandcomma\fi
-                       \addspace\&\space}%
-                     \renewcommand*{\andothersdelim}{\finalandcomma\space}}
+    \ifthenelse{\value{listcount}>7}
+      {}
+      {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}}%
+  \renewcommand*{\andothersdelim}{\finalandcomma\space}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -901,48 +882,48 @@
 \DeclareFieldFormat{urldate}{#1}
 \DeclareFieldFormat{eprinttype}{#1}
 
-\renewbibmacro*{url+urldate}{%
-  \ifthenelse{\boolean{bbx:gnoreminfo}\OR\boolean{bbx:lnoreminfo}}
-    {\global\boolfalse{bbx:lnoreminfo}}
-    {\appto\@apaar{retrieved}% default
-      \iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
-     \ifthenelse{\iffieldundef{url}\AND%
-                 \iffieldundef{urldate}\AND%
-                 \iffieldundef{urlyear}}
-       {}
-       {\ifthenelse{\iffieldundef{entrysubtype}\OR%
-                    \iffieldequalstr{entrysubtype}{newspaper}\OR%
-                    \iffieldequalstr{entrysubtype}{data}}
-         {\iffieldundef{abstract}
-           {\printtext{\bibcpstring{\@apaar}}}
-           {\printtext{\bibcpstring{abstract}}\addspace%
-            \printtext{\bibstring{\@apaar}}}}
-         {}
-        \setunit{\addspace}%
-        \iffieldundef{urlyear}
-          {}
-          {\printurldate%
-           \setunit*{\addcomma\addspace}}
-        \iffieldequalstr{entrysubtype}{news}%
-          {\printtext{\bibcpstring{messagepostedto}\space}}{}%
-        \iffieldequalstr{entrysubtype}{mailarchive}%
-          {\printtext{\bibcpstring{messagepostedto}}%
-           \setunit{\addspace}%
-           \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
-           \setunit{\addspace}%
-           \printtext{\bibstring{emaillist}}%
-           \setunit{\addcomma\addspace}%
-           \printtext{\bibstring{archivedat}%
-           \setunit{\addspace}}}{}%
-        \ifthenelse{\iffieldundef{entrysubtype}\OR%
-                    \iffieldequalstr{entrysubtype}{newspaper}\OR%
-                    \iffieldequalstr{entrysubtype}{data}}
-          {\printtext{\bibstring{from}\space}}{}%
-        \printlist{organization}%
-        \setunit*{\addcolon\addspace}%
-        \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
-        \setunit*{\addcolon\addspace}%
-        \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}}
+% \renewbibmacro*{url+urldate}{%
+%   \ifthenelse{\boolean{bbx:gnoreminfo}\OR\boolean{bbx:lnoreminfo}}
+%     {\global\boolfalse{bbx:lnoreminfo}}
+%     {\appto\@apaar{retrieved}% default
+%       \iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
+%      \ifthenelse{\iffieldundef{url}\AND%
+%                  \iffieldundef{urldate}\AND%
+%                  \iffieldundef{urlyear}}
+%        {}
+%        {\ifthenelse{\iffieldundef{entrysubtype}\OR%
+%                     \iffieldequalstr{entrysubtype}{newspaper}\OR%
+%                     \iffieldequalstr{entrysubtype}{data}}
+%          {\iffieldundef{abstract}
+%            {\printtext{\bibcpstring{\@apaar}}}
+%            {\printtext{\bibcpstring{abstract}}\addspace%
+%             \printtext{\bibstring{\@apaar}}}}
+%          {}
+%         \setunit{\addspace}%
+%         \iffieldundef{urlyear}
+%           {}
+%           {\printurldate%
+%            \setunit*{\addcomma\addspace}}
+%         \iffieldequalstr{entrysubtype}{news}%
+%           {\printtext{\bibcpstring{messagepostedto}\space}}{}%
+%         \iffieldequalstr{entrysubtype}{mailarchive}%
+%           {\printtext{\bibcpstring{messagepostedto}}%
+%            \setunit{\addspace}%
+%            \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
+%            \setunit{\addspace}%
+%            \printtext{\bibstring{emaillist}}%
+%            \setunit{\addcomma\addspace}%
+%            \printtext{\bibstring{archivedat}%
+%            \setunit{\addspace}}}{}%
+%         \ifthenelse{\iffieldundef{entrysubtype}\OR%
+%                     \iffieldequalstr{entrysubtype}{newspaper}\OR%
+%                     \iffieldequalstr{entrysubtype}{data}}
+%           {\printtext{\bibstring{from}\space}}{}%
+%         \printlist{organization}%
+%         \setunit*{\addcolon\addspace}%
+%         \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
+%         \setunit*{\addcolon\addspace}%
+%         \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -987,7 +968,7 @@
   \iffieldundef{addendum}{}{\renewcommand*{\finentrypunct}{\relax}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.x) General type layouts
+% (APA 7.x) General type layouts
 
 \DeclareBibliographyDriver{article}{%
   \usebibmacro{bibindex}%
@@ -1002,7 +983,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1025,7 +1006,7 @@
   \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1046,7 +1027,7 @@
   \newunit\newblock
   \usebibmacro{location+year}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1069,7 +1050,7 @@
   \newunit\newblock
   \printlist{organization}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1090,7 +1071,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1117,7 +1098,7 @@
   \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1144,7 +1125,7 @@
   \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1177,7 +1158,7 @@
   \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1204,7 +1185,7 @@
   \newunit
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1229,7 +1210,7 @@
   \newunit\newblock
   \printlist{location}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1242,7 +1223,7 @@
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \addperiod\addspace
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1270,7 +1251,7 @@
   \newunit\newblock
   \usebibmacro{date}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1293,7 +1274,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1313,7 +1294,7 @@
   \newunit\newblock
   \usebibmacro{report:retrinfo}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1332,7 +1313,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1353,7 +1334,7 @@
   \setunit{\bibpagespunct}%
   \printfield{pages}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1422,7 +1403,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1442,7 +1423,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{url+urldate}%
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}
@@ -1451,19 +1432,65 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\renewbibmacro*{doi+eprint+url}{%
+  \iftoggle{bbx:doi}
+    {\printfield{doi}\renewcommand*{\finentrypunct}{\relax}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}\renewcommand*{\finentrypunct}{\relax}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:url}
+    {\usebibmacro{url+urldate}\renewcommand*{\finentrypunct}{\relax}}
+    {}}
+
+
+\DeclareFieldFormat{doi}{%
+  doi\addcolon\space
+  \ifhyperref
+    {\href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
+    {\nolinkurl{#1}}}
+
+\newbibmacro*{location+publisher}{%
+  \printlist{location}%
+  \setunit*{\addcolon\space}%
+  \printlist{publisher}%
+  \newunit}
+
+\newbibmacro*{type+institution+year}{%
+  \ifthenelse{\iffieldundef{eid}}
+    {\printtext[parens]{%
+       \iflistundef{institution}
+         {\setunit*{\addspace}}
+         {\setunit*{\addcolon\space}}%
+       \printfield{type}%
+       \setunit*{\addcomma\space}%
+       \printlist{institution}%
+       \setunit*{\addcomma\space}%
+       \printfield{labelyear}}%
+     \newunit}
+    {}}
 
 
 
+% Unchanged from authoryear-comp (biblatex v0.9)
 
-
-
-
-% Unchanged from authoryear-comp (biblatex v0.8)
+\DeclareBibliographyOption{dashed}[true]{%
+  \ifstrequal{#1}{true}
+    {\ExecuteBibliographyOptions{pagetracker}%
+     \renewbibmacro*{bbx:savehash}{\savefield{fullhash}{\bbx@lasthash}}}
+    {\ExecuteBibliographyOptions{pagetracker=false}%
+     \renewbibmacro*{bbx:savehash}{}}}
 
 \DeclareFieldFormat{shorthandwidth}{#1}
 \renewcommand*{\thebibitem}{\item}
 \renewcommand*{\thelositem}{\item}
 \setlength{\bibitemsep}{0pt}
+
+\DeclareNameAlias{author}{sortname}
+\DeclareNameAlias{editor}{sortname}
+\DeclareNameAlias{translator}{sortname}
 
 \renewenvironment*{thebibliography}
   {\list
@@ -1489,6 +1516,15 @@
 \InitializeBibliographyStyle{%
   \global\undef\bbx@lasthash}
 
+\newbibmacro*{bbx:savehash}{%
+  \savefield{fullhash}{\bbx@lasthash}}
+
+\newbool{bbx@inset}
+\DeclareBibliographyDriver{set}{%
+  \booltrue{bbx@inset}%
+  \entryset{}{}%
+  \finentry}
+
 \newbibmacro*{labeltitle}{%
   \iffieldundef{label}
     {\iffieldundef{shorttitle}
@@ -1496,54 +1532,5 @@
         \clearfield{title}}
        {\printfield[title]{shorttitle}}}
     {\printfield{label}}}
-
-\renewbibmacro*{issue+date}{%
-  \ifthenelse{\iffieldundef{issue}\AND\iffieldundef{month}}
-    {}
-    {\printtext[parens]{%
-       \iffieldundef{issue}
-         {\iffieldundef{day}
-            {\printfield{month}%
-             \setunit{\addspace}%
-             \printfield{labelyear}}
-            {\printdate}}
-         {\printfield{issue}%
-          \setunit{\addspace}%
-          \printfield{labelyear}}}}%
-  \newunit}
-
-\newbibmacro*{location+publisher}{%
-  \printlist{location}%
-  \setunit*{\addcolon\space}%
-  \printlist{publisher}%
-  \newunit}
-
-\newbibmacro*{type+institution+year}{%
-  \ifthenelse{\iffieldundef{eid}}
-    {\printtext[parens]{%
-       \iflistundef{institution}
-         {\setunit*{\addspace}}
-         {\setunit*{\addcolon\space}}%
-       \printfield{type}%
-       \setunit*{\addcomma\space}%
-       \printlist{institution}%
-       \setunit*{\addcomma\space}%
-       \printfield{labelyear}}%
-     \newunit}
-    {}}
-
-\newbibmacro*{location}{%
-  \printlist{location}}
-
-\renewbibmacro*{date}{%
-  \iffieldundef{labelyear}
-    {}
-    {\iffieldundef{month}
-       {}
-       {\iffieldundef{day}
-          {\printfield{month}%
-           \setunit{\addspace}%
-           \printfield{labelyear}}
-          {\printdate}}}}
 
 \endinput
