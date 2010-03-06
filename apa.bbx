@@ -177,13 +177,16 @@
 %            name, not an eliding dash. Author is always
 %            last name first.
 % (APA 6.27) Ellipsis in 7th position and then nothing until last
+% (APA 7.10 Example 67) Unknown names and dates
 
 \DeclareNameFormat{apaauthor}{%
   \ifthenelse{\value{listcount}=7}
     {\addcomma\addspace\ldots}
     {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
       {}
-      {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}
+      {\ifthenelse{\iffieldequalstr{usere}{unkauth}\OR\iffieldequalstr{usere}{unkauthdate}}
+        {\mkbibbrackets{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}?}}
+        {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}}
 
 \renewbibmacro*{author}{%
   \ifnameundef{author}
@@ -232,6 +235,7 @@
 % (APA 4.16 Example 7) Issue goes where month normally goes if it
 %            is set.
 
+
 % Make sure endmonth gets an expansion too
 \DeclareFieldFormat{endmonth}{\mkbibmonth{#1}}
 
@@ -247,13 +251,19 @@
   \iffieldundef{labelyear}
     {\iffieldundef{origyear}
       {\printtext[parens]{\usebibmacro{cite:noyear}}}
-      {\printtext[parens]{\printfield[noformat]{origyear}}}}
+      {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}
     {\ifthenelse{\iffieldundef{month}\AND\iffieldundef{issue}}
-       {\printtext[parens]{\printfield{labelyear}\printfield{extrayear}}}
+       {\printtext[yearorunkyear]{\printfield{labelyear}\printfield{extrayear}}}
        {\iffieldundef{day}
-          {\printtext[parens]{\printfield{labelyear}%
+          {\printtext[yearorunkyear]{\printfield{labelyear}%
            \usebibmacro{monthorissue}}}
           {\printtext[parens]{\printdate}}}}}
+
+
+\DeclareFieldFormat{yearorunkyear}{%
+  \ifthenelse{\iffieldequalstr{usere}{unkdate}\OR\iffieldequalstr{usere}{unkauthdate}}
+    {\mkbibbrackets{ca\adddot\addspace#1}}
+    {\mkbibparens{#1}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -805,13 +815,13 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.05) Unpublished theses
 
 \DeclareFieldFormat[unpublished]{title}{\mkbibemph{#1}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.06) Reviews
@@ -953,6 +963,16 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% (APA 7.10) Letters
+
+
+\DeclareFieldFormat[letter]{title}{\iffieldequalstr{entrysubtype}{collection}{#1}{\mkbibbrackets{#1}}}
+\DeclareFieldFormat[letter]{number}{\mkbibparens{#1}}
+
+%
+%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%
 % (APA 6.31) URLs
@@ -1418,6 +1438,27 @@
   \printfield{note}%
   \newunit\newblock
   \printlist{organization}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \usebibmacro{apa:finpunct}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{letter}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \printlist{institution}%
+  \setunit{\addspace}\newblock
+  \printfield{number}%
+  \newunit\newblock
+  \printfield{note}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock

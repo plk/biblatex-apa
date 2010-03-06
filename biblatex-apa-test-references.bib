@@ -800,12 +800,14 @@
 }
 
 % (APA 7.10 Example 63)
+% Note that this example is inconsistent in the APA 6th Edition (2nd printing) manual
+% with example 7.10:65. They differ in that 7.10:63 has a comma before the location
+% and 7.10:65 has a period. I have chosen a period for consistency.
 @LETTER{7.10:63,
   AUTHOR         = {L. K. Frank},
-  TITLE          = {{}},
+  TITLE          = {Letter to {R}obert {M}. {O}gden},
   INSTITUTION    = {Rockerfeller Archive Center},
   NUMBER         = {GEB series 1.3, Box 371, Folder 3877},
-  TITLEADDON     = {Letter to {R}obert {M}. {O}gden},
   LOCATION       = {Tarrytown, NY},
   DATE           = {1935-02-04},
 }
@@ -813,20 +815,21 @@
 % (APA 7.10 Example 64)
 @LETTER{7.10:64,
   AUTHOR         = {G. P. Zacharius},
-  TITLE          = {{}},
-  TITLEADDON     = {Letter to {W}illiam {R}ickel ({W}. {R}ickel, {T}rans.)},
+  TITLE          = {Letter to {W}illiam {R}ickel ({W}. {R}ickel, {T}rans.)},
   DATE           = {1935-08-15},
   NOTE           = {Copy in possession of Hendrika Vande Kemp}
 }
 
 % (APA 7.10 Example 65)
+% ENTRYSUBTYPE is "collection" for a collection of letters
 @LETTER{7.10:65,
+  ENTRYSUBTYPE   = {collection},
   AUTHOR         = {G. W. Allport},
   TITLE          = {Correspondence},
   DATE           = {1930/1967},
   INSTITUTION    = {Gordon W. Allport Papers},
   NUMBER         = {HUG 4118.10},
-  LOCATION       = {Harvard University Archives, Cambridge, MA},
+  LOCATION       = {{Harvard University Archives, Cambridge}, MA},
 }
 
 % (APA 7.10 Example 66)
@@ -839,11 +842,11 @@
 }
 
 % (APA 7.10 Example 67)
-% Have to use ENTRYSUBTYPE to specifiy the "known" status of the AUTHOR and/or DATE.
+% Have to use USERE to specifiy the "known" status of the AUTHOR and/or DATE.
 % Defined types are "unkauth" for doubtful AUTHOR, "unkdate" for doubtful date,
 % "unkauthdate" for both doubtful.
 @UNPUBLISHED{7.10:67,
-  ENTRYSUBTYPE    = {unkauthdate},
+  USERE          = {unkauthdate},
   AUTHOR         = {A. Allport},
   TITLE          = {Marion {T}aylor Today---By the Biographer},
   YEAR           = {1937},
@@ -854,7 +857,7 @@
 % (APA 7.10 Example 68)
 @UNPUBLISHED{7.10:68,
   AUTHOR         = {{Subcommitee on Mental Hygiene Personnel in School Programs}},
-  TITLE          = {Meeting of Subcommittee on Mental Hygiene Personnel in School Programs},
+  TITLE          = {{Meeting of Subcommittee on Mental Hygiene Personnel in School Programs}},
   HOWPUBLISHED   = {David Chakow Papers (M1360)},
   LOCATION       = {{Archives of the History of American Psychology, University of Akron, Akron}, OH},
   DATE           = {1949-11-05/1949-11-06}
@@ -862,20 +865,22 @@
 
 % (APA 7.10 Example 69)
 @MISC{7.10:69,
-  ENTRYSUBTYPE   = {interview},
-  AUTHOR         = {M. B., Smith},
+  AUTHOR         = {M. B. Smith},
   TITLE          = {Interview by {C}. {A}. {K}iesler},
-  TITLEADDON     = {Tape Recording},
-  INSTITUTUTION  = {President's Oral History Project, American Psychological Association},
+  ENTRYSUBTYPE   = {Tape Recording},
+  HOWPUBLISHED   = {President's Oral History Project, American Psychological Association},
   LOCATION       = {APA Archives, Washington, DC},
   DATE           = {1989-08-12},
 }
 
 % (APA 7.10 Example 70)
+% Note that this example is inconsistent in the APA 6th Edition (2nd printing) manual
+% with example 7.10:69. They differ in that 7.10:69 has a period before the location
+% and 7.10:70 has a comma. I have chosen a period for consistency.
 @UNPUBLISHED{7.10:70,
   AUTHOR         = {C. F. Sparkman},
-  TITLE          = {An Oral History with {D}r. {C}olley {F}. {S}parkman/Interviewer: {O}rley {B}. {C}audill},
-  HOWPUBLISHED   = {Oral History Program (Vol. 289)},
+  TITLE          = {An Oral History with {D}r. {C}olley {F}. {S}parkman/{I}nterviewer: {O}rley {B}. {C}audill},
+  HOWPUBLISHED   = {Mississippi Oral History Program (Vol. 289)},
   LOCATION       = {University of Southern Mississippi, Hattiesburg},
   DATE           = {1973}
 }
@@ -883,7 +888,7 @@
 % (APA 7.10 Example 71)
 @MISC{7.10:71,
   TITLE          = {Psychoanalysis Institute to Open},
-  TITLEADDON     = {Clipping from an unidentified Dayton, OH newspaper},
+  ENTRYSUBTYPE   = {Clipping from an unidentified Dayton, OH newspaper},
   DATE           = {1948-09-18},
   NOTE           = {Copy in possession of author}
 }
