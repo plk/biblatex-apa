@@ -574,14 +574,17 @@
 }
 
 % (APA 7.06 Example 45)
-% Use TITLEADDON to specify the reviewed item
-% Use ORIGTITLE/ORIGTITLEADDON to specify the reviewed item title
+% Use ENTRYSUBTYPE to specify the reviewed item
+% Use ORIGTITLE to specify the reviewed item title
+% Use VERBA to specify the reviewed item original author until BibLaTeX gets a
+%   ORIGAUTHOR or ORIGTITLEADDON or similar
+
 @REVIEW{7.06:45,
   AUTHOR         = {B. R. Shatz},
   TITLE          = {Learning By Text or Context?},
-  TITLEADDON     = {Review of the book},
+  ENTRYSUBTYPE   = {Review of the book},
   ORIGTITLE      = {The Social Life of Information},
-  ORIGTITLEEADDON = {by J. S. Brown \& P. Duguid},
+  VERBA          = {by J. S. Brown & P. Duguid},
   JOURNALTITLE   = {Science},
   VOLUME         = {290},
   PAGES          = {1304},
@@ -593,9 +596,9 @@
 @REVIEW{7.06:46,
   AUTHOR         = {A. Axelman and J. L. Shapiro},
   TITLE          = {Does the Solution Warrant the Problem?},
-  TITLEADDON     = {Review of the {DVD}},
+  ENTRYSUBTYPE   = {Review of the {DVD}},
   ORIGTITLE      = {Brief Therapy With Adolescents},
-  ORIGTITLEADDON = {produced by the American Psychological Association, 2007},
+  VERBA          = {produced by the American Psychological Association, 2007},
   JOURNALTITLE   = {PsycCRITIQUES},
   VOLUME         = {52},
   NUMBER         = {51},
@@ -606,23 +609,20 @@
 
 % (APA 7.06 Example 47)
 @REVIEW{7.06:47,
-  TITLEADDON     = {Review of the video game},
+  ENTRYSUBTYPE   = {Review of the video game},
   ORIGTITLE      = {BioShock},
-  ORIGTITLEADDON = {produced by 2K Games, 2007},
+  VERBA          = {produced by 2K Games, 2007},
   URL            = {http://www.wattheyplay.com/products/bioshock-for-xbox-360/?fm=3&ob=1&t=0#166},
 
 }
 
 % (APA 7.06 Example 48)
-% ENTRYSUBTYPE says this is a review of a paper which needs different formatting for
-% ORIGTITLE
 @REVIEW{7.06:48,
-  ENTRYSUBTYPE   = {paper},
   AUTHOR         = {K. S. Wolf},
   TITLE          = {The Future for {D}eaf Individuals is Not That Bleak},
-  TITLEADDON     = {Peer commentary on the paper},
-  ORIGTITLE      = {Decrease of Deaf Potential in a Mainstreamed Environment},
-  ORIGTITLEADDON = {by K. S. Wolf},
+  ENTRYSUBTYPE   = {Peer commentary on the paper},
+  ORIGTITLE      = {``Decrease of Deaf Potential in a Mainstreamed Environment''},
+  VERBA          = {by K. S. Wolf},
   DATE           = {2005},
   URL            = {http://www.personalityresearch.org/papers/hal.htm#wolf}
 }

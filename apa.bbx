@@ -802,7 +802,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 56) Unpublished theses
+% (APA 7.05) Unpublished theses
 
 \DeclareFieldFormat[unpublished]{title}{\mkbibemph{#1}}
 
@@ -810,23 +810,51 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 63,64) Reviews
+% (APA 7.06) Reviews
 
 \DeclareFieldFormat[review]{title}{#1}
+\DeclareFieldFormat[review]{origtitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[review]{pages}{#1}
 \DeclareFieldFormat[review]{volume}{\mkbibemph{\apanum{#1}}}
 \DeclareFieldFormat[review]{number}{\mkbibparens{\apanum{#1}}}
 
+\newbibmacro*{reviewauthor}{%
+  \ifnameundef{author}
+    {\usebibmacro{reviewlabeltitle}}
+    {\printnames[apaauthor]{author}}%
+  \newunit\newblock%
+  \usebibmacro{labelyear+extrayear}}
+
+\newbibmacro*{reviewlabeltitle}{%
+  \iffieldundef{label}
+    {\usebibmacro{reviewof}%
+     \clearfield{entrysubtype}%
+     \clearfield{origtitle}%
+     \clearfield{verba}}
+    {\printfield{label}}}
+
+\newbibmacro*{reviewtitle}{%
+  \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
+    {\printtext{}}% Dummy printtext as we do want to record that we output
+                  % a title for the punctuation tracker
+    {\printtext[title]{%
+        \printfield[apacase]{title}%
+        \setunit{\subtitlepunct}%
+        \printfield[apacase]{subtitle}}%
+     \setunit{\addspace}%
+     \printfield{titleaddon}}}
+
 \newbibmacro*{reviewof}{%
-  \iffieldundef{booktitle}
+  \iffieldundef{origtitle}
     {}
     {\printtext[brackets]{%
-     \bibcpstring{reviewof}\addspace%
      \printfield{entrysubtype}\addspace%
-     \printtext[booktitle]{%
-       \printfield[apacase]{booktitle}%
+     \printtext[origtitle]{%
+       \printfield[apacase]{origtitle}%
        \setunit{\subtitlepunct}%
-       \printfield[apacase]{booksubtitle}}}}}
+       \printfield[apacase]{origsubtitle}}%
+       \setunit{\addcomma\addspace}%       
+       \printfield{verba}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -906,50 +934,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16) (Section I) URLs and dates
+% (APA 6.31) URLs
 
 \DeclareFieldFormat{url}{\url{#1}}
 \DeclareFieldFormat{urldate}{#1}
 \DeclareFieldFormat{eprinttype}{#1}
 
 \renewbibmacro*{url+urldate}{%
-    \appto\@apaar{retrieved}% default
-      \iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
-     \ifthenelse{\iffieldundef{url}\AND%
-                 \iffieldundef{urldate}\AND%
-                 \iffieldundef{urlyear}}
+     \appto\@apaar{retrieved}% default
+     \ifthenelse{\iffieldundef{url}}
        {}
-       {\ifthenelse{\iffieldundef{entrysubtype}\OR%
-                    \iffieldequalstr{entrysubtype}{newspaper}\OR%
-                    \iffieldequalstr{entrysubtype}{data}}
-         {\iffieldundef{abstract}
-           {\printtext{\bibcpstring{\@apaar}}}
-           {\printtext{\bibcpstring{abstract}}\addspace%
-            \printtext{\bibstring{\@apaar}}}}
-         {}
+       {\iffieldundef{abstract}
+         {\printtext{\bibcpstring{\@apaar}}}
+         {\printtext{\bibcpstring{abstract}}\addspace%
+           \printtext{\bibstring{\@apaar}}}
         \setunit{\addspace}%
         \iffieldundef{urlyear}
           {}
           {\printurldate%
            \setunit*{\addcomma\addspace}}
-        \iffieldequalstr{entrysubtype}{news}%
-          {\printtext{\bibcpstring{messagepostedto}\space}}{}%
-        \iffieldequalstr{entrysubtype}{mailarchive}%
-          {\printtext{\bibcpstring{messagepostedto}}%
-           \setunit{\addspace}%
-           \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
-           \setunit{\addspace}%
-           \printtext{\bibstring{emaillist}}%
-           \setunit{\addcomma\addspace}%
-           \printtext{\bibstring{archivedat}%
-           \setunit{\addspace}}}{}%
-        \ifthenelse{\iffieldundef{entrysubtype}\OR%
-                    \iffieldequalstr{entrysubtype}{newspaper}\OR%
-                    \iffieldequalstr{entrysubtype}{data}}
-          {\printtext{\bibstring{from}\space}}{}%
+        \printtext{\bibstring{from}}
         \printlist{organization}%
-        \setunit*{\addcolon\addspace}%
-        \ifbool{bbx:eprinttype}{}{\printfield{eprinttype}\global\booltrue{bbx:eprinttype}}%
         \setunit*{\addcolon\addspace}%
         \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}
 
@@ -1354,9 +1359,9 @@
 \DeclareBibliographyDriver{review}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{author}%
+  \usebibmacro{reviewauthor}%
   \setunit{\labelnamepunct}\newblock
-  \usebibmacro{title}%
+  \usebibmacro{reviewtitle}%
   \newblock
   \usebibmacro{reviewof}%
   \newunit\newblock
