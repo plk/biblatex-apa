@@ -961,22 +961,23 @@
 
 \renewbibmacro*{url+urldate}{%
      \appto\@apaar{retrieved}% default
-     \ifthenelse{\iffieldundef{url}}
+     \iffieldundef{url}
        {}
        {\iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
          \iffieldundef{abstract}
          {\printtext{\bibcpstring{\@apaar}}}
          {\printtext{\bibcpstring{abstract}}\addspace%
-           \printtext{\bibstring{\@apaar}}}
+           \printtext{\bibstring{\@apaar}}}%
         \setunit{\addspace}%
         \iffieldundef{urlyear}
           {}
           {\printurldate%
-           \setunit*{\addcomma\addspace}}
-        \printtext{\bibstring{from}}
+           \setunit*{\addcomma\addspace}}%
+        \printtext{\bibstring{from}}%
+        \setunit*{\addspace}}%
         \printlist{organization}%
         \setunit*{\addcolon\addspace}%
-        \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}
+        \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}
 
 %
 %%%%%%%%%%%%%%%%%
