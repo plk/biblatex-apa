@@ -205,7 +205,11 @@
 \AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
     \ifthenelse{\value{listcount}>7}
       {}
-      {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}}}
+      {\ifstrequal{\currentlist}{author}
+        {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
+        {\ifthenelse{\boolean{bbx:editorinauthpos}}
+          {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
+          {\addspace\&\space}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -438,8 +442,30 @@
 % (APA 4.13) Editors have first names first unless there is
 %            no author (4.16 Example 25)
 
-\DeclareNameFormat{editor}{\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}
-\DeclareNameFormat{editorinauthpos}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
+\DeclareNameFormat{apatranslator}{%
+  \ifthenelse{\value{listcount}=7}
+    {\addcomma\addspace\ldots}
+    {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
+      {}
+      {\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}}}
+
+\DeclareNameFormat{apaeditor}{%
+  \ifthenelse{\value{listcount}=7}
+    {\addcomma\addspace\ldots}
+    {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
+      {}
+      {\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}}}
+
+\DeclareNameFormat{editorinauthpos}{%
+  \ifthenelse{\value{listcount}=7}
+    {\addcomma\addspace\ldots}
+    {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
+      {}
+      {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}
+
+
+%\DeclareNameFormat{apaeditor}{\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}
+%\DeclareNameFormat{editorinauthpos}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
 
 \renewbibmacro*{author/editor}{%
   \ifnameundef{author}
@@ -452,7 +478,7 @@
     \setunit{\addspace}%
     \ifnameundef{editor}
       {}
-      {\printtext[parens]{\usebibmacro{editorstrg}}%
+      {\printtext[parens]{\usebibmacro{apaeditorstrg}{editor}}%
        % need to clear editor so we don't get an "In" clause later
        % But we also need to set a flag to say we did this so we
        % don't lose sight of the fact we once had an editor for
@@ -501,37 +527,42 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.13) Editor string in parens after author list ...
+% (APA 6.27) Editor string in parens after author list ...
 % (APA 4.16 Example 25) ... unless book and only one author
-% (APA 4.16 Example 32) Translator
-% (APA 4.16 Example 39) Collapse editor and trans if same
+% (APA 7.02 Example 21) Collapse editor and trans if same
+% (APA 7.02 Example 26) Translator
+
 
 % Separated out into book and in* macros because otherwise
 % this makes one ugly, huge, unreadable beast.
 
 \newbibmacro*{book:editor+trans}{%
-  \ifthenelse{\ifnameundef{editor}\AND\ifnameundef{translator}}%
+  \ifthenelse{\ifnameundef{editor}\AND%
+              \ifnameundef{editora}\AND%
+              \ifnameundef{editorb}\AND%
+              \ifnameundef{editorc}\AND%
+              \ifnameundef{translator}}%
     {}%
     {\ifnamesequal{editor}{translator}%
        {\printtext{\bibleftparen}\global\booltrue{bbx:parens}%
-        \printnames{editor}%
+        \printnames[apaeditor]{editor}%
         \setunit*{\addcomma\addspace}%
-        \usebibmacro{editorstrg}%
+        \usebibmacro{apaeditorstrg}{editor}%
         \setunit*{\addspace\&\space}%
         \printtext{\bibcpstring{translator}}%
         \ifbool{bbx:parens}{\printtext{\bibrightparen}\global\boolfalse{bbx:parens}}{}}
        {\printtext{\bibleftparen}\global\booltrue{bbx:parens}%
         \ifnameundef{editor}%
           {}%
-          {\printnames{editor}%
+          {\printnames[apaeditor]{editor}%
            \setunit{\addcomma\addspace}%
-           \usebibmacro{editorstrg}%
+           \usebibmacro{apaeditorstrg}{editor}%
            \clearname{editor}%
            \setunit{\adddot}%
            \setunit*{\addspace\&\space}}%
         \ifnameundef{translator}%
           {\setunit{}}%
-          {\printnames{translator}%
+          {\printnames[apatranslator]{translator}%
            \setunit{\addcomma\addspace}%
            \printtext{\bibcpstring{translator}}%
            \clearname{translator}%
@@ -539,41 +570,31 @@
         \ifbool{bbx:parens}{\printtext{\bibrightparen}\global\boolfalse{bbx:parens}}{}}}}
  
 \newbibmacro*{editor+trans}{%
-  \ifthenelse{\ifnameundef{editor}\AND\ifnameundef{translator}}%
+  \ifthenelse{\ifnameundef{editor}\AND%
+              \ifnameundef{editora}\AND%
+              \ifnameundef{editorb}\AND%
+              \ifnameundef{editorc}\AND%
+              \ifnameundef{translator}}%
     {}%
     {\ifnamesequal{editor}{translator}%
       {\usebibmacro{in}%
-       \printnames{editor}%
+       \printnames[apaeditor]{editor}%
        \setunit{\addspace\bibleftparen\global\booltrue{bbx:parens}}%
-       \usebibmacro{editorstrg}%
+       \usebibmacro{apaeditorstrg}{editor}%
        \setunit*{\addspace\&\space}%
        \printtext{\bibcpstring{translator}}%
        \ifbool{bbx:parens}{\printtext{\bibrightparen}\global\boolfalse{bbx:parens}}{}}
       {\ifnameundef{translator}%
         {}%
-        {\printtext[parens]{\printnames{translator}%
-           \setunit{\addcomma\addspace}%
-           \printtext{\bibcpstring{translator}}}%
+        {\setunit{\relax}%
+         \printtext[parens]{\printnames[apatranslator]{translator}%
+          \setunit{\addcomma\addspace}%
+          \printtext{\bibcpstring{translator}}}%
          \clearname{translator}%
-         \setunit{\adddot\addspace}}
-       \ifnameundef{editor}%
-        {}%
-        {\usebibmacro{in}%
-         \printnames{editor}%
-         \setunit{\addspace}%
-         \printtext[parens]{\usebibmacro{editorstrg}}%
-         \clearname{editor}%
-         \setunit{\adddot\addspace}}}}%
+         \setunit{\adddot\addspace}}%
+       \usebibmacro{in}%
+       \usebibmacro{editorx}}}%
   \newunit}
-
-\renewbibmacro*{editorstrg}{%
-  \iffieldundef{editortype}
-    {\ifthenelse{\value{editor}>1\OR\ifandothers{editor}}
-       {\bibcpstring{editors}}
-       {\bibcpstring{editor}}}
-    {\ifthenelse{\value{editor}>1\OR\ifandothers{editor}}
-         {\bibcpstring{type\thefield{editortype}s}}
-         {\bibcpstring{type\thefield{editortype}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1098,9 +1119,9 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{origyear}%
-  \newunit\newblock
   \usebibmacro{doi+eprint+url}%
+  \setunit*{\addspace}\newblock
+  \usebibmacro{origyear}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
@@ -1434,6 +1455,48 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modified, common macros
+
+\newbibmacro*{editorx}{%
+  \ifnameundef{editor}
+    {}
+    {\printnames[apaeditor]{editor}%
+     \setunit{\addspace}%
+     \printtext[parens]{\usebibmacro{apaeditorstrg}{editor}}
+     \clearname{editor}%
+     \newunit}%
+  \ifnameundef{editora}
+    {}
+    {\printnames[apaeditor]{editora}%
+     \setunit{\addspace}%
+     \printtext[parens]{\usebibmacro{apaeditorstrg}{editora}}
+     \clearname{editora}%
+     \newunit}%
+  \ifnameundef{editorb}
+    {}
+    {\printnames[apaeditor]{editorb}%
+     \setunit{\addspace}%
+     \printtext[parens]{\usebibmacro{apaeditorstrg}{editorb}}
+     \clearname{editorb}%
+     \newunit}%
+  \ifnameundef{editorc}
+    {}
+    {\printnames[apaeditor]{editorc}%
+     \setunit{\addspace}%
+     \printtext[parens]{\usebibmacro{apaeditorstrg}{editorc}}
+     \clearname{editorc}%
+     \newunit}}
+
+\newbibmacro*{apaeditorstrg}[1]{%
+  \iffieldundef{#1type}
+    {\ifthenelse{\value{#1}>1\OR\ifandothers{#1}}
+       {\bibcpstring{editors}}
+       {\bibcpstring{editor}}}
+    {\ifthenelse{\value{#1}>1\OR\ifandothers{#1}}
+         {\bibcpstring{type\thefield{#1type}s}}
+         {\bibcpstring{type\thefield{#1type}}}}}
+
 \renewbibmacro*{doi+eprint+url}{%
   \iftoggle{bbx:doi}
     {\printfield{doi}%
@@ -1477,7 +1540,8 @@
      \newunit}
     {}}
 
-
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Unchanged from authoryear-comp (biblatex v0.9)
 

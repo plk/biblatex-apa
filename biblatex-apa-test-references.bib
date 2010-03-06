@@ -268,11 +268,14 @@
 }
 
 % (APA 7.02 Example 19)
+% Note the different year to the actual example to stop bibaltex generating extrayear
+% since the APA examples pretend each example is effectively an entry from a
+% different bibliography
 @BOOK{7.02:19a,
   AUTHOR         = {M. A. Shotton},
   TITLE          = {Computer Addiction? A Study of Computer Dependency},
   TITLEADDON     = {{DX} {R}eader version},
-  YEAR           = {1989},
+  YEAR           = {1990},
   URL            = {http://www.ebbokstore.tandf.co.uk/html/index.asp}
 }
 
@@ -303,7 +306,6 @@
   VOLUME         = {4},
   PAGES          = {96--121},
   SUBTITLE       = {An Analysis of a Specimen Dream},
-  TITLEADDON     = {{A}dobe {D}igital {E}ditions version},
   DATE           = {1953},
   ORIGDATE       = {1900},
   URL            = {http://books.google.com/books},
@@ -334,9 +336,9 @@
 @INBOOK{7.02:24,
   AUTHOR         = {Strong, Jr., E. K. and R. S. Uhrbrock},
   EDITORA        = {L. Outhwaite},
-  EDITORACLASS   = {series},
+  EDITORATYPE    = {series},
   TITLE          = {Bibliography in Job Analysis},
-  BOOKTITLE      = {Personnel Research Series},
+  BOOKTITLE      = {Personnel {R}esearch {S}eries},
   BOOKSUBTITLE   = {Vol. 1. {J}ob Analysis and the Curriculum},
   PAGES          = {140--146},
   DATE           = {1923},
@@ -367,7 +369,6 @@
   LOCATION       = {Hillsdale, NJ},
   PUBLISHER      = {Erlbaum},
   YEAR           = {1988},
-  ORIGDATE       = {1970},
   ADDENDUM       = {Reprinted from Manual of child psychology, pp. 703--732, by P. H. Mussen, Ed., 1970, New York: Wiley}
 }
 
@@ -662,7 +663,7 @@
   NAMEB          = {J. Alexander},
   NAMEBTYPE      = {Director},
   EDITORA        = {D. Shore},
-  EDITORACLASS   = {Executive producer},
+  EDITORATYPE    = {Executive producer},
   TITLE          = {Failure to Communicate},
   MAINTITLE      = {House},
   LOCATION       = {New York, NY},

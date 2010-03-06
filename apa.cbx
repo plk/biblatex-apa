@@ -28,7 +28,7 @@
 \ProvidesFile{apa.cbx}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 3.99) year postfix is not emphasised or italic
+% (APA 6.16) year postfix is not emphasised or italic
 
 \DeclareFieldFormat{extrayear}{\mknumalph{#1}}
 
@@ -231,7 +231,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 3.97) Fall back to title for citations without authors
+% (APA 6.15) Fall back to title for citations without authors
 
 \DeclareFieldFormat{citetitle}{\mkbibquote{#1}}
 \DeclareFieldFormat[book]{citetitle}{\mkbibemph{#1}}
@@ -245,23 +245,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 3.100) Fall back to "n.d." for citations without dates
-%             Strings defined in apa.bbx
+% (APA 6.22) Fall back to "n.d." for citations without dates
+%            Strings defined in apa.bbx
 
 \newbibmacro*{cite:noyear}{%
   \ifnameundef{shortauthor}
     {}
     {\ifciteseen
       {}
-      {\printnames{shortauthor}\setunit{\nameyeardelim}}}
+      {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
   \printtext{\biblcstring{nodate}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 3.103) No parens round year for cites when the cite is in
-%             parentheses. Use new command \nptextcite for such cites.
+% (APA 6.21) No parens round year for cites when the cite is in
+%            parentheses. Use new command \nptextcite for such cites.
 
 \DeclareCiteCommand{\nptextcite}
   {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
