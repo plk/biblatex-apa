@@ -374,10 +374,7 @@
      \setunit{\addcomma\space}}%
   \printfield{volume}%
   \printfield{number}%
-  \setunit{\addcomma\space}%
-  \printfield{eid}%
-  \setunit{\addspace}%
-  \newunit\newblock
+  \setunit{\addspace}\newblock
   \usebibmacro{issuename}%
   \newunit}
 
@@ -779,9 +776,10 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 54,55) Theses titles and volume
+% (APA 7.02 Example 40--44) Theses titles and volume
+%                           Titles are not emph if only an abstract
 
-\DeclareFieldFormat[thesis]{title}{#1}
+\DeclareFieldFormat[thesis]{title}{\iffieldundef{abstract}{\mkbibemph{#1}}{#1}}
 \DeclareFieldFormat[thesis]{volume}{\mkbibemph{\apanum{#1}}\addspace}
 \DeclareFieldFormat[thesis]{number}{\mkbibparens{\apanum{#1}}\addspace}
 \DeclareFieldFormat[thesis]{eprinttype}{\mkbibemph{#1}\addspace}
@@ -798,12 +796,7 @@
   \printfield{eprint}
   \setunit{\addcomma\addspace}%
   \printfield{pages}
-  \iffieldundef{eid}
-    {}
-    {\renewcommand*{\finentrypunct}{\relax}%
-     \setunit{\addperiod\addspace}%
-     \printfield[parens]{eid}}
-  \setunit{}}
+  \setunit{\relax}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1543,18 +1536,16 @@
   \newunit}
 
 \newbibmacro*{type+institution+year}{%
-  \ifthenelse{\iffieldundef{eid}}
+  \ifthenelse{\iffieldundef{type}\AND\iffieldundef{institution}}
+    {}
     {\printtext[parens]{%
        \iflistundef{institution}
          {\setunit*{\addspace}}
          {\setunit*{\addcolon\space}}%
        \printfield{type}%
        \setunit*{\addcomma\space}%
-       \printlist{institution}%
-       \setunit*{\addcomma\space}%
-       \printfield{labelyear}}%
-     \newunit}
-    {}}
+       \printlist{institution}}%
+     \newunit}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
