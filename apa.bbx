@@ -188,7 +188,9 @@
 \renewbibmacro*{author}{%
   \ifnameundef{author}
     {\usebibmacro{labeltitle}}
-    {\printnames[apaauthor]{author}}%
+    {\printnames[apaauthor]{author}%
+     \setunit*{\addspace}%
+     \printfield{nameaddon}}%
   \newunit\newblock%
   \usebibmacro{labelyear+extrayear}}
 
@@ -869,7 +871,7 @@
   \ifnameundef{namea}
     {}
      {\printnames{namea}%
-      \setunit{\addspace}%
+      \newunit%
       \printtext[parens]{\printfield{nameatype}}}
   \setunit*{\addcomma\addspace\&\addspace}%
   \ifnameundef{nameb}
@@ -883,14 +885,34 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 66,67,68) Television
+%%%%%%%%%%%%%%%%%
+% (APA 7.07) Misc
 
+\DeclareNameFormat[misc]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
+\DeclareNameFormat[misc]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
+\DeclareFieldFormat[misc]{title}{\iffieldequalstr{userd}{dataset}{\mkbibemph{#1}}{#1}}
+\DeclareFieldFormat[misc]{entrysubtype}{\mkbibbrackets{#1}}
+\DeclareFieldFormat[misc]{nameaddon}{\mkbibparens{#1}}
+
+%
+%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.07) Audiovisual
+
+\DeclareNameFormat[audio]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
+\DeclareNameFormat[audio]{nameb}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
 \DeclareNameFormat[video]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
 \DeclareNameFormat[video]{nameb}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
 \DeclareNameFormat[video]{namec}{\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}
 \DeclareFieldFormat[video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}}{#1}}
 \DeclareFieldFormat[video]{maintitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[video]{entrysubtype}{\mkbibbrackets{#1}}
+\DeclareFieldFormat[audio]{entrysubtype}{\mkbibbrackets{#1}}
+\DeclareFieldFormat[music]{title}{#1}
+\DeclareFieldFormat[music]{maintitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[music]{mainsubtitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[audio]{howpublished}{\mkbibparens{#1}}
 
 \newbibmacro*{tvseries}{%
   \iffieldundef{maintitle}
@@ -902,38 +924,35 @@
         \setunit{\addspace}%
         \printtext[parens]{\printfield{namectype}}}
      \setunit{\addcomma\addspace}%
-     \usebibmacro{maintitle}%
+     \usebibmacro{avmaintitle}%
      \newunit}}
 
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 69,70) Music and audio
-
-\DeclareNameFormat[audio]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
-\DeclareNameFormat[audio]{nameb}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
+\newbibmacro*{avmaintitle}{%
+  \ifthenelse{\iffieldundef{maintitle}\AND\iffieldundef{mainsubtitle}}
+    {}
+    {\printtext[maintitle]{%
+       \printfield[apacase]{maintitle}%
+       \setunit{\subtitlepunct}%
+       \printfield[apacase]{mainsubtitle}}%
+    \setunit{\addspace}}
+  \printfield{maintitleaddon}}
 
 \newbibmacro*{on}{%
   \bibcpstring{on}\setunit{\space}}
-
-\DeclareFieldFormat[music]{title}{#1}
-\DeclareFieldFormat[music]{maintitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[music]{mainsubtitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[audio]{howpublished}{\mkbibparens{#1}}
 
 \newbibmacro*{album}{%
   \iffieldundef{maintitle}
     {}
     {\usebibmacro{on}%
      \setunit{\addspace}%
-     \usebibmacro{maintitle}%
+     \usebibmacro{avmaintitle}%
      \newunit}}
 
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%
 % (APA 6.31) URLs
 
 \DeclareFieldFormat{url}{\url{#1}}
@@ -944,7 +963,8 @@
      \appto\@apaar{retrieved}% default
      \ifthenelse{\iffieldundef{url}}
        {}
-       {\iffieldundef{abstract}
+       {\iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
+         \iffieldundef{abstract}
          {\printtext{\bibcpstring{\@apaar}}}
          {\printtext{\bibcpstring{abstract}}\addspace%
            \printtext{\bibstring{\@apaar}}}
@@ -959,7 +979,7 @@
         \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 4.16 Example 85,86,87) Non-emph titles for online messages
@@ -974,13 +994,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 92) Software has version in title
-% (APA 4.16 Example 95) Data files have emph titles
+% (APA 7.08 Example 56) Software has version in title
 
-\DeclareFieldFormat[software]{title}{\ifthenelse{\ifnameundef{author}\OR%
-                                                 \iffieldequalstr{entrysubtype}{data}}
-                                       {\mkbibemph{#1}}%
-                                       {#1}}
+\DeclareFieldFormat[software]{title}{#1}
 \DeclareFieldFormat[software]{version}{\mkbibparens{\bibcpstring{version}~#1}}
 
 \newbibmacro*{apa:softwaretitle}{%
@@ -1228,31 +1244,6 @@
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
-\DeclareBibliographyDriver{misc}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\labelnamepunct}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \printfield{howpublished}%
-  \newunit\newblock
-  \printfield{type}%
-  \newunit
-  \printfield{version}%
-  \newunit
-  \printfield{note}%
-  \newunit\newblock
-  \printlist{organization}%
-  \newunit\newblock
-  \printlist{location}%
-  \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \usebibmacro{apa:finpunct}%
-  \usebibmacro{finentry}}
-
 \DeclareBibliographyDriver{online}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
@@ -1389,16 +1380,65 @@
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
+\DeclareBibliographyDriver{misc}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \printfield{entrysubtype}%
+  \newunit\newblock
+  \printfield{howpublished}%
+  \newunit\newblock
+  \printfield{type}%
+  \newunit
+  \printfield{version}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
+  \printlist{organization}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \usebibmacro{apa:finpunct}%
+  \usebibmacro{finentry}}
+
 \DeclareBibliographyDriver{video}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
   \usebibmacro{mediaauthor}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \printfield{entrysubtype}%
   \newunit\newblock
   \usebibmacro{tvseries}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \usebibmacro{apa:finpunct}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{audio}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{mediaauthor}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \printfield{entrysubtype}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1411,20 +1451,6 @@
   \usebibmacro{title}%
   \newunit\newblock
   \usebibmacro{album}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \printfield{addendum}%
-  \usebibmacro{apa:finpunct}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{audio}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{mediaauthor}%
-  \setunit{\labelnamepunct}\newblock
-  \usebibmacro{title}%
-  \newblock
-  \printfield{howpublished}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \printfield{addendum}%

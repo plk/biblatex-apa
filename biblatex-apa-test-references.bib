@@ -634,6 +634,9 @@
 % Use NAMEA/NAMEATYPE and NAMEB/NAMEBTYPE for the two main credits. Since these are not
 % recognised as sorting fields, be sure to specify how you want the entry sorted in the
 % References section using the SORTKEY field.
+% The default string before URLs is "Retrieved from". Use USERA to override
+% "Retrieved". The contents of USERA are a bibstring defined in the lbx so don't
+% capitalise or it won't match a localisable string
 @VIDEO{7.07:49,
   ENTRYSUBTYPE   = {{DVD}},
   SORTKEY        = {American Psychological Association},
@@ -641,7 +644,7 @@
   NAMEATYPE      = {Producer},
   TITLE          = {Responding Therapeutically to Patient Expressions of Sexual Attraction},
   YEAR           = {2000},
-  URLINFO        = {Available from},
+  USERA          = {available},
   URL            = {http://www.apa.org/videos/}
 }
 
@@ -649,7 +652,7 @@
 @AUDIO{7.07:50,
   ENTRYSUBTYPE   = {Audio Podcast},
   SORTKEY        = {Van Nuys, D.},
-  NAMEA          = {D. Van Nuys},
+  NAMEA          = {D. {Van Nuys}},
   NAMEATYPE      = {Producer},
   TITLE          = {Shrink Rap Radio},
   DATE           = {2007-12-19},
@@ -664,8 +667,8 @@
   NAMEATYPE      = {Writer},
   NAMEB          = {J. Alexander},
   NAMEBTYPE      = {Director},
-  EDITORA        = {D. Shore},
-  EDITORATYPE    = {Executive producer},
+  NAMEC          = {D. Shore},
+  NAMECTYPE      = {Executive producer},
   TITLE          = {Failure to Communicate},
   MAINTITLE      = {House},
   LOCATION       = {New York, NY},
@@ -675,8 +678,8 @@
 
 % (APA 7.07 Example 52)
 @MUSIC{7.07:52,
-  ENTRYSUBTYPE      = {{CD}},
-  AUTHOR         = {k. d. lang},
+  ENTRYSUBTYPE   = {{CD}},
+  AUTHOR         = {{lang}, {k.} {d.}},
   TITLE          = {Shadow and the Frame},
   MAINTITLE      = {Watershed},
   MAINTITLEADDON = {CD},
@@ -686,24 +689,24 @@
 }
 
 % (APA 7.07 Example 53)
+% Here, we use the flexible editor fields 
 @MISC{7.07:53,
-  SORTKEY        = {Lewis County Geographic Information Services},
-  NAMEA          = {{Lewis County Geographic Information Services}},
-  NAMEATYPE      = {Cartographer},
+  AUTHOR         = {{Lewis County Geographic Information Services}},
+  NAMEADDON      = {Cartographer},
   TITLE          = {Population Density, 2000 {U}.{S}. {C}ensus},
-  TITLEADDON     = {Demographic map},
+  ENTRYSUBTYPE   = {Demographic map},
   YEAR           = {2002},
   URL            = {http://www.co.lewis.wa.us/publicworks/maps/Demographics/census-pop-dens_2000.pdf}
 }
 
 % (APA 7.08 Example 54)
-% Data sets need special formatting of name so we use ENTRYSUBTYPE to specify them
+% Data sets need special formatting of name so we use USERD with "dataset" to specify them
 @MISC{7.08:54,
-  ENTRYSUBTYPE   = {dataset},
+  USERD          = {dataset},
   AUTHOR         = {{Pew Hispanic Center}},
   TITLE          = {Changing Channels and Crisscrossing Cultures},
   SUBTITLE       = {A Survey of {L}atinos on the News Media},
-  TITLEADDON     = {Data file and code book},
+  ENTRYSUBTYPE   = {Data file and code book},
   YEAR           = {2004},
   URL            = {http://pewhispanic.org/datasets/}
 }
@@ -713,7 +716,7 @@
   AUTHOR         = {M. L. Friedlander and V. Escudero and L. Heatherington},
   TITLE          = {{E-SOFTA}},
   SUBTITLE       = {System for Observing Family Therapy Alliances},
-  TITLEADDON     = {Software and training videos},
+  ENTRYSUBTYPE   = {Software and training videos},
   YEAR           = {2002},
   NOTE           = {Unpublished instrument},
   URL            = {http://www.softa-soatif.com/}
