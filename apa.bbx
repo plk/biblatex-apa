@@ -790,14 +790,16 @@
 
 \newbibmacro*{thesis:retrinfo}{%
   \printfield{eprinttype}%
+  \clearfield{eprinttype}%
   \setunit{\addcomma\addspace}%
   \printfield{volume}%
   \setunit{\addspace}%
   \printfield{number}%
   \setunit{\addcomma\addspace}%
-  \printfield{eprint}
+  \printfield{eprint}%
+  \clearfield{eprint}%
   \setunit{\addcomma\addspace}%
-  \printfield{pages}
+  \printfield{pages}%
   \setunit{\relax}}
 
 %
@@ -958,9 +960,10 @@
 \DeclareFieldFormat{url}{\url{#1}}
 \DeclareFieldFormat{urldate}{#1}
 \DeclareFieldFormat{eprinttype}{#1}
+\DeclareFieldFormat{eprint}{\mkbibparens{#1}}
 
 \renewbibmacro*{url+urldate}{%
-     \appto\@apaar{retrieved}% default
+     \def\@apaar{retrieved}% default
      \iffieldundef{url}
        {}
        {\iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
@@ -974,10 +977,26 @@
           {\printurldate%
            \setunit*{\addcomma\addspace}}%
         \printtext{\bibstring{from}}%
-        \setunit*{\addspace}}%
+        \setunit*{\addspace}%
         \printlist{organization}%
         \setunit*{\addcolon\addspace}%
-        \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}
+        \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}
+
+\renewbibmacro*{eprint}{%
+     \def\@apaar{retrieved}% default
+     \iffieldundef{eprint}
+       {}
+       {\iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
+         \iffieldundef{abstract}
+         {\printtext{\bibcpstring{\@apaar}}}
+         {\printtext{\bibcpstring{abstract}}\addspace%
+           \printtext{\bibstring{\@apaar}}}%
+        \setunit{\addspace}%
+        \printtext{\bibstring{from}}%
+        \setunit*{\addspace}%
+        \printfield{eprinttype}%
+        \newunit
+        \printfield{eprint}}}
 
 %
 %%%%%%%%%%%%%%%%%
