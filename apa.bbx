@@ -187,10 +187,9 @@
 
 \renewbibmacro*{author}{%
   \ifnameundef{author}
-    {\usebibmacro{labeltitle}%
-     \setunit*{\addspace}}
-    {\printnames[apaauthor]{author}%
-     \newunit\newblock}%
+    {\usebibmacro{labeltitle}}
+    {\printnames[apaauthor]{author}}%
+  \newunit\newblock%
   \usebibmacro{labelyear+extrayear}}
 
 %
@@ -258,9 +257,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.10-4.13) General format of titles.
+% (APA 6.29) General format of titles.
+%            Ugly Chicago-style lowercasing of English titles
 
-% Ugly Chicago-style lowercasing of English titles
 \DeclareFieldFormat{apacase}{\MakeSentenceCase*{#1}}
 
 \DeclareFieldFormat{issuetitle}{#1\isdot}
@@ -290,7 +289,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.10)      Additional {main}title information in brackets (using)
+% (APA 6.29)      Additional {main}title information in brackets (using)
 %                 {MAIN}TITLEADDON field. Colon after maintitle.
 
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{\MakeSentenceCase*{#1}}}
@@ -310,7 +309,8 @@
 
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
-    {}
+    {\printtext{}}% Dummy printtext as we do want to record that we output
+                  % a title for the punctuation tracker
     {\iffieldundef{origtitle}
       {\printtext[title]{%
         \printfield[apacase]{title}%
@@ -439,8 +439,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.13) Editors have first names first unless there is
-%            no author (4.16 Example 25)
+% (APA 6.27) Editors have first names first ...
+% (APA 7.02 Example 27) ... unless there is no author
 
 \DeclareNameFormat{apatranslator}{%
   \ifthenelse{\value{listcount}=7}
@@ -462,10 +462,6 @@
     {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
       {}
       {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}
-
-
-%\DeclareNameFormat{apaeditor}{\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}
-%\DeclareNameFormat{editorinauthpos}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
 
 \renewbibmacro*{author/editor}{%
   \ifnameundef{author}
@@ -607,7 +603,8 @@
 
 \renewbibmacro*{periodical}{%
   \iffieldundef{title}
-    {}
+    {\printtext{}}% Dummy printtext as we do want to record that we output
+                  % a title for the punctuation tracker
     {\printtext[title]{%
        \printfield[apacase]{title}%
        \setunit{\subtitlepunct}%
