@@ -273,6 +273,8 @@
 \DeclareFieldFormat[incollection]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[inproceedings]{title}{#1\isdot}
 \DeclareFieldFormat[inproceedings]{origtitle}{\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat[proceedings]{title}{#1\isdot}
+\DeclareFieldFormat[proceedings]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -638,7 +640,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 34) "In " before booktitle, edited or not
+% (APA 7.02) "In " before booktitle, edited or not
 % (APA 4.16 Example 35,36) Non-periodical volume number followed by "."
 
 \renewbibmacro*{maintitle+title}{%
@@ -762,6 +764,19 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.02 Example 38) Proceedings emph number, location
+%                       and location. Pages have no prefix
+
+\DeclareListFormat[proceedings]{location}{\mkbibemph{#1}}
+\DeclareFieldFormat[proceedings]{pages}{#1}
+\DeclareFieldFormat[proceedings]{number}{\mkbibemph{\apanum{#1}}}
+\DeclareFieldFormat[proceedings]{volume}{\mkbibemph{\apanum{#1}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 4.16 Example 54,55) Theses titles and volume
@@ -1060,11 +1075,15 @@
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \newunit\newblock
-  \printfield{venue}%
-  \newunit\newblock
+  \usebibmacro{booktitle}%
+  \setunit{\addcomma\addspace}\newblock
   \usebibmacro{location+publisher}%
   \setunit{\addcomma\addspace}%
-  \printtext{\printfield{number}}%
+  \printfield{volume}%
+  \setunit*{\adddot}%
+  \printfield{number}%
+  \setunit{\addcomma\addspace}
+  \printfield{pages}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
@@ -1170,11 +1189,11 @@
   \newunit\newblock
   \printlist{organization}%
   \newunit
-  \usebibmacro{location+publisher}%
-  \newunit
   \printfield{eventtitle}%
   \newunit
   \printfield{venue}%
+  \setunit{\addcomma\addspace}
+  \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
@@ -1438,10 +1457,10 @@
   \printfield{howpublished}%
   \setunit{\addcomma\addspace}\newblock
   \printlist{institution}%
-  \setunit{\addcomma\addspace}\newblock
-  \printlist{location}%
   \newunit\newblock
   \printfield{note}%
+  \setunit*{\addcomma\addspace}\newblock
+  \printlist{location}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
