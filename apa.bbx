@@ -1033,17 +1033,16 @@
 %
 %%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 85,86,87) Non-emph titles for online messages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.11) Non-emph titles for online items
+%            Subtype in brackets
 
 
-\DeclareFieldFormat[online]{title}{\ifthenelse{\iffieldequalstr{entrysubtype}{news}\OR%
-                                               \iffieldequalstr{entrysubtype}{mailarchive}}%
-                                    {#1\isdot}
-                                    {\mkbibemph{#1}\isdot}}
+\DeclareFieldFormat[online]{title}{#1}
+\DeclareFieldFormat[online]{entrysubtype}{\mkbibbrackets{#1}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.08 Example 56) Software has version in title
@@ -1299,9 +1298,11 @@
 \DeclareBibliographyDriver{online}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
+  \usebibmacro{author}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
+  \ifthenelse{\iffieldundef{title}\AND\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
+  \printfield{entrysubtype}%
   \addperiod\addspace
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
