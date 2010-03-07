@@ -140,7 +140,7 @@
    {\setunit{\compcitedelim}%
     \usebibmacro{cite:plabelyear+extrayear}}%
 % Single cite
-   {\ifnameundef{labelname}
+   {\ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
 % No author/editor
      {\usebibmacro{cite:noname}%
        \setunit{\nameyeardelim}%
@@ -169,8 +169,8 @@
      \usebibmacro{cite:plabelyear+extrayear}}
 % Single cite
     {\cbx@tempa
-     \ifnameundef{labelname}
-  % No author/editor
+      \ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
+  % No author/editor or patent
        {\iffieldundef{shorthand}
     % Cite using title
          {\usebibmacro{cite:noname}%
@@ -237,6 +237,7 @@
 \DeclareFieldFormat[book]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[report]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[periodical]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[patent]{citetitle}{#1}
 
 \newbibmacro*{cite:noname}{%
     \printfield[citetitle]{labeltitle}}
@@ -282,7 +283,7 @@
     {\setunit{\compcitedelim}%
      \usebibmacro{cite:plabelyear+extrayear}}
     {\cbx@tempa
-     \ifnameundef{labelname}
+     \ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
        {\usebibmacro{cite:noname}%
 	   \setunit{%
 	     \global\booltrue{cbx:parens}%

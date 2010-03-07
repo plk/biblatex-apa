@@ -1044,6 +1044,14 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA A7.07) Emph titles for patents
+
+\DeclareFieldFormat[patent]{title}{\mkbibemph{#1}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.08 Example 56) Software has version in title
 
@@ -1317,14 +1325,10 @@
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
-  \printfield{type}%
   \setunit*{\addspace}%
   \printfield{number}%
-  \iflistundef{location}
-    {}
-    {\setunit*{\addspace}%
-     \printtext[parens]{%
-       \printlist[][-\value{listtotal}]{location}}}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{byholder}%
   \newunit\newblock
