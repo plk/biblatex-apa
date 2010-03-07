@@ -19,7 +19,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={0.8},
+  revision={0.9},
   date={\today}}
 
 \hypersetup{%
@@ -76,7 +76,7 @@ as per the |apa.cls| documentation. Without this class option, the
 Permission is granted to copy, distribute and/or modify this software under
 the terms of the \latex Project Public License, version
 1.3c\footnote{\url{http://www.latex-project.org/lppl.txt}}. The current
-maintainer is Philip Kime (\textcopyright\ 2009).
+maintainer is Philip Kime (\textcopyright\ 2010).
 
 \subsection{History}
 
@@ -167,38 +167,14 @@ for long date formats which may not be correct for European journals using
 roughly APA formatting standards (German journals tend to have a different
 long date format, for example). The «american» babel option will give you
 APA compliant US date formats.
-\subsection{Options}
-\label{use:options}
-
-\subsubsection{noremoteinfo}
-
-This option can be set at a global level:
-
-\begin{ltxcode}
-\usepackage[noremoteinfo,style=apa]{biblatex}
-\end{ltxcode}
-
-or on a per-entry basis in the \path{.bib} file:
-
-\begin{ltxcode}
-OPTIONS = {noremoteinfo}
-\end{ltxcode}
-
-It has the effect of suppressing the printing of any URL and retrieval
-information. This is because many people get their \path{.bib} entries from
-services like PubMED which always include URL or DOI information in the
-entries. Users may not want to always have this information displayed in
-their References section since it clutters things up. By default,
-\sty{biblatex-apa} will always display such information if it is available
-in the \path{.bib} entry
 
 \subsection{Limitations}
 \label{use:limit}
 There are certain limitations you need to bear in mind when using these
-styles. The APA manual is written without any regard for automation of the
-citation and references styles---it just tells you how it wants things to
+styles. The APA manual is written without much regard for automation of
+citation and references processing---it just tells you how it wants things to
 look and the implicit assumption is that you would type out everything by
-hand if necessary. Having said that, the vast majority of the APA citations
+hand if necessary. Having said that, the vast majority of the APA citation
 and references style is implemented, there are just a few exceptions which
 are either hardly worth the coding pain for such rare cases or which are
 impossible due to \sty{biblatex} limitations. It is likely that with future
@@ -218,7 +194,7 @@ as a backend with a more sophisticated data model.
 \subsubsection{Citation Limitations}
 
 \begin{itemize}
-\item \apa{3.95} Disambiguation of truncated author name lists. This is
+\item \apa{6.14} Disambiguation of truncated author name lists. This is
   currently impossible to automate via a \sty{biblatex} style. The
   \sty{maxnames} and \sty{minnames} options of \sty{biblatex} only serve to
   specify the truncation limits but do not disambiguate name lists which
@@ -247,40 +223,12 @@ as a backend with a more sophisticated data model.
   the moment. Thankfully, these two problems are not that common and only
   occur when you have long lists of authors which share many members with
   variations in initials etc.
-\item There are some anomalies like \apa[17]{4.16} where two years are
-  supposed to be cited but one of the years is embedded in the \path{.bib}
-  entry in information that is not parsed out. There isn't much to be done
-  about this at the moment apart from copying some of the information into
-  other fields like |ORIGYEAR| as in \apa[40]{4.16}. There isn't even that
-  option in \apa[17]{4.16} because |ORIGYEAR| and |YEAR| are the opposite
-  way round to all other such examples.
-\item If you use |\marginpar| or other commands that reset the paragraph
-  counter, then the code which tracks citations within paragraphs in order
-  to decide whether to print a year or not will probably break. There is
-  probably some esoteric way of making this not happen but I'm not enough
-  of a \tex hacker to deal with this at the moment. Then again, the APA
-  guide explicitly states that year elision is reset per paragraph and so
-  if you add extra pseudo-paragraphs etc. it's probably your own fault if
-  it breaks \ldots 
 \end{itemize}
 
 \subsubsection{Reference Section Limitations}
 
 \begin{description}
-\item\apa{4.08} Can't deal yet with authors listed as «with».
-\item\apa[36]{4.16} Can't specify separate Volume and Series editors in
-  this way. See the example in \path{biblatex-apa-test-references.bib} for
-  an alternative that should be acceptable for APA style.
-\item\apa[17,40]{4.16} It's rather hard and/or messy to automatically and
-  properly format things like the additional «retrieved/reprint from»
-  sections. It is possible using the |XREF| field and custom citation
-  drivers in the references but this means setting \sty{mincrossrefs} to 1,
-  which breaks the APA requirement to only include main-body cited works
-  \apa{4.01}. It's also not obvious which field to use to contain the
-  introductory string. Also, there is no way to automatically |XREF| the
-  page range in the reprint specification in, for example, \apa[40]{4.16}.
-  This will have to wait until \sty{biblatex} gets a real data model
-  backend. The |ADDENDUM| field will have to do for now.
+\item\apa{6.27} Can't deal yet with authors listed as «with».
 \end{description}
 
 \section{Details}
@@ -292,20 +240,19 @@ accompanying \path{.bib} files:
 \item[\path{biblatex-apa-test.tex}]\footnote{\path{biblatex-apa-test.pdf}
     is also provided and is the typeset version of this \latex source
     file.} This document typesets just about every useful example from
-  \apa{3.94}--\apa{3.103} and \apa{4.01}--\apa{4.16}. The examples in it
+  \apa{6.11}--\apa{6.21} and \apa{7.01}--\apa{7.11}. The examples in it
   aim to look as much like the APA manual examples as possible. All
   citation examples in the document are real examples using a \path{.bib}
-  file. This document also typesets every Reference section example from
-  \apa{4.16}.
+  file.
 \item[\path{biblatex-apa-test-citations.bib}] This contains the \path{.bib}
   entries for the citations examples. You won't find anything of interest
   in this file---it's just used to provide real data for the citation
   examples.
 \item[\path{biblatex-apa-test-references.bib}] This contains the
-  \path{.bib} entries for all of the examples in \apa{4.16}. This file is
+  \path{.bib} entries for all of the examples in \apa{7.x}. This file is
   the main documentation for the |biblatex-apa| implementation of the APA
   References section style. To see how the style deals with a particular
-  example from \apa{4.16}, look it up in here. Every example is marked with
+  example from \apa{7.x}, look it up in here. Every example is marked with
   the APA example number and has explanatory notes.
 \item[\path{biblatex-apa.cbx}] The |biblatex-apa| citations style. It is
   decently structured with comments but shouldn't need to be read for
@@ -317,7 +264,7 @@ accompanying \path{.bib} files:
 
 \subsection{Citations}
 
-\apa{3.103} requires that there should be no parentheses around the year of
+\apa{6.13} requires that there should be no parentheses around the year of
 the citation when the citation itself occurs within parenthesis. This would
 be really too much to completely automate as it is within the remit of a
 citation style since it requires knowledge of the current typesetting
@@ -331,11 +278,6 @@ state. So, the new citation command
 but does not put parentheses around the year and separates items with
 commas. See examples using this command in \path{biblatex-apa-test.tex}.
 
-The requirement in \apa{3.95} for years only in the first cite in a
-paragraph is tricky but was possible to do with some rather deep \tex magic
-which nobody should be under any illusions about: I found out how to do it
-by reading the UK \tex FAQ.
-
 \subsection{References}
 
 The references style was based on the \sty{biblatex} default
@@ -343,12 +285,8 @@ The references style was based on the \sty{biblatex} default
 unrecognisable. Some general notes:
 \begin{itemize}
 \setlength{\itemsep}{0pt}
-\item Many things in brackets at the end of the reference entries in the
-  examples in \apa{4.16} can be dealt with by simply including them in the
-  |ADDENDUM| \path{.bib} field. This shouldn't be necessary too often but
-  sometimes it's the best (only) way of dealing with an example.
 \item There are occasions where there is no sensible \path{.bib} key to
-  use. This applies to things like |MOVIE| and |VIDEO| entries mainly. The
+  use. This applies to things like |AUDIO| and |VIDEO| entries mainly. The
   format of these requires that different roles (Director, Producer etc.)
   are separately specified for different names. This is not really possible
   for the usual |AUTHOR| or |EDITOR| fields (again, another limitation of
@@ -356,25 +294,26 @@ unrecognisable. Some general notes:
   the \sty{biblatex} custom |NAME| and |NAMETYPE| fields which are not very
   portable but until \bibtex is replaced by something more flexible, there
   is no way round this without making things very messy.
-\item APA style sometimes refers to the «series» of a multi-volume work
-  \apa[36]{4.16}. This corresponds to the |MAINTITLE| field in the
-  \path{.bib} and \emph{not} the |SERIES| field.
+\item APA style sometimes refers to the «series» of a multi-volume work.
+  This corresponds to the |MAINTITLE| field in the \path{.bib} and
+  \emph{not} the |SERIES| field.
 \item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
-  they are given as roman numerals, as required by \apa{4.03}.
+  they are given as roman numerals, as required by \apa{6.22}.
+\item |USERD| is sometimes used to specify information that indicates
+  special formatting. Not very portable but that's because of |bibtex| data
+  model limtations.
+\item |USERE| is sometimes used to specify questionable dates/authors for
+  special formatting. Not very portable but that's because of |bibtex| data
+  model limtations.
 \end{itemize}
-
-\noindent Examples from \apa{4.16} in |biblatex-apa-test-references.bib|
-which cannot be dealt with cleanly are marked with the line
-
-\begin{verbatim}
-%%%%%%%%%%%%%%%%%%%%%%%%%% NOT COMPLETE %%%%%%%%%%%%%%%%%%%%%%%%%%
-\end{verbatim}
-
-\noindent and a comment explaining the issue.
 
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{0.9}{2010-03-08}
+\item Update for APA manual 6th edition and |biblatex| 0.9
+\end{release}
 
 \begin{release}{0.8}{2010-02-15}
 \item Fixed bug with spaces after nptextcite
@@ -417,7 +356,7 @@ which cannot be dealt with cleanly are marked with the line
 \end{release}
 
 \begin{release}{0.2}{2008-12-06}
-\item Added |noremoteinfo| option (see section \ref{use:options}).
+\item Added |noremoteinfo| option).
 \item Fixed bbx bug with more than 7 authors still printing names after «et al». Was
   due to resetting maxnames to 999.
 \item Removed the customised (hacked) |apa-biblatex.cls| class from the package as

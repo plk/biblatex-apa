@@ -11,7 +11,6 @@
 
 % Biblatex
 \usepackage[style=apa,%
-            backend=biber,%
             bibencoding=inputenc,%
             uniquename=false]{biblatex}
 
@@ -25,7 +24,7 @@
 \def\apaex#1{\hbox{\hspace{-4em}\texttt{\small \detokenize{#1}}}\\ $\rcurvearrowse$ \textbf{#1}}
 \def\apaexs#1{\hbox{\texttt{\footnotesize \detokenize{#1}}} \textbf{\small #1}}
 
-% This just makes it easier to find a specific (APA 4.16) example in the
+% This just makes it easier to find a specific (APA 7.x) example in the
 % typeset references section
 \reversemarginpar
 \renewbibmacro*{begentry}{\marginpar{\footnotesize \textcolor{blue}{\thefield{entrykey}}}}
@@ -38,8 +37,7 @@
 \section*{|biblatex-apa| style examples}
 
 This file typesets just about all useful examples from
-\apa{6.11}--\apa{6.21} and \apa{7.01}--\apa{7.11}. The references section
-includes every example from \apa{7.11}. Please refer to the
+\apa{6.11}--\apa{6.21} and \apa{7.01}--\apa{7.11}. Please refer to the
 |biblatex-apa-test-references.bib| file for details on the references
 entries. The |.bib| key for each entry in the References section is listed
 for convenience in the left margin. The keys are not arbitrary and consist
@@ -241,90 +239,10 @@ A patent citation uses the title but with no quotes\\
 \apaex{\textcite{A7.07}}\\
 \apaex{\parencite{A7.07}}
 
-
-\subsection*{Citation examples mentioned in the APA guidelines on References}
-
-% \noindent Please see accompanying file |biblatex-apa-test-references.bib|
-% for the bibliographic entries which these examples use.
-
-% \noindent\apa[4]{4.16}\\
-% Citation of a work with more than six authors:\\
-% \apaex{\parencite{4.16:4}}
-
-% \noindent\apa[5]{4.16}\\
-% Citation of a work in press:\\
-% \apaex{\parencite{4.16:5}}
-
-% \noindent\apa[8]{4.16}\\
-% Citation of a work with no author/editor:\\
-% \apaex{\parencite{4.16:8}}
-
-% \noindent\apa[9]{4.16}\\
-% Citation of a work with no author/editor and truncated title:\\
-% \apaex{\parencite{4.16:9}}
-
-% \noindent\apa[12]{4.16}\\
-% This would be dealt with in the same way as examples 8 and 9, with a
-% |SHORTTITLE| field.
-
-% \noindent\apa[17]{4.16}\\
-% \textcolor{red}{Note: The citation of both years cannot be done
-%   automatically as such entries don't have their |NOTE| field parsed in
-%   order to extract the retrieval year. Also, we can't really use |ORIGYEAR|
-%   in such entries as the position of the |ORIGYEAR| and |YEAR| information
-%   is the opposite way round to all other such examples (examples 32 and 39)}.
-
-% \noindent\apa[22]{4.16}\\
-% Secondary sources can be dealt with using standard |biblatex|
-% functionality:\\
-% \apaex{(\nptextcite[as cited in][]{4.16:22})}
-
-% \noindent\apa[26]{4.16}\\
-% Titles of books with no author/editor again. Note that in the APA manual,
-% this example is incorrect as the citation is not italics as required by \apa{3.97}:\\
-% \apaex{\parencite{4.16:26}}
-
-% \noindent\apa[28]{4.16}\\
-% Year ranges in entry--nothing special here, just uses the |YEAR| field:\\
-% \apaex{\parencite{4.16:28}}
-
-% \noindent\apa[29]{4.16}\\
-% Note that the style defines some macros you can use to format the short
-% forms of the DSM version titles. See |biblatex-apa-test-references.bib|.
-% First mention of a DSM edition:\\
-% \apaex{\textcite{4.16:29}}\\
-% Subsequently, the |SHORTHAND| field is used:\\
-% \apaex{\textcite{4.16:29}}
-
-% \noindent\apa[32]{4.16}\\
-% Translation with |ORIGYEAR| field in entry:\\
-% \apaex{\parencite{4.16:32}}
-
-% \noindent\apa[35]{4.16}\\
-% Citation for work in press:\\
-% \apaex{\parencite{4.16:35}}
-
-% \noindent\apa[39]{4.16}\\
-% Another |ORIGYEAR| example:\\
-% \apaex{\parencite{4.16:39}}
-
-% \noindent\apa[40]{4.16}\\
-% A rather clumsy |ORIGYEAR| example since we simply duplicate the |ORIGYEAR|
-% information from the |ADDENDUM| field which is not parsed. There is no
-% other way to do this at present. It's suspicious also because the
-% |ORIGYEAR| field doesn't really contain the original year but the year of
-% the reprint. However, it's not so bad since the example citation requires
-% the year of the reprint and the year of the cited work and that's what we have:\\
-% \apaex{\parencite{4.16:40}}
-
-% \noindent\apa[69]{4.16}\\
-% Citing music:\\
-% \apaex{\citetitle{4.16:69b} \parencite[][track 5]{4.16:69b}}
-
 \newpage
 \nocite{*}
 % Exclude the citation examples from the References section - only want to
-% see (APA 4.16) examples there.
+% see (APA 7.x) examples there.
 \printbibliography[notkeyword=noinclude]
 \end{document}
 

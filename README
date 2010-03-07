@@ -1,4 +1,4 @@
-Version 0.8
+Version 0.9
 
 Permission is granted to copy, distribute and/or modify this software under
 the terms of the LaTeX Project Public License, version
@@ -14,7 +14,7 @@ separately as they rely on each other, macro-wise, in places.
 
 In this document and in the code, the specific APA requirements are
 referred to by the section and (if appropriate) the example number of the
-APA Style Guide (5th Edition).
+APA Style Guide 6th Edition).
 
 You will need to be using csquotes >= 4.3 and biblatex >= 0.9. If you want
 to take advantage of the biblatex \DeclareQuotePunctuation facility

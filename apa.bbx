@@ -30,7 +30,7 @@
 \RequireBibliographyStyle{standard}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.03) Force roman numerals into arabic
+% (APA 6.22) Force roman numerals into arabic
 %            using etoolbox macros
 
 \newcommand{\apanum}[1]{\ifrmnum{#1}{\rmntonum{#1}}{#1}}
@@ -75,15 +75,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 3.95) Five author max before "et al" and a one author truncation
+% (APA 6.12) Five author max before "et al" and a one author truncation
 %            policy. Note that this doesn't really work properly due to
 %            BibTeX limitations so we effectively disable it with "999"
 %            and deal with it in the author format below
-% (APA 3.95) citation tracking is global
+% (APA 6.x)  citation tracking is global
 % (APA 6.14) uses initials to disambiguate shared surnames
-% (APA 3.99) uses year postfix to disambiguate multiple items in same year
-% (APA 4.01) Never reference anything not cited
-% (APA 4.08) Author initials only
+% (APA 6.16) uses year postfix to disambiguate multiple items in same year
+% (APA 6.10) Never reference anything not cited
+% (APA 6.25) author initials only
+% (APA 6.25) sorting is nyt
 
 \ExecuteBibliographyOptions{labelyear,%
                             sorting=nyt,%
@@ -102,75 +103,64 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.12, 4.13) Additional material sometimes goes in parens
-%                  after title. This bool tracks the parens.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.29) Additional material sometimes goes in parens
+%            after title. This bool tracks the parens.
 
 \newbool{bbx:parens}
 \AtEveryBibitem{\global\boolfalse{bbx:parens}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.12, 4.13) Sometimes "Vol" is inside the additional
-%                  material parens, sometimes not. This bool
-%                  tracks if it has been inserted yet.     
-%                  Can't use \clearfield{volume} as some
-%                  later number format tests need to know
-%                  whether volume was defined.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.30) Sometimes "Vol" is inside the additional
+%            material parens, sometimes not. This bool
+%            tracks if it has been inserted yet.     
+%            Can't use \clearfield{volume} as some
+%            later number format tests need to know
+%            whether volume was defined.
 
 \newbool{bbx:volseen}
 \AtEveryBibitem{\global\boolfalse{bbx:volseen}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.27 Examples 9, 30, 71) This bool tracks if the title was put
-%                               in the author position.
-%                               Can't use \clearfield{title} as some
-%                               later punctuation tests need to know
-%                               whether title was defined.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.27) This bool tracks if the title was put
+%            in the author position.
+%            Can't use \clearfield{title} as some
+%            later punctuation tests need to know
+%            whether title was defined.
 
 \newbool{bbx:titleinauthpos}
 \AtEveryBibitem{\global\boolfalse{bbx:titleinauthpos}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 26) Need a flag to say when the editor
-%                       is in author position because this
-%                       can effect where the year goes.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.27) Need a flag to say when the editor
+%            is in author position because this
+%            can effect where the year goes.
 
 \newbool{bbx:editorinauthpos}
 \AtEveryBibitem{\global\boolfalse{bbx:editorinauthpos}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 34) Flag to say whether the "in" has
-%                       been placed already in IN*
-%                       Reset every bibitem.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.27) Flag to say whether the "in" has
+%            been placed already in IN*
+%            Reset every bibitem.
 
 \newbool{bbx:in}
 \AtEveryBibitem{\global\boolfalse{bbx:in}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Section I) Need a flag to say when the EPRINTTYPE
-%                      field has been printed as it can occur
-%                      in several places
-
-\newbool{bbx:eprinttype}
-\AtEveryBibitem{\global\boolfalse{bbx:eprinttype}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set up some standard APA formats
@@ -232,22 +222,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.09) Format for dates in references. Copied from english.lbx
-%            and modified. This takes the leading "0" from days like
-%            "02".
-
-% See language localisation file <language>-apa.lbx, default "american-apa.lbx"
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.28) Use "(n.d.)." for references with no year. This depends
 %            on the noyear macros and strings from apa.cbx
 %            Months and days go into parenthesis with year, if set
-% (APA 4.16 Example 7) Issue goes where month normally goes if it
+% (APA 6.29) Issue goes where month normally goes if it
 %            is set.
-
 
 % Make sure endmonth gets an expansion too
 \DeclareFieldFormat{endmonth}{\mkbibmonth{#1}}
@@ -377,7 +356,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.11) Format of volume and number for articles
+% (APA 6.30) Format of volume and number for articles
 
 \DeclareFieldFormat[article]{volume}{\mkbibemph{\apanum{#1}}}
 \DeclareFieldFormat[article]{number}{\mkbibparens{\apanum{#1}}}
@@ -386,7 +365,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.11) Commas between title and volume for articles
+% (APA 6.30) Commas between title and volume for articles
 
 \renewbibmacro*{journal+issuetitle}{%
   \usebibmacro{journal}%
@@ -414,7 +393,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.12) Additional information for non-periodicals in
+% (APA 6.29) Additional information for non-periodicals in
 %            parenthesis after title. This is ugly but it's 
 %            hard to put in "optional parens" like this
 %            around an unknown amount of characters.
@@ -450,7 +429,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.13) "In " precedes editor/trans list, no colon
+% (APA 6.27) "In " precedes editor/trans list, no colon
 
 \newbibmacro*{in}{%
   \ifbool{bbx:in}%
@@ -521,8 +500,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 23) Name affixes format
-%           Also, don't capitalise prefixes
+% (APA 6.27 Name format. Don't capitalise prefixes
 
 \renewbibmacro*{name:last-first}[4]{%
   \ifuseprefix
@@ -545,9 +523,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.27) Editor string in parens after author list ...
-% (APA 4.16 Example 25) ... unless book and only one author
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.27) Editor string in parens after author list
 % (APA 7.02 Example 21) Collapse editor and trans if same
 % (APA 7.02 Example 26) Translator
 
@@ -616,10 +593,10 @@
   \newunit}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 12, 50) Special journal issues
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.29) Special journal issues
 
 \DeclareFieldFormat[periodical]{title}{#1\isdot}
 \DeclareFieldFormat[periodical]{issuetitle}{\mkbibemph{#1}\isdot}
@@ -640,10 +617,10 @@
   \setunit{\addcomma\space}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 32, 39) Original year
+% (APA 7.02 Example 21) Original year
 
 \DeclareFieldFormat{origyear}{\mkbibparens{\bibcpstring{origyear}~\thefield{origyear}}}
 
@@ -661,7 +638,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.02) "In " before booktitle, edited or not
-% (APA 4.16 Example 35,36) Non-periodical volume number followed by "."
+% (APA 6.30) Non-periodical volume number followed by "."
 
 \renewbibmacro*{maintitle+title}{%
   \iffieldsequal{maintitle}{title}
@@ -714,16 +691,16 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 23) Colon separates title/subtitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.29) Colon separates title/subtitle
 
 \renewcommand*{\subtitlepunct}{\addcolon\space}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 35,36) Format of volume depends on whether
+% (APA 6.30) Format of volume depends on whether
 %            there is a maintitle (what APA calls "series") or not.
 
 \DeclareFieldFormat{volume}{\iffieldundef{maintitle}
@@ -733,28 +710,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 42,43) Report retrieval fields
-
-\DeclareFieldFormat[report]{eprinttype}{#1}
-\DeclareFieldFormat[report]{eprint}{#1}
-
-\newbibmacro*{report:retrinfo}{%
-  \ifthenelse{\iffieldundef{eprinttype}\AND%
-              \iffieldundef{eprint}\OR%
-              \NOT\iffieldundef{url}}
-    {}
-    {\renewcommand*{\finentrypunct}{\relax}%
-     \printtext[parens]{%
-       \printfield{eprinttype}%
-       \setunit*{\addspace}%
-       \printfield{eprint}}}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 48) Number for reports with no prefix if not
+% (APA 6.30) Number for reports with no prefix if not
 %            a numeral. Report number is optional and so must be
 %            the parens.
 
@@ -774,16 +731,16 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 50) Periodicals emph number, location
-%                       and pages (with no prefix)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.30) Periodicals emph number, location
+%            and pages (with no prefix)
 
 \DeclareFieldFormat[periodical]{pages}{\mkbibemph{#1}}
 \DeclareFieldFormat[periodical]{number}{\mkbibemph{\apanum{#1}}}
 \DeclareListFormat[periodical]{location}{\mkbibemph{#1}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.02 Example 38) Proceedings emph number, location
@@ -796,7 +753,6 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.02 Example 40--44) Theses titles and volume
@@ -885,7 +841,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 65) Films
+% Films
 
 \DeclareNameFormat[movie]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
 \DeclareNameFormat[movie]{nameb}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
@@ -1377,8 +1333,6 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{report:retrinfo}%
-  \newunit\newblock
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
@@ -1421,18 +1375,6 @@
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
-  \printfield{addendum}%
-  \usebibmacro{apa:finpunct}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{movie}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{mediaauthor}%
-  \setunit{\labelnamepunct}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1486,6 +1428,25 @@
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{video}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{mediaauthor}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \printfield{entrysubtype}%
+  \newunit\newblock
+  \usebibmacro{tvseries}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \usebibmacro{apa:finpunct}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{movie}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
   \usebibmacro{mediaauthor}%

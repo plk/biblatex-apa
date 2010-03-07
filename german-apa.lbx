@@ -19,8 +19,6 @@
 \NewBibliographyString{available}
 \NewBibliographyString{from}
 \NewBibliographyString{nodate}
-\NewBibliographyString{messagepostedto}
-\NewBibliographyString{emaillist}
 \NewBibliographyString{archivedat}
 \NewBibliographyString{origyear}
 \NewBibliographyString{reviewof}
@@ -46,8 +44,6 @@
   retrieved        = {{Zugriff\space am}{Zugriff\space am}},
   available        = {{Erh\"altlich}{Erh\"altlich}},
   from             = {{unter}{unter}},
-  messagepostedto  = {{Nachricht\space ver\"offentlicht\space in\space}{Nachrich\space ver\"offentlicht\space in\space}},
-  emaillist        = {{Nachricht\space ver\"offentlicht\space in\space Mailing-Liste}{Nachricht\space ver\"offentlicht\space in\space Mailing-Liste}},
   archivedat       = {{archiviert\space unter}{archiviert\space unter}},
   nodate           = {{ohne\space Datum}{{}o\adddot D\adddot}},
   reviewof         = {{Rezension\space des}{Rezension\space des}},
@@ -64,34 +60,27 @@
   typevolseriess   = {{Reihe\space und\space Band\space Herausgeber}{Reihe\space\& Bd\adddot\space Hrsg\adddot}},
 }
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.09) Format for dates in references. Dates for URL references
-% are formatted differently to those which are normal dates.
+% (APA 7.10 Example 68) Drop end* when they are the same as *
 
-
-\DefineBibliographyExtras{german}{%
+\DefineBibliographyExtras{american}{%
   \protected\def\mkbibdatelong#1#2#3{%
-    \ifthenelse{\equal{#1}{urlyear}}
-      {\iffieldundef{#2}
+      \iffieldundef{#1}
         {}
-        {\mkbibmonth{\thefield{#2}}%
-          \iffieldundef{#3}
-          {\iffieldundef{#1}{}{\space}}
-          {\nobreakspace}}%
+        {\ifthenelse{\equal{#1}{endyear}\AND\iffieldsequal{year}{endyear}}
+          {}
+          {\thefield{#1},\space}}%
+      \iffieldundef{#2}
+      {}
+      {\ifthenelse{\equal{#2}{endmonth}\AND\iffieldsequal{month}{endmonth}}
+        {}
+        {\mkbibmonth{\thefield{#2}}\addspace}%
         \iffieldundef{#3}
         {}
-        {\stripzeros{\thefield{#3}}%
-          \iffieldundef{#1}{}{,\space}}%
-        \thefield{#1}}
-      {\iffieldundef{#1}
-        {}
-        {\thefield{#1},\space}%
-        \iffieldundef{#2}
-        {}
-        {\mkbibmonth{\thefield{#2}}%
-          \iffieldundef{#3}
+        {\ifthenelse{\equal{#3}{endday}\AND\iffieldsequal{day}{endday}}
           {}
-          {\nobreakspace\stripzeros{\thefield{#3}}}}}}}
+          {\stripzeros{\thefield{#3}}}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
