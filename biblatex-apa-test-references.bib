@@ -474,9 +474,8 @@
   EDITORA        = {S. C. Ludvigson},
   EDITORATYPE    = {chair},
   BOOKTITLE      = {Housing and Consumer Behaviour},
-  EVENTTITLE     = {Symposium Conducted at the Meeting of the {F}ederal {R}eserve {B}ank of {K}ansas {C}ity},
-  DATE           = {2007-09},
-  LOCATION       = {Jackson Hole, WY}
+  EVENTTITLE     = {Symposium Conducted at the Meeting of the {F}ederal {R}eserve {B}ank of {K}ansas {C}ity, Jackson Hole, WY},
+  DATE           = {2007-09}
 }
 
 % (APA 7.04 Example 37)
@@ -904,13 +903,16 @@
 }
 
 % (APA 7.10 Example 73)
-% Have to use ENTRYSUBTYPE to specifiy the "known" status of the AUTHOR and/or DATE.
-% Defined types are "unkauth" for doubtful AUTHOR, "unkdate" for doubtful date,
-% "unkauthdate" for both doubtful.
-@UNPUBLISHED{7.10:73,
-  ENTRYSUBTYPE   = {unkdate},
-  AUTHOR         = {{Photographs of Robert M. Yerkes}},
-  TITLE          = {Marion {T}aylor Today---By the Biographer},
+% Use USERE to specifiy the "known" status of the AUTHOR and/or DATE (see Example 67)
+% Note that this example is inconsistent in the APA 6th Edition (2nd printing) manual
+% with example 7.10:67. They differ in that 7.10:67 has brackets around the approximate
+% date and 7.10:73 has parenthesis. I have chosen brackets for consistency.
+% Use USERD as "description" to indicate that the title is a description and not a real
+% title
+@MISC{7.10:73,
+  USERE          = {unkdate},
+  USERD          = {description},
+  TITLE          = {{Photographs of Robert M. Yerkes}},
   DATE           = {1917/1954},
   HOWPUBLISHED   = {Robert Mearns Yerkes Papers (Box 137, Folder 2292)},
   LOCATION       = {{Manuscripts and Archives, Yale University Library, New Haven}, CT}

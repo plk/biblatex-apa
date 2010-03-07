@@ -126,6 +126,19 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.27 Examples 9, 30, 71) This bool tracks if the title was put
+%                               in the author position.
+%                               Can't use \clearfield{title} as some
+%                               later punctuation tests need to know
+%                               whether title was defined.
+
+\newbool{bbx:titleinauthpos}
+\AtEveryBibitem{\global\boolfalse{bbx:titleinauthpos}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 4.16 Example 26) Need a flag to say when the editor
 %                       is in author position because this
@@ -323,8 +336,7 @@
 
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
-    {\printtext{}}% Dummy printtext as we do want to record that we output
-                  % a title for the punctuation tracker
+    {}
     {\iffieldundef{origtitle}
       {\printtext[title]{%
         \printfield[apacase]{title}%
@@ -614,8 +626,7 @@
 
 \renewbibmacro*{periodical}{%
   \iffieldundef{title}
-    {\printtext{}}% Dummy printtext as we do want to record that we output
-                  % a title for the punctuation tracker
+    {}
     {\printtext[title]{%
        \printfield[apacase]{title}%
        \setunit{\subtitlepunct}%
@@ -902,7 +913,8 @@
 
 \DeclareNameFormat[misc]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
 \DeclareNameFormat[misc]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
-\DeclareFieldFormat[misc]{title}{\iffieldequalstr{userd}{dataset}{\mkbibemph{#1}}{#1}}
+\DeclareFieldFormat[misc]{title}{\iffieldequalstr{userd}{dataset}{\mkbibemph{#1}}{%
+                                 \iffieldequalstr{userd}{description}{\mkbibbrackets{#1}}{#1}}}
 \DeclareFieldFormat[misc]{entrysubtype}{\mkbibbrackets{#1}}
 \DeclareFieldFormat[misc]{nameaddon}{\mkbibparens{#1}}
 
@@ -1176,9 +1188,9 @@
   \usebibmacro{author}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
-  \newunit\newblock
+  \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \usebibmacro{editor+trans}%
-  \setunit*{\addcomma\addspace}\newblock
+  \newunit\newblock
   \usebibmacro{maintitle+booktitle}%
   \newblock
   \usebibmacro{addinfo}%
@@ -1203,7 +1215,7 @@
   \usebibmacro{author}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
-  \newunit\newblock
+  \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
@@ -1230,7 +1242,7 @@
   \usebibmacro{author}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
-  \newunit\newblock
+  \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
@@ -1246,7 +1258,7 @@
   \printfield{eventtitle}%
   \newunit
   \printfield{venue}%
-  \setunit{\addcomma\addspace}
+  \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{origyear}%
@@ -1303,7 +1315,7 @@
   \usebibmacro{author}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
-  \newunit\newblock
+  \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \printfield{type}%
   \setunit*{\addspace}%
   \printfield{number}%
@@ -1374,7 +1386,7 @@
   \usebibmacro{author}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
-  \setunit{\addspace}\newblock
+  \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \usebibmacro{type+institution+year}%
   \newunit\newblock
   \usebibmacro{thesis:retrinfo}
@@ -1423,10 +1435,10 @@
 \DeclareBibliographyDriver{misc}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{author}%
+  \newunit\newblock
   \usebibmacro{title}%
-  \setunit{\addspace}\newblock
+  \ifthenelse{\iffieldundef{title}\AND\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \printfield{entrysubtype}%
   \newunit\newblock
   \printfield{howpublished}%
@@ -1510,7 +1522,7 @@
   \usebibmacro{author}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
-  \newunit\newblock
+  \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \usebibmacro{album}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
@@ -1697,7 +1709,8 @@
   \iffieldundef{label}
     {\iffieldundef{shorttitle}
        {\printfield{title}%
-        \clearfield{title}}
+        \clearfield{title}
+        \global\booltrue{bbx:titleinauthpos}}
        {\printfield[title]{shorttitle}}}
     {\printfield{label}}}
 
