@@ -19,7 +19,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={0.9},
+  revision={1.0},
   date={\today}}
 
 \hypersetup{%
@@ -310,6 +310,17 @@ unrecognisable. Some general notes:
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{1.0}{2010-05-12}
+\item Fixed |TYPE| and |NUMBER| fields in |REPORT| entries. Now more
+  flexible.
+\item |PUBSTATE| is now valid for articles.
+\item |DOI|, if present, suppresses any |URL| field.
+\item Abstract retrieval string is now conditional on |USERB| field, not on
+  the existence of an abstract.
+\item Default strings for |PHDTHESIS| and |MASTERSTHESIS| entries corrected.
+\item |LOCATION| is now valid for thesis entries and comes after |INSTITUTION|.
+\end{release}
 
 \begin{release}{0.9}{2010-03-08}
 \item Update for APA manual 6th edition and |biblatex| 0.9

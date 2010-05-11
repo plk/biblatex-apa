@@ -721,7 +721,10 @@
                                {\apanum{#1}}}
                              {\mkbibemph{\apanum{#1}}}}
 
-\DeclareFieldFormat[report]{number}{\mkbibparens{\apanum{#1}}}
+\DeclareFieldFormat[report]{number}{\mkbibparens{\iffieldundef{type}
+                                                  {}
+                                                  {\printfield{type}\setunit{\addspace}}%
+                                                  \bibcpstring{number}~\apanum{#1}}}
 
 \newbibmacro*{apa:reportnum}{%
   \iffieldundef{number}%
@@ -758,7 +761,7 @@
 % (APA 7.02 Example 40--44) Theses titles and volume
 %                           Titles are not emph if only an abstract
 
-\DeclareFieldFormat[thesis]{title}{\iffieldundef{abstract}{\mkbibemph{#1}}{#1}}
+\DeclareFieldFormat[thesis]{title}{\iffieldequalstr{userb}{isabstract}{#1}{\mkbibemph{#1}}}
 \DeclareFieldFormat[thesis]{volume}{\mkbibemph{\apanum{#1}}\addspace}
 \DeclareFieldFormat[thesis]{number}{\mkbibparens{\apanum{#1}}\addspace}
 \DeclareFieldFormat[thesis]{eprinttype}{\mkbibemph{#1}\addspace}
@@ -952,13 +955,13 @@
 
 \renewbibmacro*{url+urldate}{%
      \def\@apaar{retrieved}% default
-     \iffieldundef{url}
+     \ifthenelse{\iffieldundef{url}\OR\NOT\iffieldundef{doi}}
        {}
        {\iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
-         \iffieldundef{abstract}
-         {\printtext{\bibcpstring{\@apaar}}}
+         \iffieldequalstr{userb}{urlisabstract}
          {\printtext{\bibcpstring{abstract}}\addspace%
-           \printtext{\bibstring{\@apaar}}}%
+           \printtext{\bibstring{\@apaar}}}
+         {\printtext{\bibcpstring{\@apaar}}}%
         \setunit{\addspace}%
         \iffieldundef{urlyear}
           {}
@@ -975,10 +978,10 @@
      \iffieldundef{eprint}
        {}
        {\iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
-         \iffieldundef{abstract}
-         {\printtext{\bibcpstring{\@apaar}}}
+         \iffieldequalstr{userb}{urlisabstract}
          {\printtext{\bibcpstring{abstract}}\addspace%
-           \printtext{\bibstring{\@apaar}}}%
+           \printtext{\bibstring{\@apaar}}}
+         {\printtext{\bibcpstring{\@apaar}}}%
         \setunit{\addspace}%
         \printtext{\bibstring{from}}%
         \setunit*{\addspace}%
@@ -1044,6 +1047,8 @@
   \usebibmacro{journal+issuetitle}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
+  \newunit\newblock
+  \printfield{pubstate}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
@@ -1346,7 +1351,7 @@
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
-  \usebibmacro{type+institution+year}%
+  \usebibmacro{type+institution}%
   \newunit\newblock
   \usebibmacro{thesis:retrinfo}
   \newunit\newblock
@@ -1605,7 +1610,7 @@
   \printlist{publisher}%
   \newunit}
 
-\newbibmacro*{type+institution+year}{%
+\newbibmacro*{type+institution}{%
   \ifthenelse{\iffieldundef{type}\AND\iffieldundef{institution}}
     {}
     {\printtext[parens]{%
@@ -1614,7 +1619,9 @@
          {\setunit*{\addcolon\space}}%
        \printfield{type}%
        \setunit*{\addcomma\space}%
-       \printlist{institution}}%
+       \printlist{institution}%
+       \setunit*{\addcomma\space}%
+       \printlist{location}}%
      \newunit}}
 
 %

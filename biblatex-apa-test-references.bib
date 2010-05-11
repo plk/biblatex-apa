@@ -1,4 +1,5 @@
 % (APA 7.01 Example 1)
+% Note that the URL is suppressed if there is a DOI
 @ARTICLE{7.01:1,
   AUTHOR         = {K. L. Herbst-Damm and J. A. Kulik},
   TITLE          = {Volunteer Support, Marital Status, and the Survival Times of Terminally Ill Patients},
@@ -6,7 +7,9 @@
   VOLUME         = {24},
   PAGES          = {225--229},
   YEAR           = {2005},
-  DOI            = {10.1037/0278-6133.24.2.225}
+  DOI            = {10.1037/0278-6133.24.2.225},
+  URL            = {http://some.url}
+
 }
 
 % (APA 7.01 Example 2)
@@ -59,7 +62,7 @@
   TITLE          = {Optimizing Knowledge Transfer by New Employees in Companies},
   JOURNALTITLE   = {Knowledge Management Research and Practice},
   YEAR           = {2007},
-  NOTE           = {Advance online publication},
+  PUBSTATE       = {Advance online publication},
   DOI            = {10.1057/palgrave.kmrp.8500141}
 }
 
@@ -231,10 +234,11 @@
   YEAR           = {1991}
 }
 
-% Note use of ABSTRACT to get the "Abstract retrieved from" instead of just
-% "retrieved from"
+% Note use of special USERB field value to specify that the URL is for the abstract
+% and so the entry gets "Abstract retrieved from" instead of just "retrieved from"
+% USERB must equal "urlisabstract" to do this
 @ARTICLE{7.01:16b,
-  ABSTRACT       = {yes},
+  USERB          = {urlisabstract},
   AUTHOR         = {S. R. Lassen and M. M. Steele and W. Sailor},
   TITLE          = {The Relationship of School-wide Positive Behavour Support to Academic Achievement in an Urban Middle School},
   JOURNALTITLE   = {Psychology in the Schools},
@@ -255,7 +259,7 @@
   VOLUME         = {31},
   PAGES          = {24--53},
   YEAR           = {2000},
-  NOTE           = {Abstract retrieved from  {S}ociological {A}bstracts database. (Accession No. 200010185)}
+  NOTE           = {Abstract retrieved from {S}ociological {A}bstracts database. (Accession No. 200010185)}
 }
 
 % (APA 7.02 Example 18)
@@ -415,12 +419,14 @@
 }
 
 % (APA 7.03 Example 31)
-% NUMBER contains report specifics in parentheses after title
+% NUMBER contains report number, "No." is added automatically and TYPE contains the
+% report type
 @REPORT{7.03:31,
   AUTHOR         = {{U.S. Department of Health and Human Services, National Institute of Mental Health, National Heart, Lung and Blood Institute}},
   TITLE          = {Managing Asthma},
   SUBTITLE       = {A Guide for Schools},
-  NUMBER         = {NIH Publication No. 02-2650},
+  TYPE           = {NIH Publication},
+  NUMBER         = {02-2650},
   YEAR           = {2003},
   URL            = {http://www.nhlbi.nih.gov/health/prof/lung/asthma/asth_sch.pdf}
 }
@@ -439,7 +445,8 @@
 @REPORT{7.03:33,
   AUTHOR         = {S. S. A. Kessy and F. M. Urio},
   TITLE          = {The Contribution of Microfinance Institutions to Poverty Reduction in {T}anzania},
-  NUMBER         = {Research Report No. 06.3},
+  TYPE           = {Research Report},
+  NUMBER         = {06.3},
   YEAR           = {2006},
   ORGANIZATION   = {Poverty Alleviation website},
   URL            = {http://www.repoa.or.tz/documents_storage/Publications/Reports/06.3_Kessey_and_Urio.pdf}
@@ -447,21 +454,25 @@
 
 % (APA 7.03 Example 34)
 % Use the ORGANIZATION field to describe the URL
+% This example is an anomaly as it doesnt' have "No." before the report number.
+% This style does this consistently for all reports with numbers
 @REPORT{7.03:34,
   AUTHOR         = {J. E. McDaniel and C. G. Miskel},
   TITLE          = {The Effect of Groups and Individuals on National Decisionmaking},
   SUBTITLE       = {Influence and Domination in the Reading Policymaking Environment},
-  NUMBER         = {CIERA Report 3-025},
+  TYPE           = {CIERA Report},
+  NUMBER         = {3-025},
   YEAR           = {2002},
   ORGANIZATION   = {University of Michigan, Center for Improvement of Early Reading Achievement website},
   URL            = {http://www.ciera.org/library/reports/inquiry-3/3-025/3-025.pdf}
 }
 
 % (APA 7.03 Example 35)
-@REPORT{7.03:35,
+@TECHREPORT{7.03:35,
   AUTHOR         = {{Employee Benefit Research Institute}},
   TITLE          = {Sources of health Insurance and Characteristics of the Uninsured},
-  NUMBER         = {Issue Brief No. 123},
+  TYPE           = {Issue Brief},
+  NUMBER         = {123},
   DATE           = {1992-02},
   LOCATION       = {Washington, DC},
   PUBLISHER      = {Author}
@@ -481,7 +492,7 @@
 % (APA 7.04 Example 37)
 % Unpublished conference papers are UNPUBLISHED type
 @UNPUBLISHED{7.04:37,
-  ABSTRACT       = {yes},  
+  USERB          = {urlisabstract},
   AUTHOR         = {S. Liu},
   TITLE          = {Defending Against Business Crises with the Help of Inteligent Agent Based Early Warning Solutions},
   DATE           = {2005-05},
@@ -518,30 +529,29 @@
 }
 
 % (APA 7.05 Example 40)
-@THESIS{7.05:40,
+% The PHDTHESIS and MASTERSTHESIS are the same as THESIS but they supply a default
+% TYPE field automatically
+@MASTERSTHESIS{7.05:40,
   AUTHOR         = {D. S. McNiel},
   TITLE          = {Meaning Through Narrative},
   SUBTITLE       = {A Personal Narrative Discussing Growing Up with an Alchoholic Mother},
-  TYPE           = {Master's thesis},
   YEAR           = {2006},
   NOTE           = {Available from ProQuest Dissertations and These database. (UMI No. 1434728)}
 }
 
 % (APA 7.05 Example 41)
-@THESIS{7.05:41,
+@PHDTHESIS{7.05:41,
   AUTHOR         = {R. J. Adams},
   TITLE          = {Building a Foundation for Evaluation of Instruction in Higher Education and Continuing Education},
-  TYPE           = {Doctoral dissertation},
   YEAR           = {1973},
   URL            = {http://www.ohiolink.edu/etd/}
 }
 
 % (APA 7.05 Example 42)
-@THESIS{7.05:42,
+@PHDTHESIS{7.05:42,
   AUTHOR         = {A. Bruckman},
   TITLE          = {{MOOSE} Crossing},
   SUBTITLE       = {Construction, Community, and Learning in a Networked Virtual World for Kids},
-  TYPE           = {Doctoral dissertation},
   INSTITUTION    = {Massachusetts Institute of Technology},
   YEAR           = {1977},
   URL            = {http://www-static.cc.gatech.edu/~asb/thesis/}
@@ -549,10 +559,10 @@
 
 % (APA 7.05 Example 43)
 % VOLUME and NUMBER can be used in a thesis entry to specify the DAI volume and number
-% The ABSTRACT field indicates that this is a reference to an abstract, not the actual
-% work and thus the title is not emphasised
+% The USERB having the special value "isabstract" field indicates that this is a
+% reference to an abstract, not the actual work and thus the title is not emphasised
 @THESIS{7.05:43,
-  ABSTRACT       = {yes},
+  USERB          = {isabstract},
   AUTHOR         = {L. G. Appelbaum},
   TITLE          = {Three Studies of Human Information Processing},
   SUBTITLE       = {Texture Amplification, Motion Representation, and Figure-Ground Segregation},
@@ -564,11 +574,15 @@
 }
 
 % (APA 7.05 Example 44)
-@THESIS{7.05:44,
+% Note we're overriding TYPE here which is usually automatically set for PHDTHESIS since,
+% for some reason, this entry has "Doctoral thesis" instead of the usual "Doctoral
+% dissertation"
+@PHDTHESIS{7.05:44,
   AUTHOR         = {P. Carlbom},
   TITLE          = {Carbody and Passengers in Rail Vehicle Dynamics},
   TYPE           = {Doctoral thesis},
-  INSTITUTION    = {Royal Institute of Technology, Stockholm, Sweden},
+  INSTITUTION    = {Royal Institute of Technology, Stockholm},
+  LOCATION       = {Sweden},
   YEAR           = {2000},
   URL            = {http://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-3029}
 }
