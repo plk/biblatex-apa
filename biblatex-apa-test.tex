@@ -11,8 +11,7 @@
 
 % Biblatex
 \usepackage[style=apa,%
-            bibencoding=inputenc,%
-            uniquename=false]{biblatex}
+            bibencoding=inputenc]{biblatex}
 
 \newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
                        {\textcolor{blue}{\texttt{(APA #2)}}}%
@@ -171,7 +170,9 @@ and\\
 \textcolor{red}{Note: The second citation key here is taken from the APA
   references section as it is repeated there. This example is currently impossible to automate as
   it is, due to the nature of name list parsing in BibTeX. Disambiguation
-  works between single names and not names within lists at the moment. See
+  works between single names and not names within lists at the moment. The
+  first example works due to a dummy single-name entry with the same
+  surname in the |.bib| for the citation examples. See
  |biblatex-apa| docs. This is planned to be fully supported with |biblatex|
  2.x which should include the necessary underlying functionality}.
 
