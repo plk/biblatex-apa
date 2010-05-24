@@ -51,7 +51,7 @@ rely on each other, macro-wise, in places.
 
 In this document and in the code, the specific APA requirements are
 referred to by the section and (if appropriate) the example number of the
-APA Style Guide (5th Edition).
+APA Style Guide (6th Edition).
 
 \subsection{Requirements}\label{ref:req}
 
@@ -87,8 +87,10 @@ references specifications run to about 60 pages and are very specific in
 terms of formatting. They are also not entirely consistent but then again,
 it is rare to have such a thorough specification to work from. There are
 some parts of the requirements which are impossible to automatically
-satisfy given the current reliance of \sty{biblatex} (as of version
-\texttt{0.8}) on \bibtex . These limitations are described below.
+satisfy given the limitations of the |.bib| format and \bibtex. These
+limitations are described below and will be addressed in a future
+\sty{biblatex} version which supports the more advanced features of the
+|biber| backend.
 
 \subsection{Acknowledgments}
 
@@ -254,12 +256,14 @@ accompanying \path{.bib} files:
   References section style. To see how the style deals with a particular
   example from \apa{7.x}, look it up in here. Every example is marked with
   the APA example number and has explanatory notes.
-\item[\path{biblatex-apa.cbx}] The |biblatex-apa| citations style. It is
+\item[\path{apa.cbx}] The |biblatex-apa| citations style. It is
   decently structured with comments but shouldn't need to be read for
   normal use.
-\item[\path{biblatex-apa.bbx}] The |biblatex-apa| references style. It is
+\item[\path{apa.bbx}] The |biblatex-apa| references style. It is
   decently structured with comments but shouldn't need to be read for
   normal use.
+\item[\path{*.lbx}] The |biblatex-apa| localisation files. These files
+  override some language-specific macros for some fixed strings.
 \end{description}
 
 \subsection{Citations}
@@ -282,7 +286,10 @@ commas. See examples using this command in \path{biblatex-apa-test.tex}.
 
 The references style was based on the \sty{biblatex} default
 |authoryear-comp| style but is so heavily modified, it's almost
-unrecognisable. Some general notes:
+unrecognisable. If in doubt read the example references |.bib| as it is
+commented and you can learn a lot from he examples by picking something
+close to what you need from the APA examples and then looking in this file
+to see how it was implemented. Some general notes:
 \begin{itemize}
 \setlength{\itemsep}{0pt}
 \item There are occasions where there is no sensible \path{.bib} key to
@@ -299,6 +306,9 @@ unrecognisable. Some general notes:
   \emph{not} the |SERIES| field.
 \item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
   they are given as roman numerals, as required by \apa{6.22}.
+\item |USERB| is sometimes used to specify that a URL is for an abstract
+  rather than the paper itself. Not very portable but that's because of |bibtex| data
+  model limtations.
 \item |USERD| is sometimes used to specify information that indicates
   special formatting. Not very portable but that's because of |bibtex| data
   model limtations.
