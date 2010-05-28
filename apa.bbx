@@ -247,9 +247,9 @@
     {\ifthenelse{\iffieldundef{month}\AND\iffieldundef{issue}}
        {\printtext[yearorunkyear]{\printfield{labelyear}\printfield{extrayear}}}
        {\iffieldundef{day}
-          {\printtext[yearorunkyear]{\printfield{labelyear}%
+          {\printtext[yearorunkyear]{\printfield{labelyear}\printfield{extrayear}%
            \usebibmacro{monthorissue}}}
-          {\printtext[parens]{\printdate}}}}}
+          {\printtext[parens]{\printfield{labelyear}\printfield{extrayear}\addcomma\space\printfield{month}\space\printfield{day}}}}}}
 
 
 \DeclareFieldFormat{yearorunkyear}{%
