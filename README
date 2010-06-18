@@ -1,4 +1,4 @@
-Version 1.1
+Version 1.2
 
 Permission is granted to copy, distribute and/or modify this software under
 the terms of the LaTeX Project Public License, version
@@ -16,7 +16,7 @@ In this document and in the code, the specific APA requirements are
 referred to by the section and (if appropriate) the example number of the
 APA Style Guide 6th Edition).
 
-You will need to be using csquotes >= 4.3 and biblatex >= 0.9. If you want
+You will need to be using csquotes >= 4.3 and biblatex >= 0.9a. If you want
 to take advantage of the biblatex \DeclareQuotePunctuation facility
 to enforce the APA required "American punctuation", you should use the
 babel package with the "american" option (see biblatex manual
