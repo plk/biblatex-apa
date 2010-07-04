@@ -212,11 +212,15 @@
 \AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
     \ifthenelse{\value{listcount}>7}
       {}
-      {\ifstrequal{\currentlist}{author}
-        {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
-        {\ifthenelse{\boolean{bbx:editorinauthpos}}
-          {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
-          {\addspace\&\space}}}}}
+      {\ifthenelse{\ifcurrentname{author}\OR\boolean{bbx:editorinauthpos}}
+         {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
+         {\addspace\&\space}}}}
+
+      % {\ifstrequal{\currentlist}{author}
+      %   {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
+      %   {\ifthenelse{\boolean{bbx:editorinauthpos}}
+      %     {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
+      %     {\addspace\&\space}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -472,6 +476,7 @@
      \usebibmacro{author}}}
 
 \newbibmacro*{editorinauthpos}{%
+    \global\booltrue{bbx:editorinauthpos}%
     \printnames[editorinauthpos]{editor}%
     \setunit{\addspace}%
     \ifnameundef{editor}
@@ -481,7 +486,7 @@
        % But we also need to set a flag to say we did this so we
        % don't lose sight of the fact we once had an editor for
        % various year placement tests
-       \clearname{editor}\global\booltrue{bbx:editorinauthpos}%
+       \clearname{editor}%
        \setunit{\adddot\addspace}%
        \usebibmacro{labelyear+extrayear}%
        \setunit{\adddot\addspace}}}
