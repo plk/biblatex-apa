@@ -271,6 +271,8 @@
 % (APA 6.21) No parens round year for cites when the cite is in
 %            parentheses. Use new command \nptextcite for such cites.
 
+
+\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\multicitedelim}
 \DeclareCiteCommand{\nptextcite}
   {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
    \usebibmacro{cite:init}%
