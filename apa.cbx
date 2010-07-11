@@ -174,7 +174,9 @@
        {\iffieldundef{shorthand}
     % Cite using title
          {\usebibmacro{cite:noname}%
-          \setunit{\global\booltrue{cbx:parens}\addspace\bibleftparen}%
+          \setunit{\ifbool{cbx:np}%
+                   {\nameyeardelim}%
+                   {\global\booltrue{cbx:parens}\addspace\bibleftparen}}%
           \usebibmacro{cite:plabelyear+extrayear}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
@@ -190,7 +192,9 @@
   % Year
         \setunit{\iffieldundef{labelyear}
                  {\nameyeardelim}
-                 {\global\booltrue{cbx:parens}\addspace\bibleftparen}}
+                 {\ifbool{cbx:np}
+                   {\nameyeardelim}
+                   {\global\booltrue{cbx:parens}\addspace\bibleftparen}}}%
   % Put the shortauthor inside the year brackets if necessary
         \ifnameundef{shortauthor}
          {}
@@ -201,10 +205,12 @@
           {\usebibmacro{cite:noyear}}%
           {\usebibmacro{cite:plabelyear+extrayear}}%
         \savefield{namehash}{\cbx@lasthash}}}%
-  \gdef\cbx@tempa{\ifbool{cbx:parens}
+  \gdef\cbx@tempa{\ifboolexpr{bool {cbx:parens} and not bool {cbx:np}}
                    {\bibrightparen\global\boolfalse{cbx:parens}}
                    {}%
                   \multicitedelim}}
+
+
 
 \newcommand{\apashortdash}{-}
 
@@ -270,39 +276,14 @@
    \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \printtext[bibhyperref]{\usebibmacro{nptextcite}}}
+   \global\booltrue{cbx:np}%
+   \printtext[bibhyperref]{\usebibmacro{textcite}}%
+   \global\boolfalse{cbx:np}}%
   {}
   {\iffieldundef{postnote}
      {}
-     {\ifbool{cbx:parens}
-        {\postnotedelim}
-	{\nameyeardelim}%
+     {\nameyeardelim
       \printfield{postnote}}}
-
-\newbibmacro*{nptextcite}{%
-  \iffieldequals{namehash}{\cbx@lasthash}
-    {\setunit{\compcitedelim}%
-     \usebibmacro{cite:plabelyear+extrayear}}
-    {\cbx@tempa
-     \ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
-       {\usebibmacro{cite:noname}%
-	   \setunit{%
-	     \global\booltrue{cbx:parens}%
-	     \nameyeardelim}%
-	   \usebibmacro{cite:plabelyear+extrayear}}
-       {\printnames{labelname}%
-	\setunit{%
-	  \global\booltrue{cbx:parens}%
-	  \nameyeardelim}%
-        \iffieldundef{labelyear}
-           {\usebibmacro{cite:noyear}}
-           {\usebibmacro{cite:plabelyear+extrayear}}}%
-        \savefield{namehash}{\cbx@lasthash}}%
-  \gdef\cbx@tempa{%
-    \ifbool{cbx:parens}
-      {\addcomma\global\boolfalse{cbx:parens}}
-      {}%
-    \multicitedelim}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -329,6 +310,7 @@
 
 
 \newbool{cbx:parens}
+\newbool{cbx:np} % variable to say we're using a non-parentheses text cite
 
 \newbibmacro*{cite:init}{%
   \global\boolfalse{cbx:parens}%
@@ -372,19 +354,20 @@
   {}
   {\usebibmacro{postnote}}
 
+
 \DeclareCiteCommand{\textcite}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \printtext[bibhyperref]{\usebibmacro{textcite}}}
+   \printtext[bibhyperref]{\usebibmacro{textcite}}}%
   {}
   {\iffieldundef{postnote}
      {\ifbool{cbx:parens}
         {\bibrightparen}
-	{}}
+  {}}
      {\ifbool{cbx:parens}
         {\postnotedelim}
-	{\addspace\bibleftparen}%
+  {\addspace\bibleftparen}%
       \printfield{postnote}\bibrightparen}}
 
 \endinput
