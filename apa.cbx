@@ -130,8 +130,7 @@
 %            need to be repeated but the full years must be repeated with
 %            their extrayear postfixes
 %            "in press" extrayear needs a short dash to join to label
-% (APA 6.28) If no date, use "n.d." without parentheses and with a comma
-%             and space before.
+% (APA 6.28) If no date, use "(n.d.)"
 % (APA 6.18) Cite ORIGYEAR/YEAR if ORIGYEAR present
 
 \newbibmacro*{cite}{%
@@ -190,11 +189,9 @@
            {\printnames{shortauthor}}
            {\printnames{author}}}%
   % Year
-        \setunit{\iffieldundef{labelyear}
-                 {\nameyeardelim}
-                 {\ifbool{cbx:np}
-                   {\nameyeardelim}
-                   {\global\booltrue{cbx:parens}\addspace\bibleftparen}}}%
+        \setunit{\ifbool{cbx:np}
+                  {\nameyeardelim}
+                  {\global\booltrue{cbx:parens}\addspace\bibleftparen}}%
   % Put the shortauthor inside the year brackets if necessary
         \ifnameundef{shortauthor}
          {}
@@ -335,7 +332,7 @@
    \boolfalse{pagetracker}%
    \usebibmacro{prenote}}
   {\usebibmacro{cite:labelyear+extrayear}}
-  {\multicitedelim}
+  {\multinamedelim}
   {\usebibmacro{postnote}}
 
 \DeclareCiteCommand{\cite}
