@@ -7,11 +7,12 @@
 \usepackage{ifthen}
 \usepackage{color}
 \usepackage{MnSymbol}
-\MakeShortVerb{\|}
 
 % Biblatex
 \usepackage[style=apa,%
             bibencoding=inputenc]{biblatex}
+
+\MakeShortVerb{\|}
 
 \newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
                        {\textcolor{blue}{\texttt{(APA #2)}}}%
