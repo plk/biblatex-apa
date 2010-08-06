@@ -183,7 +183,7 @@
 % (APA 7.10 Example 67) Unknown names and dates
 
 \DeclareNameFormat{apaauthor}{%
-  \ifthenelse{\value{listcount}=7}
+  \ifthenelse{\value{listcount}=7\AND\value{listcount}<\value{liststop}}
     {\addcomma\addspace\ldots}
     {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
       {}
