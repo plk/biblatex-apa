@@ -216,12 +216,6 @@
          {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
          {\addspace\&\space}}}}
 
-      % {\ifstrequal{\currentlist}{author}
-      %   {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
-      %   {\ifthenelse{\boolean{bbx:editorinauthpos}}
-      %     {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
-      %     {\addspace\&\space}}}}}
-
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -248,13 +242,7 @@
     {\iffieldundef{origyear}
       {\printtext[parens]{\usebibmacro{cite:noyear}}}
       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}
-    {\ifthenelse{\iffieldundef{month}\AND\iffieldundef{issue}}
-       {\printtext[yearorunkyear]{\printfield{labelyear}\printfield{extrayear}}}
-       {\iffieldundef{day}
-          {\printtext[yearorunkyear]{\printfield{labelyear}\printfield{extrayear}%
-           \usebibmacro{monthorissue}}}
-          {\printtext[parens]{\printfield{labelyear}\printfield{extrayear}\addcomma\space\printfield{month}\space\printfield{day}}}}}}
-
+    {\printtext[yearorunkyear]{\printdate}}}
 
 \DeclareFieldFormat{yearorunkyear}{%
   \ifthenelse{\iffieldequalstr{usere}{unkdate}\OR\iffieldequalstr{usere}{unkauthdate}}
@@ -471,7 +459,9 @@
 
 \renewbibmacro*{author/editor}{%
   \ifnameundef{author}
-    {\usebibmacro{editorinauthpos}}
+    {\ifnameundef{editor}
+      {}
+      {\usebibmacro{editorinauthpos}}}
     {\global\boolfalse{bbx:editorinauthpos}%
      \usebibmacro{author}}}
 

@@ -1,11 +1,16 @@
 \documentclass{ltxdockit}
-\usepackage[utf8]{inputenc}
 \usepackage[british]{babel}
-\usepackage[strict,babel=once]{csquotes}
+\usepackage[strict]{csquotes}
 \usepackage{shortvrb}
 \usepackage{ifthen}
 \MakeAutoQuote{«}{»}
 \MakeShortVerb{\|}
+
+% Unicode
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{TeXGyrePagella}
+\setsansfont{Arial}
+\setmonofont{Courier New}
 
 \newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
                        {\texttt{(APA #2)}}%
@@ -18,7 +23,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={1.8},
+  revision={1.9},
   date={\today}}
 
 \hypersetup{%
@@ -167,7 +172,9 @@ this is not really apparent in the bibliography. There is an APA standard
 for long date formats which may not be correct for European journals using
 roughly APA formatting standards (German journals tend to have a different
 long date format, for example). The «american» babel option will give you
-APA compliant US date formats.
+APA compliant US date formats. Default sensible date formats are included
+for german, ngerman and french. You should redefine the |\mkbibdatelong|
+macro in the relevant language |*-apa.lbx| file to change this if needed.
 
 \subsection{Limitations}
 \label{use:limit}
@@ -321,6 +328,12 @@ to see how it was implemented. Some general notes:
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{1.9}{2010-09-27}
+\item Moved docs to LuaLaTeX compat
+\item Fixed german/ngerman date formats
+\item Cleaned up date format code
+\end{release}
 
 \begin{release}{1.8}{2010-08-06}
 \item Fixed seven author ellipsis bug

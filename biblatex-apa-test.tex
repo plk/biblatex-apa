@@ -1,16 +1,21 @@
 \documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage[american]{babel}
 \usepackage{csquotes}
 \usepackage{shortvrb}
 \usepackage{ifthen}
 \usepackage{color}
-\usepackage{MnSymbol}
+\usepackage[retainmissing]{MnSymbol}
+
+% Unicode
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{TeXGyrePagella}
+\setsansfont{Arial}
+\setmonofont{Courier New}
 
 % Biblatex
 \usepackage[style=apa,%
-            bibencoding=inputenc]{biblatex}
+            backend=biber,
+            bibencoding=utf8]{biblatex}
 
 \MakeShortVerb{\|}
 
@@ -21,8 +26,8 @@
 \setlength{\parskip}{3ex}
 \bibliography{biblatex-apa-test-citations,biblatex-apa-test-references}
 
-\def\apaex#1{\hbox{\hspace{-4em}\texttt{\small \detokenize{#1}}}\\ $\rcurvearrowse$ \textbf{#1}}
-\def\apaexs#1{\hbox{\texttt{\footnotesize \detokenize{#1}}} \textbf{\small #1}}
+\def\apaex#1{\hbox{\hspace{-4em}\texttt{\small\detokenize{#1}}}\\$\rcurvearrowse$ \textbf{#1}}
+\def\apaexs#1{\hbox{\texttt{\footnotesize\detokenize{#1}}} \textbf{\small #1}}
 
 % This just makes it easier to find a specific (APA 7.x) example in the
 % typeset references section
@@ -242,6 +247,10 @@ Entries with no date use ``n.d.''.\\
 \apaex{\parencite{6.28a}}\\
 \apaex{(\nptextcite{6.28a})}\\
 
+\noindent\apa{7.01:12c}\\
+Issue with no editors\\
+\apaex{\parencite{7.01:12c}}\\
+
 \noindent\apa{A7.07}\\
 A patent citation uses the title but with no quotes\\
 \apaex{\textcite{A7.07}}\\
@@ -254,18 +263,3 @@ A patent citation uses the title but with no quotes\\
 % see (APA 7.x) examples there.
 \printbibliography[notkeyword=noinclude]
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
