@@ -74,6 +74,50 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+% Date formats. Suppress end range of less specific fields
+
+\newcommand*{\mkbibrangeapalong}[1]{%
+  \ifstrequal{#1}{url}
+    {\printtext{%
+     \mkbibdateapalongurl{#1year}{#1month}{#1day}%
+     \printfield{extrayear}%
+     \iffieldundef{#1endyear}%
+       {}%
+       {\iffieldequalstr{#1endyear}{}% open-ended range?
+         {\mbox{\bibdatedash}}
+         {\bibdatedash%
+          \iffieldsequal{#1year}{#1endyear}%
+            {\iffieldsequal{#1month}{#1endmonth}%
+              {\iffieldsequal{#1day}{#1endday}%
+                {}%
+                {\mkbibdateapalongurl{}{}{#1endday}}}
+              {\mkbibdateapalongurl{}{#1endmonth}{#1endday}}}
+            {\mkbibdateapalongurl{#1endyear}{#1endmonth}{#1endday}}%
+          \printfield{extrayear}}}}}
+    {\printtext{%
+     \mkbibdateapalong{#1year}{#1month}{#1day}%
+     \printfield{extrayear}%
+     \iffieldundef{#1endyear}%
+       {}%
+       {\iffieldequalstr{#1endyear}{}% open-ended range?
+         {\mbox{\bibdatedash}}
+         {\bibdatedash%
+          \iffieldsequal{#1year}{#1endyear}%
+            {\iffieldsequal{#1month}{#1endmonth}%
+              {\iffieldsequal{#1day}{#1endday}%
+                {}%
+                {\mkbibdateapalong{}{}{#1endday}}}
+              {\mkbibdateapalong{}{#1endmonth}{#1endday}}}
+            {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}}%
+          \printfield{extrayear}}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.12) Five author max before "et al" and a one author truncation
 %            policy. Note that this doesn't really work properly due to
@@ -98,7 +142,7 @@
                             minnames=999,%
                             abbreviate=true,%
                             mincrossrefs=999,%
-                            alldates=long}
+                            alldates=apalong}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1621,6 +1665,10 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 
 % Unchanged from authoryear-comp (biblatex v0.9)
 

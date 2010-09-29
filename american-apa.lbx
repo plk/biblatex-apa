@@ -67,28 +67,40 @@
 % (APA 7.10 Example 68) Drop end* when they are the same as *
 
 % You must use \printdate to get here otherwise it will be ignored
+
 \DefineBibliographyExtras{american}{%
-  \protected\def\mkbibdatelong#1#2#3{%
-    \ifthenelse{\iffieldundef{#1}\OR%
-                \(\equal{#1}{endyear}\AND\iffieldsequal{year}{endyear}\)}
-      {}
-      {\thefield{#1}%
-       \ifthenelse{\(\equal{#1}{year}\AND\iffieldundef{month}\)\OR%
-                   \(\equal{#1}{endyear}\AND\iffieldundef{endmonth}\)}
-         {}
-         {\addcomma\addspace}}%
-    \ifthenelse{\iffieldundef{#2}\OR%
-                \(\equal{#2}{endmonth}\AND\iffieldsequal{month}{endmonth}\)}
-      {}
-      {\mkbibmonth{\thefield{#2}}%
-       \ifthenelse{\(\equal{#2}{month}\AND\iffieldundef{day}\)\OR%
-                   \(\equal{#2}{endmonth}\AND\iffieldundef{endday}\)}
-         {}
-         {\addspace}}%
-    \ifthenelse{\iffieldundef{#3}\OR%
-                \(\equal{#3}{endday}\AND\iffieldsequal{day}{endday}\)}
-          {}
-          {\stripzeros{\thefield{#3}}}}}
+  \protected\def\mkbibdateapalong#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\thefield{#1}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongurl#1#2#3{%
+    \iffieldundef{#3}%
+      {}%
+      {\stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \thefield{#1}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
