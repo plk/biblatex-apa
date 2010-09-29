@@ -80,7 +80,7 @@
 % Date formats. Suppress end range of less specific fields
 
 \newcommand*{\mkbibrangeapalong}[1]{%
-  \ifthenelse{\ifstrequal{#1}{url}\OR\ifstrequal{#1}{event}}
+  \ifthenelse{\equal{#1}{url}\OR\equal{#1}{event}}
     {\printtext{%
      \mkbibdateapalongdmy{#1year}{#1month}{#1day}%
      \iffieldundef{#1endyear}%
@@ -92,10 +92,28 @@
             {\iffieldsequal{#1month}{#1endmonth}%
               {\iffieldsequal{#1day}{#1endday}%
                 {}%
-                {\mkbibdateapalongdmy{}{}{#1endday}}}
-              {\mkbibdateapalongdmy{}{#1endmonth}{#1endday}}}
-            {\mkbibdateapalongdmy{#1endyear}{#1endmonth}{#1endday}}}}}}%
+                {\mkbibdateapalongdmy{}{}{#1endday}}}%
+              {\mkbibdateapalongdmy{}{#1endmonth}{#1endday}}}%
+            {\mkbibdateapalongdmy{#1endyear}{#1endmonth}{#1endday}}}}}}
     {\printtext{%
+     \mkbibdateapalong{#1year}{#1month}{#1day}%
+     \iffieldundef{#1endyear}%
+       {}%
+       {\iffieldequalstr{#1endyear}{}% open-ended range?
+         {\mbox{\bibdatedash}}
+         {\bibdatedash%
+          \iffieldsequal{#1year}{#1endyear}%
+            {\iffieldsequal{#1month}{#1endmonth}%
+              {\iffieldsequal{#1day}{#1endday}%
+                {}%
+                {\mkbibdateapalong{}{}{#1endday}}}%
+              {\mkbibdateapalong{}{#1endmonth}{#1endday}}}%
+            {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}}}}}}}
+
+
+% Only for DATE as only \printdateextra is used
+\newcommand*{\mkbibrangeapalongextra}[1]{%
+    \printtext{%
      \mkbibdateapalong{#1year}{#1month}{#1day}%
      \printfield{extrayear}%
      \iffieldundef{#1endyear}%
@@ -110,26 +128,6 @@
                 {\mkbibdateapalong{}{}{#1endday}}}
               {\mkbibdateapalong{}{#1endmonth}{#1endday}}}
             {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}}%
-          \printfield{extrayear}}}}}}
-
-
-% Only for DATE as only \printdateextra is used
-\newcommand*{\mkbibrangeapalongextra}[1]{%
-    \printtext{%
-     \mkbibdateapalong{year}{month}{day}%
-     \printfield{extrayear}%
-     \iffieldundef{endyear}%
-       {}%
-       {\iffieldequalstr{endyear}{}% open-ended range?
-         {\mbox{\bibdatedash}}
-         {\bibdatedash%
-          \iffieldsequal{year}{endyear}%
-            {\iffieldsequal{month}{endmonth}%
-              {\iffieldsequal{day}{endday}%
-                {}%
-                {\mkbibdateapalong{}{}{endday}}}
-              {\mkbibdateapalong{}{endmonth}{endday}}}
-            {\mkbibdateapalong{endyear}{endmonth}{endday}}%
           \printfield{extrayear}}}}}
 
 
