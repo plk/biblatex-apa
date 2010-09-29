@@ -80,10 +80,9 @@
 % Date formats. Suppress end range of less specific fields
 
 \newcommand*{\mkbibrangeapalong}[1]{%
-  \ifstrequal{#1}{url}
+  \ifthenelse{\ifstrequal{#1}{url}\OR\ifstrequal{#1}{event}}
     {\printtext{%
-     \mkbibdateapalongurl{#1year}{#1month}{#1day}%
-     \printfield{extrayear}%
+     \mkbibdateapalongdmy{#1year}{#1month}{#1day}%
      \iffieldundef{#1endyear}%
        {}%
        {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -93,10 +92,9 @@
             {\iffieldsequal{#1month}{#1endmonth}%
               {\iffieldsequal{#1day}{#1endday}%
                 {}%
-                {\mkbibdateapalongurl{}{}{#1endday}}}
-              {\mkbibdateapalongurl{}{#1endmonth}{#1endday}}}
-            {\mkbibdateapalongurl{#1endyear}{#1endmonth}{#1endday}}%
-          \printfield{extrayear}}}}}
+                {\mkbibdateapalongdmy{}{}{#1endday}}}
+              {\mkbibdateapalongdmy{}{#1endmonth}{#1endday}}}
+            {\mkbibdateapalongdmy{#1endyear}{#1endmonth}{#1endday}}}}}}%
     {\printtext{%
      \mkbibdateapalong{#1year}{#1month}{#1day}%
      \printfield{extrayear}%
@@ -113,6 +111,27 @@
               {\mkbibdateapalong{}{#1endmonth}{#1endday}}}
             {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}}%
           \printfield{extrayear}}}}}}
+
+
+% Only for DATE as only \printdateextra is used
+\newcommand*{\mkbibrangeapalongextra}[1]{%
+    \printtext{%
+     \mkbibdateapalong{year}{month}{day}%
+     \printfield{extrayear}%
+     \iffieldundef{endyear}%
+       {}%
+       {\iffieldequalstr{endyear}{}% open-ended range?
+         {\mbox{\bibdatedash}}
+         {\bibdatedash%
+          \iffieldsequal{year}{endyear}%
+            {\iffieldsequal{month}{endmonth}%
+              {\iffieldsequal{day}{endday}%
+                {}%
+                {\mkbibdateapalong{}{}{endday}}}
+              {\mkbibdateapalong{}{endmonth}{endday}}}
+            {\mkbibdateapalong{endyear}{endmonth}{endday}}%
+          \printfield{extrayear}}}}}
+
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -286,7 +305,7 @@
     {\iffieldundef{origyear}
       {\printtext[parens]{\usebibmacro{cite:noyear}}}
       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}
-    {\printtext[yearorunkyear]{\printdate}}}
+    {\printtext[yearorunkyear]{\printdateextra}}}
 
 \DeclareFieldFormat{yearorunkyear}{%
   \ifthenelse{\iffieldequalstr{usere}{unkdate}\OR\iffieldequalstr{usere}{unkauthdate}}
