@@ -114,8 +114,7 @@
 % Only for DATE as only \printdateextra is used
 \newcommand*{\mkbibrangeapalongextra}[1]{%
     \printtext{%
-     \mkbibdateapalong{#1year}{#1month}{#1day}%
-     \printfield{extrayear}%
+     \mkbibdateapalongextra{#1year}{#1month}{#1day}%
      \iffieldundef{#1endyear}%
        {}%
        {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -125,10 +124,9 @@
             {\iffieldsequal{#1month}{#1endmonth}%
               {\iffieldsequal{#1day}{#1endday}%
                 {}%
-                {\mkbibdateapalong{}{}{#1endday}}}
-              {\mkbibdateapalong{}{#1endmonth}{#1endday}}}
-            {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}}%
-          \printfield{extrayear}}}}}
+                {\mkbibdateapalongextra{}{}{#1endday}}}
+              {\mkbibdateapalongextra{}{#1endmonth}{#1endday}}}
+            {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}}}}}}
 
 
 %

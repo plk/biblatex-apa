@@ -63,11 +63,29 @@
 % (APA 7.10 Example 68) Drop end* when they are the same as *
 
 % You must use \printdate to get here otherwise it will be ignored
-\DefineBibliographyExtras{ngerman}{%
+\DefineBibliographyExtras{german}{%
   \protected\def\mkbibdateapalong#1#2#3{%
     \iffieldundef{#1}%
       {}%
       {\thefield{#1}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\thefield{#1}\printfield{extrayear}}%
     \iffieldundef{#3}%
       {}%
       {\iffieldundef{#1}%

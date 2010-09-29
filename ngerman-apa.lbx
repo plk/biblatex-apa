@@ -82,6 +82,24 @@
           {\addspace}}%
         {\adddot\addspace}%
        \mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\thefield{#1}\printfield{extrayear}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongdmy#1#2#3{%
     \iffieldundef{#3}%
       {}%
