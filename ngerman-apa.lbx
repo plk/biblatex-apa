@@ -76,8 +76,10 @@
        \stripzeros{\thefield{#3}}}%
     \iffieldundef{#2}%
       {}%
-      {\ifthenelse{\iffieldundef{#3}\OR\iffieldundef{#1}}%
-        {}
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
         {\adddot\addspace}%
        \mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongurl#1#2#3{%
@@ -92,7 +94,7 @@
        \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#1}%
       {}%
-      {\ifthenelse{\iffieldundef{#3}\OR\iffieldundef{#2}}%
+      {\iffieldundef{#2}%
         {}%
         {\addspace}%
        \thefield{#1}}}}
