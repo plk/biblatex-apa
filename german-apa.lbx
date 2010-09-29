@@ -63,23 +63,23 @@
 % (APA 7.10 Example 68) Drop end* when they are the same as *
 
 % You must use \printdate to get here otherwise it will be ignored
-\DefineBibliographyExtras{german}{%
+\DefineBibliographyExtras{ngerman}{%
   \protected\def\mkbibdateapalong#1#2#3{%
     \iffieldundef{#1}%
       {}%
       {\thefield{#1}}%
-    \iffieldundef{#2}%
+    \iffieldundef{#3}%
       {}%
       {\iffieldundef{#1}%
         {}
-        {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#3}}}%
+        {\adddot\addspace}%
+       \stripzeros{\thefield{#3}}}%
     \iffieldundef{#2}%
       {}%
-      {\iffieldundef{#3}%
+      {\ifthenelse{\iffieldundef{#3}\OR\iffieldundef{#1}}%
         {}
-        {\adddot\addspace}%
-       \stripzeros{\thefield{#2}}}}%
+        {\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongurl#1#2#3{%
     \iffieldundef{#3}%
       {}%
@@ -92,7 +92,7 @@
        \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#1}%
       {}%
-      {\iffieldundef{#2}%
+      {\ifthenelse{\iffieldundef{#3}\OR\iffieldundef{#2}}%
         {}%
         {\addspace}%
        \thefield{#1}}}}
