@@ -1,10 +1,11 @@
-\documentclass{article}
+\documentclass[paper=a4]{article}
 \usepackage[american]{babel}
 \usepackage{csquotes}
 \usepackage{shortvrb}
 \usepackage{ifthen}
 \usepackage{color}
 \usepackage[retainmissing]{MnSymbol}
+\usepackage[top=2.5cm]{geometry}
 
 % Unicode
 \usepackage{fontspec}
@@ -38,9 +39,7 @@
 \DeclareLanguageMapping{american}{american-apa}
 
 \begin{document}
-
 \section*{|biblatex-apa| style examples}
-
 This file typesets just about all useful examples from
 \apa{6.11}--\apa{6.21} and \apa{7.01}--\apa{7.11}. Please refer to the
 |biblatex-apa-test-references.bib| file for details on the references
@@ -210,7 +209,7 @@ Two or more works withing the same parentheses:\\
 
 \noindent\apa{6.17}\\
 Secondary sources:\\
-\apaex{\parencite[as cited in][]{6.17}}\\
+\apaex{\parencite[as cited in][]{6.17}}
 
 \noindent\apa{6.18}\\
 Classical works:\\
@@ -229,7 +228,7 @@ they wouldn't usually be in the References section anyway.
 \noindent\apa{6.19}\\
 These examples are easily dealt with using standard |biblatex| functionality.\\
 \apaex{\parencite[][10]{6.19a}}\\
-\apaex{\parencite[][Chapter 3]{6.19b}}\\
+\apaex{\parencite[][Chapter 3]{6.19b}}
 
 \noindent\apa{6.20}\\
 Such cases are just typed out--they have no Reference section entry and
@@ -245,17 +244,16 @@ See the |biblatex-apa| docs.\\
 Entries with no date use ``n.d.''.\\
 \apaex{\textcite{6.28a}}\\
 \apaex{\parencite{6.28a}}\\
-\apaex{(\nptextcite{6.28a})}\\
+\apaex{(\nptextcite{6.28a})}
 
 \noindent\apa{7.01:12c}\\
 Issue with no editors\\
-\apaex{\parencite{7.01:12c}}\\
+\apaex{\parencite{7.01:12c}}
 
 \noindent\apa{A7.07}\\
 A patent citation uses the title but with no quotes\\
 \apaex{\textcite{A7.07}}\\
-\apaex{\parencite{A7.07}}\\
-
+\apaex{\parencite{A7.07}}
 
 \newpage
 \nocite{*}
