@@ -29,6 +29,14 @@
 
 \RequireBibliographyStyle{standard}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Allow variable max authors/editors limit
+
+\newcommand{\maxprtauth}{7}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.22) Force roman numerals into arabic
 %            using etoolbox macros
@@ -242,9 +250,9 @@
 % (APA 7.10 Example 67) Unknown names and dates
 
 \DeclareNameFormat{apaauthor}{%
-  \ifthenelse{\value{listcount}=7\AND\value{listcount}<\value{liststop}}
+  \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{liststop}}
     {\addcomma\addspace\ldots}
-    {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
+    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{liststop}}
       {}
       {\ifthenelse{\iffieldequalstr{usere}{unkauth}\OR\iffieldequalstr{usere}{unkauthdate}}
         {\mkbibbrackets{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}?}}
@@ -269,7 +277,7 @@
 % (APA 6.27) Use blank for long lists
 
 \AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
-    \ifthenelse{\value{listcount}>7}
+    \ifthenelse{\value{listcount}>\maxprtauth}
       {}
       {\ifthenelse{\ifcurrentname{author}\OR\boolean{bbx:editorinauthpos}}
          {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
@@ -496,23 +504,23 @@
 % (APA 7.02 Example 27) ... unless there is no author
 
 \DeclareNameFormat{apatranslator}{%
-  \ifthenelse{\value{listcount}=7}
+  \ifthenelse{\value{listcount}=\maxprtauth}
     {\addcomma\addspace\ldots}
-    {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
+    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{liststop}}
       {}
       {\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}}}
 
 \DeclareNameFormat{apaeditor}{%
-  \ifthenelse{\value{listcount}=7}
+  \ifthenelse{\value{listcount}=\maxprtauth}
     {\addcomma\addspace\ldots}
-    {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
+    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{liststop}}
       {}
       {\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}}}
 
 \DeclareNameFormat{editorinauthpos}{%
-  \ifthenelse{\value{listcount}=7}
+  \ifthenelse{\value{listcount}=\maxprtauth}
     {\addcomma\addspace\ldots}
-    {\ifthenelse{\value{listcount}>7\AND\value{listcount}<\value{liststop}}
+    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{liststop}}
       {}
       {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}
 
