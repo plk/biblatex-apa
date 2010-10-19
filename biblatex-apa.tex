@@ -100,7 +100,8 @@ limitations are described below and will be addressed in a future
 
 Thanks to Philipp Lehman for \sty{biblatex} which really has been a major
 advance over pure \bibtex. Thanks to Alexander van Loon for the Dutch
-localisation.
+localisation. Thanks to Paul Thompson for the suggestion to
+parameterise the max authors setting.
 
 \section{Use}\label{ref:use}
 \label{use}
@@ -300,6 +301,12 @@ close to what you need from the APA examples and then looking in this file
 to see how it was implemented. Some general notes:
 \begin{itemize}
 \setlength{\itemsep}{0pt}
+\item The |\maxprtauth| commands returns the number of author/editor
+  names which are printed. APA style defaults to 7. You can reset this
+  after loading biblatex with, for example,
+  |\renewcommand{\maxprtauth}{25}| if you really want to fully print
+  all author list references in certain contexts (for example in a CV
+  where you are an author in position 8 \ldots)
 \item There are occasions where there is no sensible \path{.bib} key to
   use. This applies to things like |AUDIO| and |VIDEO| entries mainly. The
   format of these requires that different roles (Director, Producer etc.)
@@ -328,6 +335,10 @@ to see how it was implemented. Some general notes:
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{2.2}{2010-10-}
+\item Parameterised max author/editor list (thanks to Paul Thompson)
+\end{release}
 
 \begin{release}{2.1}{2010-10-17}
 \item New Dutch localisation (thanks to Alexander van Loon)
