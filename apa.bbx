@@ -140,6 +140,23 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.09 Example 62) ERIC
+% eprint references
+
+\DeclareFieldFormat{eprint:eric}{%
+  \iffieldequalstr{userb}{urlisabstract}
+    {\printtext{\bibcpstring{abstract}}\addspace%
+     \printtext{\bibstring{retrieved}}}
+    {\printtext{\bibcpstring{retrieved}}}%
+     \setunit{\addspace}%
+     \printtext{\bibstring{from}}\addspace%
+     ERIC\addspace database\addspace%
+     \mkbibparens{#1}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.12) Five author max before "et al" and a one author truncation
@@ -435,6 +452,7 @@
      \printfield{series}
      \setunit{\addcomma\space}}%
   \printfield{volume}%
+  \setunit{\addspace}%
   \printfield{number}%
   \setunit{\addspace}\newblock
   \usebibmacro{issuename}%
@@ -823,29 +841,10 @@
 % (APA 7.02 Example 40--44) Theses titles and volume
 %                           Titles are not emph if only an abstract
 
-\DeclareFieldFormat[thesis]{title}{\iffieldequalstr{userb}{isabstract}{#1}{\mkbibemph{#1}}}
-\DeclareFieldFormat[thesis]{volume}{\mkbibemph{\apanum{#1}}\addspace}
-\DeclareFieldFormat[thesis]{number}{\mkbibparens{\apanum{#1}}\addspace}
-\DeclareFieldFormat[thesis]{eprinttype}{\mkbibemph{#1}\addspace}
-\DeclareFieldFormat[thesis]{eprint}{#1}
-\DeclareFieldFormat[thesis]{pages}{#1}
-
-\newbibmacro*{thesis:retrinfo}{%
-  \printfield{eprinttype}%
-  \clearfield{eprinttype}%
-  \setunit{\addcomma\addspace}%
-  \printfield{volume}%
-  \setunit{\addspace}%
-  \printfield{number}%
-  \setunit{\addcomma\addspace}%
-  \printfield{eprint}%
-  \clearfield{eprint}%
-  \setunit{\addcomma\addspace}%
-  \printfield{pages}%
-  \setunit{\relax}}
+\DeclareFieldFormat[thesis]{title}{\mkbibemph{#1}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.05) Unpublished theses
@@ -1012,8 +1011,6 @@
 
 \DeclareFieldFormat{url}{\url{#1}}
 \DeclareFieldFormat{urldate}{#1}
-\DeclareFieldFormat{eprinttype}{#1}
-\DeclareFieldFormat{eprint}{\mkbibparens{#1}}
 
 \renewbibmacro*{url+urldate}{%
      \def\@apaar{retrieved}% default
@@ -1035,21 +1032,6 @@
         \setunit*{\addcolon\addspace}%
         \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}
 
-\renewbibmacro*{eprint}{%
-     \def\@apaar{retrieved}% default
-     \iffieldundef{eprint}
-       {}
-       {\iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
-         \iffieldequalstr{userb}{urlisabstract}
-         {\printtext{\bibcpstring{abstract}}\addspace%
-           \printtext{\bibstring{\@apaar}}}
-         {\printtext{\bibcpstring{\@apaar}}}%
-        \setunit{\addspace}%
-        \printtext{\bibstring{from}}%
-        \setunit*{\addspace}%
-        \printfield{eprinttype}%
-        \newunit
-        \printfield{eprint}}}
 
 %
 %%%%%%%%%%%%%%%%%
@@ -1414,8 +1396,6 @@
   \usebibmacro{title}%
   \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \usebibmacro{type+institution}%
-  \newunit\newblock
-  \usebibmacro{thesis:retrinfo}
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
