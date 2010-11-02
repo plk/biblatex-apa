@@ -1,0 +1,7 @@
+Update version string in:
+* doc .tex
+* README
+* apa.cbx
+* apa.bbx
+* *.lbx
+

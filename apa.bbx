@@ -1,4 +1,4 @@
-%% apa.bbx
+%% apa.bbx v2.3
 %% Copyright 2010 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -381,12 +381,12 @@
 \newbibmacro*{bookaddinfo}{%
   \ifthenelse{\iffieldundef{edition}\AND\iffieldundef{volumes}}
     {}
-    {\printtext{\bibleftparen}%
+    {\printtext{\bibopenparen}%
      \printfield{edition}%
      \setunit*{\addcomma\addspace}%
      \printfield{volumes}%
      \setunit{}%
-     \printtext{\bibrightparen}}%
+     \printtext{\bibcloseparen}}%
 }
 
 \renewbibmacro*{title}{%
@@ -483,7 +483,7 @@
               \iffieldundef{number}\AND%
               \(\iffieldundef{volume}\OR\boolean{bbx:volseen}\)}
   {}
-  {\printtext{\bibleftparen}%
+  {\printtext{\bibopenparen}%
    \printfield{edition}%
    \setunit*{\addcomma\addspace}%
    \printfield{chapter}%
@@ -499,7 +499,7 @@
    \setunit*{\addcomma\addspace}%
    \printfield{pages}%
    \setunit{}%
-   \printtext{\bibrightparen}%
+   \printtext{\bibcloseparen}%
    \newunit}}
 
 %
@@ -620,14 +620,14 @@
               \ifnameundef{translator}}%
     {}%
     {\ifnamesequal{editor}{translator}%
-       {\printtext{\bibleftparen}\global\booltrue{bbx:parens}%
+       {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
         \printnames[apaeditor]{editor}%
         \setunit*{\addcomma\addspace}%
         \usebibmacro{apaeditorstrg}{editor}%
         \setunit*{\addspace\&\space}%
         \printtext{\bibcpstring{translator}}%
-        \ifbool{bbx:parens}{\printtext{\bibrightparen}\global\boolfalse{bbx:parens}}{}}
-       {\printtext{\bibleftparen}\global\booltrue{bbx:parens}%
+        \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}
+       {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
         \ifnameundef{editor}%
           {}%
           {\printnames[apaeditor]{editor}%
@@ -643,7 +643,7 @@
            \printtext{\bibcpstring{translator}}%
            \clearname{translator}%
            \setunit{\adddot}}%
-        \ifbool{bbx:parens}{\printtext{\bibrightparen}\global\boolfalse{bbx:parens}}{}}}}
+        \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}}}
  
 \newbibmacro*{editor+trans}{%
   \ifthenelse{\ifnameundef{editor}\AND%
@@ -655,11 +655,11 @@
     {\ifnamesequal{editor}{translator}%
       {\usebibmacro{in}%
        \printnames[apaeditor]{editor}%
-       \setunit{\addspace\bibleftparen\global\booltrue{bbx:parens}}%
+       \setunit{\addspace\bibopenparen\global\booltrue{bbx:parens}}%
        \usebibmacro{apaeditorstrg}{editor}%
        \setunit*{\addspace\&\space}%
        \printtext{\bibcpstring{translator}}%
-       \ifbool{bbx:parens}{\printtext{\bibrightparen}\global\boolfalse{bbx:parens}}{}}
+       \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}
       {\ifnameundef{translator}%
         {}%
         {\setunit{\relax}%
