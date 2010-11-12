@@ -1,4 +1,4 @@
-%% apa.cbx v2.3
+%% apa.cbx v2.4
 %% Copyright 2010 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -206,7 +206,12 @@
            \ifbool{cbx:parens}
              {\bibcloseparen\global\boolfalse{cbx:parens}}
              {}}
+  % Actual year printing
           {\usebibmacro{cite:plabelyear+extrayear}%
+           \iffieldundef{postnote}
+             {}
+  % Postnote printing
+             {\postnotedelim\printfield{postnote}}%
            \ifbool{cbx:parens}
              {\bibcloseparen\global\boolfalse{cbx:parens}}
              {}}%
@@ -370,11 +375,6 @@
   {\usebibmacro{citeindex}%
    \usebibmacro{textcite}}
   {}
-  {\iffieldundef{postnote}
-     {}
-     {\ifbool{cbx:parens}
-        {\postnotedelim}
-        {\addspace\bibopenparen}%
-      \printfield{postnote}\bibcloseparen}}
+  {}
 
 \endinput
