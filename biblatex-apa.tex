@@ -23,7 +23,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={2.4},
+  revision={2.5},
   date={\today}}
 
 \hypersetup{%
@@ -335,6 +335,13 @@ to see how it was implemented. Some general notes:
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{2.5}{2010-11-24}
+\item Refactored hyperref to only link from years to make it
+  consistent across cite commands
+\item Added hyperref target references section for citation examples
+\item Fixed textcite multicite issue
+\end{release}
 
 \begin{release}{2.4}{2010-11-14}
 \item Fixed postnotes/hyperref for textcite

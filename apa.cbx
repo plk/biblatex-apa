@@ -1,4 +1,4 @@
-%% apa.cbx v2.4
+%% apa.cbx v2.5
 %% Copyright 2010 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -137,21 +137,18 @@
   \iffieldequals{namehash}{\cbx@lasthash}
 % Multiple cites in one command
    {\setunit{\compcitedelim}%
-    \printtext[bibhyperref]{\usebibmacro{cite:plabelyear+extrayear}}}%
+    \usebibmacro{cite:plabelyear+extrayear}}%
 % Single cite
    {\ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
 % No author/editor
-     {\printtext[bibhyperref]{%
-       \usebibmacro{cite:noname}%
+     {\usebibmacro{cite:noname}%
        \setunit{\nameyeardelim}%
       \iffieldundef{labelyear}
         {\usebibmacro{cite:noyear}}
         {\usebibmacro{cite:plabelyear+extrayear}%
-         \savefield{namehash}{\cbx@lasthash}}}}
+         \savefield{namehash}{\cbx@lasthash}}}
 % Normal cite
-     {\cbx@tempa
-      \printtext[bibhyperref]{%
-       \ifnameundef{shortauthor}
+     {\ifnameundef{shortauthor}
         {\printnames{labelname}}
         {\ifciteseen
           {\printnames{shortauthor}}
@@ -160,18 +157,16 @@
       \iffieldundef{labelyear}
         {\usebibmacro{cite:noyear}}
         {\usebibmacro{cite:plabelyear+extrayear}%
-         \savefield{namehash}{\cbx@lasthash}}%
-      \global\let\cbx@tempa=\multicitedelim}}}}
+         \savefield{namehash}{\cbx@lasthash}}}}%
+   \setunit{\multicitedelim}}
 
 \newbibmacro*{textcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
 % Compact cite - more than one thing for same author
-    {\compcitedelim%
-     \printtext[bibhyperref]{\bibopenparen\usebibmacro{cite:plabelyear+extrayear}\bibcloseparen\global\boolfalse{cbx:parens}}}
+    {\setunit{\compcitedelim}%
+     \usebibmacro{cite:plabelyear+extrayear}}
 % Single cite
-    {\cbx@tempa
-     \printtext[bibhyperref]{%
-      \ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
+    {\ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
   % No author/editor or patent
        {\iffieldundef{shorthand}%
     % Cite using title
@@ -179,7 +174,7 @@
           \setunit{\ifbool{cbx:np}%
                    {\nameyeardelim}%
                    {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
-          \usebibmacro{cite:plabelyear+extrayear}\bibcloseparen\global\boolfalse{cbx:parens}}
+          \usebibmacro{cite:plabelyear+extrayear}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
   % Normal cite with author/editor
@@ -202,35 +197,31 @@
            {}
            {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
         \iffieldundef{labelyear}%
-          {\usebibmacro{cite:noyear}%
-           \ifbool{cbx:parens}
-             {\bibcloseparen\global\boolfalse{cbx:parens}}
-             {}}
+          {\usebibmacro{cite:noyear}}
   % Actual year printing
-          {\usebibmacro{cite:plabelyear+extrayear}%
-           \iffieldundef{postnote}
-             {}
-  % Postnote printing
-             {\postnotedelim\printfield{postnote}}%
-           \ifbool{cbx:parens}
-             {\bibcloseparen\global\boolfalse{cbx:parens}}
-             {}}%
-        \savefield{namehash}{\cbx@lasthash}}}}%
-  \global\let\cbx@tempa=\multicitedelim}
+          {\usebibmacro{cite:plabelyear+extrayear}}%
+        \savefield{namehash}{\cbx@lasthash}}}%
+  \setunit{%
+    \ifbool{cbx:parens}
+      {\bibcloseparen\global\boolfalse{cbx:parens}}
+      {}%
+    % multicitedelim semi-colon doesn't make much sense for textcites
+    \compcitedelim}}
 
 \newcommand{\apashortdash}{-}
 
 \newbibmacro*{cite:plabelyear+extrayear}{%
   \iffieldundef{labelyear}
     {}
-    {\printfield[noformat]{origyear}\setunit*{\addslash}%
+    {\printtext[bibhyperref]{%
+     \printfield[noformat]{origyear}\setunit*{\addslash}%
      \printfield{labelyear}%
      \iffieldequalstr{labelyear}{in press}
        {\iffieldundef{extrayear}
          {\setunit{\relax}}
          {\setunit{\apashortdash}}%
        \printfield{extrayear}}
-       {\printfield{extrayear}}}}%
+       {\printfield{extrayear}}}}}%
 
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
@@ -268,7 +259,7 @@
     {\ifciteseen
       {}
       {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-  \printtext{\biblcstring{nodate}}}
+  \printtext[bibhyperref]{\biblcstring{nodate}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -301,16 +292,14 @@
 % 
 \newbibmacro*{citeyear}{%
   \iffieldundef{labelyear}
-    {\cbx@tempa
-     \usebibmacro{cite:noyear}%
+    {\usebibmacro{cite:noyear}%
      \usebibmacro{cite:init}}
     {\iffieldequals{namehash}{\cbx@lasthash}
        {\setunit{\compcitedelim}%
-        \usebibmacro{cite:labelyear+extrayear}}
-       {\cbx@tempa
-        \usebibmacro{cite:labelyear+extrayear}%
+        \usebibmacro{pcite:labelyear+extrayear}}
+       {\usebibmacro{pcite:labelyear+extrayear}%
         \savefield{namehash}{\cbx@lasthash}}}
-  \global\let\cbx@tempa=\multicitedelim}
+  \setunit{\multicitedelim}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -319,9 +308,23 @@
 \newbool{cbx:parens} % boolean to say we're inside parens
 \newbool{cbx:np} % boolean to say we're using a non-parentheses text cite
 
+\newbibmacro*{textcite:postnote}{%
+  \usebibmacro{postnote}%
+  \ifthenelse{\value{multicitecount}=\value{multicitetotal}}
+    {\setunit{}%
+     \printtext{%
+       \ifbool{cbx:parens}
+	 {\bibcloseparen\global\boolfalse{cbx:parens}}
+	 {}}}
+    {\setunit{%
+       \ifbool{cbx:parens}
+	 {\bibcloseparen\global\boolfalse{cbx:parens}}
+	 {}%
+       \multicitedelim}}}
+
+
 \newbibmacro*{cite:init}{%
   \global\boolfalse{cbx:parens}%
-  \global\let\cbx@tempa=\empty
   \global\undef\cbx@lasthash}
 
 \newbibmacro*{cite:labelyear}{%
@@ -340,7 +343,7 @@
   {\boolfalse{citetracker}%
    \boolfalse{pagetracker}%
    \usebibmacro{prenote}}
-  {\usebibmacro{cite:labelyear+extrayear}}
+  {\usebibmacro{cite:plabelyear+extrayear}}
   {\multinamedelim}
   {\usebibmacro{postnote}}
 
@@ -375,6 +378,6 @@
   {\usebibmacro{citeindex}%
    \usebibmacro{textcite}}
   {}
-  {}
+  {\usebibmacro{textcite:postnote}}
 
 \endinput

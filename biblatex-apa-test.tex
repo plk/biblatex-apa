@@ -25,7 +25,6 @@
                        {\textcolor{blue}{\texttt{(APA #2 Example #1)}}}}
 
 \setlength{\parskip}{3ex}
-\bibliography{biblatex-apa-test-citations,biblatex-apa-test-references}
 
 \def\apaex#1{\hbox{\hspace{-4em}\texttt{\small\detokenize{#1}}}\\$\rcurvearrowse$ \textbf{#1}}
 \def\apaexs#1{\hbox{\texttt{\footnotesize\detokenize{#1}}} \textbf{\small #1}}
@@ -35,7 +34,7 @@
 \reversemarginpar
 \renewbibmacro*{begentry}{\marginpar{\footnotesize \textcolor{blue}{\thefield{entrykey}}}}
 
-%\usepackage[colorlinks=true]{hyperref}
+\usepackage[colorlinks=true]{hyperref}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% END PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%
 \DeclareLanguageMapping{american}{american-apa}
@@ -55,7 +54,7 @@ requirements for References list alphabetisation and order could also be
 demonstrated.
 
 \section*{Citations}
-
+\begin{refsection}[biblatex-apa-test-citations]
 \noindent Please see accompanying file |biblatex-apa-test-citations.bib|
 for the bibliographic entries which these examples use.
 
@@ -185,9 +184,9 @@ and\\
 
 \noindent\apa{6.15}\\
 Use |SHORTTITLE| field of the entry if it exists:\\
-\apaex{\parencite{6.15a}}\\
+\apaex{\parencite{6.15a}}\\\\
 Books, reports etc. use italics instead of quotes:\\
-\apaex{\textcite{6.15b}}
+\apaex{\textcite{6.15b}}\\\\
 Citing anonymous author:\\
 \apaex{\textcite{6.15c}}
 
@@ -196,7 +195,7 @@ Two or more works withing the same parentheses:\\
 \apaex{\parencite{6.16a,6.16b}}\\
 \apaex{\parencite{6.16c,6.16d,6.16e}}
 
-\noindent Citations of works by same authors in the same  year:\\
+\noindent Citations of works by same authors in the same year:\\
 \apaex{\parencite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\\\
 \textcolor{red}{Note: This example, (p. 178 APA Manual 6th edition, 2nd
   printing) is slightly odd as the ``in-press-a'' is not indicated and
@@ -257,9 +256,20 @@ A patent citation uses the title but with no quotes\\
 \apaex{\textcite{A7.07}}\\
 \apaex{\parencite{A7.07}}
 
-\newpage
+Some misc test cases\\
+\apaex{\textcite{6.16c,6.16d,6.16e}}\\
+\apaex{\textcite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\
+\apaex{\cite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\
+\apaex{\cite{6.16k,6.16l}}
+\end{refsection}
+\begin{refsection}[biblatex-apa-test-references]
 \nocite{*}
-% Exclude the citation examples from the References section - only want to
-% see (APA 7.x) examples there.
-\printbibliography[notkeyword=noinclude]
+\end{refsection}
+\newpage
+% Just (APA 7.x) real references examples here
+\printbibliography[section=2]
+\newpage
+% Include a references section for citation examples just so hyperref
+% targets can be checked
+\printbibliography[section=1,title=Misc citation references for checking hyperref targets]
 \end{document}

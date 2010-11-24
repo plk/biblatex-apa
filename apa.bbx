@@ -1,4 +1,4 @@
-%% apa.bbx v2.4
+%% apa.bbx v2.5
 %% Copyright 2010 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -324,7 +324,7 @@
 \newbibmacro*{labelyear+extrayear}{%
   \iffieldundef{labelyear}
     {\iffieldundef{origyear}
-      {\printtext[parens]{\usebibmacro{cite:noyear}}}
+      {\printtext[parens]{\usebibmacro{noyear}}}
       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}
     {\printtext[yearorunkyear]{\printdateextra}}}
 
@@ -332,6 +332,14 @@
   \ifthenelse{\iffieldequalstr{usere}{unkdate}\OR\iffieldequalstr{usere}{unkauthdate}}
     {\mkbibbrackets{ca\adddot\addspace#1}}
     {\mkbibparens{#1}}}
+
+\newbibmacro*{noyear}{%
+  \ifnameundef{shortauthor}
+    {}
+    {\ifciteseen
+      {}
+      {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
+  \biblcstring{nodate}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1673,7 +1681,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 
-% Unchanged from authoryear-comp (biblatex v0.9)
+% Unchanged from authoryear-comp
 
 \DeclareBibliographyOption{dashed}[true]{%
   \ifstrequal{#1}{true}
