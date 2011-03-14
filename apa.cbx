@@ -307,13 +307,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fullcite should use "&"
 \DeclareCiteCommand{\fullcite}
-  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
-  {\usebibmacro{prenote}}
+  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
+  \usebibmacro{prenote}}
   {\usedriver
     {\DeclareNameAlias{sortname}{default}}
     {\thefield{entrytype}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
+
+\DeclareCiteCommand{\fullcitebib}
+  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
+  \begin{thebibliography}\thebibitem}
+  {\usedriver
+    {\DeclareNameAlias{sortname}{default}}
+    {\thefield{entrytype}}\finentry}
+  {\thebibitem}
+  {\end{thebibliography}}
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
