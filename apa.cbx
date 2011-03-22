@@ -91,19 +91,20 @@
    \fi
    \usebibmacro{name:andothers}}
 
-
 \DeclareNameFormat{labelname}{%
   \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
     {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
-    {\ifthenelse{\value{listtotal}>5}
-      {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
-       \ifnum\value{listcount}>2 \relax\fi}
-      {\ifciteseen
-       {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
-        \ifnum\value{listcount}=3 \relax\fi
-        \ifnum\value{listcount}=4 \relax\fi
-        \ifnum\value{listcount}=5 \relax\fi}
-       {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}}}
+    {\ifthenelse{\ifciteseen\OR\value{listtotal}>5}
+     {\ifnumcomp{\value{listcount}}{<}{\value{uniquelist} + 1}% normal name
+      {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}%
+       {}%
+      \ifnumcomp{\value{listcount}}{=}{\value{uniquelist} + 1}% first past ul is et al
+       {\andothersdelim\bibstring{andothers}}%
+       {}%
+      \ifnumcomp{\value{listcount}}{>}{\value{uniquelist} + 1}% nothing thereafter
+       {\relax}%
+       {}}%
+     {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

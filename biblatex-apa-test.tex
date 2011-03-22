@@ -10,8 +10,9 @@
 % Unicode
 \usepackage{fontspec}
 \setmainfont[Ligatures=TeX]{TeXGyrePagella}
-\setsansfont{Arial}
-\setmonofont{Courier New}
+\setsansfont[Ligatures=TeX]{TexGyreHeros}
+\setmonofont[Ligatures=NoCommon]{TeXGyreCursor}
+\MakeAutoQuote{«}{»}
 
 % Biblatex
 \usepackage[style=apa,%
@@ -59,10 +60,10 @@ demonstrated.
 for the bibliographic entries which these examples use.
 
 \noindent\apa{6.11}\\
-Simple cite. ``Jr.'' suffix is not shown (bib entry for this example has a suffix):\\
+Simple cite. «Jr.» suffix is not shown (bib entry for this example has a suffix):\\
 \apaex{\textcite{6.11}}
 
-\noindent Within a paragraph, not in the ``narrative sense'':\\
+\noindent Within a paragraph, not in the «narrative sense»:\\
 \apaex{\parencite{6.11}}
 
 \noindent To cite the parts separately:\\
@@ -92,23 +93,23 @@ Subsequent citations within a paragraph:\\
 citations is not automatic as there may be cases where you don't want to do
 this (see APA 6.11).
 
-\noindent\textcolor{red}{Note: The name list disambiguation required in the
-  \emph{Exception:} clause here in the APA manual cannot be automated
-  currently in |biblatex|. This is due to the underlying reliance on the
-  |bibtex| |.bib| data model. This will change in a future |biblatex|
-  release. See |biblatex-apa| docs.}
+\noindent Automatic list disambiguation for ambiguous truncations after
+first cite\footnote{This feature is fairly deep magic and only works when using
+  biblatex 1.4+ together with biber 0.9+}:\\
+\apaex{\textcite{6.12c}}\\
+\apaex{\textcite{6.12d}}\\
+\apaex{\textcite{6.12c}}\\
+\apaex{\textcite{6.12d}}
 
-\noindent Multiple-authors in running text are separated by ``and''.
-However, in parenthetical cites, multiple authors are separated by ``\&'':\\
+\noindent Multiple-authors in running text are separated by «and».
+However, in parenthetical cites, multiple authors are separated by «\&»:\\
 \apaex{\textcite{6.12e}}\\
 \apaex{\parencite{6.12f}}
 
-\noindent The following citation should be name truncated on first cite
-since it has six or more authors:\\
-\apaex{\textcite{6.12g}}
-
-\noindent\textcolor{red}{Note: The note above applies to the disambiguation
-of entries with six or more names}
+\noindent Automatic list disambiguation for ambiguous truncations again,
+this time the truncation is on first cite as there are more than 5 authors:\\
+\apaex{\textcite{6.12g}}\\
+\apaex{\textcite{6.12h}}
 
 \noindent Now, following the examples in Table 6.1, p. 177 of the APA
 manual. Note in the code that typesets these examples, |\citereset| is used
@@ -169,18 +170,16 @@ to pretend that the parenthetical examples are the first in the text.
 
 \noindent\apa{6.14}\\
 Citations of an entry with an author who shares a
-surname with another entry always appears with initials:\\
+surname with another entry always appears with initials\footnote{This is,
+  as with automatic name list disambiguation, fairly deep magic only
+  possible with biblatex 1.4+ and biber 0.9+}. Note that the APA example
+for this is not really correct for any automated system as the ambiguous
+surname should be disambiguated with initials in both cases---we still
+don't really know in the APA example whether the Light in the 2008 paper is
+the same as the Light in the 2006. The disambiguation performed by biblatex
+makes this clear (or as clear as it can be):\\
 \apaex{\textcite{6.14}}\\
-and\\
-\apaex{\textcite{7.01:3b}}\\\\
-\textcolor{red}{Note: The second citation key here is taken from the APA
-  references section as it is repeated there. This example is currently impossible to automate as
-  it is, due to the nature of name list parsing in BibTeX. Disambiguation
-  works between single names and not names within lists at the moment. The
-  first example works due to a dummy single-name entry with the same
-  surname in the |.bib| for the citation examples. See
- |biblatex-apa| docs. This is planned to be fully supported with |biblatex|
- 2.x which should include the necessary underlying functionality}.
+\apaex{\textcite{7.01:3b}}
 
 \noindent\apa{6.15}\\
 Use |SHORTTITLE| field of the entry if it exists:\\
@@ -197,9 +196,9 @@ Two or more works withing the same parentheses:\\
 
 \noindent Citations of works by same authors in the same year:\\
 \apaex{\parencite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\\\
-\textcolor{red}{Note: This example, (p. 178 APA Manual 6th edition, 2nd
-  printing) is slightly odd as the ``in-press-a'' is not indicated and
-  should be ``in-press'' since no other in press items are listed for the
+\textcolor{red}{Note: This example, (p.~178 APA Manual 6th edition, 2nd
+  printing) is slightly odd as the «in press-a» is not indicated and
+  should be «in press» since no other in press items are listed for the
   same authors in the example.}
 
 \noindent Compact citations in alphabetic order:\\
@@ -242,7 +241,7 @@ See the |biblatex-apa| docs.\\
 \apaex{(\nptextcite[see Table 3 of][]{6.21} for complete data)}
 
 \noindent\apa{6.28}\\
-Entries with no date use ``n.d.''.\\
+Entries with no date use «n.d.».\\
 \apaex{\textcite{6.28a}}\\
 \apaex{\parencite{6.28a}}\\
 \apaex{(\nptextcite{6.28a})}
