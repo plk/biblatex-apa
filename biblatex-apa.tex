@@ -23,7 +23,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={2.6},
+  revision={2.7},
   date={\today}}
 
 \hypersetup{%
@@ -59,14 +59,15 @@ APA Style Guide (6th Edition).
 
 \subsection{Requirements}\label{ref:req}
 
-You will need to be using \sty{csquotes} ($\geq$ 4.3) and \sty{biblatex}
-($\geq$ 0.9a). If you want to take advantage of the \sty{biblatex}
+You will need to be using \sty{csquotes} ($\geq$ 4.3), \sty{biblatex}
+($\geq$ 1.4) and the \sty{biber} backend for \sty{biblatex} ($\geq$
+0.9). If you want to take advantage of the \sty{biblatex}
 |\DeclareQuotePunctuation| facility to enforce the APA required «American»
 punctuation, you should normally use the \sty{babel} package with the «american»
 option (see \sty{biblatex} manual section |3.9.1|). You can of course use
 other languages but in such cases, to adhere to APA «American» punctuation
 rules (following commas moved inside closing quotes etc.), then you should
-set up |\DeclareQuotePunctuation| yourself as per section |4.6.5| of the
+set up |\DeclareQuotePunctuation| yourself as per section |4.7.5| of the
 \sty{biblatex} manual.
 
 If you are using the |apa.cls| \latex class, you need be using version
@@ -348,6 +349,12 @@ to see how it was implemented. Some general notes:
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{2.7}{2011-03-30}
+\item Biber is now a requirement due to the APA list disambiguation functionality.
+\item Updated for biblatex 1.4/biber 0.9 with automatic list
+  disambiguation. Package now deals with all APA 6th Edition citation examples.
+\end{release}
 
 \begin{release}{2.6}{2011-03-15}
 \item Made fullcite use ampersand

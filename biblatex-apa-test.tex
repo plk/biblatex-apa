@@ -19,6 +19,27 @@
             backend=biber,
             bibencoding=utf8]{biblatex}
 
+% Custom settings for misc entries in order to format the table for 6.13*
+% This table implies that the examples on each line are in a seperate
+% document but since we are generating the citations from a real data
+% source, we have to prevent the usual uniquelist processing by making
+% all of the examples MISC entrytypes and changing uniquelist
+% per-type. There is no point in just typsetting static data as this
+% wouldn't be a test of anything.
+\ExecuteBibliographyOptions[misc]{uniquelist=false}
+\DeclareNameFormat[misc]{labelname}{%
+  \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
+    {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
+    {\ifthenelse{\value{listtotal}>5}
+      {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
+       \ifnum\value{listcount}>2 \relax\fi}
+      {\ifciteseen
+       {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
+        \ifnum\value{listcount}=3 \relax\fi
+        \ifnum\value{listcount}=4 \relax\fi
+        \ifnum\value{listcount}=5 \relax\fi}
+       {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}}}
+
 \MakeShortVerb{\|}
 
 \newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
@@ -72,7 +93,7 @@ Simple cite. «Jr.» suffix is not shown (bib entry for this example has a suffi
 \noindent The per-paragraph rules for elision of years are more flexible in
 APA 6th edition. There is more discretion to do this as the narrative
 consistency suggests and so this style no longer automatically elides years
-aver mention after the first within a paragraph. Cases can be handled as
+after the first mention within a paragraph. Cases can be handled as
 per the examples above.
 
 \noindent\apa{6.12} \apa{6.13}\\
@@ -111,9 +132,14 @@ this time the truncation is on first cite as there are more than 5 authors:\\
 \apaex{\textcite{6.12g}}\\
 \apaex{\textcite{6.12h}}
 
-\noindent Now, following the examples in Table 6.1, p. 177 of the APA
-manual. Note in the code that typesets these examples, |\citereset| is used
-to pretend that the parenthetical examples are the first in the text.
+\noindent The following table replicates with real data the examples
+in Table 6.1, p.~177 of the APA 6th Edition manual. Note that this
+table in the APA manual essentially assumes that the citations on each
+line are in a separate document since there is no list disambiguation
+or repeated cite truncations between lines. To simulate this with real
+data, the source for this document uses |\citereset| between lines and
+makes all of the data entries of MISC type, unsetting «uniquelist» for
+this type and using a custom labelname style.
 
 \begin{center}
 \begin{tabular}{lllll}
@@ -124,46 +150,46 @@ to pretend that the parenthetical examples are the first in the text.
     citations in text}}\\\\
 \hline
 \\
-\parbox{2cm}{One work by one author}
-& \parbox{2.4cm}{\apaexs{\textcite{6.13a}}} &
-\parbox{2.4cm}{\apaexs{\textcite{6.13a}}}\citereset
-& \parbox{2.4cm}{\apaexs{\parencite{6.13a}}}
-& \parbox{2.4cm}{\apaexs{\parencite{6.13a}}}\\\\
-\parbox{2cm}{One work by two authors}
-& \parbox{2.4cm}{\apaexs{\textcite{6.13b}}} & 
-\parbox{2.4cm}{\apaexs{\textcite{6.13b}}}\citereset
-& \parbox{2.4cm}{\apaexs{\parencite{6.13b}}}
-& \parbox{2.4cm}{\apaexs{\parencite{6.13b}}}\\\\
-\parbox{2cm}{One work by three authors}
-& \parbox{2.4cm}{\apaexs{\textcite{6.13c}}} & 
-\parbox{2.4cm}{\apaexs{\textcite{6.13c}}}\citereset
-& \parbox{2.4cm}{\apaexs{\parencite{6.13c}}}
-& \parbox{2.4cm}{\apaexs{\parencite{6.13c}}}\\\\
-\parbox{2cm}{One work by four authors}
-& \parbox{2.4cm}{\apaexs{\textcite{6.13d}}} & 
-\parbox{2.4cm}{\apaexs{\textcite{6.13d}}}\citereset
-& \parbox{2.4cm}{\apaexs{\parencite{6.13d}}}
-& \parbox{2.4cm}{\apaexs{\parencite{6.13d}}}\\\\
-\parbox{2cm}{One work by five authors}
-& \parbox{2.4cm}{\apaexs{\textcite{6.13e}}} & 
-\parbox{2.4cm}{\apaexs{\textcite{6.13e}}}\citereset
-& \parbox{2.4cm}{\apaexs{\parencite{6.13e}}}
-& \parbox{2.4cm}{\apaexs{\parencite{6.13e}}}\\\\
-\parbox{2cm}{One work by six authors}
-& \parbox{2.4cm}{\apaexs{\textcite{6.13f}}} & 
-\parbox{2.4cm}{\apaexs{\textcite{6.13f}}}\citereset
-& \parbox{2.4cm}{\apaexs{\parencite{6.13f}}}
-& \parbox{2.4cm}{\apaexs{\parencite{6.13f}}}\\\\
-\parbox{2cm}{Groups (readily identified through abbreviation) as authors}
-& \parbox{2.4cm}{\apaexs{\textcite{6.13g}}} & 
-\parbox{2.4cm}{\apaexs{\textcite{6.13g}}}\citereset
-& \parbox{2.4cm}{\apaexs{\parencite{6.13g}}}
-& \parbox{2.4cm}{\apaexs{\parencite{6.13g}}}\\\\
-\parbox{2cm}{Groups (no abbreviation) as authors}
-& \parbox{2.4cm}{\apaexs{\textcite{6.13h}}} & 
-\parbox{2.4cm}{\apaexs{\textcite{6.13h}}}\citereset
-& \parbox{2.4cm}{\apaexs{\parencite{6.13h}}}
-& \parbox{2.4cm}{\apaexs{\parencite{6.13h}}}\\\\
+\parbox{2cm}{\raggedright One work by one author}
+& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13a}}} &
+\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13a}}}\citereset
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13a}}}
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13a}}}\\\\
+\parbox{2cm}{\raggedright One work by two authors}
+& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13b}}} & 
+\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13b}}}\citereset
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13b}}}
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13b}}}\\\\
+\parbox{2cm}{\raggedright One work by three authors}
+& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13c}}} & 
+\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13c}}}\citereset
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13c}}}
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13c}}}\\\\
+\parbox{2cm}{\raggedright One work by four authors}
+& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13d}}} & 
+\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13d}}}\citereset
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13d}}}
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13d}}}\\\\
+\parbox{2cm}{\raggedright One work by five authors}
+& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13e}}} & 
+\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13e}}}\citereset
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13e}}}
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13e}}}\\\\
+\parbox{2cm}{\raggedright One work by six authors}
+& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13f}}} & 
+\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13f}}}\citereset
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13f}}}
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13f}}}\\\\
+\parbox{2cm}{\raggedright Groups (readily identified through abbreviation) as authors}
+& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13g}}} & 
+\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13g}}}\citereset
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13g}}}
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13g}}}\\\\
+\parbox{2cm}{\raggedright Groups (no abbreviation) as authors}
+& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13h}}} & 
+\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13h}}}\citereset
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13h}}}
+& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13h}}}\\\\
 \hline
 \end{tabular}
 \end{center}
