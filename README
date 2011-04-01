@@ -16,8 +16,9 @@ In this document and in the code, the specific APA requirements are
 referred to by the section and (if appropriate) the example number of the
 APA Style Guide 6th Edition).
 
-You will need to be using csquotes >= 4.3 and biblatex >= 1.4. You must
-also use the biber backend for biblatex >= 0.9. If you want
+You will need to be using csquotes >= 4.3 and biblatex >= 1.4. 
+The biber backend for biblatex >= 0.9 is also strongly recommended and some
+functionality is unavailable without this (see docs). If you want
 to take advantage of the biblatex \DeclareQuotePunctuation facility
 to enforce the APA required "American punctuation", you should use the
 babel package with the "american" option (see biblatex manual

@@ -59,16 +59,18 @@ APA Style Guide (6th Edition).
 
 \subsection{Requirements}\label{ref:req}
 
-You will need to be using \sty{csquotes} ($\geq$ 4.3), \sty{biblatex}
-($\geq$ 1.4) and the \sty{biber} backend for \sty{biblatex} ($\geq$
-0.9). If you want to take advantage of the \sty{biblatex}
+You will need to be using \sty{csquotes} ($\geq$ 4.3) and \sty{biblatex}
+($\geq$ 1.4). Some features will not work\footnote{Automatic name and name
+  list uniqueness disambiguation---see examples doc} without the
+\sty{biber} backend for \sty{biblatex} ($\geq$ 0.9) which is strongly
+recommended. If you want to take advantage of the \sty{biblatex}
 |\DeclareQuotePunctuation| facility to enforce the APA required «American»
-punctuation, you should normally use the \sty{babel} package with the «american»
-option (see \sty{biblatex} manual section |3.9.1|). You can of course use
-other languages but in such cases, to adhere to APA «American» punctuation
-rules (following commas moved inside closing quotes etc.), then you should
-set up |\DeclareQuotePunctuation| yourself as per section |4.7.5| of the
-\sty{biblatex} manual.
+punctuation, you should normally use the \sty{babel} package with the
+«american» option (see \sty{biblatex} manual section |3.9.1|). You can of
+course use other languages but in such cases, to adhere to APA «American»
+punctuation rules (following commas moved inside closing quotes etc.), then
+you should set up |\DeclareQuotePunctuation| yourself as per section
+|4.7.5| of the \sty{biblatex} manual.
 
 If you are using the |apa.cls| \latex class, you need be using version
 $\geq$ 1.3.4. The class should be invoked with the |noapacite| class option
@@ -81,7 +83,7 @@ as per the |apa.cls| documentation. Without this class option, the
 Permission is granted to copy, distribute and/or modify this software under
 the terms of the \latex Project Public License, version
 1.3c\footnote{\url{http://www.latex-project.org/lppl.txt}}. The current
-maintainer is Philip Kime (\textcopyright\ 2010).
+maintainer is Philip Kime (\textcopyright\ 2011).
 
 \subsection{History}
 
@@ -195,45 +197,12 @@ lifted but that's not likely until after \sty{biblatex} version
 \subsubsection{maxnames/minnames}
 
 You can't reset these |biblatex| options in your document--you'll get a
-message about conflicting options. These are set to ``999'' in |apa.bbx|
+message about conflicting options. These are set to ``99'' in |apa.bbx|
 because of the tricky requirements for APA name list truncation. The
 truncation is then done in the author list code rather than by using these
-options. Sorry. This will be changed when |biblatex| moves to using |biber|
-as a backend with a more sophisticated data model.
-
-\subsubsection{Citation Limitations}
-
-\begin{itemize}
-\item \apa{6.14} Disambiguation of truncated author name lists. This is
-  currently impossible to automate via a \sty{biblatex} style. The
-  \sty{maxnames} and \sty{minnames} options of \sty{biblatex} only serve to
-  specify the truncation limits but do not disambiguate name lists which
-  truncate to the same string. This cannot be reliably done in the style
-  since it would need to build a backwards and forward list of identical
-  truncations and map these onto the internal \sty{fullhash} field of
-  \sty{biblatex} in order to determine which truncations need
-  disambiguating. Since there is no way of knowing, when you truncate
-  something, whether something later in the document would have the same
-  truncation (without \path{.aux} file support anyway), this is not really
-  possible. It's also further complicated by the fact that \bibtex doesn't
-  really support name lists in a way which would make this possible and
-  since the main name list processing is done in \sty{biblatex} by \bibtex
-  still, there isn't much that can be done about this at the moment until
-  \sty{biblatex} moves to using something other than \bibtex for its data.
-  See the following Usenet thread:\\
-
-  \url{http://groups.google.com/group/comp.text.tex/browse_thread/thread/f3c50d7065159ad4#}\\
-
-  A related issue is that the \sty{uniquename} option doesn't work in lists
-  of authors, again because all the name processing is done by \bibtex.
-  Currently, \sty{biblatex} disambiguates non-unique names in lists by
-  using the \sty{labelyear} mechanisms which is against APA style (and most
-  styles since this is supposed to disambiguate same author(s)/different
-  year situations) but there's nothing really that can be done about it at
-  the moment. Thankfully, these two problems are not that common and only
-  occur when you have long lists of authors which share many members with
-  variations in initials etc.
-\end{itemize}
+options. Specifically, the reason is that the APA requirements are that
+name list truncation is done only after the first cite for certain lengths
+of name list and so a global setting cannot be used.
 
 \subsubsection{Reference Section Limitations}
 
@@ -350,8 +319,9 @@ to see how it was implemented. Some general notes:
 
 \begin{changelog}
 
-\begin{release}{2.7}{2011-03-30}
-\item Biber is now a requirement due to the APA list disambiguation functionality.
+\begin{release}{2.7}{2011-04-1}
+\item Biber is now a strongly recommended requirement due to APA name and
+  name list disambiguation requirements.
 \item Updated for biblatex 1.4/biber 0.9 with automatic list
   disambiguation. Package now deals with all APA 6th Edition citation examples.
 \end{release}
