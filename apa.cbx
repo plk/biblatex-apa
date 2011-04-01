@@ -68,9 +68,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.12) 3-5 authors have "et al." after first cite. This doesn't
-%            work properly in general with disambiguation of "et al"s
-%            due to BibTeX limitations, see docs.
+% (APA 6.12) 3-5 authors have "et al." after first cite
 
 % #1 = last name
 % #2 = last name (initials)
@@ -90,6 +88,9 @@
      \usebibmacro{name:first-last}{#1}{#3}{#5}{#7}%
    \fi
    \usebibmacro{name:andothers}}
+
+% Can't do this with the built-in printnames as APA requires truncation
+% and disambiguation only after first cite
 
 \DeclareNameFormat{labelname}{%
   \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
