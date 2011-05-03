@@ -1327,7 +1327,18 @@
   \ifthenelse{\iffieldundef{title}\AND\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \printfield{entrysubtype}%
   \addperiod\addspace
-  \usebibmacro{doi+eprint+url}%
+  \iftoggle{bbx:doi}
+    {\printfield{doi}%
+     \iffieldundef{doi}{}{\renewcommand*{\finentrypunct}{\relax}}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}%
+     \iffieldundef{eprint}{}{\renewcommand*{\finentrypunct}{\relax}}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{url+urldate}%
+  \iffieldundef{url}{}{\renewcommand*{\finentrypunct}{\relax}}
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
