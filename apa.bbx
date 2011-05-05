@@ -1,4 +1,4 @@
-%% apa.bbx v2.9
+%% apa.bbx v3.0
 %% Copyright 2011 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -160,11 +160,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.12) Five author max before "et al" and a one author truncation policy
-%            However, only after the first cite, which means we can't use
-%            maxnames/minnames and have to do this in the Format for
-%            labelname (in the cbx). Anyway, since the truncation is to
-%            one name and APA requires we use the biblatex uniquelist
-%            functionality, maxnames/minnames isn't really indicated.
+%            However, only after the first cite, see the labelname format
+%            in .cbx. It's also overridden per-entry by uniquelist
 % (APA 6.x)  citation tracking is global
 % (APA 6.14) uses initials to disambiguate shared surnames
 % (APA 6.16) uses year postfix to disambiguate multiple items in same year
@@ -181,8 +178,8 @@
                             uniquelist=true,%
                             uniquename=init,%
                             citetracker=true,%
-                            maxnames=99,%
-                            minnames=99,%
+                            maxnames=5,%
+                            minnames=1,%
                             abbreviate=true,%
                             mincrossrefs=999,%
                             alldates=apalong}

@@ -1,4 +1,4 @@
-%% apa.cbx v2.9
+%% apa.cbx v3.0
 %% Copyright 2011 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -39,6 +39,15 @@
 % (APA 6.11) requires comma separator between authors and years
 
 \renewcommand*{\nameyeardelim}{\addcomma\space}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.12) No comma before "et al" if there is only one name
+%            preceding it
+
+\renewcommand*{\andothersdelim}{\ifnum\value{listcount}>2 \finalandcomma\fi\addspace}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,20 +98,25 @@
    \fi
    \usebibmacro{name:andothers}}
 
-% Can't do this with the built-in printnames as APA requires truncation
+% Can't do this with the built-in printnames format as APA requires truncation
 % and disambiguation only after first cite
+% We either use uniquelist or minnames for truncation. If uniquelist isn't
+% defined, we fall back on minnames
 
 \DeclareNameFormat{labelname}{%
+  \ifthenelse{\value{uniquelist}>1}
+    {\numdef\cbx@min{\value{uniquelist}}}
+    {\numdef\cbx@min{\value{minnames}}}%
   \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
     {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
-    {\ifthenelse{\ifciteseen\OR\value{listtotal}>5}
-     {\ifnumcomp{\value{listcount}}{<}{\value{uniquelist} + 1}% normal name
-      {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}%
+    {\ifthenelse{\ifciteseen\OR\value{listtotal}>\value{maxnames}}
+     {\ifnumcomp{\value{listcount}}{<}{\cbx@min + 1}% normal name
+       {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}%
        {}%
-      \ifnumcomp{\value{listcount}}{=}{\value{uniquelist} + 1}% first past ul is et al
+      \ifnumcomp{\value{listcount}}{=}{\cbx@min + 1}% first past ul is et al
        {\andothersdelim\bibstring{andothers}}%
        {}%
-      \ifnumcomp{\value{listcount}}{>}{\value{uniquelist} + 1}% nothing thereafter
+      \ifnumcomp{\value{listcount}}{>}{\cbx@min + 1}% nothing thereafter
        {\relax}%
        {}}%
      {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}}

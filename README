@@ -1,4 +1,4 @@
-Version 2.9
+Version 3.0
 
 Permission is granted to copy, distribute and/or modify this software under
 the terms of the LaTeX Project Public License, version
@@ -17,7 +17,7 @@ referred to by the section and (if appropriate) the example number of the
 APA Style Guide 6th Edition).
 
 You will need to be using csquotes >= 4.3 and biblatex >= 1.4. 
-The biber backend for biblatex >= 0.9 is also strongly recommended and some
+The biber backend for biblatex >= 0.9.2 is also strongly recommended and some
 functionality is unavailable without this (see docs). If you want
 to take advantage of the biblatex \DeclareQuotePunctuation facility
 to enforce the APA required "American punctuation", you should use the
