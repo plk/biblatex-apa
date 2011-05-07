@@ -279,17 +279,22 @@ A patent citation uses the title but with no quotes\\
 \apaex{\textcite{A7.07}}\\
 \apaex{\parencite{A7.07}}
 
-Testing disambiguation for identical and subset name lists\\
+\noindent Two works by same authors in same year are disambiguated by extrayear «a»
+and «b» and are truncated after first cite because it is the same author
+list and therefore not ambiguous:\\
 \apaex{\textcite{UL1}}\\
 \apaex{\textcite{UL1}}\\
 \apaex{\textcite{UL2}}\\
 \apaex{\textcite{UL2}}\\
+
+\noindent One author list is an ordered subset of the other and so both need fully
+expanding to be properly disambiguated. Truncating either would be ambiguous.\\
 \apaex{\textcite{UL3}}\\
 \apaex{\textcite{UL3}}\\
 \apaex{\textcite{UL4}}\\
 \apaex{\textcite{UL4}}
 
-Some misc test cases\\
+\noindent Some misc test cases\\
 \apaex{\textcite{6.16c,6.16d,6.16e}}\\
 \apaex{\textcite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\
 \apaex{\cite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\

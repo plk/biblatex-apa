@@ -103,6 +103,17 @@
 % We either use uniquelist or minnames for truncation. If uniquelist isn't
 % defined, we fall back on minnames
 
+% \printnames does different things depending on whether the format you are
+% calling is the default for the name field or is a custom format:
+%
+%   * Default format (e.g. "labelname" format for printing labelname): no
+%     start/stop max/minnames truncation is done first - the format is
+%     supposed to do it.
+%   * Custom format (e.g. "labelname" format for printing author):
+%     max/minnames truncation is done before calling the format so we have
+%     to do \printnames[format][-\value{listtotal}]{field} to ensure we get
+%     all of the names in the list to work on
+
 \DeclareNameFormat{labelname}{%
   \ifthenelse{\value{uniquelist}>1}
     {\numdef\cbx@min{\value{uniquelist}}}
@@ -168,7 +179,7 @@
         {\printnames{labelname}}
         {\ifciteseen
           {\printnames{shortauthor}}
-          {\printnames{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\nameyeardelim}%
       \iffieldundef{labelyear}
         {\usebibmacro{cite:noyear}}
@@ -201,7 +212,7 @@
     % Cite using short author
          {\ifciteseen
            {\printnames{shortauthor}}
-           {\printnames{author}}}%
+           {\printnames[labelname][-\value{listtotal}]{author}}}%
   % Year
         \setunit{\ifbool{cbx:np}
                   {\nameyeardelim}

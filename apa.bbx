@@ -265,20 +265,33 @@
 %            last name first.
 % (APA 6.27) Ellipsis in 7th position and then nothing until last
 % (APA 7.10 Example 67) Unknown names and dates
+%
+
+% \printnames does different things depending on whether the format you are
+% calling is the default for the name field or is a custom format:
+%
+%   * Default format (e.g. "labelname" format for printing labelname): no
+%     start/stop max/minnames truncation is done first - the format is
+%     supposed to do it.
+%   * Custom format (e.g. "labelname" format for printing author):
+%     max/minnames truncation is done before calling the format so we have
+%     to do \printnames[format][-\value{listtotal}]{field} to ensure we get
+%     all of the names in the list to work on
 
 \DeclareNameFormat{apaauthor}{%
-  \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{liststop}}
-    {\addcomma\addspace\ldots}
-    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{liststop}}
+  \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
+    {\addcomma\addspace\ldots\addspace}
+    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
       {\ifthenelse{\iffieldequalstr{usere}{unkauth}\OR\iffieldequalstr{usere}{unkauthdate}}
         {\mkbibbrackets{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}?}}
         {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}}
 
+
 \renewbibmacro*{author}{%
   \ifnameundef{author}
     {\usebibmacro{labeltitle}}
-    {\printnames[apaauthor]{author}%
+    {\printnames[apaauthor][-\value{listtotal}]{author}%
      \setunit*{\addspace}%
      \printfield{nameaddon}}%
   \newunit\newblock%
@@ -528,26 +541,12 @@
 % (APA 6.27) Editors have first names first ...
 % (APA 7.02 Example 27) ... unless there is no author
 
-\DeclareNameFormat{apatranslator}{%
-  \ifthenelse{\value{listcount}=\maxprtauth}
+\DeclareNameFormat{apanames}{%
+  \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\addspace\ldots}
-    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{liststop}}
+    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
       {\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}}}
-
-\DeclareNameFormat{apaeditor}{%
-  \ifthenelse{\value{listcount}=\maxprtauth}
-    {\addcomma\addspace\ldots}
-    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{liststop}}
-      {}
-      {\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}}}
-
-\DeclareNameFormat{editorinauthpos}{%
-  \ifthenelse{\value{listcount}=\maxprtauth}
-    {\addcomma\addspace\ldots}
-    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{liststop}}
-      {}
-      {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}
 
 \renewbibmacro*{author/editor}{%
   \ifnameundef{author}
@@ -559,7 +558,7 @@
 
 \newbibmacro*{editorinauthpos}{%
     \global\booltrue{bbx:editorinauthpos}%
-    \printnames[editorinauthpos]{editor}%
+    \printnames[apanames][-\value{listtotal}]{editor}%
     \setunit{\addspace}%
     \ifnameundef{editor}
       {}
@@ -628,7 +627,7 @@
     {}%
     {\ifnamesequal{editor}{translator}%
        {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
-        \printnames[apaeditor]{editor}%
+        \printnames[apaenames][-\value{listtotal}]{editor}%
         \setunit*{\addcomma\addspace}%
         \usebibmacro{apaeditorstrg}{editor}%
         \setunit*{\addspace\&\space}%
@@ -637,7 +636,7 @@
        {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
         \ifnameundef{editor}%
           {}%
-          {\printnames[apaeditor]{editor}%
+          {\printnames[apanames][-\value{listtotal}]{editor}%
            \setunit{\addcomma\addspace}%
            \usebibmacro{apaeditorstrg}{editor}%
            \clearname{editor}%
@@ -645,7 +644,7 @@
            \setunit*{\addspace\&\space}}%
         \ifnameundef{translator}%
           {\setunit{}}%
-          {\printnames[apatranslator]{translator}%
+          {\printnames[apanames][-\value{listtotal}]{translator}%
            \setunit{\addcomma\addspace}%
            \printtext{\bibcpstring{translator}}%
            \clearname{translator}%
@@ -661,7 +660,7 @@
     {}%
     {\ifnamesequal{editor}{translator}%
       {\usebibmacro{in}%
-       \printnames[apaeditor]{editor}%
+       \printnames[apanames][-\value{listtotal}]{editor}%
        \setunit{\addspace\bibopenparen\global\booltrue{bbx:parens}}%
        \usebibmacro{apaeditorstrg}{editor}%
        \setunit*{\addspace\&\space}%
@@ -670,7 +669,7 @@
       {\ifnameundef{translator}%
         {}%
         {\setunit{\relax}%
-         \printtext[parens]{\printnames[apatranslator]{translator}%
+         \printtext[parens]{\printnames[apanames][-\value{listtotal}]{translator}%
           \setunit{\addcomma\addspace}%
           \printtext{\bibcpstring{translator}}}%
          \clearname{translator}%
@@ -873,7 +872,7 @@
 \newbibmacro*{reviewauthor}{%
   \ifnameundef{author}
     {\usebibmacro{reviewlabeltitle}}
-    {\printnames[apaauthor]{author}}%
+    {\printnames[apaauthor][-\value{listtotal}]{author}}%
   \newunit\newblock%
   \usebibmacro{labelyear+extrayear}}
 
@@ -920,13 +919,13 @@
 \newbibmacro*{mediaauthor}{%
   \ifnameundef{namea}
     {}
-     {\printnames{namea}%
+     {\printnames[apanames][-\value{listtotal}]{namea}%
       \newunit%
       \printtext[parens]{\printfield{nameatype}}}
   \setunit*{\addcomma\addspace\&\addspace}%
   \ifnameundef{nameb}
     {}
-    {\printnames{nameb}%
+    {\printnames[apanames][-\value{listtotal}]{nameb}%
      \setunit{\addspace}%
      \printtext[parens]{\printfield{namebtype}}}
   \newunit
@@ -971,7 +970,7 @@
     {\usebibmacro{in}%
      \ifnameundef{namec}
        {}
-       {\printnames{namec}%
+       {\printnames[apanames][-\value{listtotal}]{namec}%
         \setunit{\addspace}%
         \printtext[parens]{\printfield{namectype}}}
      \setunit{\addcomma\addspace}%
@@ -1605,28 +1604,28 @@
 \newbibmacro*{editorx}{%
   \ifnameundef{editor}
     {}
-    {\printnames[apaeditor]{editor}%
+    {\printnames[apanames][-\value{listtotal}]{editor}%
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{apaeditorstrg}{editor}}
      \clearname{editor}%
      \newunit}%
   \ifnameundef{editora}
     {}
-    {\printnames[apaeditor]{editora}%
+    {\printnames[apanames][-\value{listtotal}]{editora}%
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{apaeditorstrg}{editora}}
      \clearname{editora}%
      \newunit}%
   \ifnameundef{editorb}
     {}
-    {\printnames[apaeditor]{editorb}%
+    {\printnames[apanames][-\value{listtotal}]{editorb}%
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{apaeditorstrg}{editorb}}
      \clearname{editorb}%
      \newunit}%
   \ifnameundef{editorc}
     {}
-    {\printnames[apaeditor]{editorc}%
+    {\printnames[apanames][-\value{listtotal}]{editorc}%
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{apaeditorstrg}{editorc}}
      \clearname{editorc}%
