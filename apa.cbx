@@ -106,21 +106,19 @@
 % \printnames does different things depending on whether the format you are
 % calling is the default for the name field or is a custom format:
 %
-%   * Default format (e.g. "labelname" format for printing labelname): no
-%     start/stop max/minnames truncation is done first - the format is
-%     supposed to do it.
-%   * Custom format (e.g. "labelname" format for printing author):
-%     max/minnames truncation is done before calling the format so we have
-%     to do \printnames[format][-\value{listtotal}]{field} to ensure we get
-%     all of the names in the list to work on
+%  max/minnames truncation is done before calling the format so we have
+%  to do \printnames[format][-\value{listtotal}]{field} to ensure we get
+%  all of the names in the list to work on here
 
 \DeclareNameFormat{labelname}{%
   \ifthenelse{\value{uniquelist}>1}
     {\numdef\cbx@min{\value{uniquelist}}}
     {\numdef\cbx@min{\value{minnames}}}%
-  \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
+  \ifboolexpr{test {\ifnumcomp{\value{listcount}}{=}{1}}
+              or test {\ifnumcomp{\value{listtotal}}{=}{2}}}
     {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
-    {\ifthenelse{\ifciteseen\OR\value{listtotal}>\value{maxnames}}
+    {\ifboolexpr{test {\ifnumcomp{\value{listtotal}}{>}{5}}
+                 or test {\ifciteseen}}
      {\ifnumcomp{\value{listcount}}{<}{\cbx@min + 1}% normal name
        {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}%
        {}%
@@ -176,7 +174,7 @@
          \savefield{namehash}{\cbx@lasthash}}}
 % Normal cite
      {\ifnameundef{shortauthor}
-        {\printnames{labelname}}
+        {\printnames[labelname][-\value{listtotal}]{labelname}}
         {\ifciteseen
           {\printnames{shortauthor}}
           {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
@@ -208,7 +206,7 @@
   % Normal full cite
        {\ifnameundef{shortauthor}%
     % Normal full cite
-         {\printnames{labelname}}
+         {\printnames[labelname][-\value{listtotal}]{labelname}}
     % Cite using short author
          {\ifciteseen
            {\printnames{shortauthor}}
@@ -253,7 +251,7 @@
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
     {\printfield{shorthand}}
-    {\printnames{labelname}%
+    {\printnames[labelname][-\value{listtotal}]{labelname}%
      \setunit{\nameyeardelim}%
      \printfield{title}\space\printfield{shorthand}}}
 
