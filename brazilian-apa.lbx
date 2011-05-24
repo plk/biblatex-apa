@@ -1,0 +1,108 @@
+% v3.0
+\ProvidesFile{brazilian-apa.lbx}
+\InheritBibliographyExtras{brazilian}
+
+% (APA 6.22) The example abbreviations
+
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{nodate}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+
+\DeclareBibliographyStrings{%
+  inherit          = {brazilian},
+  revisededition   = {{Edi\c{c}\~ao\space Revisada}{ed\adddotspace rev\adddot}},
+  on               = {{em}{em}},
+  retrieved        = {{recuperado}{recuperado}},
+  available        = {{dispon\'ivel}{disp.}},
+  from             = {{de}{de}},
+  archivedat       = {{arquivado\space em}{arquivado\space em}},
+  nodate           = {{sem\space data}{{}s\adddot d\adddot}},
+  reviewof         = {{Revis\~ao\space de}{revis\~ao\space de}},
+  origyear         = {{trabalho\space original\space publicado\space em}{trabalho\space original\space publicado\space em}},
+  typechair        = {{Coordenador}{Coord\adddot}},
+  typechairs       = {{Coordenadores}{Coords\adddot}},
+  typevolume       = {{Editor\space do\space Volume}{Ed\adddot\space Vol\adddot}},
+  typevolumes      = {{Editores\space do\space Volume}{Eds\adddot\space Vol\adddot}},
+  typeseries       = {{Editor\space da\space S\'erie}{Ed\adddot\space S\'erie\adddot}},
+  typeseriess      = {{Editores\space da\space S\'erie}{Eds\adddot\space S\'erie\adddot}},
+  typevolseries    = {{Editor\space da\space S\'erie\space e\space do\space Volume}{Ed\adddot\space Vol\space\&\space S\'erie}},
+  typevolseriess   = {{Editores\space da\space S\'erie\space e\space do\space Volume}{Eds\adddot\space Vol\space\&\space S\'erie}},
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.10 Example 68) Drop end* when they are the same as *
+
+% You must use \printdate to get here otherwise it will be ignored
+
+\DefineBibliographyExtras{brazilian}{%
+  \protected\def\mkbibdateapalong#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\thefield{#1}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#1}}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\thefield{#1}\printfield{extrayear}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#1}}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongdmy#1#2#3{%
+    \iffieldundef{#3}%
+      {}%
+      {\stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#1}%
+      {}%
+      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#3}}%
+        {}%
+        {\addspace}%
+       \thefield{#1}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
