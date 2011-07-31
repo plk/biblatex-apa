@@ -1,4 +1,4 @@
-%% apa.bbx v3.0
+%% apa.bbx v3.1
 %% Copyright 2011 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -1683,6 +1683,15 @@
        \printlist{location}}%
      \newunit}}
 
+\newbibmacro*{labeltitle}{%
+  \iffieldundef{label}
+    {\iffieldundef{shorttitle}
+       {\printfield{title}%
+        \clearfield{title}
+        \global\booltrue{bbx:titleinauthpos}}
+       {\printfield[title]{shorttitle}}}
+    {\printfield{label}}}
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1700,15 +1709,13 @@
      \renewbibmacro*{bbx:savehash}{}}}
 
 \DeclareFieldFormat{shorthandwidth}{#1}
-\renewcommand*{\thebibitem}{\item}
-\renewcommand*{\thelositem}{\item}
 \setlength{\bibitemsep}{0pt}
 
 \DeclareNameAlias{author}{sortname}
 \DeclareNameAlias{editor}{sortname}
 \DeclareNameAlias{translator}{sortname}
 
-\renewenvironment*{thebibliography}
+\defbibenvironment{bibliography}
   {\list
      {}
      {\setlength{\leftmargin}{\bibhang}%
@@ -1716,8 +1723,9 @@
       \setlength{\itemsep}{\bibitemsep}%
       \setlength{\parsep}{\bibparsep}}}
   {\endlist}
+  {\item}
 
-\renewenvironment*{theshorthands}
+\defbibenvironment{shorthands}
   {\list
      {\printfield[shorthandwidth]{shorthand}}
      {\setlength{\labelwidth}{\shorthandwidth}%
@@ -1728,6 +1736,7 @@
       \setlength{\parsep}{\bibparsep}%
       \renewcommand*{\makelabel}[1]{##1\hss}}}
   {\endlist}
+  {\item}
 
 \InitializeBibliographyStyle{%
   \global\undef\bbx@lasthash}
@@ -1735,19 +1744,13 @@
 \newbibmacro*{bbx:savehash}{%
   \savefield{fullhash}{\bbx@lasthash}}
 
+
 \newbool{bbx@inset}
 \DeclareBibliographyDriver{set}{%
   \booltrue{bbx@inset}%
   \entryset{}{}%
+  \newunit\newblock
+  \usebibmacro{setpageref}%
   \finentry}
-
-\newbibmacro*{labeltitle}{%
-  \iffieldundef{label}
-    {\iffieldundef{shorttitle}
-       {\printfield{title}%
-        \clearfield{title}
-        \global\booltrue{bbx:titleinauthpos}}
-       {\printfield[title]{shorttitle}}}
-    {\printfield{label}}}
 
 \endinput

@@ -1,4 +1,4 @@
-%% apa.cbx v3.0
+%% apa.cbx v3.1
 %% Copyright 2011 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -342,12 +342,16 @@
 
 \DeclareCiteCommand{\fullcitebib}
   {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
-  \begin{thebibliography}\thebibitem}
+   \list{}
+   {\setlength{\leftmargin}{\bibhang}%
+     \setlength{\itemindent}{-\leftmargin}%
+     \setlength{\itemsep}{\bibitemsep}%
+     \setlength{\parsep}{\bibparsep}}\item}
   {\usedriver
     {\DeclareNameAlias{sortname}{default}}
     {\thefield{entrytype}}\finentry}
-  {\thebibitem}
-  {\end{thebibliography}}
+  {\item}
+  {\endlist}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
