@@ -1208,7 +1208,7 @@
   \usebibmacro{title}%
   \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \usebibmacro{editor+trans}%
-  \newunit\newblock
+  \setunit{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
   \newblock
   \usebibmacro{addinfo}%

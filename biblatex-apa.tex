@@ -23,7 +23,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={3.1},
+  revision={3.2},
   date={\today}}
 
 \hypersetup{%
@@ -92,12 +92,9 @@ when I went looking. I was wrong. I started to try to make one and realised
 why there was none. The APA style manual is enormous; the citation and
 references specifications run to about 60 pages and are very specific in
 terms of formatting. They are also not entirely consistent but then again,
-it is rare to have such a thorough specification to work from. There are
-some parts of the requirements which are impossible to automatically
-satisfy given the limitations of the |.bib| format and \bibtex. These
-limitations are described below and will be addressed in a future
-\sty{biblatex} version which supports the more advanced features of the
-|biber| backend.
+it is rare to have such a thorough specification to work from.
+Inconsistencies in the manual and workarounds are noted in the examples
+document.
 
 \subsection{Acknowledgments}
 
@@ -110,7 +107,12 @@ localisation.
 
 \section{Use}\label{ref:use}
 \label{use}
-Put the \path{.cbx}, \path{.bbx} and \path{.lbx} files in your texmf tree, usually:\\
+This package is available via |TeXLive| as |biblatex-apa|. You can find it
+through the provided |TeXLive| update utilities which will install it
+automatically for you. If you need to install manually (to use a new
+version which has not yet been published to the |TeXLive| updaters, for
+example), you can download it from CTAN and then, put the \path{.cbx},
+\path{.bbx} and \path{.lbx} files in your texmf tree, usually:\\ 
 
 \noindent\path{<texmf>/tex/latex/biblatex/cbx/apa.cbx}\\
 \path{<texmf>/tex/latex/biblatex/bbx/apa.bbx}\\
@@ -188,13 +190,10 @@ There are certain limitations you need to bear in mind when using these
 styles. The APA manual is written without much regard for automation of
 citation and references processing---it just tells you how it wants things to
 look and the implicit assumption is that you would type out everything by
-hand if necessary. Having said that, the vast majority of the APA citation
+hand if necessary. Having said that, the majority of the APA citation
 and references style is implemented, there are just a few exceptions which
-are either hardly worth the coding pain for such rare cases or which are
-impossible due to \sty{biblatex} limitations. It is likely that with future
-\sty{biblatex} versions some or indeed all of these limitations may be
-lifted but that's not likely until after \sty{biblatex} version
-\texttt{1.0}, according to the |biblatex| author Philipp Lehman.
+are hardly worth the coding pain since they ambiguous and easily worked
+around.
 
 \subsubsection{Reference Section Limitations}
 
@@ -238,10 +237,10 @@ accompanying \path{.bib} files:
 \subsection{Citations}
 
 \apa{6.13} requires that there should be no parentheses around the year of
-the citation when the citation itself occurs within parenthesis. This would
-be really too much to completely automate as it is within the remit of a
-citation style since it requires knowledge of the current typesetting
-state. So, the new citation command
+the citation when the citation itself occurs within parenthesis. This is
+tricky to completely automate within the remit of a citation style since it
+requires knowledge of the current typesetting state. So, the new citation
+command
 
 \begin{ltxsyntax}
 \cmditem{nptextcite}[prenote][postnote]{key}<punctuation>
@@ -269,11 +268,12 @@ should probably be using |\printbibliography| with a filter.
 \subsection{References}
 
 The references style was based on the \sty{biblatex} default
-|authoryear-comp| style but is so heavily modified, it's almost
-unrecognisable. If in doubt read the example references |.bib| as it is
-commented and you can learn a lot from he examples by picking something
-close to what you need from the APA examples and then looking in this file
-to see how it was implemented. Some general notes:
+|authoryear-comp| style but is heavily modified. If in doubt read the
+example references |.bib| as it is commented and you can learn a lot from
+the examples by picking something close to what you need from the APA
+examples and then looking in this file to see how it was implemented. Some
+general notes:
+
 \begin{itemize}
 \setlength{\itemsep}{0pt}
 \item The |\maxprtauth| commands returns the number of author/editor
@@ -286,11 +286,11 @@ to see how it was implemented. Some general notes:
   use. This applies to things like |AUDIO| and |VIDEO| entries mainly. The
   format of these requires that different roles (Director, Producer etc.)
   are separately specified for different names. This is not really possible
-  for the usual |AUTHOR| or |EDITOR| fields (again, another limitation of
-  \bibtex, see \ref{use:limit} above). In such cases, I have resorted to
-  the \sty{biblatex} custom |NAME| and |NAMETYPE| fields which are not very
-  portable but until \bibtex is replaced by something more flexible, there
-  is no way round this without making things very messy.
+  for the usual |AUTHOR| or |EDITOR| fields. In such cases, I have resorted
+  to the \sty{biblatex} custom |NAME| and |NAMETYPE| fields which are not
+  very portable but until the \bibtex backend support is dropped in |biblatex|
+  there is no way round this without making things very messy. This will
+  happen around |biblatex| version 2.0.
 \item APA style sometimes refers to the «series» of a multi-volume work.
   This corresponds to the |MAINTITLE| field in the \path{.bib} and
   \emph{not} the |SERIES| field.
@@ -310,6 +310,11 @@ to see how it was implemented. Some general notes:
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{3.2}{2011-08-12}
+\item Minor fix in |inbook| format
+\item Doc clean up
+\end{release}
 
 \begin{release}{3.1}{2011-07-31}
 \item Made compatible with |biblatex| 1.6
