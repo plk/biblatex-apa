@@ -1,6 +1,6 @@
 % v3.3
-\ProvidesFile{french-apa.lbx}
-\InheritBibliographyExtras{french}
+\ProvidesFile{spanish-apa.lbx}
+\InheritBibliographyExtras{spanish}
 
 % (APA 6.22) The example abbreviations
 
@@ -23,47 +23,49 @@
 \NewBibliographyString{reviewof}
 
 \DeclareBibliographyStrings{%
-  inherit          = {french},
-  january          = {{janvier}{janvier}},
-  february         = {{f\'evrier}{f\'evrier}},
-  march            = {{mars}{mars}},
-  april            = {{avril}{avril}},
-  may              = {{mai}{mai}},
-  june             = {{juin}{juin}},
-  july             = {{juillet}{juillet}},
-  august           = {{ao\^ut}{ao\^ut}},
-  september        = {{septembre}{septembre}},
-  october          = {{octobre}{octobre}},
-  november         = {{novembre}{novembre}},
-  december         = {{d\'ecembre}{d\'ecembre}},
-  revisededition   = {{\'Edition\space R\'evis\'e}{\'Ed\adddot\space R\'ev\adddot}},
-  page             = {{Page}{{}p\adddot}},
-  pages            = {{Pages}{{}pp\adddot}},
-  on               = {{le}{le}},
-  retrieved        = {{R\'ecup\'er\'ee}{R\'ecup\'er\'ee}},
+  inherit          = {spanish},
+  january          = {{enero}{enero}},
+  february         = {{febrero}{febrero}},
+  march            = {{marzo}{marzo}},
+  april            = {{abril}{abril}},
+  may              = {{mayo}{mayo}},
+  june             = {{junio}{junio}},
+  july             = {{julio}{julio}},
+  august           = {{agosto}{agosto}},
+  september        = {{septiembre}{septiembre}},
+  october          = {{octubre}{octubre}},
+  november         = {{noviembre}{noviembre}},
+  december         = {{diciembre}{diciembre}},
+  mathesis         = {{Tesis\addabbrvspace de\addabbrvspace maestr\'ia}{Tesis\addabbrvspace de\addabbrvspace maestr\'ia}},
+  phdthesis        = {{Tesis\addabbrvspace doctoral}{Tesis\addabbrvspace doctoral}},
+  revisededition   = {{Edici\'on\space Revisada}{\'Ed\adddot\space R\'ev\adddot}},
+  page             = {{P\'agina}{{}p\adddot}},
+  pages            = {{P\'aginas}{{}pp\adddot}},
+  on               = {{el}{el}},
+  retrieved        = {{Recuperado}{Recuperado}},
   available        = {{disponible}{disponible}},
-  from             = {{\`a\space partir\space de}{\`a\space partir\space de}},
-  archivedat       = {{archiv\'es\space \`a}{archiv\'es\space \`a}},
-  nodate           = {{pas\space de\space date}{{}p\adddot d\adddot}},
-  reviewof         = {{critique\space de}{critique\space de}},
+  from             = {{desde}{desde}},
+  archivedat       = {{archivado en}{archiv\'es\space \`a}},
+  nodate           = {{sin\space fecha}{{}s\adddot f\adddot}},
+  reviewof         = {{revisi\'on\space de}{revisi\'on\space de}},
   paragraph        = {{\P}{\P}},
   paragraphs       = {{\P\P}{\P\P}},
-  origyear         = {{Date\space de\space premi\`ere publication}{Date\space de\space premi\`ere publication}},
-  typechair        = {{Ma\^itre\space de\space Conf\'erence}{Ma\^itre\space de\space Conf\'erence}},
-  typechairs       = {{Ma\^itres\space de\space Conf\'erence}{Ma\^itres\space de\space Conf\'erence}},
-  typevolume       = {{R\'edacteur\space du\space volume}{R\'ed\adddot\space vol\adddot}},
-  typevolumes      = {{R\'edacteur\space du\space volume}{R\'eds\adddot\space vol\adddot}},
-  typeseries       = {{R\'edacteur\space de\space la\space s\'erie}{R\'ed\adddot\space ser\adddot}},
-  typeseriess      = {{R\'edacteurs\space de\space la\space s\'erie}{R\'eds\adddot\space ser\adddot}},
-  typevolseries    = {{R\'edacteur\space de\space la\space s\'erie\space et\space du volume}{Red\adddot\space vol\space\&\space ser\adddot}},
-  typevolseriess   = {{Directeurs\space de\space Publication\space et\space R\'edacteurs\space en\space chef}{Reds\adddot\space vol\space\&\space ser\adddot}},
+  origyear         = {{Fecha\space inicial\space de\space publicaci\'on}{Fecha\space inicial\space de\space publicaci\'on}},
+  typechair        = {{Coordinador}{Coord\adddot}},
+  typechairs       = {{Coordinadores}{Coords\adddot}},
+  typevolume       = {{Editor\space del\space volumen}{Ed\adddot\space vol\adddot}},
+  typevolumes      = {{Editores\space del\space volumen}{Eds\adddot\space vol\adddot}},
+  typeseries       = {{Editor\space de\space la\space serie}{Ed\adddot\space ser\adddot}},
+  typeseriess      = {{Editores\space de\space la\space serie}{Eds\adddot\space ser\adddot}},
+  typevolseries    = {{Editor\space de\space la\space serie\space y\space del\space volumen}{Ed\adddot\space vol\space\&\space ser\adddot}},
+  typevolseriess   = {{Editores\space de\space la\space serie\space y\space del\space volumen}{Eds\adddot\space vol\space\&\space ser\adddot}},
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.10 Example 68) Drop end* when they are the same as *
 
 % You must use \printdate to get here otherwise it will be ignored
-\DefineBibliographyExtras{french}{%
+\DefineBibliographyExtras{spanish}{%
   \protected\def\mkbibdateapalong#1#2#3{%
     \iffieldundef{#1}%
       {}%
