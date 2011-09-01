@@ -332,11 +332,18 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fullcite should use "&"
+% Also need to reset the global booleans which are normally done at
+% every bib item but since these aren't bib items, they are not reset
 \DeclareCiteCommand{\fullcite}
   {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
   \usebibmacro{prenote}}
   {\usedriver
-    {\DeclareNameAlias{sortname}{default}}
+    {\DeclareNameAlias{sortname}{default}%
+      \global\boolfalse{bbx:parens}%
+      \global\boolfalse{bbx:volseen}%
+      \global\boolfalse{bbx:titleinauthpos}%
+      \global\boolfalse{bbx:editorinauthpos}%
+      \global\boolfalse{bbx:in}}
     {\thefield{entrytype}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
@@ -349,7 +356,12 @@
      \setlength{\itemsep}{\bibitemsep}%
      \setlength{\parsep}{\bibparsep}}\item}
   {\usedriver
-    {\DeclareNameAlias{sortname}{default}}
+    {\DeclareNameAlias{sortname}{default}%
+      \global\boolfalse{bbx:parens}%
+      \global\boolfalse{bbx:volseen}%
+      \global\boolfalse{bbx:titleinauthpos}%
+      \global\boolfalse{bbx:editorinauthpos}%
+      \global\boolfalse{bbx:in}}
     {\thefield{entrytype}}\finentry}
   {\item}
   {\endlist}
