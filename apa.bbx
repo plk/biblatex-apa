@@ -1,4 +1,4 @@
-%% apa.bbx v3.5
+%% apa.bbx v3.6
 %% Copyright 2011 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -90,7 +90,7 @@
 \newcommand*{\mkbibrangeapalong}[1]{%
   \ifthenelse{\equal{#1}{url}\OR\equal{#1}{event}}
     {\printtext{%
-     \mkbibdateapalongdmy{#1year}{#1month}{#1day}%
+     \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
      \iffieldundef{#1endyear}%
        {}%
        {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -100,9 +100,9 @@
             {\iffieldsequal{#1month}{#1endmonth}%
               {\iffieldsequal{#1day}{#1endday}%
                 {}%
-                {\mkbibdateapalongdmy{}{}{#1endday}}}%
-              {\mkbibdateapalongdmy{}{#1endmonth}{#1endday}}}%
-            {\mkbibdateapalongdmy{#1endyear}{#1endmonth}{#1endday}}}}}}
+                {\mkbibdateapalongmdy{}{}{#1endday}}}%
+              {\mkbibdateapalongmdy{}{#1endmonth}{#1endday}}}%
+            {\mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}}}}
     {\printtext{%
      \mkbibdateapalong{#1year}{#1month}{#1day}%
      \iffieldundef{#1endyear}%
