@@ -1,4 +1,4 @@
-%% apa.bbx v3.6
+%% apa.bbx v3.7
 %% Copyright 2011 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -344,7 +344,9 @@
 \DeclareFieldFormat{yearorunkyear}{%
   \ifthenelse{\iffieldequalstr{usere}{unkdate}\OR\iffieldequalstr{usere}{unkauthdate}}
     {\mkbibbrackets{ca\adddot\addspace#1}}
-    {\mkbibparens{#1}}}
+    {\ifthenelse{\iffieldundef{year}\AND\iffieldundef{month}\AND\iffieldundef{day}}
+      {\mkbibparens{\usebibmacro{noyear}}}
+      {\mkbibparens{#1}}}}
 
 \newbibmacro*{noyear}{%
   \ifnameundef{shortauthor}
