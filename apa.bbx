@@ -1,4 +1,4 @@
-%% apa.bbx v3.7
+%% apa.bbx v3.8
 %% Copyright 2011 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
@@ -47,19 +47,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% APA does not seem to differentiate between italics and slanted fonts.
-% All examples in the APA manual are actually in a slanted font, not
-% italic.
-
-\renewrobustcmd*{\mkbibemph}{\textsl}
-\protected\long\def\blx@imc@mkbibemph#1{%
-  \textsl{#1}\relax
-  \blx@imc@setpunctfont\textsl}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Apa defines no particular hanging indent but this makes it look like the
 % examples in the style manual.
 
@@ -71,13 +58,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 4.16 Example 29) Some DSM macros
 
-\gdef\apaemph#1{\textsl{#1}}
-\gdef\DSMIII{\apaemph{DSM-III}}
-\gdef\DSMIIIR{\apaemph{DSM-III-R}}
-\gdef\DSMIV{\apaemph{DSM-IV}}
-\gdef\DSMIVTR{\apaemph{DSM-IV-TR}}
-\gdef\PsycSCAN{\apaemph{PsycSCAN}}
-\gdef\PsycARTICLES{\apaemph{PsycARTICLES}}
+\gdef\DSMIII{\emph{DSM-III}}
+\gdef\DSMIIIR{\emph{DSM-III-R}}
+\gdef\DSMIV{\emph{DSM-IV}}
+\gdef\DSMIVTR{\emph{DSM-IV-TR}}
+\gdef\PsycSCAN{\emph{PsycSCAN}}
+\gdef\PsycARTICLES{\emph{PsycARTICLES}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
