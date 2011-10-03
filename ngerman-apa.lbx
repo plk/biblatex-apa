@@ -1,4 +1,4 @@
-% v3.8
+% v3.9
 \ProvidesFile{ngerman-apa.lbx}
 \InheritBibliographyExtras{ngerman}
 
@@ -101,7 +101,7 @@
           {\addspace}}%
         {\adddot\addspace}%
        \mkbibmonth{\thefield{#2}}}}%
-  \protected\def\mkbibdateapalongdmy#1#2#3{%
+  \protected\def\mkbibdateapalongmdy#1#2#3{%
     \iffieldundef{#3}%
       {}%
       {\stripzeros{\thefield{#3}}}%
