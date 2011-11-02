@@ -3,6 +3,7 @@
 \usepackage[strict]{csquotes}
 \usepackage{shortvrb}
 \usepackage{ifthen}
+\usepackage{metalogo}
 \MakeAutoQuote{«}{»}
 \MakeShortVerb{\|}
 
@@ -18,17 +19,17 @@
 
 
 \titlepage{%
-  title={APA \sty{biblatex} style},
-  subtitle={Citation and References macros for \sty{biblatex}},
+  title={APA Bib\LaTeX\ style},
+  subtitle={Citation and References macros for Bib\LaTeX},
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={4.0},
+  revision={4.1},
   date={\today}}
 
 \hypersetup{%
-  pdftitle={APA \sty{biblatex} style},
-  pdfsubject={APA Citation and References macros for \sty{biblatex}},
+  pdftitle={APA Bib\LaTeX\ style},
+  pdfsubject={APA Citation and References macros for Bib\LaTeX},
   pdfauthor={Philip Kime},
   pdfkeywords={latex, biblatex, APA, style}}
 
@@ -42,14 +43,14 @@
 
 \subsection{About}
 
-This package is a \sty{biblatex} style for APA (American Psychological
+This package is a Bib\LaTeX\ style for APA (American Psychological
 Association) style compliant documents typeset in \latex. It implements a
 citation style (\path{apa.cbx}), a references section style
 (\path{apa.bbx}) and string localisation files (\path{<language>-apa.lbx}).
 Currently there are only string localisations for a few languages---if you can help with any other languages, please mail me; the
 localisation |.lbx| files are very small and simple and it would be a small
 translation task for the few APA-specific strings needed.
-The styles are loaded just like any other \sty{biblatex} styles but I
+The styles are loaded just like any other Bib\LaTeX\ styles but I
 wouldn't try to use the citation and references styles separately as they
 rely on each other, macro-wise, in places.
 
@@ -59,24 +60,24 @@ APA Style Guide (6th Edition).
 
 \subsection{Requirements}\label{ref:req}
 
-You will need to be using \sty{csquotes} ($\geq$ 4.3) and \sty{biblatex}
+You will need to be using \sty{csquotes} ($\geq$ 4.3) and Bib\LaTeX\
 ($\geq$ 1.4). Some features will not work\footnote{Automatic name and name
   list uniqueness disambiguation---see examples doc} without the
-\sty{biber} backend for \sty{biblatex} ($\geq$ 0.9.2) which is strongly
-recommended. If you want to take advantage of the \sty{biblatex}
+Biber backend for Bib\LaTeX\ ($\geq$ 0.9.2) which is strongly
+recommended. If you want to take advantage of the Bib\LaTeX\
 |\DeclareQuotePunctuation| facility to enforce the APA required «American»
 punctuation, you should normally use the \sty{babel} package with the
-«american» option (see \sty{biblatex} manual section |3.9.1|). You can of
+«american» option (see Bib\LaTeX\ manual section |3.9.1|). You can of
 course use other languages but in such cases, to adhere to APA «American»
 punctuation rules (following commas moved inside closing quotes etc.), then
 you should set up |\DeclareQuotePunctuation| yourself as per section
-|4.7.5| of the \sty{biblatex} manual.
+|4.7.5| of the Bib\LaTeX\ manual.
 
 If you are using the |apa.cls| \latex class, you need be using version
 $\geq$ 1.3.4. The class should be invoked with the |noapacite| class option
 as per the |apa.cls| documentation. Without this class option, the
-|apa.cls| class will automatically try to use plain \bibtex with the
-|apacite| style which is completely incompatible with \sty{biblatex}.
+|apa.cls| class will automatically try to use plain Bib\TeX\ with the
+|apacite| style which is completely incompatible with Bib\LaTeX.
 
 \subsection{License}
 
@@ -87,7 +88,7 @@ maintainer is Philip Kime (\textcopyright\ 2011).
 
 \subsection{History}
 
-When I started using \sty{biblatex}, I assumed there would be an APA style
+When I started using Bib\LaTeX, I assumed there would be an APA style
 when I went looking. I was wrong. I started to try to make one and realised
 why there was none. The APA style manual is enormous; the citation and
 references specifications run to about 60 pages and are very specific in
@@ -98,20 +99,20 @@ document.
 
 \subsection{Acknowledgments}
 
-Thanks to Philipp Lehman for \sty{biblatex} which really has been a major
-advance over pure \bibtex. Thanks to Alexander van Loon for the Dutch
+Thanks to Philipp Lehman for Bib\LaTeX\ which really has been a major
+advance over pure Bib\TeX. Thanks to Alexander van Loon for the Dutch
 localisation. Thanks to Paul Thompson for the suggestion to
 parameterise the max authors setting. Thanks to George Gkotsis for the
 Greek localisation. Thanks to Erikson Kaszubowski for the Brazilian
 localisation. Thanks to Braulio José Solano Rojas for the Spanish
-localisation.
+localisation. Thanks to Stefan Mayer for the |subtitlepunct| suggestion.
 
 \section{Use}\label{ref:use}
 \label{use}
-This package is available via |TeXLive| as |biblatex-apa|. You can find it
-through the provided |TeXLive| update utilities which will install it
+This package is available via \TeX Live as |biblatex-apa|. You can find it
+through the provided \TeX Live update utilities which will install it
 automatically for you. If you need to install manually (to use a new
-version which has not yet been published to the |TeXLive| updaters, for
+version which has not yet been published to the \TeX Live updaters, for
 example), you can download it from CTAN and then, put the \path{.cbx},
 \path{.bbx} and \path{.lbx} files in your texmf tree, usually:\\ 
 
@@ -119,7 +120,7 @@ example), you can download it from CTAN and then, put the \path{.cbx},
 \path{<texmf>/tex/latex/biblatex/bbx/apa.bbx}\\
 \path{<texmf>/tex/latex/biblatex/lbx/<language>-apa.lbx}\\
 
-\noindent Specify the style in the usual way when loading \sty{biblatex}. 
+\noindent Specify the style in the usual way when loading Bib\LaTeX. 
 
 \begin{ltxcode}
 \usepackage[american]{babel}
@@ -131,9 +132,9 @@ example), you can download it from CTAN and then, put the \path{.cbx},
 \noindent Note that the APA manual requires the forcing of titles into
 «sentence case», that is, initial cap followed by lower case for sentence
 units, with the exception of names and material from languages which do not
-follow English capitalisation. As of version 0.8a, \sty{biblatex} has a
+follow English capitalisation. As of version 0.8a, Bib\LaTeX\ has a
 |\MakeSentenceCase| macro which deals with this. So, in the traditional
-\bibtex way, capitalise correctly in the |.bib| file, protecting names etc.
+Bib\TeX\ way, capitalise correctly in the |.bib| file, protecting names etc.
 with the usual brace pairs and the style will take care of forcing the
 APA-style sentence case in the References section. Unlike the References
 section, titles in citations in the APA style appear in normal case and the
@@ -143,7 +144,7 @@ style will ensure this too.
 
 Localisation is provided for APA-specific strings in the accompanying
 |.lbx| files. To use these files, put an appropriate mapping in your
-document preamble, after loading \sty{biblatex}.
+document preamble, after loading Bib\LaTeX.
 
 Normal use will invoke babel with the «american» babel language. After
 loading babel and biblatex, put this in the preamble (see full preamble
@@ -268,7 +269,7 @@ should probably be using |\printbibliography| with a filter.
 
 \subsection{References}
 
-The references style was based on the \sty{biblatex} default
+The references style was based on the Bib\LaTeX\ default
 |authoryear-comp| style but is heavily modified. If in doubt read the
 example references |.bib| as it is commented and you can learn a lot from
 the examples by picking something close to what you need from the APA
@@ -288,29 +289,33 @@ general notes:
   format of these requires that different roles (Director, Producer etc.)
   are separately specified for different names. This is not really possible
   for the usual |AUTHOR| or |EDITOR| fields. In such cases, I have resorted
-  to the \sty{biblatex} custom |NAME| and |NAMETYPE| fields which are not
-  very portable but until the \bibtex backend support is dropped in |biblatex|
+  to the Bib\LaTeX\ custom |NAME| and |NAMETYPE| fields which are not
+  very portable but until the Bib\TeX\ backend support is dropped in Bib\LaTeX\
   there is no way round this without making things very messy. This will
-  happen around |biblatex| version 2.0.
+  happen around Bib\LaTeX\ version 2.0.
 \item APA style sometimes refers to the «series» of a multi-volume work.
   This corresponds to the |MAINTITLE| field in the \path{.bib} and
   \emph{not} the |SERIES| field.
 \item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
   they are given as roman numerals, as required by \apa{6.22}.
 \item |USERB| is sometimes used to specify that a URL is for an abstract
-  rather than the paper itself. Not very portable but that's because of |bibtex| data
+  rather than the paper itself. Not very portable but that's because of Bib\TeX\ data
   model limtations.
 \item |USERD| is sometimes used to specify information that indicates
-  special formatting. Not very portable but that's because of |bibtex| data
+  special formatting. Not very portable but that's because of Bib\TeX\ data
   model limtations.
 \item |USERE| is sometimes used to specify questionable dates/authors for
-  special formatting. Not very portable but that's because of |bibtex| data
+  special formatting. Not very portable but that's because of Bib\TeX\ data
   model limtations.
 \end{itemize}
 
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{4.1}{2011-11-02}
+\item |subtitlepunct| now skips if following terminating punctuation
+\end{release}
 
 \begin{release}{4.0}{2011-10-05}
 \item Disabled «smart and» for spanish localisation as it breaks ampersands
@@ -351,13 +356,13 @@ general notes:
 \end{release}
 
 \begin{release}{3.1}{2011-07-31}
-\item Made compatible with |biblatex| 1.6
+\item Made compatible with Bib\LaTeX\ 1.6
 \end{release}
 
 \begin{release}{3.0}{2011-05-06}
 \item |maxnames| and |minnames| are now set to sensible things and actually
-  used. |biber| $\geq$ 0.9.3 is now required as this implements a fix for
-  |uniquelist| in |biblatex| which needs |maxnames| and |minnames| set to
+  used. Biber $\geq$ 0.9.3 is now required as this implements a fix for
+  |uniquelist| in Bib\LaTeX\ which needs |maxnames| and |minnames| set to
   real values.
 \item Fixed bug with commas before «et al» not appearing in some cases.
 \end{release}
@@ -365,7 +370,7 @@ general notes:
 \begin{release}{2.9}{2011-05-03}
 \item APA wants no space between volume and number for articles, even though it's
   horribly ugly\ldots
-\item Made urls not optional with |biblatex| url toggle in |ONLINE| entrytype (thanks to Mattias Erll)
+\item Made urls not optional with Bib\LaTeX\ url toggle in |ONLINE| entrytype (thanks to Mattias Erll)
 \end{release}
 
 \begin{release}{2.8}{2011-04-23}
@@ -375,7 +380,7 @@ general notes:
 \begin{release}{2.7}{2011-04-1}
 \item Biber is now a strongly recommended requirement due to APA name and
   name list disambiguation requirements.
-\item Updated for biblatex 1.4/biber 0.9 with automatic list
+\item Updated for Bib\LaTeX\ 1.4/Biber 0.9 with automatic list
   disambiguation. Package now deals with all APA 6th Edition citation examples.
 \end{release}
 
@@ -426,7 +431,7 @@ general notes:
 \begin{release}{1.7}{2010-08-05}
 \item Corrected dateless entry format, added examples to test doc
 \item Corrected multi delim for |\citeyear|
-\item Updated test doc for |biblatex| 0.9b compat
+\item Updated test doc for Bib\LaTeX\ 0.9b compat
 \end{release}
 
 \begin{release}{1.6}{2010-07-19}
@@ -448,8 +453,8 @@ general notes:
 
 \begin{release}{1.2}{2010-06-18}
 \item Made style arguments more explicit in |.bbx|
-\item Fixed bad documentation due to beta |biblatex| version.
-\item Updated docs - minimum |biblatex| version
+\item Fixed bad documentation due to beta Bib\LaTeX\ version.
+\item Updated docs - minimum Bib\LaTeX\ version
 \end{release}
 
 \begin{release}{1.1}{2010-05-28}
@@ -469,12 +474,12 @@ general notes:
 \end{release}
 
 \begin{release}{0.9}{2010-03-08}
-\item Update for APA manual 6th edition and |biblatex| 0.9
+\item Update for APA manual 6th edition and Bib\LaTeX\ 0.9
 \end{release}
 
 \begin{release}{0.8}{2010-02-15}
 \item Fixed bug with spaces after nptextcite
-\item Updated for |biblatex| 0.9
+\item Updated for Bib\LaTeX\ 0.9
 \end{release}
 
 \begin{release}{0.7}{2010-01-20}
@@ -497,19 +502,19 @@ general notes:
 \item Moved |\DeclareBibliographyExtras| into \sty{.lbx} files.
 \item Some support for alternative localised date formats.
 \item Fixed slant/italic font problem since the |\mkbibemph| macro had
-  changed in \sty{biblatex} 0.8e.
+  changed in Bib\LaTeX\ 0.8e.
 \item Fixed |liststop| error which was preventing name lists with two
   entries from having the comma before the ampersand.
 \end{release}
 
 \begin{release}{0.4}{2009-07-24}
 \item Fixed bug where multiple year ranges were not displayed properly.
-\item Updated to remove pre-\sty{biblatex} 0.8e macros error.
+\item Updated to remove pre-Bib\LaTeX\ 0.8e macros error.
 \end{release}
 
 \begin{release}{0.3}{2008-12-21}
 \item Updated to use new fields (|EVENTTITLE|) and new options
-  (|usetranslator|) from \sty{biblatex} 0.8b.
+  (|usetranslator|) from Bib\LaTeX\ 0.8b.
 \end{release}
 
 \begin{release}{0.2}{2008-12-06}
@@ -517,7 +522,7 @@ general notes:
 \item Fixed bbx bug with more than 7 authors still printing names after «et al». Was
   due to resetting maxnames to 999.
 \item Removed the customised (hacked) |apa-biblatex.cls| class from the package as
-  |apa.cls| version 1.3.4 is compatible with \sty{biblatex}.
+  |apa.cls| version 1.3.4 is compatible with Bib\LaTeX\.
 \item Altered documentation about requiring the «american» babel option.
   This is not required if you set up |\DeclareQuotePunctuation| yourself.
 \item Added minimum required version of \sty{csquotes}.
