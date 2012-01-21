@@ -62,7 +62,7 @@ APA Style Guide (6th Edition).
 
 You will need to be using \sty{csquotes} ($\geq$ 4.3) and Bib\LaTeX\
 ($\geq$ 1.4). Some features will not work\footnote{Automatic name and name
-  list uniqueness disambiguation---see examples doc} without the
+  list uniqueness disambiguation, for example---see examples doc} without the
 Biber backend for Bib\LaTeX\ ($\geq$ 0.9.2) which is strongly
 recommended. If you want to take advantage of the Bib\LaTeX\
 |\DeclareQuotePunctuation| facility to enforce the APA required «American»
@@ -320,6 +320,8 @@ general notes:
 \begin{release}{4.3}{2012-01-21}
 \item «et al» now only replaces two or more names since it's plural
 \item «in press» items now should use the |biblatex| |PUBSTATE| field
+  (Requires |biber| $\geq$ 0.9.9 to fully support disambiguation of «in
+  press» items by the same author)
 \item Fixed «in press» hyphenation issue for disambiguation in references
 \item URLs are now by default in roman font as per APA style.
 \end{release}
