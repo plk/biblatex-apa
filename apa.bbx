@@ -31,6 +31,16 @@
 \urlstyle{rm} % APA examples all have URLs in same font as text
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Used to join citations/references to
+%  extrayear
+
+\newcommand{\apashortdash}{-}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Allow variable max authors/editors limit
 
 \newcommand{\maxprtauth}{7}
@@ -323,10 +333,18 @@
 
 \newbibmacro*{labelyear+extrayear}{%
   \iffieldundef{labelyear}
-    {\iffieldundef{origyear}
-      {\printtext[parens]{\usebibmacro{noyear}}}
-      {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}
-    {\printtext[yearorunkyear]{\printdateextra}}}
+    {\iffieldundef{pubstate}
+      {\iffieldundef{origyear}
+        {\printtext[parens]{\usebibmacro{noyear}}}
+        {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}
+      {\iffieldequalstr{pubstate}{inpress}
+        {\printtext[parens]{\biblcstring{inpress}%
+          \iffieldundef{extrayear}
+           {\setunit{\relax}}
+           {\setunit{\apashortdash}}%
+          \printfield{extrayear}}}
+        {}}}%
+      {\printtext[yearorunkyear]{\printdateextra}}}
 
 \DeclareFieldFormat{yearorunkyear}{%
   \ifthenelse{\iffieldequalstr{usere}{unkdate}\OR\iffieldequalstr{usere}{unkauthdate}}
@@ -1087,8 +1105,6 @@
   \usebibmacro{journal+issuetitle}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
-  \newunit\newblock
-  \printfield{pubstate}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock

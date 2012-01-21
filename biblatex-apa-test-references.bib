@@ -57,19 +57,21 @@
 }
 
 % (APA 7.01 Example 5)
+% PUBSTATE field is reserved for biblatex defined keys so use NOTE for such non-standard
+% things
 @ARTICLE{7.01:5,
   AUTHOR         = {S. C. {Von Ledebur}},
   TITLE          = {Optimizing Knowledge Transfer by New Employees in Companies},
   JOURNALTITLE   = {Knowledge Management Research and Practice},
   YEAR           = {2007},
-  PUBSTATE       = {Advance online publication},
+  NOTE           = {Advance online publication},
   DOI            = {10.1057/palgrave.kmrp.8500141}
 }
 
 % (APA 7.01 Example 6)
 @ARTICLE{7.01:6,
   AUTHOR         = {R. Briscoe},
-  YEAR           = {in press},
+  PUBSTATE       = {inpress},
   TITLE          = {Egocentric Spatial Representation in Action and Perception},
   JOURNALTITLE   = {Philosophy and Phenomenological Research},
   URL            = {http://cogprints.org/5780/1/ECSRAP.F07.pdf}
@@ -1012,3 +1014,4 @@
     ORGANIZATION = {Twin Cities Habitat for Humanity website},
     URLDATE = {2012}
 }
+

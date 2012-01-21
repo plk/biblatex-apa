@@ -238,6 +238,10 @@ accompanying \path{.bib} files:
 
 \subsection{Citations}
 
+To specify something as «in press», use the |biblatex| |PUBSTATE| field
+with the special key value of «|inpress|» (see |biblatex| manual, section
+4.9.2.11).
+
 \apa{6.13} requires that there should be no parentheses around the year of
 the citation when the citation itself occurs within parenthesis. This is
 tricky to completely automate within the remit of a citation style since it
@@ -313,7 +317,10 @@ general notes:
 
 \begin{changelog}
 
-\begin{release}{4.3}{??}
+\begin{release}{4.3}{2012-01-21}
+\item «et al» now only replaces two or more names since it's plural
+\item «in press» items now should use the |biblatex| |PUBSTATE| field
+\item Fixed «in press» hyphenation issue for disambiguation in references
 \item URLs are now by default in roman font as per APA style.
 \end{release}
 

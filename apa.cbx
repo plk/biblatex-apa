@@ -124,7 +124,12 @@
        {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}%
        {}%
       \ifnumcomp{\value{listcount}}{=}{\cbx@min + 1}% first past ul is et al
-       {\andothersdelim\bibstring{andothers}}%
+      % but enforce plurality of et al - only truncate here if there is at
+      % least one more element after the current potential truncation point
+      % so that "et al" covers at least two elements.
+       {\ifnumcomp{\value{listcount}}{<}{\value{listtotal}}
+         {\andothersdelim\bibstring{andothers}}
+         {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}%
        {}%
       \ifnumcomp{\value{listcount}}{>}{\cbx@min + 1}% nothing thereafter
        {\relax}%
@@ -163,7 +168,9 @@
   \iffieldequals{namehash}{\cbx@lasthash}
 % Multiple cites in one command
    {\setunit{\compcitedelim}%
-    \usebibmacro{cite:plabelyear+extrayear}}%
+    \iffieldundef{labelyear}
+      {\usebibmacro{cite:noyear}}
+      {\usebibmacro{cite:plabelyear+extrayear}}}%
 % Single cite
    {\ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
 % No author/editor
@@ -190,7 +197,9 @@
   \iffieldequals{namehash}{\cbx@lasthash}
 % Compact cite - more than one thing for same author
     {\setunit{\compcitedelim}%
-     \usebibmacro{cite:plabelyear+extrayear}}
+     \iffieldundef{labelyear}
+       {\usebibmacro{cite:noyear}}
+       {\usebibmacro{cite:plabelyear+extrayear}}}
 % Single cite
     {\ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
   % No author/editor or patent
@@ -200,7 +209,9 @@
           \setunit{\ifbool{cbx:np}%
                    {\nameyeardelim}%
                    {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
-          \usebibmacro{cite:plabelyear+extrayear}}
+          \iffieldundef{labelyear}
+            {\usebibmacro{cite:noyear}}
+            {\usebibmacro{cite:plabelyear+extrayear}}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
   % Normal cite with author/editor
@@ -234,20 +245,12 @@
     % multicitedelim semi-colon doesn't make much sense for textcites
     \compcitedelim}}
 
-\newcommand{\apashortdash}{-}
-
 \newbibmacro*{cite:plabelyear+extrayear}{%
   \iffieldundef{labelyear}
     {}
     {\printtext[bibhyperref]{%
      \printfield[noformat]{origyear}\setunit*{\addslash}%
-     \printfield{labelyear}%
-     \iffieldequalstr{labelyear}{in press}
-       {\iffieldundef{extrayear}
-         {\setunit{\relax}}
-         {\setunit{\apashortdash}}%
-       \printfield{extrayear}}
-       {\printfield{extrayear}}}}}%
+     \printfield{labelyear}\printfield{extrayear}}}}%
 
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
@@ -278,6 +281,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.22) Fall back to "n.d." for citations without dates
 %            Strings defined in apa.bbx
+% (APA 6.16) "in press" for PUBSTATE "inpress"
 
 \newbibmacro*{cite:noyear}{%
   \ifnameundef{shortauthor}
@@ -285,7 +289,15 @@
     {\ifciteseen
       {}
       {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-  \printtext[bibhyperref]{\biblcstring{nodate}}}
+  \iffieldundef{pubstate}
+    {\printtext[bibhyperref]{\biblcstring{nodate}}}
+    {\iffieldequalstr{pubstate}{inpress}
+     {\printtext[bibhyperref]{\bibxstring{inpress}%
+      \iffieldundef{extrayear}
+       {}
+       {\apashortdash}%
+     \printfield{extrayear}}}
+     {}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -407,7 +419,9 @@
   {\boolfalse{citetracker}%
    \boolfalse{pagetracker}%
    \usebibmacro{prenote}}
-  {\usebibmacro{cite:plabelyear+extrayear}}
+  {\iffieldundef{labelyear}
+     {\usebibmacro{cite:noyear}}
+     {\usebibmacro{cite:plabelyear+extrayear}}}
   {\multinamedelim}
   {\usebibmacro{postnote}}
 

@@ -114,7 +114,9 @@ this (see APA 6.11).
 
 \noindent Automatic list disambiguation for ambiguous truncations after
 first cite\footnote{This feature is fairly deep magic and only works when using
-  biblatex 1.4+ together with biber 0.9+}:\\
+  biblatex 1.4+ together with biber 0.9+}. Note that «et al» is plural so
+it will only truncate two or more names. If it would truncate just one
+name, we just give the name:\\
 \apaex{\textcite{6.12c}}\\
 \apaex{\textcite{6.12d}}\\
 \apaex{\textcite{6.12c}}\\
@@ -230,6 +232,10 @@ Two or more works withing the same parentheses:\\
 
 \noindent Compact citations with special order:\\
 \apaex{\parencites{6.16m}[see also][]{6.16n,6.16o}}
+
+\noindent «in press» should have hyphen before disambiguating part of label
+(also in references):\\
+\apaex{\parencites{6.16p,6.16q}}
 
 \noindent\apa{6.17}\\
 Secondary sources:\\
