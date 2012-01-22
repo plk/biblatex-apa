@@ -168,18 +168,14 @@
   \iffieldequals{namehash}{\cbx@lasthash}
 % Multiple cites in one command
    {\setunit{\compcitedelim}%
-    \iffieldundef{labelyear}
-      {\usebibmacro{cite:noyear}}
-      {\usebibmacro{cite:plabelyear+extrayear}}}%
+    \usebibmacro{cite:plabelyear+extrayear}}%
 % Single cite
    {\ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
 % No author/editor
      {\usebibmacro{cite:noname}%
        \setunit{\nameyeardelim}%
-      \iffieldundef{labelyear}
-        {\usebibmacro{cite:noyear}}
-        {\usebibmacro{cite:plabelyear+extrayear}%
-         \savefield{namehash}{\cbx@lasthash}}}
+       \usebibmacro{cite:plabelyear+extrayear}%
+       \savefield{namehash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
         {\printnames[labelname][-\value{listtotal}]{labelname}}
@@ -187,19 +183,15 @@
           {\printnames{shortauthor}}
           {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\nameyeardelim}%
-      \iffieldundef{labelyear}
-        {\usebibmacro{cite:noyear}}
-        {\usebibmacro{cite:plabelyear+extrayear}%
-         \savefield{namehash}{\cbx@lasthash}}}}%
+      \usebibmacro{cite:plabelyear+extrayear}%
+      \savefield{namehash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
 \newbibmacro*{textcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
 % Compact cite - more than one thing for same author
     {\setunit{\compcitedelim}%
-     \iffieldundef{labelyear}
-       {\usebibmacro{cite:noyear}}
-       {\usebibmacro{cite:plabelyear+extrayear}}}
+     \usebibmacro{cite:plabelyear+extrayear}}
 % Single cite
     {\ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
   % No author/editor or patent
@@ -209,9 +201,7 @@
           \setunit{\ifbool{cbx:np}%
                    {\nameyeardelim}%
                    {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
-          \iffieldundef{labelyear}
-            {\usebibmacro{cite:noyear}}
-            {\usebibmacro{cite:plabelyear+extrayear}}}
+          \usebibmacro{cite:plabelyear+extrayear}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
   % Normal cite with author/editor
@@ -233,10 +223,8 @@
          {\ifciteseen
            {}
            {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-        \iffieldundef{labelyear}%
-          {\usebibmacro{cite:noyear}}
   % Actual year printing
-          {\usebibmacro{cite:plabelyear+extrayear}}%
+          \usebibmacro{cite:plabelyear+extrayear}%
         \savefield{namehash}{\cbx@lasthash}}}%
   \setunit{%
     \ifbool{cbx:parens}
@@ -247,7 +235,7 @@
 
 \newbibmacro*{cite:plabelyear+extrayear}{%
   \iffieldundef{labelyear}
-    {}
+    {\usebibmacro{cite:noyear}}
     {\printtext[bibhyperref]{%
      \printfield[noformat]{origyear}\setunit*{\addslash}%
      \printfield{labelyear}\printfield{extrayear}}}}%
@@ -419,9 +407,7 @@
   {\boolfalse{citetracker}%
    \boolfalse{pagetracker}%
    \usebibmacro{prenote}}
-  {\iffieldundef{labelyear}
-     {\usebibmacro{cite:noyear}}
-     {\usebibmacro{cite:plabelyear+extrayear}}}
+  {\usebibmacro{cite:plabelyear+extrayear}}
   {\multinamedelim}
   {\usebibmacro{postnote}}
 
