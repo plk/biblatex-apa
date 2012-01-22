@@ -3,6 +3,7 @@
 \usepackage[strict]{csquotes}
 \usepackage{shortvrb}
 \usepackage{ifthen}
+\usepackage{listings}
 \usepackage{metalogo}
 \MakeAutoQuote{«}{»}
 \MakeShortVerb{\|}
@@ -240,7 +241,8 @@ accompanying \path{.bib} files:
 
 To specify something as «in press», use the |biblatex| |PUBSTATE| field
 with the special key value of «|inpress|» (see |biblatex| manual, section
-4.9.2.11).
+4.9.2.11). See the notes on the |PUBSTATE| field in section \ref{refs}
+below.
 
 \apa{6.13} requires that there should be no parentheses around the year of
 the citation when the citation itself occurs within parenthesis. This is
@@ -271,7 +273,7 @@ since the |sortcites| biblatex option is a package-level option. If
 you want to customise such a fake references section «citation», you
 should probably be using |\printbibliography| with a filter.
 
-\subsection{References}
+\subsection{References}\label{refs}
 
 The references style was based on the Bib\LaTeX\ default
 |authoryear-comp| style but is heavily modified. If in doubt read the
@@ -312,6 +314,32 @@ general notes:
   special formatting. Not very portable but that's because of Bib\TeX\ data
   model limtations.
 \end{itemize}
+
+\minisec{The |PUBSTATE| field}
+The |PUBSTATE| field is only used for the citation and references
+year if there is no |labelyear| field. This makes sense as the |PUBSTATE|
+field is for things not officially yet published and thus without a
+publication year. However, you may wish to have a date field in such an
+entry too (perhaps you know when it will be published, for example). You
+can easily deal with this in |biber| by using a |biber.conf| file to remove
+date fields from entries with a |PUBSTATE| field dynamically as the data
+source stream is being processed. For example, to ignore some common date
+fields in such entries, your |biber.conf| might contain:
+
+\begin{lstlisting}[language=xml,escapechar=+,mathescape=true]
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <sourcemap>
+    <maps datatype="bibtex" map_overwrite="0">
+      <map>
+        <map_step map_field_source="PUBSTATE"/>
+        <map_step map_field_set="DATE" map_null="1"/>
+        <map_step map_field_set="YEAR" map_null="1"/>
+      </map>
+    </maps>
+  </sourcemap>
+</config>
+\end{lstlisting}
 
 \section{Revision history}
 
