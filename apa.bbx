@@ -197,6 +197,7 @@
   }
 }
 
+\DeclareLabelyear{pubstate,year,eventyear,origyear,urlyear}
 
 \ExecuteBibliographyOptions{labelyear=true,%
                             sorting=apa,%
@@ -365,18 +366,16 @@
 
 \newbibmacro*{labelyear+extrayear}{%
   \iffieldundef{labelyear}
-    {\iffieldundef{pubstate}
-      {\iffieldundef{origyear}
-        {\printtext[parens]{\usebibmacro{noyear}}}
-        {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}
-      {\iffieldequalstr{pubstate}{inpress}
-        {\printtext[parens]{\biblcstring{inpress}%
-          \iffieldundef{extrayear}
-           {\setunit{\relax}}
-           {\setunit{\apashortdash}}%
-          \printfield{extrayear}}}
-        {}}}%
-      {\printtext[yearorunkyear]{\printdateextra}}}
+    {\iffieldundef{origyear}
+      {\printtext[parens]{\usebibmacro{noyear}}}
+      {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}%
+    {\iffieldequalstr{labelyear}{inpress}
+      {\printtext[parens]{\biblcstring{inpress}%
+       \iffieldundef{extrayear}
+        {\setunit{\relax}}
+        {\setunit{\apashortdash}}%
+       \printfield{extrayear}}}
+     {\printtext[yearorunkyear]{\printdateextra}}}}
 
 \DeclareFieldFormat{yearorunkyear}{%
   \ifthenelse{\iffieldequalstr{usere}{unkdate}\OR\iffieldequalstr{usere}{unkauthdate}}

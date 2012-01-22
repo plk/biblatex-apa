@@ -236,9 +236,15 @@
 \newbibmacro*{cite:plabelyear+extrayear}{%
   \iffieldundef{labelyear}
     {\usebibmacro{cite:noyear}}
-    {\printtext[bibhyperref]{%
-     \printfield[noformat]{origyear}\setunit*{\addslash}%
-     \printfield{labelyear}\printfield{extrayear}}}}%
+    {\iffieldequalstr{labelyear}{inpress}
+      {\printtext[bibhyperref]{\bibxstring{inpress}%
+       \iffieldundef{extrayear}
+         {}
+         {\apashortdash}%
+       \printfield{extrayear}}}
+      {\printtext[bibhyperref]{%
+       \printfield[noformat]{origyear}\setunit*{\addslash}%
+       \printfield{labelyear}\printfield{extrayear}}}}}%
 
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
@@ -277,15 +283,7 @@
     {\ifciteseen
       {}
       {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-  \iffieldundef{pubstate}
-    {\printtext[bibhyperref]{\biblcstring{nodate}}}
-    {\iffieldequalstr{pubstate}{inpress}
-     {\printtext[bibhyperref]{\bibxstring{inpress}%
-      \iffieldundef{extrayear}
-       {}
-       {\apashortdash}%
-     \printfield{extrayear}}}
-     {}}}
+    \printtext[bibhyperref]{\biblcstring{nodate}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

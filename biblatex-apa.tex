@@ -39,8 +39,30 @@
 \printtitlepage
 \tableofcontents
 
-\section{Introduction}
-\label{int}
+\section{Important Changes}\label{special}
+
+Please see the revision history below (section \ref{rev}) for  details on changes in each
+version. This section is just for important things like incompatible
+changes which users should be aware of.
+
+\minisec{4.3}
+Specifying entries as «in press» is now done using the official |biblatex|
+mechanism for this. Instead of, for example:
+
+\begin{verbatim}
+  YEAR = {in press}
+\end{verbatim}
+
+\noindent you should use:
+
+\begin{verbatim}
+  PUBSTATE = {inpress}
+\end{verbatim}
+
+\noindent as «|inpress|» is a |biblatex| localisation string which will
+render correctly in supported languages.
+
+\section{Introduction}\label{int}
 
 \subsection{About}
 
@@ -284,6 +306,11 @@ general notes:
 
 \begin{itemize}
 \setlength{\itemsep}{0pt}
+\item The |PUBSTATE| field takes priority over any date field. If you specify
+  something with a |PUBSTATE| field like «inpress», then the year label in
+  citations and the references will be the localisation of the |PUBSTATE|
+  value key (|PUBSTATE| takes a pre-defined set of localisation keys as
+  values, see |biblatex| manual).
 \item The |\maxprtauth| commands returns the number of author/editor
   names which are printed. APA style defaults to 7. You can reset this
   after loading biblatex with, for example,
@@ -315,33 +342,7 @@ general notes:
   model limtations.
 \end{itemize}
 
-\minisec{The |PUBSTATE| field}
-The |PUBSTATE| field is only used for the citation and references
-year if there is no |labelyear| field. This makes sense as the |PUBSTATE|
-field is for things not officially yet published and thus without a
-publication year. However, you may wish to have a date field in such an
-entry too (perhaps you know when it will be published, for example). You
-can easily deal with this in |biber| by using a |biber.conf| file to remove
-date fields from entries with a |PUBSTATE| field dynamically as the data
-source stream is being processed. For example, to ignore some common date
-fields in such entries, your |biber.conf| might contain:
-
-\begin{lstlisting}[language=xml,escapechar=+,mathescape=true]
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-  <sourcemap>
-    <maps datatype="bibtex" map_overwrite="0">
-      <map>
-        <map_step map_field_source="PUBSTATE"/>
-        <map_step map_field_set="DATE" map_null="1"/>
-        <map_step map_field_set="YEAR" map_null="1"/>
-      </map>
-    </maps>
-  </sourcemap>
-</config>
-\end{lstlisting}
-
-\section{Revision history}
+\section{Revision history}\label{rev}
 
 \begin{changelog}
 
