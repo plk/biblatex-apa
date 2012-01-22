@@ -164,10 +164,42 @@
 % (APA 6.16) uses year postfix to disambiguate multiple items in same year
 % (APA 6.10) Never reference anything not cited
 % (APA 6.25) author initials only
-% (APA 6.25) sorting is nyt
+% (APA 6.25) sorting is nyt but we need to account for PUBSTATE which comes
+%            after all normal cites for the same author
+
+\DeclareSortingScheme{apa}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \name{sortname}
+    \name{author}
+    \name{editor}
+    \name{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sortyear}
+    \field{year}
+    \field{pubstate}
+  }
+  \sort{
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field[padside=left,padwidth=4,padchar=0]{volume}
+    \literal{0000}
+  }
+}
+
 
 \ExecuteBibliographyOptions{labelyear=true,%
-                            sorting=nyt,%
+                            sorting=apa,%
                             pagetracker=true,%
                             firstinits=true,%
                             useprefix=true,%
