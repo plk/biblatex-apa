@@ -369,7 +369,7 @@
     {\iffieldundef{origyear}
       {\printtext[parens]{\usebibmacro{noyear}}}
       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}%
-    {\iffieldequalstr{labelyear}{inpress}
+    {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
       {\printtext[parens]{\biblcstring{inpress}%
        \iffieldundef{extrayear}
         {\setunit{\relax}}
@@ -1392,8 +1392,6 @@
   \usebibmacro{byholder}%
   \newunit\newblock
   \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{date}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock

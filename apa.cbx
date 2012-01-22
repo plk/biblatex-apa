@@ -170,7 +170,7 @@
    {\setunit{\compcitedelim}%
     \usebibmacro{cite:plabelyear+extrayear}}%
 % Single cite
-   {\ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
+   {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
 % No author/editor
      {\usebibmacro{cite:noname}%
        \setunit{\nameyeardelim}%
@@ -193,7 +193,7 @@
     {\setunit{\compcitedelim}%
      \usebibmacro{cite:plabelyear+extrayear}}
 % Single cite
-    {\ifthenelse{\ifnameundef{labelname}\OR\equal{\thefield{entrytype}}{patent}}
+    {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
   % No author/editor or patent
        {\iffieldundef{shorthand}%
     % Cite using title
@@ -236,7 +236,7 @@
 \newbibmacro*{cite:plabelyear+extrayear}{%
   \iffieldundef{labelyear}
     {\usebibmacro{cite:noyear}}
-    {\iffieldequalstr{labelyear}{inpress}
+    {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
       {\printtext[bibhyperref]{\bibxstring{inpress}%
        \iffieldundef{extrayear}
          {}
