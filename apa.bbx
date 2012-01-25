@@ -44,6 +44,10 @@
 %  Allow variable max authors/editors limit
 
 \newcommand{\maxprtauth}{7}
+\DeclareBibliographyOption{apamaxprtauth}{%
+  \ifstrempty{#1}
+    {}
+    {\renewcommand{\maxprtauth}{#1}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -201,6 +205,7 @@
 
 \ExecuteBibliographyOptions{labelyear=true,%
                             sorting=apa,%
+                            backref=true,%
                             pagetracker=true,%
                             firstinits=true,%
                             useprefix=true,%
@@ -216,6 +221,19 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% It is not APA standard to have backrefs in the bib
+% Some users might like it though.
+
+\newbool{apa:backref}
+\DeclareBibliographyOption{apabackref}{%
+  \ifstrequal{#1}{true}
+    {\global\booltrue{apa:backref}}
+    {\global\boolfalse{apa:backref}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.29) Additional material sometimes goes in parens
@@ -1143,6 +1161,7 @@
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:finpunct}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{book}{%
@@ -1165,6 +1184,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1186,6 +1206,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1213,6 +1234,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1234,6 +1256,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1261,6 +1284,7 @@
   \usebibmacro{origyear}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1288,6 +1312,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1321,6 +1346,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1348,6 +1374,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1374,6 +1401,7 @@
   \iffieldundef{url}{}{\renewcommand*{\finentrypunct}{\relax}}
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1396,6 +1424,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1419,6 +1448,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1437,6 +1467,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1454,6 +1485,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1475,6 +1507,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1502,6 +1535,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1523,6 +1557,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1542,6 +1577,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1561,6 +1597,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1578,6 +1615,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1592,6 +1630,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1606,6 +1645,7 @@
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
@@ -1627,6 +1667,7 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}
   \usebibmacro{finentry}}
 
@@ -1730,6 +1771,14 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wrapper for backrefs
+
+\newbibmacro{apa:pageref}{%
+  \ifbool{apa:backref}{\usebibmacro{pageref}}{}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %

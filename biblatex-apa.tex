@@ -45,6 +45,10 @@ Please see the revision history below (section \ref{rev}) for  details on change
 version. This section is just for important things like incompatible
 changes which users should be aware of.
 
+\minisec{4.4}
+The |\maxprtauth| command is now a package option called
+«apamaxprtauth», see section \ref{opts}.
+
 \minisec{4.3}
 Specifying entries as «in press» should now be done using the official |biblatex|
 mechanism for this. Instead of, for example:
@@ -164,6 +168,30 @@ with the usual brace pairs and the style will take care of forcing the
 APA-style sentence case in the References section. Unlike the References
 section, titles in citations in the APA style appear in normal case and the
 style will ensure this too.
+
+\subsection{Package options}\label{opts}
+
+The following options are set as usual in the options passed to
+|biblatex|.
+
+\begin{ltxcode}
+apabackref=true|false
+\end{ltxcode}% | stupid comment to stop emacs highlighting as verb due
+             % to single pipe
+
+\noindent It is not APA style to include backreferences in the References to
+pages where citations of the entry occur. However, this is very
+useful, especially in proofing and so if you set the |apabackref|
+option to «true», these are enabled. The default is «false».
+
+\begin{ltxcode}
+apamaxprtauth=<num>
+\end{ltxcode}
+
+\noindent This option controls the number of author/editor names which are
+printed. APA style defaults to 7. You can change this if you really
+want to fully print all author list references in certain contexts
+(for example in a CV where you are an author in position 8 \ldots)
 
 \subsection{Localisation}
 
@@ -313,12 +341,6 @@ general notes:
   citations and the references will be the localisation of the |PUBSTATE|
   value key (|PUBSTATE| takes a pre-defined set of localisation keys as
   values, see |biblatex| manual).
-\item The |\maxprtauth| commands returns the number of author/editor
-  names which are printed. APA style defaults to 7. You can reset this
-  after loading biblatex with, for example,
-  |\renewcommand{\maxprtauth}{25}| if you really want to fully print
-  all author list references in certain contexts (for example in a CV
-  where you are an author in position 8 \ldots)
 \item There are occasions where there is no sensible \path{.bib} key to
   use. This applies to things like |AUDIO| and |VIDEO| entries mainly. The
   format of these requires that different roles (Director, Producer etc.)
@@ -347,6 +369,12 @@ general notes:
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{4.4}{?}
+\item |\maxprtauth| command is now a package option «apamaxprtauth»
+\item New package option «apabackref» controlling whether
+  backreferences and links to citations appear in the References.
+\end{release}
 
 \begin{release}{4.3}{2012-01-22}
 \item «et al» now only replaces two or more names since it's plural
