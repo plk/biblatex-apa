@@ -25,7 +25,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={4.4},
+  revision={4.5},
   date={\today}}
 
 \hypersetup{%
@@ -44,6 +44,11 @@
 Please see the revision history below (section \ref{rev}) for  details on changes in each
 version. This section is just for important things like incompatible
 changes which users should be aware of.
+
+\minisec{4.5}
+|biber| is now \emph{required}. This is because APA style needs a custom
+sorting scheme and only |biber| supports this. |bibtex| support is going
+away in |biblatex| eventually anyway so it's best to switch.
 
 \minisec{4.4}
 The |\maxprtauth| command is now a package option called
@@ -369,6 +374,11 @@ general notes:
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{4.5}{2012-01-31}
+\item Noted in manual that |biber| is now required due to custom sorting.
+\item Added |INSTITUTION| field to |REPORT| entries
+\end{release}
 
 \begin{release}{4.4}{2012-01-25}
 \item |\maxprtauth| command is now a package option «apamaxprtauth»
