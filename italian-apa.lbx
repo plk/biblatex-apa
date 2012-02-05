@@ -1,6 +1,6 @@
 % v4.6
-\ProvidesFile{british-apa.lbx}
-\InheritBibliographyExtras{british}
+\ProvidesFile{italian-apa.lbx}
+\InheritBibliographyExtras{italian}
 
 % (APA 6.22) The example abbreviations
 
@@ -23,42 +23,42 @@
 \NewBibliographyString{reviewof}
 
 \DeclareBibliographyStrings{%
-  inherit          = {british},
-  revisededition   = {{Revised\space Edition}{rev\adddotspace ed\adddot}},
-  page             = {{Page}{{}p\adddot}},
-  pages            = {{Pages}{{}pp\adddot}},
-  on               = {{on}{on}},
-  retrieved        = {{retrieved}{retrieved}},
-  available        = {{available}{available}},
-  from             = {{from}{from}},
-  archivedat       = {{archived\space at}{archived\space at}},
-  nodate           = {{no\space date}{{}n\adddot d\adddot}},
-  reviewof         = {{Review\space of}{review\space of}},
+  inherit          = {italian},
+  revisededition   = {{Edizione\space Revisionata}{Ed\adddot\space Rev\adddot}},
+  page             = {{Pagina}{{}p\adddot}},
+  pages            = {{Pagine}{{}pp\adddot}},
+  on               = {{il}{il}},
+  retrieved        = {{recuperato}{recuperato}},
+  available        = {{disponibile}{disponibile}},
+  from             = {{da}{da}},
+  archivedat       = {{archiviato\space il}{archiviato\space il}},
+  nodate           = {{senza\space data}{{}n\adddot d\adddot}},
+  reviewof         = {{Revisione\space di}{revisione\space di}},
   paragraph        = {{\P}{\P}},
   paragraphs       = {{\P\P}{\P\P}},
-  january          = {{January}{January}},
-  february         = {{February}{February}},
-  march            = {{March}{March}},
-  april            = {{April}{April}},
-  may              = {{May}{May}},
-  june             = {{June}{June}},
-  july             = {{July}{July}},
-  august           = {{August}{August}},
-  september        = {{September}{September}},
-  october          = {{October}{October}},
-  november         = {{November}{November}},
-  december         = {{December}{December}},
-  mathesis         = {{Master's thesis}{Master's\addabbrvspace thesis}},
-  phdthesis        = {{Doctoral\addabbrvspace dissertation}{Doctoral\addabbrvspace dissertation}},
-  origyear         = {{original\space work\space published}{original\space work\space published}},
-  typechair        = {{Chair}{Chair}},
-  typechairs       = {{Chairs}{Chairs}},
-  typevolume       = {{Volume\space Editor}{Vol\adddot\space Ed\adddot}},
-  typevolumes      = {{Volume\space Editors}{Vol\adddot\space Eds\adddot}},
-  typeseries       = {{Series\space Editor}{Series\space Ed\adddot}},
-  typeseriess      = {{Series\space Editors}{Series\space Eds\adddot}},
-  typevolseries    = {{Series\space and\space Volume\space Editor}{Series\space\& Vol\adddot\space Ed\adddot}},
-  typevolseriess   = {{Series\space and\space Volume\space Editors}{Series\space\& Vol\adddot\space Eds\adddot}},
+  january          = {{Gennaio}{Gennaio}},
+  february         = {{Febbraio}{Febbraio}},
+  march            = {{Marzo}{Marzo}},
+  april            = {{Aprile}{Aprile}},
+  may              = {{Maggio}{Maggio}},
+  june             = {{Giugno}{Giugno}},
+  july             = {{Luglio}{Luglio}},
+  august           = {{Agosto}{Agosto}},
+  september        = {{Settembre}{Settembre}},
+  october          = {{Ottobre}{Ottobre}},
+  november         = {{Novembre}{Novembre}},
+  december         = {{Deicembre}{Dicembre}},
+  mathesis         = {{Tesi\space di\space laurea}{Tesi\space di\space laurea}},
+  phdthesis        = {{Tesi\space di\space dottorato}{Tesi\space di\space dottorato}},
+  origyear         = {{Data\space di\space prima\space pubblicazione}{Data\space di\space prima\space pubblicazione}},
+  typechair        = {{Moderatore}{Moderatore}},
+  typechairs       = {{Moderatori}{Moderatori}},
+  typevolume       = {{Redattore\space del\space Volume}{Red\adddot\space Vol\adddot}},
+  typevolumes      = {{Redattori\space del\space Volume}{Red\adddot\space Vol\adddot}},
+  typeseries       = {{Curatore\space della\space Collana}{Cur\addot\space Coll\adddot}},
+  typeseriess      = {{Curatori\space della\space Collana}{Cur\addot\space Coll\adddot}},
+  typevolseries    = {{Curatore\space della\space Collana\space e\space del\space Volume}{Cur\addot\space Coll\addot\& Vol\adddot}},
+  typevolseriess   = {{Curatori\space della\space Collana\space e\space del\space Volume}{Cur\addot\space Coll\addot\& Vol\adddot}},
 }
 
 %
@@ -69,7 +69,7 @@
 
 % You must use \printdate to get here otherwise it will be ignored
 
-\DefineBibliographyExtras{british}{%
+\DefineBibliographyExtras{italian}{%
   \protected\def\mkbibdateapalong#1#2#3{%
     \iffieldundef{#1}%
       {}%
