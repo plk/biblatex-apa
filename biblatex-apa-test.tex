@@ -46,8 +46,10 @@
 
 \setlength{\parskip}{3ex}
 
-\def\apaex#1{\hbox{\hspace{-4em}\texttt{\small\detokenize{#1}}}\\$\rcurvearrowse$ \textbf{#1}}
-\def\apaexs#1{\hbox{\texttt{\footnotesize\detokenize{#1}}} \textbf{\small #1}}
+\makeatletter
+\def\apaex#1{\hbox{\hspace{-4em}\texttt{\small\expandafter\zap@space\detokenize{#1} \@empty}}\\$\rcurvearrowse$ \textbf{#1}}
+\def\apaexs#1{\hbox{\texttt{\footnotesize\expandafter\zap@space\detokenize{#1} \@empty}} \textbf{\small #1}}
+\makeatother
 
 % This just makes it easier to find a specific (APA 7.x) example in the
 % typeset references section
