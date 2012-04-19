@@ -326,15 +326,20 @@
 %     to do \printnames[format][-\value{listtotal}]{field} to ensure we get
 %     all of the names in the list to work on
 
+\DeclareNameAlias{default}{apaauthor}
+
 \DeclareNameFormat{apaauthor}{%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\addspace\ldots\addspace}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
       {\ifthenelse{\iffieldequalstr{usere}{unkauth}\OR\iffieldequalstr{usere}{unkauthdate}}
-        {\mkbibbrackets{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}?}}
-        {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}}}}
-
+        {\iffirstinits
+          {\mkbibbrackets{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}?}}
+          {\mkbibbrackets{\usebibmacro{name:last-first}{#1}{#3}{#5}{#7}?}}}
+        {\iffirstinits
+          {\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
+          {\usebibmacro{name:last-first}{#1}{#3}{#5}{#7}}}}}}
 
 \renewbibmacro*{author}{%
   \ifnameundef{author}
@@ -602,7 +607,9 @@
     {\addcomma\addspace\ldots}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
-      {\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}}}
+      {\iffirstinits
+        {\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}
+        {\usebibmacro{name:first-last}{#1}{#3}{#5}{#7}}}}}
 
 \renewbibmacro*{author/editor}{%
   \ifnameundef{author}
@@ -683,7 +690,7 @@
     {}%
     {\ifnamesequal{editor}{translator}%
        {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
-        \printnames[apaenames][-\value{listtotal}]{editor}%
+        \printnames[apanames][-\value{listtotal}]{editor}%
         \setunit*{\addcomma\addspace}%
         \usebibmacro{apaeditorstrg}{editor}%
         \setunit*{\addspace\&\space}%
@@ -970,9 +977,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Films
 
-\DeclareNameFormat[movie]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
-\DeclareNameFormat[movie]{nameb}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
-
 \newbibmacro*{mediaauthor}{%
   \ifnameundef{namea}
     {}
@@ -994,8 +998,6 @@
 %%%%%%%%%%%%%%%%%
 % (APA 7.07) Misc
 
-\DeclareNameFormat[misc]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
-\DeclareNameFormat[misc]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
 \DeclareFieldFormat[misc]{title}{\iffieldequalstr{userd}{dataset}{\mkbibemph{#1}}{%
                                  \iffieldequalstr{userd}{description}{\mkbibbrackets{#1}}{#1}}}
 \DeclareFieldFormat[misc]{entrysubtype}{\mkbibbrackets{#1}}
@@ -1007,11 +1009,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.07) Audiovisual
 
-\DeclareNameFormat[audio]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
-\DeclareNameFormat[audio]{nameb}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
-\DeclareNameFormat[video]{namea}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
-\DeclareNameFormat[video]{nameb}{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}}
-\DeclareNameFormat[video]{namec}{\usebibmacro{name:first-last}{#1}{#4}{#5}{#7}}
 \DeclareFieldFormat[video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}}{#1}}
 \DeclareFieldFormat[video]{maintitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[video]{entrysubtype}{\mkbibbrackets{#1}}
