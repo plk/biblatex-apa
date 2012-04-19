@@ -203,6 +203,10 @@
 
 \DeclareLabelyear{pubstate,year,eventyear,origyear,urlyear}
 
+% Due to APA strange requirements like truncation after first cite and
+% ellipsis from 7th to n-1 in bib, there might be some really strange
+% edge cases which can't be handled as this sort of this needs treating in
+% the style after biber has finished. Very unlikely though.
 \ExecuteBibliographyOptions{labelyear=true,%
                             sorting=apa,%
                             backref=true,%
@@ -213,8 +217,10 @@
                             uniquelist=true,%
                             uniquename=init,%
                             citetracker=true,%
-                            maxnames=2,%
-                            minnames=1,%
+                            maxcitenames=2,%
+                            mincitenames=1,%
+                            maxbibnames=7,%
+                            minbibnames=6,%
                             abbreviate=true,%
                             mincrossrefs=999,%
                             alldates=apalong}
