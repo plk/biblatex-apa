@@ -191,8 +191,13 @@
 % Compact cite - more than one thing for same author
     {\setunit{\compcitedelim}%
      \usebibmacro{cite:plabelyear+extrayear}}
-% Single cite
-    {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
+% New cite
+    {%
+    \ifbool{cbx:parens}
+      {\bibcloseparen\global\boolfalse{cbx:parens}}
+      {}%
+      \setunit{\compcitedelim}%
+      \ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
   % No author/editor or patent
        {\iffieldundef{shorthand}%
     % Cite using title
@@ -223,14 +228,9 @@
            {}
            {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
   % Actual year printing
-          \usebibmacro{cite:plabelyear+extrayear}%
-        \savefield{namehash}{\cbx@lasthash}}}%
-  \setunit{%
-    \ifbool{cbx:parens}
-      {\bibcloseparen\global\boolfalse{cbx:parens}}
-      {}%
-    % multicitedelim semi-colon doesn't make much sense for textcites
-    \compcitedelim}}
+        \usebibmacro{cite:plabelyear+extrayear}%
+  % Save name hash for checks later
+        \savefield{namehash}{\cbx@lasthash}}}}
 
 \newbibmacro*{cite:plabelyear+extrayear}{%
   \iffieldundef{labelyear}
@@ -307,6 +307,8 @@
      {\nameyeardelim
       \printfield{postnote}}}
 
+
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -371,18 +373,9 @@
 
 \newbibmacro*{textcite:postnote}{%
   \usebibmacro{postnote}%
-  \ifthenelse{\value{multicitecount}=\value{multicitetotal}}
-    {\setunit{}%
-     \printtext{%
-       \ifbool{cbx:parens}
-	 {\bibcloseparen\global\boolfalse{cbx:parens}}
-	 {}}}
-    {\setunit{%
-       \ifbool{cbx:parens}
-	 {\bibcloseparen\global\boolfalse{cbx:parens}}
-	 {}%
-       \multicitedelim}}}
-
+  \ifbool{cbx:parens}
+    {\bibcloseparen\global\boolfalse{cbx:parens}}
+    {}}
 
 \newbibmacro*{cite:init}{%
   \global\boolfalse{cbx:parens}%
@@ -432,6 +425,8 @@
    \usebibmacro{cite}}
   {}
   {\usebibmacro{postnote}}
+
+\DeclareMultiCiteCommand{\textcites}{\textcite}{\compcitedelim}
 
 \DeclareCiteCommand{\textcite}
   {\usebibmacro{cite:init}%
