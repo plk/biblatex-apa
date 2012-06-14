@@ -113,25 +113,25 @@
 }
 
 % (APA 7.01 Example 10)
-% Use ENTRYSUBTYPE "newspaper" for newspaper articles so that the pages specification
+% Use entrytype "NEWSARTICLE" for newspaper articles so that the pages specification
 % is formatted correctly (needs "p/pp" whereas normal articles don't)
+% Use the "NEWSPAPER" field for the title of the paper, otherwise this entrytype
+% is similar to ARTICLE
 % Numeral format is redefined to allow page number starting in letters
 % Discontinuous pages are ok
-@ARTICLE{7.01:10,
-  ENTRYSUBTYPE   = {newspaper},
+@NEWSARTICLE{7.01:10,
   AUTHOR         = {J. Schwartz},
   TITLE          = {Obesity Affects Economic, Social Status},
-  JOURNALTITLE   = {The Washington Post},
+  NEWSPAPER      = {The Washington Post},
   PAGES          = {A1, A4},
   DATE           = {1993-09-30},
 }
 
 % (APA 7.01 Example 11)
-@ARTICLE{7.01:11,
-  ENTRYSUBTYPE   = {newspaper},
+@NEWSARTICLE{7.01:11,
   AUTHOR         = {J. E. Brody},
   TITLE          = {Mental Reserves Keep Brain Agile},
-  JOURNALTITLE   = {The New York Times},
+  NEWSPAPER      = {The New York Times},
   DATE           = {2007-12-11},
   URL            = {http://www.nytimes.com}
 }
@@ -238,22 +238,20 @@
   YEAR           = {1991}
 }
 
-% Note use of special USERB field value to specify that the URL is for the abstract
+% Note use of ABSTRACTURL field value to specify that the URL is for the abstract
 % and so the entry gets "Abstract retrieved from" instead of just "retrieved from"
-% USERB must equal "urlisabstract" to do this
 @ARTICLE{7.01:16b,
-  USERB          = {urlisabstract},
   AUTHOR         = {S. R. Lassen and M. M. Steele and W. Sailor},
   TITLE          = {The Relationship of School-wide Positive Behavour Support to Academic Achievement in an Urban Middle School},
   JOURNALTITLE   = {Psychology in the Schools},
   VOLUME         = {43},
   PAGES          = {701--712},
   YEAR           = {2006},
-  URL            = {http://www.interscience.wiley.com}
+  ABSTRACTURL    = {http://www.interscience.wiley.com}
 }
 
 % (APA 7.01 Example 17)
-% It's a bit clumsy but such extra information can be included in the NOTE field.
+% Such unstructured extra information can be included in the NOTE field.
 % If the abstract/article was retreived from a standard online URI, things are little
 % better defined - see examples 7.01:16*).
 @ARTICLE{7.01:17,
@@ -440,11 +438,11 @@
   AUTHOR         = {{American Psychological Association, Task Force on the Sexualization of Girls}},
   TITLE          = {Report of the {APA} {T}ask {F}orce on the {S}exualization of {G}irls},
   YEAR           = {2007},
-  URL            = {http://www.apa.org/pi/wpo/sexualizaion.html}
+  URL            = {http://www.apa.org/pi/wpo/sexualization.html}
 }
 
 % (APA 7.03 Example 33)
-% Use ORGANIZATION to introduce website address defaults to "Retreived from"
+% Use URLDESCRIPTION to introduce website address; defaults to just "Retreived from"
 % if not present
 @REPORT{7.03:33,
   AUTHOR         = {S. S. A. Kessy and F. M. Urio},
@@ -452,12 +450,11 @@
   TYPE           = {Research Report},
   NUMBER         = {06.3},
   YEAR           = {2006},
-  ORGANIZATION   = {Poverty Alleviation website},
+  URLDESCRIPTION = {Poverty Alleviation website},
   URL            = {http://www.repoa.or.tz/documents_storage/Publications/Reports/06.3_Kessey_and_Urio.pdf}
 }
 
 % (APA 7.03 Example 34)
-% Use the ORGANIZATION field to describe the URL
 % This example is an anomaly as it doesnt' have "No." before the report number.
 % This style does this consistently for all reports with numbers
 @REPORT{7.03:34,
@@ -467,7 +464,7 @@
   TYPE           = {CIERA Report},
   NUMBER         = {3-025},
   YEAR           = {2002},
-  ORGANIZATION   = {University of Michigan, Center for Improvement of Early Reading Achievement website},
+  URLDESCRIPTION = {University of Michigan, Center for Improvement of Early Reading Achievement website},
   URL            = {http://www.ciera.org/library/reports/inquiry-3/3-025/3-025.pdf}
 }
 
@@ -496,13 +493,12 @@
 % (APA 7.04 Example 37)
 % Unpublished conference papers are UNPUBLISHED type
 @UNPUBLISHED{7.04:37,
-  USERB          = {urlisabstract},
   AUTHOR         = {S. Liu},
   TITLE          = {Defending Against Business Crises with the Help of Inteligent Agent Based Early Warning Solutions},
   DATE           = {2005-05},
   LOCATION       = {Miami, FL},
   NOTE           = {Paper presented at the Seventh International Conferene on Enterprise Information Systems},
-  URL            = {http://www.iceis.org/iceis2005/abstracts_2005.htm}
+  ABSTRACTURL    = {http://www.iceis.org/iceis2005/abstracts_2005.htm}
 }
 
 % (APA 7.04 Example 38)
@@ -590,17 +586,15 @@
 }
 
 % (APA 7.06 Example 45)
-% Use ENTRYSUBTYPE to specify the reviewed item
+% Use REVIEWTEXT to specify the reviewed item introductory text
 % Use ORIGTITLE to specify the reviewed item title
-% Use VERBA to specify the reviewed item original author until BibLaTeX gets a
-%   ORIGAUTHOR or ORIGTITLEADDON or similar
-
+% ORIGAUTHOR is a literal field, not a name field as we don't want to parse these names
 @REVIEW{7.06:45,
   AUTHOR         = {B. R. Schatz},
+  ORIGAUTHOR     = {J. S. Brown \& P. Duguid},
   TITLE          = {Learning By Text or Context?},
-  ENTRYSUBTYPE   = {Review of the book},
+  REVIEWTEXT     = {Review of the book},
   ORIGTITLE      = {The Social Life of Information},
-  VERBA          = {by J. S. Brown & P. Duguid},
   JOURNALTITLE   = {Science},
   VOLUME         = {290},
   PAGES          = {1304},
@@ -609,12 +603,14 @@
 }
 
 % (APA 7.06 Example 46)
+% Note that this example drops the "produced" in the reviewed item. It's not worth
+% automating this sort of verb as "by" is perfectly acceptable.
 @REVIEW{7.06:46,
   AUTHOR         = {A. Axelman and J. L. Shapiro},
   TITLE          = {Does the Solution Warrant the Problem?},
-  ENTRYSUBTYPE   = {Review of the {DVD}},
+  REVIEWTEXT     = {Review of the {DVD}},
   ORIGTITLE      = {Brief Therapy With Adolescents},
-  VERBA          = {produced by the American Psychological Association, 2007},
+  ORIGAUTHOR     = {the American Psychological Association, 2007},
   JOURNALTITLE   = {PsycCRITIQUES},
   VOLUME         = {52},
   NUMBER         = {51},
@@ -624,10 +620,11 @@
 }
 
 % (APA 7.06 Example 47)
+% Again we drop the "produced" as with Example 46
 @REVIEW{7.06:47,
-  ENTRYSUBTYPE   = {Review of the video game},
+  REVIEWTEXT     = {Review of the video game},
   ORIGTITLE      = {BioShock},
-  VERBA          = {produced by 2K Games, 2007},
+  ORIGAUTHOR     = {2K Games, 2007},
   URL            = {http://www.whattheyplay.com/products/bioshock-for-xbox-360/?fm=3&ob=1&t=0#166},
 
 }
@@ -644,32 +641,20 @@
 }
 
 % (APA 7.07 Example 49)
-% There is no way to format in the required manner without using custom fields currently.
-% This makes the .bib file unportable between styles but there is no clean way round this
-% until BibTeX is replaced in biblatex.
-% Use NAMEA/NAMEATYPE and NAMEB/NAMEBTYPE for the two main credits. Since these are not
-% recognised as sorting fields, be sure to specify how you want the entry sorted in the
-% References section using the SORTKEY field.
-% The default string before URLs is "Retrieved from". Use USERA to override
-% "Retrieved". The contents of USERA are a bibstring defined in the lbx so don't
-% capitalise or it won't match a localisable string
+% We render this with "retrieved from" instead of "available from" as this is arbitrary
+% and ugly to parameterise. Forcing this means we can use a localisable string for "retrieved"
 @VIDEO{7.07:49,
   ENTRYSUBTYPE   = {{DVD}},
-  SORTKEY        = {American Psychological Association},
-  NAMEA          = {{American Psychological Association}},
-  NAMEATYPE      = {Producer},
+  PRODUCER       = {{American Psychological Association}},
   TITLE          = {Responding Therapeutically to Patient Expressions of Sexual Attraction},
   YEAR           = {2000},
-  USERA          = {available},
   URL            = {http://www.apa.org/videos/}
 }
 
 % (APA 7.07 Example 50)
 @AUDIO{7.07:50,
   ENTRYSUBTYPE   = {Audio Podcast},
-  SORTKEY        = {Van Nuys, D.},
-  NAMEA          = {D. {Van Nuys}},
-  NAMEATYPE      = {Producer},
+  PRODUCER       = {D. {Van Nuys}},
   TITLE          = {Shrink Rap Radio},
   DATE           = {2007-12-19},
   URL            = {http://www.shrinkrapradio.com/}
@@ -678,13 +663,9 @@
 % (APA 7.07 Example 51)
 @VIDEO{7.07:51,
   ENTRYSUBTYPE   = {Television series episode},
-  SORTKEY        = {Egan, D.},
-  NAMEA          = {D. Egan},
-  NAMEATYPE      = {Writer},
-  NAMEB          = {J. Alexander},
-  NAMEBTYPE      = {Director},
-  NAMEC          = {D. Shore},
-  NAMECTYPE      = {Executive producer},
+  WRITER         = {D. Egan},
+  DIRECTOR       = {J. Alexander},
+  EXECPRODUCER   = {D. Shore},
   TITLE          = {Failure to Communicate},
   MAINTITLE      = {House},
   LOCATION       = {New York, NY},

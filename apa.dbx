@@ -26,5 +26,81 @@
 %% biblatex-apa-test-references.bib (Style examples - references)
 
 \ProvidesFile{apa.dbx}[2012/06/04\space v5.0\space APA biblatex style data model]
-\RequireBiber[2]
+\RequireBiber[3]
 
+\DeclareDatamodelEntrytypes{
+  newsarticle}
+
+\DeclareDatamodelFields[type=list, datatype=name]{
+  writer,
+  producer,
+  execproducer,
+  director}
+
+\DeclareDatamodelFields[type=field, datatype=literal]{
+  newspaper,
+  urldescription,
+  origauthor,
+  reviewtext}
+
+\DeclareDatamodelFields[type=field, datatype=verbatim]{
+  abstracturl}
+
+\DeclareDatamodelEntryfields{
+  abstracturl,
+  urldescription}
+
+\DeclareDatamodelEntryfields[review]{
+  origauthor,
+  reviewtext}
+
+\DeclareDatamodelEntryfields[video]{
+  writer,
+  producer,
+  execproducer,
+  director}
+
+\DeclareDatamodelEntryfields[newsarticle]{
+  author,
+  newspaper,
+  title,
+  day,
+  endday,
+  endmonth,
+  endyear,
+  month,
+  year,
+  addendum,
+  doi,
+  editor,
+  editora,
+  editorb,
+  editorc,
+  editoratype,
+  editorbtype,
+  editorctype,
+  eid,
+  eprint,
+  eprintclass,
+  eprinttype,
+  issn,
+  issue,
+  issuetitle,
+  issuesubtitle,
+  language,
+  note,
+  number,
+  origlanguage,
+  pages,
+  series,
+  subtitle,
+  titleaddon,
+  translator,
+  url,
+  urlday,
+  urlendday,
+  urlendmonth,
+  urlendyear,
+  urlmonth,
+  urlyear,
+  volume}

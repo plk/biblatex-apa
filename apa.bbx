@@ -26,7 +26,7 @@
 %% biblatex-apa-test-references.bib (Style examples - references)
 
 \ProvidesFile{apa.bbx}[2012/06/01\space v4.8\space APA biblatex references style]
-\RequireBiber[2]
+\RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
 
@@ -146,18 +146,14 @@
 % eprint references
 
 \DeclareFieldFormat{eprint:eric}{%
-  \iffieldequalstr{userb}{urlisabstract}
-    {\printtext{\bibcpstring{abstract}}\addspace%
-     \printtext{\bibstring{retrieved}}}
-    {\printtext{\bibcpstring{retrieved}}}%
-     \setunit{\addspace}%
-     \printtext{\bibstring{from}}\addspace%
-     ERIC\addspace database\addspace%
-     \mkbibparens{#1}}
+  \printtext{\bibcpstring{retrieved}}%
+  \setunit{\addspace}%
+  \printtext{\bibstring{from}}\addspace%
+  ERIC\addspace database\addspace%
+  \mkbibparens{#1}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.12) Five author max before "et al" and a one author truncation policy
@@ -183,6 +179,11 @@
     \name{author}
     \name{editor}
     \name{translator}
+    \name{writer}
+    \name{director}
+    \name{producer}
+    \name{execproducer}
+    \field{origauthor}
     \field{sorttitle}
     \field{title}
   }
@@ -449,12 +450,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.01 Example 10) Articles that aren't newspapers don't have
-%                       prefix for pages.
+% (APA 7.01 Example 10) Newspapers have prefix for pages.
 
-\DeclareFieldFormat[article]{pages}{\iffieldequalstr{entrysubtype}{newspaper}
-                                      {\mkpageprefix{#1}}
-                                      {#1}}
+\DeclareFieldFormat[newsarticle]{pages}{\mkpageprefix{#1}}
+\DeclareFieldFormat[newsarticle]{newspaper}{\mkbibemph{#1}}
+\DeclareFieldFormat[newsarticle]{title}{#1}
+\DeclareFieldFormat[article]{pages}{#1}
+
+\newbibmacro*{newspaper}{%
+  \printfield{newspaper}
+  \setunit{\addcomma\space}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -500,8 +505,9 @@
      \ifthenelse{%
        \ifnameundef{author}\AND%
        \(\ifnameundef{editor}\AND\NOT\boolean{bbx:editorinauthpos}\)\AND%
-       \ifnameundef{namea}\AND%
-       \ifnameundef{nameb}}
+       \ifnameundef{producer}\AND%
+       \ifnameundef{director}\AND%
+       \ifnameundef{writer}}
         {\newunit\newblock
          \usebibmacro{labelyear+extrayear}}
         {}}}
@@ -651,7 +657,7 @@
 
 \NumCheckSetup{\ifcurrentfield{pages}
   {\DeclareNumChars{.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}}
-  {\DeclareNumChars{.}}}
+  {}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -952,8 +958,7 @@
   \iffieldundef{label}
     {\usebibmacro{reviewof}%
      \clearfield{entrysubtype}%
-     \clearfield{origtitle}%
-     \clearfield{verba}}
+     \clearfield{origtitle}}
     {\printfield{label}}}
 
 \newbibmacro*{reviewtitle}{%
@@ -971,19 +976,46 @@
   \iffieldundef{origtitle}
     {}
     {\printtext[brackets]{%
-     \printfield{entrysubtype}\addspace%
-     \printtext[origtitle]{%
-       \printfield[apacase]{origtitle}%
-       \setunit{\subtitlepunct}%
-       \printfield[apacase]{origsubtitle}}%
-       \setunit{\addcomma\addspace}%       
-       \printfield{verba}}}}
+        \printfield{reviewtext}\addspace%
+        \printtext[origtitle]{%
+          \printfield[apacase]{origtitle}%
+          \setunit{\subtitlepunct}%
+          \printfield[apacase]{origsubtitle}%
+          \setunit{\addcomma\addspace}}%
+        \iffieldundef{origauthor}
+          {}
+          {\printtext{\bibstring{byauthor}}%
+            \addspace\printfield{origauthor}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Films
+% Media authors
+
+\newbibmacro*{producer}{%
+  \ifnameundef{producer}
+    {}
+    {\printnames[apanames][-\value{listtotal}]{producer}%
+     \newunit
+     \printtext[parens]{\bibcpstring{producer}}%
+     \setunit*{\addcomma\addspace\&\addspace}}}
+
+\newbibmacro*{director}{%
+  \ifnameundef{director}
+    {}
+    {\printnames[apanames][-\value{listtotal}]{director}%
+     \newunit
+     \printtext[parens]{\bibcpstring{director}}%
+     \setunit*{\addcomma\addspace\&\addspace}}}
+
+\newbibmacro*{writer}{%
+  \ifnameundef{writer}
+    {}
+    {\printnames[apanames][-\value{listtotal}]{writer}%
+     \newunit
+     \printtext[parens]{\bibcpstring{writer}}%
+     \setunit*{\addcomma\addspace\&\addspace}}}
 
 \newbibmacro*{mediaauthor}{%
   \ifnameundef{namea}
@@ -1030,11 +1062,11 @@
   \iffieldundef{maintitle}
     {}
     {\usebibmacro{in}%
-     \ifnameundef{namec}
+     \ifnameundef{execproducer}
        {}
-       {\printnames[apanames][-\value{listtotal}]{namec}%
-        \setunit{\addspace}%
-        \printtext[parens]{\printfield{namectype}}}
+       {\printnames[apanames][-\value{listtotal}]{execproducer}%
+         \newunit
+         \printtext[parens]{\bibcpstring{execproducer}}}
      \setunit{\addcomma\addspace}%
      \usebibmacro{avmaintitle}%
      \newunit}}
@@ -1049,13 +1081,10 @@
     \setunit{\addspace}}
   \printfield{maintitleaddon}}
 
-\newbibmacro*{on}{%
-  \bibcpstring{on}\setunit{\space}}
-
 \newbibmacro*{album}{%
   \iffieldundef{maintitle}
     {}
-    {\usebibmacro{on}%
+    {\bibcpstring{on}%
      \setunit{\addspace}%
      \usebibmacro{avmaintitle}%
      \newunit}}
@@ -1078,17 +1107,16 @@
 % (APA 6.31) URLs
 
 \DeclareFieldFormat{url}{\url{#1}}
+\DeclareFieldFormat{abstracturl}{\url{#1}}
 \DeclareFieldFormat{urldate}{#1}
 
 \renewbibmacro*{url+urldate}{%
-     \def\@apaar{retrieved}% default
-     \ifthenelse{\iffieldundef{url}\OR\NOT\iffieldundef{doi}}
+     \ifthenelse{\(\iffieldundef{url}\AND\iffieldundef{abstracturl}\)\OR\NOT\iffieldundef{doi}}
        {}
-       {\iffieldundef{usera}{}{\patchcmd{\@apaar}{retrieved}{\thefield{usera}}{}{}}%
-         \iffieldequalstr{userb}{urlisabstract}
-         {\printtext{\bibcpstring{abstract}}\addspace%
-           \printtext{\bibstring{\@apaar}}}
-         {\printtext{\bibcpstring{\@apaar}}}%
+       {\iffieldundef{abstracturl}
+         {}
+         {\printtext{\bibcpstring{abstract}}\addspace}%
+         \printtext{\bibstring{retrieved}}%
         \setunit{\addspace}%
         \iffieldundef{urlyear}
           {}
@@ -1096,10 +1124,10 @@
            \setunit*{\addcomma\addspace}}%
         \printtext{\bibstring{from}}%
         \setunit*{\addspace}%
-        \printlist{organization}%
+        \printfield{urldescription}%
         \setunit*{\addcolon\addspace}%
-        \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}
-
+        \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}%
+        \iffieldundef{abstracturl}{}{\printfield{abstracturl}\renewcommand*{\finentrypunct}{\relax}}}}
 
 %
 %%%%%%%%%%%%%%%%%
@@ -1157,6 +1185,26 @@
   \usebibmacro{title}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
+  \setunit{\bibpagespunct}%
+  \printfield{pages}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \usebibmacro{apa:finpunct}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{newsarticle}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{newspaper}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
   \newunit\newblock
@@ -1571,7 +1619,11 @@
 \DeclareBibliographyDriver{video}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{mediaauthor}%
+  \usebibmacro{writer}%
+  \usebibmacro{director}%
+  \usebibmacro{producer}%
+  \newunit\newblock
+  \usebibmacro{labelyear+extrayear}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \setunit{\addspace}\newblock
@@ -1591,7 +1643,11 @@
 \DeclareBibliographyDriver{movie}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{mediaauthor}%
+  \usebibmacro{writer}%
+  \usebibmacro{director}%
+  \usebibmacro{producer}%
+  \newunit\newblock
+  \usebibmacro{labelyear+extrayear}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \setunit{\addspace}\newblock
@@ -1611,7 +1667,11 @@
 \DeclareBibliographyDriver{audio}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{mediaauthor}%
+  \usebibmacro{writer}%
+  \usebibmacro{director}%
+  \usebibmacro{producer}%
+  \newunit\newblock
+  \usebibmacro{labelyear+extrayear}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \setunit{\addspace}\newblock
