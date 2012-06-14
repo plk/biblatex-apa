@@ -340,7 +340,7 @@
     {\addcomma\addspace\ldots\addspace}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
-      {\ifthenelse{\iffieldequalstr{usere}{unkauth}\OR\iffieldequalstr{usere}{unkauthdate}}
+      {\ifthenelse{\iffieldequalstr{doubtfulauthor}{true}}
         {\iffirstinits
           {\mkbibbrackets{\usebibmacro{name:last-first}{#1}{#4}{#5}{#7}?}}
           {\mkbibbrackets{\usebibmacro{name:last-first}{#1}{#3}{#5}{#7}?}}}
@@ -409,7 +409,7 @@
      {\printtext[yearorunkyear]{\printdateextra}}}}
 
 \DeclareFieldFormat{yearorunkyear}{%
-  \ifthenelse{\iffieldequalstr{usere}{unkdate}\OR\iffieldequalstr{usere}{unkauthdate}}
+  \ifthenelse{\iffieldequalstr{doubtfuldate}{true}}
     {\mkbibbrackets{ca\adddot\addspace#1}}
     {\ifthenelse{\iffieldundef{year}\AND\iffieldundef{month}\AND\iffieldundef{day}}
       {\mkbibparens{\usebibmacro{noyear}}}
@@ -1036,12 +1036,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%
-% (APA 7.07) Misc
+% (APA 7.07) Misc and data
 
-\DeclareFieldFormat[misc]{title}{\iffieldequalstr{userd}{dataset}{\mkbibemph{#1}}{%
-                                 \iffieldequalstr{userd}{description}{\mkbibbrackets{#1}}{#1}}}
-\DeclareFieldFormat[misc]{entrysubtype}{\mkbibbrackets{#1}}
+\DeclareFieldFormat[data]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[data]{entrysubtype}{\mkbibbrackets{#1}}
+
+\DeclareFieldFormat[misc]{title}{\iffieldequalstr{userd}{description}{\mkbibbrackets{#1}}{#1}}
 \DeclareFieldFormat[misc]{nameaddon}{\mkbibparens{#1}}
+
+\newbibmacro*{datatitle}{%
+  \iffieldundef{title}
+    {\iffieldundef{entrysubtype}
+      {}
+      {\printfield{entrysubtype}}}
+    {\iffieldundef{entrysubtype}
+      {}
+      {\usebibmacro{title}\addspace
+       \printfield{entrysubtype}}}}
 
 %
 %%%%%%%%%%%%%%%%%
@@ -1096,8 +1107,8 @@
 %%%%%%%%%%%%%%%%%%%%
 % (APA 7.10) Letters
 
-
-\DeclareFieldFormat[letter]{title}{\iffieldequalstr{entrysubtype}{collection}{#1}{\mkbibbrackets{#1}}}
+\DeclareFieldFormat[letter]{title}{\mkbibbrackets{#1}}
+\DeclareFieldFormat[letters]{title}{#1}
 \DeclareFieldFormat[letter]{number}{\mkbibparens{#1}}
 
 %
@@ -1571,6 +1582,8 @@
   \usebibmacro{begentry}%
   \usebibmacro{author}%
   \newunit\newblock
+  \printfield{description}%
+  \newunit\newblock
   \usebibmacro{title}%
   \ifthenelse{\iffieldundef{title}\AND\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
   \printfield{entrysubtype}%
@@ -1594,7 +1607,53 @@
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
+\DeclareBibliographyDriver{data}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author}%
+  \newunit\newblock
+  \usebibmacro{datatitle}%
+  \newunit\newblock
+  \printfield{type}%
+  \newunit
+  \printfield{version}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
+  \printlist{organization}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{apa:finpunct}%
+  \usebibmacro{finentry}}
+
 \DeclareBibliographyDriver{letter}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \printlist{institution}%
+  \setunit{\addspace}\newblock
+  \printfield{number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{apa:finpunct}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{letters}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
   \usebibmacro{author/editor}%

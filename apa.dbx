@@ -29,6 +29,8 @@
 \RequireBiber[3]
 
 \DeclareDatamodelEntrytypes{
+  letters,
+  data,
   newsarticle}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
@@ -38,6 +40,9 @@
   director}
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
+  doubtfulauthor,
+  doubtfuldate,
+  description,
   newspaper,
   urldescription,
   origauthor,
@@ -47,6 +52,8 @@
   abstracturl}
 
 \DeclareDatamodelEntryfields{
+  doubtfulauthor,
+  doubtfuldate,
   abstracturl,
   urldescription}
 
@@ -104,3 +111,37 @@
   urlmonth,
   urlyear,
   volume}
+
+\DeclareDatamodelEntryfields[data]{
+  title,
+  day,
+  endday,
+  endmonth,
+  endyear,
+  day,
+  endday,
+  endmonth,
+  endyear,
+  month,
+  year,
+  addendum,
+  author,
+  language,
+  location,
+  note,
+  organization,
+  pubstate,
+  subtitle,
+  titleaddon,
+  type,
+  url,
+  urlday,
+  urlendday,
+  urlendmonth,
+  urlendyear,
+  urlmonth,
+  urlyear,
+  version}
+
+\DeclareDatamodelEntryfields[misc]{
+  description}

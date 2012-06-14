@@ -688,7 +688,6 @@
 }
 
 % (APA 7.07 Example 53)
-% Here, we use the flexible editor fields 
 @MISC{7.07:53,
   AUTHOR         = {{Lewis County Geographic Information Services}},
   NAMEADDON      = {Cartographer},
@@ -699,13 +698,11 @@
 }
 
 % (APA 7.08 Example 54)
-% Data sets need special formatting of name so we use USERD with "dataset" to specify them
-@MISC{7.08:54,
-  USERD          = {dataset},
+@DATA{7.08:54,
+  ENTRYSUBTYPE   = {Data file and code book},
   AUTHOR         = {{Pew Hispanic Center}},
   TITLE          = {Changing Channels and Crisscrossing Cultures},
   SUBTITLE       = {A Survey of {L}atinos on the News Media},
-  ENTRYSUBTYPE   = {Data file and code book},
   YEAR           = {2004},
   URL            = {http://pewhispanic.org/datasets/}
 }
@@ -759,12 +756,10 @@
 }
 
 % (APA 7.09 Example 60)
-% Have to trick BibTeX into thinking there is a title so you can add a TITLEADDON
-@UNPUBLISHED{7.09:60,
+@DATA{7.09:60,
   AUTHOR         = {F. Bordi and J. E. LeDoux},
-  TITLE          = {{}},
-  TITLEADDON     = {Auditory Response Latencies in Rat Auditory Cortex},
-  HOWPUBLISHED   = {Unpublished raw data},
+  ENTRYSUBTYPE   = {Auditory Response Latencies in Rat Auditory Cortex},
+  NOTE           = {Unpublished raw data},
   YEAR           = {1993},
 }
 
@@ -785,7 +780,6 @@
   PAGES          = {58--71},
   YEAR           = {2007},
 }
-
 
 % (APA 7.09 Example 62)
 % "eric" is defined as a recognised eprint type in the style and will be formatted as a
@@ -821,9 +815,8 @@
 }
 
 % (APA 7.10 Example 65)
-% ENTRYSUBTYPE is "collection" for a collection of letters
-@LETTER{7.10:65,
-  ENTRYSUBTYPE   = {collection},
+% Entrytype is "LETTERS" (plural) for a collection of letters
+@LETTERS{7.10:65,
   AUTHOR         = {G. W. Allport},
   TITLE          = {Correspondence},
   DATE           = {1930/1967},
@@ -842,11 +835,11 @@
 }
 
 % (APA 7.10 Example 67)
-% Have to use USERE to specifiy the "known" status of the AUTHOR and/or DATE.
-% Defined types are "unkauth" for doubtful AUTHOR, "unkdate" for doubtful date,
-% "unkauthdate" for both doubtful.
+% Pseudo-boolean fields "DOUBTFULAUTHOR" and "DOUBTFULDATE" to specify doubtful information
+% to the drivers. Values should only ever be "true" if present.
 @UNPUBLISHED{7.10:67,
-  USERE          = {unkauthdate},
+  DOUBTFULAUTHOR = {true},
+  DOUBTFULDATE   = {true},
   AUTHOR         = {A. Allport},
   TITLE          = {Marion {T}aylor Today---By the Biographer},
   YEAR           = {1937},
@@ -904,16 +897,15 @@
 }
 
 % (APA 7.10 Example 73)
-% Use USERE to specifiy the "known" status of the AUTHOR and/or DATE (see Example 67)
+% Use DOUBTFULDATE to specifiy the "known" status of the DATE (see Example 67)
 % Note that this example is inconsistent in the APA 6th Edition (2nd printing) manual
 % with example 7.10:67. They differ in that 7.10:67 has brackets around the approximate
 % date and 7.10:73 has parenthesis. I have chosen brackets for consistency.
-% Use USERD as "description" to indicate that the title is a description and not a real
+% Use DESCRIPTION to indicate a title that is really a description and not a real
 % title
 @MISC{7.10:73,
-  USERE          = {unkdate},
-  USERD          = {description},
-  TITLE          = {{Photographs of Robert M. Yerkes}},
+  DOUBTFULDATE   = {true},
+  DESCRIPTION    = {{Photographs of Robert M. Yerkes}},
   DATE           = {1917/1954},
   HOWPUBLISHED   = {Robert Mearns Yerkes Papers (Box 137, Folder 2292)},
   LOCATION       = {{Manuscripts and Archives, Yale University Library, New Haven}, CT}
