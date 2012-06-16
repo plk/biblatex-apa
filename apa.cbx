@@ -25,7 +25,7 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.cbx}[2012/06/01\space v4.8\space APA biblatex citation style]
+\ProvidesFile{apa.cbx}[2012/07/01\space 5.0\space APA biblatex citation style]
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -178,14 +178,20 @@
        \savefield{namehash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
-        {\printnames[labelname][-\value{listtotal}]{labelname}}
+        {\printnames[labelname][-\value{listtotal}]{labelname}\usebibmacro{with}}%
         {\ifciteseen
           {\printnames{shortauthor}}
-          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+          {\printnames[labelname][-\value{listtotal}]{author}\usebibmacro{with}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\nameyeardelim}%
       \usebibmacro{cite:plabelyear+extrayear}%
       \savefield{namehash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
+
+\newbibmacro*{with}{%
+  \ifnameundef{with}
+    {}
+    {\setunit{}\addspace\bibopenparen\bibstring{with}\addspace
+     \printnames[labelname][-\value{listtotal}]{with}\bibcloseparen}}
 
 \newbibmacro*{textcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
@@ -213,11 +219,11 @@
   % Normal full cite
        {\ifnameundef{shortauthor}%
     % Normal full cite
-         {\printnames[labelname][-\value{listtotal}]{labelname}}
+         {\printnames[labelname][-\value{listtotal}]{labelname}\usebibmacro{with}}
     % Cite using short author
          {\ifciteseen
            {\printnames{shortauthor}}
-           {\printnames[labelname][-\value{listtotal}]{author}}}%
+           {\printnames[labelname][-\value{listtotal}]{author}\usebibmacro{with}}}%
   % Year
         \setunit{\ifbool{cbx:np}
                   {\nameyeardelim}

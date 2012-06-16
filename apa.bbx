@@ -25,7 +25,7 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.bbx}[2012/06/01\space v4.8\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2012/07/01\space v5.0\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -149,7 +149,7 @@
   \printtext{\bibcpstring{retrieved}}%
   \setunit{\addspace}%
   \printtext{\bibstring{from}}\addspace%
-  ERIC\addspace database\addspace%
+  ERIC\addspace database\adddot\addspace%
   \mkbibparens{#1}}
 
 %
@@ -354,7 +354,12 @@
     {\usebibmacro{labeltitle}}
     {\printnames[apaauthor][-\value{listtotal}]{author}%
      \setunit*{\addspace}%
-     \printfield{nameaddon}}%
+     \printfield{nameaddon}%
+     \ifnameundef{with}
+       {}
+       {\printtext{\bibstring{with}\addspace}%
+       \printnames[apaauthor][-\value{listtotal}]{with}
+       \setunit*{\addspace}}}%
   \newunit\newblock%
   \usebibmacro{labelyear+extrayear}}
 
@@ -433,7 +438,7 @@
 \DeclareFieldFormat{apacase}{\MakeSentenceCase*{#1}}
 
 \DeclareFieldFormat{issuetitle}{#1\isdot}
-\DeclareFieldFormat{title}{\mkbibemph{#1}\isdot}
+\DeclareFieldFormat{title}{\iffieldequalstr{titleisdescription}{true}{\mkbibbrackets{#1}}{\mkbibemph{#1}\isdot}}
 \DeclareFieldFormat{origtitle}{\mkbibemph{\MakeSentenceCase*{#1}}\isdot}
 \DeclareFieldFormat[article]{title}{#1\isdot}
 \DeclareFieldFormat[article]{origtitle}{\MakeSentenceCase*{#1}\isdot}
@@ -454,6 +459,7 @@
 
 \DeclareFieldFormat[newsarticle]{pages}{\mkpageprefix{#1}}
 \DeclareFieldFormat[newsarticle]{newspaper}{\mkbibemph{#1}}
+\DeclareFieldFormat[newsarticle]{entrysubtype}{\mkbibbrackets{#1}}
 \DeclareFieldFormat[newsarticle]{title}{#1}
 \DeclareFieldFormat[article]{pages}{#1}
 
@@ -833,7 +839,7 @@
        \newunit\newblock
        \iffieldundef{volume}
          {}
-         {\setunit{\global\booltrue{bbx:volseen}}%
+         {\setunit{\addspace\global\booltrue{bbx:volseen}}%
           \printfield{volume}%
           \printfield{part}%
           \setunit{\adddot}%
@@ -939,8 +945,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.06) Reviews
+% (APA 7.06) Reviews and Commentaries
 
+\DeclareFieldFormat[commentary]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[commentary]{origtitle}{#1}
 \DeclareFieldFormat[review]{title}{#1}
 \DeclareFieldFormat[review]{origtitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[review]{pages}{#1}
@@ -996,7 +1004,7 @@
 \newbibmacro*{producer}{%
   \ifnameundef{producer}
     {}
-    {\printnames[apanames][-\value{listtotal}]{producer}%
+    {\printnames[apaauthor][-\value{listtotal}]{producer}%
      \newunit
      \printtext[parens]{\bibcpstring{producer}}%
      \setunit*{\addcomma\addspace\&\addspace}}}
@@ -1004,7 +1012,7 @@
 \newbibmacro*{director}{%
   \ifnameundef{director}
     {}
-    {\printnames[apanames][-\value{listtotal}]{director}%
+    {\printnames[apaauthor][-\value{listtotal}]{director}%
      \newunit
      \printtext[parens]{\bibcpstring{director}}%
      \setunit*{\addcomma\addspace\&\addspace}}}
@@ -1012,25 +1020,10 @@
 \newbibmacro*{writer}{%
   \ifnameundef{writer}
     {}
-    {\printnames[apanames][-\value{listtotal}]{writer}%
+    {\printnames[apaauthor][-\value{listtotal}]{writer}%
      \newunit
      \printtext[parens]{\bibcpstring{writer}}%
      \setunit*{\addcomma\addspace\&\addspace}}}
-
-\newbibmacro*{mediaauthor}{%
-  \ifnameundef{namea}
-    {}
-     {\printnames[apanames][-\value{listtotal}]{namea}%
-      \newunit%
-      \printtext[parens]{\printfield{nameatype}}}
-  \setunit*{\addcomma\addspace\&\addspace}%
-  \ifnameundef{nameb}
-    {}
-    {\printnames[apanames][-\value{listtotal}]{nameb}%
-     \setunit{\addspace}%
-     \printtext[parens]{\printfield{namebtype}}}
-  \newunit
-  \usebibmacro{labelyear+extrayear}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1040,9 +1033,9 @@
 
 \DeclareFieldFormat[data]{title}{\mkbibemph{#1}}
 \DeclareFieldFormat[data]{entrysubtype}{\mkbibbrackets{#1}}
-
-\DeclareFieldFormat[misc]{title}{\iffieldequalstr{userd}{description}{\mkbibbrackets{#1}}{#1}}
+\DeclareFieldFormat[misc]{entrysubtype}{\mkbibbrackets{#1}}
 \DeclareFieldFormat[misc]{nameaddon}{\mkbibparens{#1}}
+\DeclareFieldFormat[misc]{title}{\iffieldequalstr{titleisdescription}{true}{\mkbibbrackets{#1}}{{#1}\isdot}}
 
 \newbibmacro*{datatitle}{%
   \iffieldundef{title}
@@ -1076,7 +1069,7 @@
      \ifnameundef{execproducer}
        {}
        {\printnames[apanames][-\value{listtotal}]{execproducer}%
-         \newunit
+         \addspace
          \printtext[parens]{\bibcpstring{execproducer}}}
      \setunit{\addcomma\addspace}%
      \usebibmacro{avmaintitle}%
@@ -1105,11 +1098,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-% (APA 7.10) Letters
+% (APA 7.10) Letter/Letters
 
 \DeclareFieldFormat[letter]{title}{\mkbibbrackets{#1}}
 \DeclareFieldFormat[letters]{title}{#1}
 \DeclareFieldFormat[letter]{number}{\mkbibparens{#1}}
+\DeclareFieldFormat[letters]{number}{\mkbibparens{#1}}
 
 %
 %%%%%%%%%%%%%%%%%%%%
@@ -1218,6 +1212,8 @@
   \usebibmacro{newspaper}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
+  \newunit\newblock
+  \printfield{entrysubtype}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
@@ -1399,7 +1395,7 @@
   \newunit\newblock
   \printlist{organization}%
   \newunit
-  \printfield{eventtitle}%
+  \printfield[apacase]{eventtitle}%
   \newunit
   \printfield{venue}%
   \newunit\newblock
@@ -1555,6 +1551,28 @@
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
+\DeclareBibliographyDriver{commentary}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{reviewauthor}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{reviewtitle}%
+  \newblock
+  \usebibmacro{reviewof}%
+  \newunit\newblock
+  \usebibmacro{journal+issuetitle}%
+  \newunit\newblock
+  \printfield{note}%
+  \setunit{\bibpagespunct}%
+  \printfield{pages}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{apa:finpunct}%
+  \usebibmacro{finentry}}
+
 \DeclareBibliographyDriver{review}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
@@ -1581,8 +1599,6 @@
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
   \usebibmacro{author}%
-  \newunit\newblock
-  \printfield{description}%
   \newunit\newblock
   \usebibmacro{title}%
   \ifthenelse{\iffieldundef{title}\AND\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
@@ -1643,7 +1659,7 @@
   \printfield{number}%
   \newunit\newblock
   \printfield{note}%
-  \newunit\newblock
+  \setunit{\addcomma\addspace}\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
@@ -1872,6 +1888,7 @@
   \newunit}
 
 \newbibmacro*{type+institution}{%
+  \setunit{\addspace}%
   \ifthenelse{\iffieldundef{type}\AND\iffieldundef{institution}}
     {}
     {\printtext[parens]{%
@@ -1889,7 +1906,10 @@
   \iffieldundef{label}
     {\iffieldundef{shorttitle}
        {\printfield{title}%
-        \clearfield{title}
+        \clearfield{title}%
+        \setunit{\addspace}%
+        \printfield{entrysubtype}%
+        \clearfield{entrysubtype}%
         \global\booltrue{bbx:titleinauthpos}}
        {\printfield[title]{shorttitle}}}
     {\printfield{label}}}

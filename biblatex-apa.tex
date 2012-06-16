@@ -25,7 +25,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={4.8},
+  revision={5.0},
   date={\today}}
 
 \hypersetup{%
@@ -44,6 +44,10 @@
 Please see the revision history below (section \ref{rev}) for  details on changes in each
 version. This section is just for important things like incompatible
 changes which users should be aware of.
+
+\minisec{5.0}
+The style now uses the customisable data model functionality of |biblatex|
+2.0 and |biber| 1.0 and so these are now required.
 
 \minisec{4.5}
 |biber| is now \emph{required}. This is because APA style needs a custom
@@ -95,18 +99,15 @@ APA Style Guide (6th Edition).
 
 \subsection{Requirements}\label{ref:req}
 
-You will need to be using \sty{csquotes} ($\geq$ 4.3) and Bib\LaTeX\
-($\geq$ 1.4). Some features will not work\footnote{Automatic name and name
-  list uniqueness disambiguation, for example---see examples doc} without the
-Biber backend for Bib\LaTeX\ ($\geq$ 0.9.2) which is strongly
-recommended. If you want to take advantage of the Bib\LaTeX\
-|\DeclareQuotePunctuation| facility to enforce the APA required «American»
-punctuation, you should normally use the \sty{babel} package with the
-«american» option (see Bib\LaTeX\ manual section |3.9.1|). You can of
-course use other languages but in such cases, to adhere to APA «American»
-punctuation rules (following commas moved inside closing quotes etc.), then
-you should set up |\DeclareQuotePunctuation| yourself as per section
-|4.7.5| of the Bib\LaTeX\ manual.
+You will need to be using \sty{csquotes} ($\geq$ 4.3), Bib\LaTeX\ ($\geq$
+2.0) and Biber ($\geq$ 1.0). If you want to take advantage of the
+Bib\LaTeX\ |\DeclareQuotePunctuation| facility to enforce the APA required
+«American» punctuation, you should normally use the \sty{babel} package
+with the «american» option (see Bib\LaTeX\ manual section |3.9.1|). You can
+of course use other languages but in such cases, to adhere to APA
+«American» punctuation rules (following commas moved inside closing quotes
+etc.), then you should set up |\DeclareQuotePunctuation| yourself as per
+section |4.7.5| of the Bib\LaTeX\ manual.
 
 If you are using the |apa.cls| \latex class, you need be using version
 $\geq$ 1.3.4. The class should be invoked with the |noapacite| class option
@@ -256,12 +257,6 @@ and references style is implemented, there are just a few exceptions which
 are hardly worth the coding pain since they ambiguous and easily worked
 around.
 
-\subsubsection{Reference Section Limitations}
-
-\begin{description}
-\item\apa{6.27} Can't deal yet with authors listed as «with».
-\end{description}
-
 \section{Details}
 
 The detailed information for this style is contained in the example document and
@@ -291,6 +286,9 @@ accompanying \path{.bib} files:
 \item[\path{apa.bbx}] The |biblatex-apa| references style. It is
   decently structured with comments but shouldn't need to be read for
   normal use.
+\item[\path{apa.dbx}] The |biblatex-apa| data model additions. This allows
+  users to utilise more natural entry type and field names for certain
+  entries. See comments in the \path{biblatex-apa-test-references.bib}.
 \item[\path{*.lbx}] The |biblatex-apa| localisation files. These files
   override some language-specific macros for some fixed strings.
 \end{description}
@@ -347,34 +345,20 @@ general notes:
   citations and the references will be the localisation of the |PUBSTATE|
   value key (|PUBSTATE| takes a pre-defined set of localisation keys as
   values, see |biblatex| manual).
-\item There are occasions where there is no sensible \path{.bib} key to
-  use. This applies to things like |AUDIO| and |VIDEO| entries mainly. The
-  format of these requires that different roles (Director, Producer etc.)
-  are separately specified for different names. This is not really possible
-  for the usual |AUTHOR| or |EDITOR| fields. In such cases, I have resorted
-  to the Bib\LaTeX\ custom |NAME| and |NAMETYPE| fields which are not
-  very portable but until the Bib\TeX\ backend support is dropped in Bib\LaTeX\
-  there is no way round this without making things very messy. This will
-  happen around Bib\LaTeX\ version 2.0.
 \item APA style sometimes refers to the «series» of a multi-volume work.
   This corresponds to the |MAINTITLE| field in the \path{.bib} and
   \emph{not} the |SERIES| field.
 \item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
   they are given as roman numerals, as required by \apa{6.22}.
-\item |USERB| is sometimes used to specify that a URL is for an abstract
-  rather than the paper itself. Not very portable but that's because of Bib\TeX\ data
-  model limtations.
-\item |USERD| is sometimes used to specify information that indicates
-  special formatting. Not very portable but that's because of Bib\TeX\ data
-  model limtations.
-\item |USERE| is sometimes used to specify questionable dates/authors for
-  special formatting. Not very portable but that's because of Bib\TeX\ data
-  model limtations.
 \end{itemize}
 
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{5.0}{2012-07-01}
+\item Using |biblatex| 2.0/|biber 1.0| data model facility.
+\end{release}
 
 \begin{release}{4.8}{2012-06-02}
 \item Put in proper package version strings

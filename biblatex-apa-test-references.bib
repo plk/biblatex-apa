@@ -15,7 +15,7 @@
 % (APA 7.01 Example 2)
 @ARTICLE{7.01:2,
   AUTHOR         = {D. G. Gilbert and J. F. McClernon and N. E. Rabinovich and C. Sugai and L. C. Plath and G. Asgaard and D. Dickinson and N. Botros},
-  TITLE          = {Effects of Quitting Smoking and {EEG} Activation and Attention Last for More Than 31 Days and are More Severe With Stress, Depedence, {DRD2 A1} Allele, and Depressive Traits},
+  TITLE          = {Effects of Quitting Smoking and {EEG} Activation and Attention Last for More Than 31 Days and are More Severe With Stress, Dependence, {DRD2 A1} Allele, and Depressive Traits},
   JOURNALTITLE   = {Nicotine and Tobacco Research},
   VOLUME         = {6},
   PAGES          = {249--267},
@@ -37,7 +37,7 @@
 
 @ARTICLE{7.01:3b,
   AUTHOR         = {M. A. Light and I. H. Light},
-  TITLE          = {The Geographic Expansion of Mexican Immigration in the United States and its Implications for Local Law Enforcement},
+  TITLE          = {The Geographic Expansion of {M}exican Immigration in the {U}nited {S}tates and its Implications for Local Law Enforcement},
   YEAR           = {2008},
   JOURNALTITLE   = {Law Enforcement Executive Forum Journal},
   VOLUME         = {8},
@@ -49,7 +49,7 @@
 @ARTICLE{7.01:4,
   AUTHOR         = {P. Guimard and A. Florin},
   ORIGTITLE      = {Les évaluations des enseignants en grande section de maternelle sont-elles prédictives des difficultés de lecture au cours préparatoire?},
-  TITLE          = {Are Teacher Rating in Kindergarten Predictive of Reading Dificulties in First Grade?},
+  TITLE          = {Are Teacher Ratings in Kindergarten Predictive of Reading Dificulties in First Grade?},
   JOURNALTITLE   = {Approche Neuropsychologique des Apprentissages chez l'Enfant},
   VOLUME         = {19},
   PAGES          = {5--17},
@@ -174,7 +174,7 @@
 % Monographs can be specified as articles with appropriate NUMBER fields
 @ARTICLE{7.01:13a,
   AUTHOR         = {D. C. Ganster and J. Schaubroeck and W. E. Sime and B. T. Mayes},
-  TITLE          = {The Nomological Validity of the Type A Personality Among Employed Adults},
+  TITLE          = {The Nomological Validity of the {T}ype {A} Personality Among Employed Adults},
   TITLEADDON     = {Monograph},
   JOURNALTITLE   = {Journal of Applied Psychology},
   VOLUME         = {76},
@@ -297,7 +297,7 @@
 % (APA 7.02 Example 20)
 @BOOK{7.02:20,
   AUTHOR         = {E. O'Keefe},
-  TITLE          = {Egoism \& the Crisis in Western Values},
+  TITLE          = {Egoism \& the Crisis in {W}estern Values},
   URL            = {http://www.onlineoriginals.com/showitem.asp?itemID=135}
 }
 
@@ -381,7 +381,7 @@
 % (APA 7.02 Example 27)
 @BOOK{7.02:27,
   EDITOR         = {G. R. VandenBos},
-  TITLE          = {APA Dictionary of Psychology},
+  TITLE          = {{APA} Dictionary of Psychology},
   LOCATION       = {Washington, DC},
   PUBLISHER      = {American Psychological Association},
   YEAR           = {2007},
@@ -480,13 +480,15 @@
 }
 
 % (APA 7.04 Example 36)
+% Note this renders with a period before the LOCATION which is more consistent with other entries
 @INPROCEEDINGS{7.04:36,
   AUTHOR         = {J. Muelbauer},
   TITLE          = {Housing, Credit and Consumer Expenditure},
   EDITORA        = {S. C. Ludvigson},
   EDITORATYPE    = {chair},
   BOOKTITLE      = {Housing and Consumer Behaviour},
-  EVENTTITLE     = {Symposium Conducted at the Meeting of the {F}ederal {R}eserve {B}ank of {K}ansas {C}ity, Jackson Hole, WY},
+  EVENTTITLE     = {Symposium Conducted at the Meeting of the {F}ederal {R}eserve {B}ank of {K}ansas {C}ity},
+  LOCATION       = {Jackson Hole, WY},
   DATE           = {2007-09}
 }
 
@@ -630,12 +632,15 @@
 }
 
 % (APA 7.06 Example 48)
-@REVIEW{7.06:48,
+% Use REVIEWTEXT to specify the commented on item introductory text
+% Use ORIGTITLE to specify the reviewed item title
+% ORIGAUTHOR is a literal field, not a name field as we don't want to parse these names
+@COMMENTARY{7.06:48,
   AUTHOR         = {K. S. Wolf},
   TITLE          = {The Future for {D}eaf Individuals is Not That Bleak},
-  ENTRYSUBTYPE   = {Peer commentary on the paper},
+  REVIEWTEXT     = {Peer commentary on the paper},
   ORIGTITLE      = {``{D}ecrease of {D}eaf potential in a mainstreamed environment''},
-  VERBA          = {by K. S. Wolf},
+  ORIGAUTHOR     = {K. S. Wolf},
   DATE           = {2005},
   URL            = {http://www.personalityresearch.org/papers/hal.htm#wolf}
 }
@@ -730,7 +735,7 @@
 % (APA 7.08 Example 57)
 @MISC{7.08:57,
   TITLE          = {{Eyelink II}},
-  TITLEADDON     = {Apparatus and software},
+  ENTRYSUBTYPE   = {Apparatus and software},
   LOCATION       = {Mississauga, Ontario, Canada},
   PUBLISHER      = {SR Research},
   YEAR           = {2004},
@@ -751,7 +756,7 @@
   AUTHOR         = {J. Y. Ting and P. Florsheim and W. Huang},
   TITLE          = {Mental Health Help-Seeking in Ethnic Minority Populations},
   SUBTITLE       = {A Theoretical Perspective},
-  HOWPUBLISHED   = {Unpublished submitted for publication},
+  HOWPUBLISHED   = {Manuscript submitted for publication},
   YEAR           = {2008},
 }
 
@@ -794,9 +799,6 @@
 }
 
 % (APA 7.10 Example 63)
-% Note that this example is inconsistent in the APA 6th Edition (2nd printing) manual
-% with example 7.10:65. They differ in that 7.10:63 has a comma before the location
-% and 7.10:65 has a period. I have chosen a period for consistency.
 @LETTER{7.10:63,
   AUTHOR         = {L. K. Frank},
   TITLE          = {Letter to {R}obert {M}. {O}gden},
@@ -879,10 +881,11 @@
 }
 
 % (APA 7.10 Example 71)
-@MISC{7.10:71,
+% If no normal paper citation, use ENTRYSUBTYPE to say what this NEWSARTICLE is
+@NEWSARTICLE{7.10:71,
   TITLE          = {Psychoanalysis Institute to Open},
-  ENTRYSUBTYPE   = {Clipping from an unidentified Dayton, OH newspaper},
   DATE           = {1948-09-18},
+  ENTRYSUBTYPE   = {Clipping from an unidentified Dayton, OH newspaper},
   NOTE           = {Copy in possession of author}
 }
 
@@ -901,11 +904,12 @@
 % Note that this example is inconsistent in the APA 6th Edition (2nd printing) manual
 % with example 7.10:67. They differ in that 7.10:67 has brackets around the approximate
 % date and 7.10:73 has parenthesis. I have chosen brackets for consistency.
-% Use DESCRIPTION to indicate a title that is really a description and not a real
+% Use TITLEISDESCRIPTION to indicate a title that is really a description and not a real
 % title
 @MISC{7.10:73,
   DOUBTFULDATE   = {true},
-  DESCRIPTION    = {{Photographs of Robert M. Yerkes}},
+  TITLEISDESCRIPTION = {true},
+  TITLE          = {{Photographs of Robert M. Yerkes}},
   DATE           = {1917/1954},
   HOWPUBLISHED   = {Robert Mearns Yerkes Papers (Box 137, Folder 2292)},
   LOCATION       = {{Manuscripts and Archives, Yale University Library, New Haven}, CT}

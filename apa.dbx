@@ -25,15 +25,17 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.dbx}[2012/06/04\space v5.0\space APA biblatex style data model]
+\ProvidesFile{apa.dbx}[2012/07/01\space v5.0\space APA biblatex style data model]
 \RequireBiber[3]
 
 \DeclareDatamodelEntrytypes{
   letters,
   data,
+  commentary,
   newsarticle}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
+  with,
   writer,
   producer,
   execproducer,
@@ -42,16 +44,19 @@
 \DeclareDatamodelFields[type=field, datatype=literal]{
   doubtfulauthor,
   doubtfuldate,
-  description,
+  titleisdescription,
   newspaper,
   urldescription,
   origauthor,
-  reviewtext}
+  reviewtext,
+  commentarytext}
 
 \DeclareDatamodelFields[type=field, datatype=verbatim]{
   abstracturl}
 
 \DeclareDatamodelEntryfields{
+  titleisdescription,
+  with,
   doubtfulauthor,
   doubtfuldate,
   abstracturl,
@@ -60,6 +65,10 @@
 \DeclareDatamodelEntryfields[review]{
   origauthor,
   reviewtext}
+
+\DeclareDatamodelEntryfields[commentary]{
+  origauthor,
+  commentarytext}
 
 \DeclareDatamodelEntryfields[video]{
   writer,
@@ -143,5 +152,3 @@
   urlyear,
   version}
 
-\DeclareDatamodelEntryfields[misc]{
-  description}
