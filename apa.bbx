@@ -945,55 +945,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.06) Reviews and Commentaries
+% (APA 7.06) Reviews
 
-\DeclareFieldFormat[commentary]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat[commentary]{origtitle}{#1}
-\DeclareFieldFormat[review]{title}{#1}
-\DeclareFieldFormat[review]{origtitle}{\mkbibemph{#1}}
+% The title of the review depends on the entrytype of the thing reviewed
+\DeclareFieldFormat[review]{title}{
+  \entrydata*{\thefield{related}}{%
+    \iffieldequalstr{entrytype}{article}
+      {\mkbibemph{\printtext[apacase]{\thefield{savedtitle}}}}
+      {\printtext[apacase]{\thefield{savedtitle}}}}}
+
 \DeclareFieldFormat[review]{pages}{#1}
 \DeclareFieldFormat[review]{volume}{\mkbibemph{\apanum{#1}}}
 \DeclareFieldFormat[review]{number}{\mkbibparens{\apanum{#1}}}
 
-\newbibmacro*{reviewauthor}{%
-  \ifnameundef{author}
-    {\usebibmacro{reviewlabeltitle}}
-    {\printnames[apaauthor][-\value{listtotal}]{author}}%
-  \newunit\newblock%
-  \usebibmacro{labelyear+extrayear}}
-
-\newbibmacro*{reviewlabeltitle}{%
-  \iffieldundef{label}
-    {\usebibmacro{reviewof}%
-     \clearfield{entrysubtype}%
-     \clearfield{origtitle}}
-    {\printfield{label}}}
-
-\newbibmacro*{reviewtitle}{%
-  \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
-    {\printtext{}}% Dummy printtext as we do want to record that we output
-                  % a title for the punctuation tracker
-    {\printtext[title]{%
-        \printfield[apacase]{title}%
-        \setunit{\subtitlepunct}%
-        \printfield[apacase]{subtitle}}%
-     \setunit{\addspace}%
-     \printfield{titleaddon}}}
-
-\newbibmacro*{reviewof}{%
-  \iffieldundef{origtitle}
-    {}
-    {\printtext[brackets]{%
-        \printfield{reviewtext}\addspace%
-        \printtext[origtitle]{%
-          \printfield[apacase]{origtitle}%
-          \setunit{\subtitlepunct}%
-          \printfield[apacase]{origsubtitle}%
-          \setunit{\addcomma\addspace}}%
-        \iffieldundef{origauthor}
-          {}
-          {\printtext{\bibstring{byauthor}}%
-            \addspace\printfield{origauthor}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1177,7 +1141,44 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newbibmacro*{apa:finpunct}{%
-  \iffieldundef{addendum}{}{\renewcommand*{\finentrypunct}{\relax}}}
+  \ifboolexpr{
+              test {\iffieldundef{addendum}}
+              and
+              test {\iffieldundef{related}}}
+     {}
+     {\renewcommand*{\finentrypunct}{\relax}}}
+       
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Related entries
+
+\DeclareFieldFormat{related:reprintfrom}{\mkbibparens{#1}}
+\DeclareFieldFormat{related:reviewof}{\mkbibbrackets{#1}}
+
+\newbibmacro*{related:reprintfrom}[1]{%
+  \entrydata*{#1}{%
+    \printtext{\mkbibemph{\printfield[apacase]{title}}}%
+    \setunit{\bibpagespunct}%
+    \printfield{pages}%
+    \setunit{\addcomma\addspace}%
+    \bibstring{byauthor}\addspace
+    \printnames[apanames][-\value{listtotal}]{editor}%
+    \printnames[apanames][-\value{listtotal}]{author}%
+    \setunit{\addcomma\addspace}%
+    \usebibmacro{location+publisher}}}
+
+\newbibmacro*{related:reviewof}[1]{%
+  \entrydata*{#1}{%
+    \ifentrytype{article}
+      {\printtext{\printfield[apacase]{title}}}
+      {\printtext{\mkbibemph{\printfield[apacase]{title}}}}%
+    \setunit{\addspace}%
+    \bibstring{byauthor}\addspace
+    \printnames[apanames][-\value{listtotal}]{author}%
+    \setunit{\addcomma\addspace}%
+    \printdateextra}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.x) General type layouts
@@ -1198,6 +1199,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{finentry}}
@@ -1220,6 +1223,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{finentry}}
@@ -1244,6 +1249,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1266,6 +1273,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1294,6 +1303,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1316,6 +1327,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1344,6 +1357,8 @@
   \usebibmacro{origyear}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1372,6 +1387,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1406,6 +1423,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1434,6 +1453,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1461,6 +1482,8 @@
   \iffieldundef{url}{}{\renewcommand*{\finentrypunct}{\relax}}
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1484,6 +1507,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1508,6 +1533,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1529,6 +1556,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1547,28 +1576,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
-  \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{commentary}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{reviewauthor}%
-  \setunit{\labelnamepunct}\newblock
-  \usebibmacro{reviewtitle}%
-  \newblock
-  \usebibmacro{reviewof}%
   \newunit\newblock
-  \usebibmacro{journal+issuetitle}%
-  \newunit\newblock
-  \printfield{note}%
-  \setunit{\bibpagespunct}%
-  \printfield{pages}%
-  \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
-  \newunit\newblock
-  \printfield{addendum}%
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1576,11 +1585,11 @@
 \DeclareBibliographyDriver{review}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{reviewauthor}%
+  \usebibmacro{author}%
   \setunit{\labelnamepunct}\newblock
-  \usebibmacro{reviewtitle}%
+  \usebibmacro{title}%
   \newblock
-  \usebibmacro{reviewof}%
+  \usebibmacro{related}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
   \newunit\newblock
@@ -1619,6 +1628,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1643,6 +1654,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1665,6 +1678,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1687,6 +1702,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1711,6 +1728,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1735,6 +1754,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1757,6 +1778,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1772,6 +1795,8 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1787,6 +1812,8 @@
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
@@ -1809,6 +1836,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{related}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{apa:finpunct}
   \usebibmacro{finentry}}

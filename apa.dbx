@@ -31,7 +31,6 @@
 \DeclareDatamodelEntrytypes{
   letters,
   data,
-  commentary,
   newsarticle}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
@@ -46,10 +45,7 @@
   doubtfuldate,
   titleisdescription,
   newspaper,
-  urldescription,
-  origauthor,
-  reviewtext,
-  commentarytext}
+  urldescription}
 
 \DeclareDatamodelFields[type=field, datatype=verbatim]{
   abstracturl}
@@ -62,13 +58,6 @@
   abstracturl,
   urldescription}
 
-\DeclareDatamodelEntryfields[review]{
-  origauthor,
-  reviewtext}
-
-\DeclareDatamodelEntryfields[commentary]{
-  origauthor,
-  commentarytext}
 
 \DeclareDatamodelEntryfields[video]{
   writer,

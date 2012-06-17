@@ -375,7 +375,17 @@
   LOCATION       = {Hillsdale, NJ},
   PUBLISHER      = {Erlbaum},
   YEAR           = {1988},
-  ADDENDUM       = {Reprinted from Manual of child psychology, pp. 703--732, by P. H. Mussen, Ed., 1970, New York: Wiley}
+  RELATED        = {mcppiaget},
+  RELATEDTYPE    = {reprintfrom}
+}
+
+@INCOLLECTION{mcppiaget,
+  EDITOR      = {P. H. Mussen},
+  TITLE       = {Manual of Child Psychology},
+  DATE        = {1970},
+  LOCATION    = {New York, NY},
+  PUBLISHER   = {Wiley},
+  PAGES       = {703--732}
 }
 
 % (APA 7.02 Example 27)
@@ -588,20 +598,28 @@
 }
 
 % (APA 7.06 Example 45)
-% Use REVIEWTEXT to specify the reviewed item introductory text
-% Use ORIGTITLE to specify the reviewed item title
-% ORIGAUTHOR is a literal field, not a name field as we don't want to parse these names
+% Note how this is handled by the biblatex/biber "related entries" functionality
+% We have included the year in the reviewed item for consistency, as per 7.06:46
+% The comma after the reviewed title is ommited for consistency, as per 7.06:48
 @REVIEW{7.06:45,
   AUTHOR         = {B. R. Schatz},
-  ORIGAUTHOR     = {J. S. Brown \& P. Duguid},
   TITLE          = {Learning By Text or Context?},
-  REVIEWTEXT     = {Review of the book},
-  ORIGTITLE      = {The Social Life of Information},
+  REVIEWTEXT     = {the book},
+  RELATED        = {brdu},
+  RELATEDTYPE    = {reviewof},
+  RELATEDSTRING  = {Review of the book},
   JOURNALTITLE   = {Science},
   VOLUME         = {290},
   PAGES          = {1304},
   DATE           = {2000-11-17},
   DOI            = {10.1126/science.290.5495.1304},
+}
+
+@BOOK{brdu,
+  AUTHOR     = {John Seely Brown and Paul Duguid},
+  TITLE      = {The Social Life of Information},
+  DATE       = {2000},
+  PUBLISHER  = {Harvard Business School Press}
 }
 
 % (APA 7.06 Example 46)
@@ -610,39 +628,57 @@
 @REVIEW{7.06:46,
   AUTHOR         = {A. Axelman and J. L. Shapiro},
   TITLE          = {Does the Solution Warrant the Problem?},
-  REVIEWTEXT     = {Review of the {DVD}},
-  ORIGTITLE      = {Brief Therapy With Adolescents},
-  ORIGAUTHOR     = {the American Psychological Association, 2007},
+  RELATED        = {apavid},
+  RELATEDTYPE    = {reviewof},
+  RELATEDSTRING  = {Review of the {DVD}},
   JOURNALTITLE   = {PsycCRITIQUES},
   VOLUME         = {52},
   NUMBER         = {51},
   DATE           = {2007},
-  DOI            = {10.1037/a0009036},
+  DOI            = {10.1037/a0009036}
+}
 
+@VIDEO{apavid,
+  AUTHOR     = {{the American Psychological Association}},
+  TITLE      = {Brief Therapy With Adolescents},
+  DATE       = {2007}
 }
 
 % (APA 7.06 Example 47)
 % Again we drop the "produced" as with Example 46
 @REVIEW{7.06:47,
-  REVIEWTEXT     = {Review of the video game},
-  ORIGTITLE      = {BioShock},
-  ORIGAUTHOR     = {2K Games, 2007},
+  RELATED        = {bioshock},
+  RELATEDTYPE    = {reviewof},
+  RELATEDSTRING  = {Review of the video game},
   URL            = {http://www.whattheyplay.com/products/bioshock-for-xbox-360/?fm=3&ob=1&t=0#166},
-
 }
 
+@SOFTWARE{bioshock,
+  AUTHOR         = {{2K Games}},
+  ENTRYSUBTYPE   = {Computer Game},
+  TITLE          = {BioShock},
+  DATE           = {2007}
+ }
+
 % (APA 7.06 Example 48)
-% Use REVIEWTEXT to specify the commented on item introductory text
-% Use ORIGTITLE to specify the reviewed item title
-% ORIGAUTHOR is a literal field, not a name field as we don't want to parse these names
-@COMMENTARY{7.06:48,
+@REVIEW{7.06:48,
   AUTHOR         = {K. S. Wolf},
   TITLE          = {The Future for {D}eaf Individuals is Not That Bleak},
-  REVIEWTEXT     = {Peer commentary on the paper},
-  ORIGTITLE      = {``{D}ecrease of {D}eaf potential in a mainstreamed environment''},
-  ORIGAUTHOR     = {K. S. Wolf},
+  RELATED        = {deaf},
+  RELATEDTYPE    = {reviewof},
+  RELATEDSTRING  = {Peer commentary on the paper},
   DATE           = {2005},
   URL            = {http://www.personalityresearch.org/papers/hal.htm#wolf}
+}
+
+@ARTICLE{deaf,
+  AUTHOR         = {K. S. Wolf},
+  TITLE          = {``{D}ecrease of {D}eaf potential in a mainstreamed environment''},
+  JOURNALTITLE   = {Some Journal},
+  VOLUME         = {2},
+  NUMBER         = {1},
+  PAGES          = {1--10},
+  YEAR           = {2003},
 }
 
 % (APA 7.07 Example 49)
