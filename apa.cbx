@@ -164,6 +164,25 @@
 % (APA 6.28) If no date, use "(n.d.)"
 % (APA 6.18) Cite ORIGYEAR/YEAR if ORIGYEAR present
 
+\newbibmacro*{cite:author}{%
+  \iffieldequals{namehash}{\cbx@lasthash}
+% Multiple cites in one command
+   {\setunit{\compcitedelim}%
+    \usebibmacro{cite:plabelyear+extrayear}}%
+% Single cite
+   {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
+% No author/editor
+     {\usebibmacro{cite:noname}%
+       \savefield{namehash}{\cbx@lasthash}}
+% Normal cite
+     {\ifnameundef{shortauthor}
+        {\printnames[labelname][-\value{listtotal}]{labelname}\usebibmacro{with}}%
+        {\ifciteseen
+          {\printnames{shortauthor}}
+          {\printnames[labelname][-\value{listtotal}]{author}\usebibmacro{with}\addspace\printnames[sabrackets]{shortauthor}}}%
+      \savefield{namehash}{\cbx@lasthash}}}%
+   \setunit{\multicitedelim}}
+
 \newbibmacro*{cite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
 % Multiple cites in one command
@@ -442,5 +461,13 @@
    \usebibmacro{textcite}}
   {}
   {\usebibmacro{textcite:postnote}}
+
+\DeclareCiteCommand{\citeauthor}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:author}}
+  {}
+  {\usebibmacro{postnote}}
 
 \endinput
