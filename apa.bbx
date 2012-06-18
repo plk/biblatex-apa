@@ -252,6 +252,17 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.06:47) Reviews are awkward - if no author, date
+%               position changes so we need a flag to
+%               track this
+
+\newbool{bbx:noreviewauthor}
+\AtEveryBibitem{\global\boolfalse{bbx:noreviewauthor}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.30) Sometimes "Vol" is inside the additional
 %            material parens, sometimes not. This bool
@@ -958,6 +969,10 @@
 \DeclareFieldFormat[review]{volume}{\mkbibemph{\apanum{#1}}}
 \DeclareFieldFormat[review]{number}{\mkbibparens{\apanum{#1}}}
 
+\renewbibmacro*{reviewauthor}{%
+  \ifnameundef{author}
+    {\booltrue{bbx:noreviewauthor}}
+    {\usebibmacro{author}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1167,6 +1182,7 @@
     \usebibmacro{location+publisher}}}
 
 \newbibmacro*{related:reviewof}[1]{%
+  \setunit{}% Sanitize this in case no author
   \entrydata*{#1}{%
     \ifentrytype{article}
       {\printtext{\printfield[apacase]{title}}}
@@ -1585,11 +1601,13 @@
 \DeclareBibliographyDriver{review}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{author}%
+  \usebibmacro{reviewauthor}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \newblock
   \usebibmacro{related}%
+  \newunit\newblock
+  \ifbool{bbx:noreviewauthor}{\usebibmacro{labelyear+extrayear}}{}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
   \newunit\newblock
