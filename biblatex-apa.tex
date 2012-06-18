@@ -47,7 +47,22 @@ changes which users should be aware of.
 
 \minisec{5.0}
 The style now uses the customisable data model functionality of |biblatex|
-2.0 and |biber| 1.0 and so these are now required.
+2.0 and |biber| 1.0 and so these are now required. Several cases
+which previously were forced to use custom fields like |USERA|,
+|USERB| etc. can now be more naturally implemented with semantically
+appropriate fields. See \file{biblatex-apa-references.bib} for
+examples. This particularly aids the use of |VIDEO| entries, for
+example which now support fields |DIRECTOR|, |PRODUCER|,
+|WRITER| and |EXECPRODUCER|.
+
+Entries which relate to other entries like reviews and reprints are
+now implemented more naturally using the |biblatex| 2 «related
+entries» functionality. See entries with the |RELATED| field in
+\file{biblatex-apa-references.bib} and the |biblatex| manual for
+details and examples.
+
+Entries where authors are listed as «with» are now supported using the
+name field |WITH|. See examples file.
 
 \minisec{4.5}
 |biber| is now \emph{required}. This is because APA style needs a custom
