@@ -1,0 +1,139 @@
+\ProvidesFile{norsk-apa.lbx}[2012/07/01\space v5.0\space APA biblatex localisation]
+\InheritBibliographyExtras{norsk}
+
+% (APA 6.22) The example abbreviations
+
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{nodate}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{producer}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{director}
+\NewBibliographyString{writer}
+\NewBibliographyString{with}
+
+\DeclareBibliographyStrings{%
+  inherit          = {norsk},
+  revisededition   = {{revidert\space utgave}{rev\adddotspace utg\adddot}},
+  page             = {{side}{{}s\adddot}},
+  pages            = {{sider}{{}s\adddot}},
+  on               = {{p{\aa}}{p{\aa}}},
+  retrieved        = {{hentet}{hentet}},
+  available        = {{tilgjengelig}{tilgjengelig}},
+  from             = {{fra}{fra}},
+  archivedat       = {{arkivert\space ved}{arkivert\space ved}},
+  nodate           = {{udatert}{udatert}},
+  reviewof         = {{anmeldelse\space av}{anmeldelse\space av}},
+  producer         = {{produsent}{produsent}},
+  execproducer     = {{ut{\o}vende produsent}{ut{\o}vende produsent}},
+  director         = {{regiss{\o}r}{regiss{\o}r}},
+  writer           = {{manus}{manus}},
+  with             = {{med}{med}},
+  paragraph        = {{\P}{\P}},
+  paragraphs       = {{\P\P}{\P\P}},
+  january          = {{januar}{januar}},
+  february         = {{februar}{februar}},
+  march            = {{mars}{mars}},
+  april            = {{april}{april}},
+  may              = {{mai}{mai}},
+  june             = {{juni}{juni}},
+  july             = {{juli}{juli}},
+  august           = {{august}{august}},
+  september        = {{september}{september}},
+  october          = {{oktober}{oktober}},
+  november         = {{november}{november}},
+  december         = {{desember}{desember}},
+  mathesis         = {{Masteroppgave}{Masteroppgave}},
+  phdthesis        = {{Doktoravhandling}{Doktoravhandling}},
+  origyear         = {{opprinnelig\space publisert}{opprinnelig\space publisert}},
+  typechair        = {{ordstyrer}{ordstyrer}},
+  typechairs       = {{ordstyrere}{ordstyrere}},
+  typevolume       = {{bindredakt{\o}r}{bindred\adddot}},
+  typevolumes      = {{bindredakt{\o}rer}{bindred\adddot}},
+  typeseries       = {{serieredakt{\o}r}{seriered\adddot}},
+  typeseriess      = {{serieredakt{\o}rer}{seriered\adddot}},
+  typevolseries    = {{serie- og bindredakt{\o}r}{serie- og bindred\adddot}},
+  typevolseriess   = {{serie- og bindredakt{\o}rer}{serie- og bindred\adddot}},
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.10 Example 68) Drop end* when they are the same as *
+
+% You must use \printdate to get here otherwise it will be ignored
+
+\DefineBibliographyExtras{norsk}{%
+  \protected\def\mkbibdateapalong#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\thefield{#1}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\thefield{#1}\printfield{extrayear}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3{%
+    \iffieldundef{#3}%
+      {}%
+      {\stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \thefield{#1}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
