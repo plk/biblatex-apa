@@ -915,6 +915,16 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.30) Location only shows first item
+
+\DeclareListFormat{default}{%
+  \usebibmacro{list:delim}{#1}%
+  #1\isdot}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.30) Periodicals emph number, location
 %            and pages (with no prefix)
@@ -1928,8 +1938,9 @@
     {\href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
     {\nolinkurl{#1}}}
 
+% APA 6th 
 \newbibmacro*{location+publisher}{%
-  \printlist{location}%
+  \printlist[default][1-1]{location}%
   \setunit*{\addcolon\space}%
   \printlist{publisher}%
   \newunit}
