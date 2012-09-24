@@ -25,7 +25,7 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.bbx}[2012/07/01\space v5.0\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2012/07/01\space v5.2\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -393,12 +393,15 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.28) Use "(n.d.)." for references with no year. This depends
-%            on the noyear macros and strings from apa.cbx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.28) Use "nodate" bibstring for references with no year
 %            Months and days go into parenthesis with year, if set
 % (APA 6.29) Issue goes where month normally goes if it
 %            is set.
+
+% Don't fall back on other year fields if there is no year, use
+% "nodate" string
+\DeclareLabelyear{year}
 
 % Make sure endmonth gets an expansion too
 \DeclareFieldFormat{endmonth}{\mkbibmonth{#1}}
@@ -437,10 +440,14 @@
     {\ifciteseen
       {}
       {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-  \biblcstring{nodate}}
+  \bibstring{nodate}%
+  \iffieldundef{extrayear}
+    {\setunit{\relax}}
+    {\setunit{\apashortdash}}%
+    \printfield{extrayear}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.29) General format of titles.

@@ -25,7 +25,7 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.cbx}[2012/07/01\space 5.0\space APA biblatex citation style]
+\ProvidesFile{apa.cbx}[2012/07/01\space 5.2\space APA biblatex citation style]
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -297,8 +297,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.22) Fall back to "n.d." for citations without dates
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.22) Fall back to "nodate" bibstring for citations without dates
 %            Strings defined in apa.bbx
 % (APA 6.16) "in press" for PUBSTATE "inpress"
 
@@ -308,10 +308,14 @@
     {\ifciteseen
       {}
       {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-    \printtext[bibhyperref]{\biblcstring{nodate}}}
+    \printtext[bibhyperref]{\bibstring{nodate}%
+      \iffieldundef{extrayear}
+        {\setunit{\relax}}
+        {\setunit{\apashortdash}}%
+      \printfield{extrayear}}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.21) No parens round year for cites when the cite is in

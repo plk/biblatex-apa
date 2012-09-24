@@ -25,7 +25,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={5.1},
+  revision={5.2},
   date={\today}}
 
 \hypersetup{%
@@ -115,7 +115,7 @@ APA Style Guide (6th Edition).
 \subsection{Requirements}\label{ref:req}
 
 You will need to be using \sty{csquotes} ($\geq$ 4.3), Bib\LaTeX\ ($\geq$
-2.0) and Biber ($\geq$ 1.0). If you want to take advantage of the
+2.3) and Biber ($\geq$ 1.3). If you want to take advantage of the
 Bib\LaTeX\ |\DeclareQuotePunctuation| facility to enforce the APA required
 «American» punctuation, you should normally use the \sty{babel} package
 with the «american» option (see Bib\LaTeX\ manual section |3.9.1|). You can
@@ -157,7 +157,8 @@ parameterise the max authors setting. Thanks to George Gkotsis for the
 Greek localisation. Thanks to Erikson Kaszubowski for the Brazilian
 localisation. Thanks to Braulio José Solano Rojas for the Spanish
 localisation. Thanks to Stefan Mayer for the |subtitlepunct| suggestion.
-Thanks to Håkon Malmedal for the Norwegian localisation.
+Thanks to Håkon Malmedal for the Norwegian localisation. Thanks to
+Johann Gründl for the Austrian localisation.
 
 \section{Use}\label{ref:use}
 \label{use}
@@ -371,6 +372,12 @@ general notes:
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{5.2}{2012-09-30}
+\item Entries with no YEAR no longer fall back on other date fields
+  and use «nodate» bibstring.
+\item «nodate» bibstring no longer lowercased and supports extrayear
+\end{release}
 
 \begin{release}{5.1}{2012-08-01}
 \item Added Norwegian localisation (thanks to Håkon Malmedal)

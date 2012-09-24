@@ -1,5 +1,5 @@
-\ProvidesFile{ngerman-apa.lbx}[2012/07/01\space v5.2\space APA biblatex localisation]
-\InheritBibliographyExtras{ngerman}
+\ProvidesFile{austrian-apa.lbx}[2012/07/01\space v5.2\space APA biblatex localisation]
+\InheritBibliographyExtras{austrian}
 
 % (APA 6.22) The example abbreviations
 
@@ -27,8 +27,8 @@
 \NewBibliographyString{with}
 
 \DeclareBibliographyStrings{%
-  inherit          = {ngerman},
-  january          = {{Januar}{Januar}},
+  inherit          = {austrian},
+  january          = {{J\"anner}{J\"anner}},
   february         = {{Februar}{Februar}},
   march            = {{M\"arz}{M\"arz}},
   april            = {{April}{April}},
@@ -45,12 +45,12 @@
   execproducer     = {{Produzent}{Produzent}},
   director         = {{Regisseur}{Regisseur}},
   writer           = {{Schriftsteller}{Schriftsteller}},
-  with             = {{mit}{mit}},
   page             = {{Seite}{{}S\adddot}},
   pages            = {{Seiten}{{}S\adddot}},
   on               = {{am}{am}},
-  retrieved        = {{Zugriff}{Zugriff}},
+  retrieved        = {{Zugriff\space am}{Zugriff\space am}},
   available        = {{Erh\"altlich}{Erh\"altlich}},
+  with             = {{mit}{mit}},
   from             = {{unter}{unter}},
   archivedat       = {{archiviert\space unter}{archiviert\space unter}},
   nodate           = {{ohne\space Datum}{{}o\adddot D\adddot}},
@@ -73,7 +73,7 @@
 % (APA 7.10 Example 68) Drop end* when they are the same as *
 
 % You must use \printdate to get here otherwise it will be ignored
-\DefineBibliographyExtras{ngerman}{%
+\DefineBibliographyExtras{austrian}{%
   \protected\def\mkbibdateapalong#1#2#3{%
     \iffieldundef{#1}%
       {}%
@@ -126,7 +126,6 @@
         {}%
         {\addspace}%
        \thefield{#1}}}}
-
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
