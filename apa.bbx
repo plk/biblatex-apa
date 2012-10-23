@@ -202,7 +202,12 @@
   }
 }
 
-\DeclareLabelyear{pubstate,year,eventyear,origyear,urlyear}
+% Don't fall back on other year fields if there is no year, use
+% "nodate" string
+\DeclareLabelyear{%
+  \field{pubstate}
+  \field{year}
+}
 
 % Due to APA strange requirements like truncation after first cite and
 % ellipsis from 7th to n-1 in bib, there might be some really strange
@@ -398,10 +403,6 @@
 %            Months and days go into parenthesis with year, if set
 % (APA 6.29) Issue goes where month normally goes if it
 %            is set.
-
-% Don't fall back on other year fields if there is no year, use
-% "nodate" string
-\DeclareLabelyear{year}
 
 % Make sure endmonth gets an expansion too
 \DeclareFieldFormat{endmonth}{\mkbibmonth{#1}}
@@ -986,7 +987,7 @@
 \DeclareFieldFormat[review]{volume}{\mkbibemph{\apanum{#1}}}
 \DeclareFieldFormat[review]{number}{\mkbibparens{\apanum{#1}}}
 
-\renewbibmacro*{reviewauthor}{%
+\newbibmacro*{reviewauthor}{%
   \ifnameundef{author}
     {\booltrue{bbx:noreviewauthor}}
     {\usebibmacro{author}}}
