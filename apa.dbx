@@ -25,7 +25,7 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.dbx}[2012/07/01\space v5.3\space APA biblatex style data model]
+\ProvidesFile{apa.dbx}[2012/11/28\space v5.4\space APA biblatex style data model]
 \RequireBiber[3]
 
 \DeclareDatamodelEntrytypes{
