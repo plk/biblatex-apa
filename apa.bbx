@@ -25,7 +25,7 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.bbx}[2012/11/28\space v5.4\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2012/12/17\space v5.5\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -387,12 +387,13 @@
 %            Needs to be in this hook otherwise it sets this for all
 %            citations too.
 % (APA 6.27) Use blank for long lists
+% (APA 4.03) Serial comma for lists of three or more
 
 \AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
     \ifthenelse{\value{listcount}>\maxprtauth}
       {}
-      {\ifthenelse{\ifcurrentname{author}\OR\boolean{bbx:editorinauthpos}}
-         {\ifnum\value{liststop}>1 \finalandcomma\fi\addspace\&\space}
+      {\ifthenelse{\value{liststop}>2}
+         {\finalandcomma\addspace\&\space}
          {\addspace\&\space}}}}
 
 %
