@@ -89,7 +89,7 @@
 % Date formats. Suppress end range of less specific fields
 
 \newcommand*{\mkbibrangeapalong}[1]{%
-  \ifthenelse{\equal{#1}{url}\OR\equal{#1}{event}}
+  \ifthenelse{\equal{#1}{url}}
     {\printtext{%
      \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
      \iffieldundef{#1endyear}%
@@ -211,8 +211,8 @@
 
 % Due to APA strange requirements like truncation after first cite and
 % ellipsis from 7th to n-1 in bib, there might be some really strange
-% edge cases which can't be handled as this sort of this needs treating in
-% the style after biber has finished. Very unlikely though.
+% edge cases which can't be handled as this needs treating in the style
+% after biber has finished. Very unlikely though.
 \ExecuteBibliographyOptions{labelyear=true,%
                             sorting=apa,%
                             backref=true,%
@@ -1215,6 +1215,17 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Eventdates are not explicitly shown in the 6th
+% edition manual.
+\newbibmacro*{apa:eventdate}{%
+  \ifthenelse{\iffieldundef{eventyear}\AND\iffieldundef{eventmonth}\AND\iffieldundef{eventday}}
+    {}
+    {\printtext[parens]{\printeventdate}}}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.x) General type layouts
 
@@ -1438,7 +1449,9 @@
   \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
-  \newblock
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:eventdate}%
+  \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{addinfo}%
   \newunit\newblock
   \printfield{series}%
