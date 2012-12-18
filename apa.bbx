@@ -229,7 +229,10 @@
                             minbibnames=6,%
                             abbreviate=true,%
                             mincrossrefs=999,%
-                            alldates=apalong}
+                            date=apalong,
+                            origdate=apalong,
+                            urldate=apalong,
+                            eventdate=comp}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1215,17 +1218,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% Eventdates are not explicitly shown in the 6th
-% edition manual.
-\newbibmacro*{apa:eventdate}{%
-  \ifthenelse{\iffieldundef{eventyear}\AND\iffieldundef{eventmonth}\AND\iffieldundef{eventday}}
-    {}
-    {\printtext[parens]{\printeventdate}}}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.x) General type layouts
 
@@ -1449,9 +1441,9 @@
   \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
-  \setunit{\addspace}\newblock
-  \usebibmacro{apa:eventdate}%
-  \setunit*{\addcomma\addspace}\newblock
+  \setunit{\addcomma\addspace}\newblock
+  \printeventdate%
+  \setunit*{\addspace}\newblock
   \usebibmacro{addinfo}%
   \newunit\newblock
   \printfield{series}%
