@@ -251,7 +251,7 @@
 }
 
 % (APA 7.01 Example 17)
-% Such unstructured extra information can be included in the NOTE field.
+% Such unstructured abstract information uses the ABSTRACTLOC field
 % If the abstract/article was retreived from a standard online URI, things are little
 % better defined - see examples 7.01:16*).
 @ARTICLE{7.01:17,
@@ -261,7 +261,7 @@
   VOLUME         = {31},
   PAGES          = {24--53},
   YEAR           = {2000},
-  NOTE           = {Abstract retrieved from {S}ociological {A}bstracts database. (Accession No. 200010185)}
+  ABSTRACTLOC    = {{S}ociological {A}bstracts database. (Accession No. 200010185)}
 }
 
 % (APA 7.02 Example 18)
@@ -303,6 +303,9 @@
 
 % (APA 7.02 Example 21)
 % NOTE is automatically generated from ORIGDATE
+% Note also that there is no period after this example because it has an online identifier, even
+% though it's followed by the ORIGYEAR data. This isn't explicitly mentioned in the manual but I
+% think it's clear that it's this pattern which is the ruling one here.
 @INBOOK{7.02:21,
   AUTHOR         = {S. Freud},
   EDITOR         = {J. Strachey},
@@ -517,10 +520,9 @@
 @PROCEEDINGS{7.04:38,
   AUTHOR         = {S. Herculano-Houzel and C. E. Collins and P. Wong and J. H. Kaas and R. Lent},
   TITLE          = {The Basic Nonuniformity of the Cerebral Cortex},
-  BOOKTITLE      = {Proceedings of the {N}ational {A}cademy of {S}ciences},
+  BOOKTITLE      = {Proceedings of the {N}ational {A}cademy of {S}ciences, {USA}},
   VOLUME         = {105},
   PAGES          = {12593--12598},
-  LOCATION       = {USA},
   YEAR           = {2008},
   DOI            = {10.1073/pnas.0805417105}
 }
@@ -639,7 +641,7 @@
 }
 
 @VIDEO{apavid,
-  AUTHOR     = {{the American Psychological Association}},
+  PRODUCER   = {{the American Psychological Association}},
   TITLE      = {Brief Therapy With Adolescents},
   DATE       = {2007}
 }

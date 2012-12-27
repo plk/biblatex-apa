@@ -152,7 +152,7 @@ name, we just give the name:\\
 \apaex{\textcite{6.12c}}\\
 \apaex{\textcite{6.12d}}\\
 \apaex{\textcite{6.12c}}\footnote{This example is incorrect in the
-  APA manual because «et al» is replacing only one name. This has been
+  APA 6th edition manual because «et al» is replacing only one name. This has been
   verified with the APA and will be corrected in future editions.}\\
 \apaex{\textcite{6.12d}}
 
@@ -348,7 +348,8 @@ semi-colon would be strange:
 \apaex{\fullcite{FC1}}\\
 \apaex{\fullcitebib{FC1}}
 
-\noindent Testing «with»\\
+% In citations, "WITH" is ignored (APA 6.27)
+\noindent Testing «with»---should not be present in cites\\
 \apaex{\cite{with1}}\\
 \apaex{\textcite{with1}}
 
@@ -359,6 +360,11 @@ semi-colon would be strange:
 \noindent Testing nodate\\
 \apaex{\textcite{nodate1}}\\
 \apaex{\textcite{nodate2}}
+
+\noindent Testing full name expansion (APA 6.27). See citation refs for how
+these appear in references\\
+\apaex{\textcite{6.27a}}\\
+\apaex{\textcite{6.27b}}
 
 \end{refsection}
 \begin{refsection}[biblatex-apa-test-references]

@@ -25,7 +25,7 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.cbx}[2012/12/20\space v5.6\space APA biblatex citation style]
+\ProvidesFile{apa.cbx}[2012/12/28\space v5.7\space APA biblatex citation style]
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -176,10 +176,10 @@
        \savefield{namehash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
-        {\printnames[labelname][-\value{listtotal}]{labelname}\usebibmacro{with}}%
+        {\printnames[labelname][-\value{listtotal}]{labelname}}%
         {\ifciteseen
           {\printnames{shortauthor}}
-          {\printnames[labelname][-\value{listtotal}]{author}\usebibmacro{with}\addspace\printnames[sabrackets]{shortauthor}}}%
+          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \savefield{namehash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
@@ -197,20 +197,14 @@
        \savefield{namehash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
-        {\printnames[labelname][-\value{listtotal}]{labelname}\usebibmacro{with}}%
+        {\printnames[labelname][-\value{listtotal}]{labelname}}%
         {\ifciteseen
           {\printnames{shortauthor}}
-          {\printnames[labelname][-\value{listtotal}]{author}\usebibmacro{with}\addspace\printnames[sabrackets]{shortauthor}}}%
+          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\nameyeardelim}%
       \usebibmacro{cite:plabelyear+extrayear}%
       \savefield{namehash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
-
-\newbibmacro*{with}{%
-  \ifnameundef{with}
-    {}
-    {\setunit{}\addspace\bibopenparen\bibstring{with}\addspace
-     \printnames[labelname][-\value{listtotal}]{with}\bibcloseparen}}
 
 \newbibmacro*{textcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}
@@ -238,11 +232,11 @@
   % Normal full cite
        {\ifnameundef{shortauthor}%
     % Normal full cite
-         {\printnames[labelname][-\value{listtotal}]{labelname}\usebibmacro{with}}
+         {\printnames[labelname][-\value{listtotal}]{labelname}}
     % Cite using short author
          {\ifciteseen
            {\printnames{shortauthor}}
-           {\printnames[labelname][-\value{listtotal}]{author}\usebibmacro{with}}}%
+           {\printnames[labelname][-\value{listtotal}]{author}}}%
   % Year
         \setunit{\ifbool{cbx:np}
                   {\nameyeardelim}
