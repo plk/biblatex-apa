@@ -1197,13 +1197,22 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hacky bits to suppress final period in some cases.
+% * If there is an ORIGYEAR field (APA 7.02:21)
+% * Unless there is a RELATED and ADDENDUM
 \newbibmacro*{apa:finpunct}{%
-  \ifboolexpr{
-              test {\iffieldundef{addendum}}
-              and
-              test {\iffieldundef{related}}}
+  \iffieldundef{origyear}
+    {\ifboolexpr{
+       test {\iffieldundef{addendum}}
+       and
+       test {\iffieldundef{related}}}
      {}
      {\renewcommand*{\finentrypunct}{\relax}}}
+    {\renewcommand*{\finentrypunct}{\relax}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
        
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Related entries
