@@ -191,9 +191,10 @@
 
 % Don't fall back on other year fields if there is no year, use
 % "nodate" string
-\DeclareLabelyear{%
+\DeclareLabeldate{%
   \field{pubstate}
-  \field{year}
+  \field{date}
+  \literal{nodate}
 }
 
 % Due to APA strange requirements like truncation after first cite and
@@ -216,6 +217,7 @@
                             abbreviate=true,%
                             mincrossrefs=999,%
                             date=apalong,%
+                            datelabel=apalong,%
                             origdate=apalong,%
                             urldate=apalong,%
                             eventdate=comp}
@@ -404,34 +406,59 @@
 \newbibmacro*{labelyear+extrayear}{%
   \iffieldundef{labelyear}
     {\iffieldundef{origyear}
-      {\printtext[parens]{\usebibmacro{noyear}}}
+      {}
       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}%
-    {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
-      {\printtext[parens]{\biblcstring{inpress}%
-       \iffieldundef{extrayear}
-        {\setunit{\relax}}
-        {\setunit{\apashortdash}}%
-       \printfield{extrayear}}}
-     {\printtext[yearorunkyear]{\printdateextra}}}}
+    {\printtext[yearorunkyear]{\printdateextralabel}}}
+
+% \newbibmacro*{labelyear+extrayear}{%
+%   \iffieldundef{labelyear}
+%     {\iffieldundef{origyear}
+%       {}
+%       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}%
+%     {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
+%       {\printtext[parens]{\biblcstring{inpress}%
+%        \iffieldundef{extrayear}
+%         {\setunit{\relax}}
+%         {\setunit{\apashortdash}}%
+%        \printfield[apaextrayear]{extrayear}}}
+%      {\printtext[yearorunkyear]{\printdateextra}}}}
+
+% \newbibmacro*{labelyear+extrayear}{%
+%   \iffieldundef{labelyear}
+%     {\iffieldundef{origyear}
+%       {\printtext[parens]{\usebibmacro{noyear}}}
+%       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}%
+%     {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
+%       {\printtext[parens]{\biblcstring{inpress}%
+%        \iffieldundef{extrayear}
+%         {\setunit{\relax}}
+%         {\setunit{\apashortdash}}%
+%        \printfield{extrayear}}}
+%      {\printtext[yearorunkyear]{\printdateextra}}}}
 
 \DeclareFieldFormat{yearorunkyear}{%
   \ifthenelse{\iffieldequalstr{doubtfuldate}{true}}
     {\mkbibbrackets{ca\adddot\addspace#1}}
-    {\ifthenelse{\iffieldundef{year}\AND\iffieldundef{month}\AND\iffieldundef{day}}
-      {\mkbibparens{\usebibmacro{noyear}}}
-      {\mkbibparens{#1}}}}
+    {\mkbibparens{#1}}}
 
-\newbibmacro*{noyear}{%
-  \ifnameundef{shortauthor}
-    {}
-    {\ifciteseen
-      {}
-      {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-  \bibstring{nodate}%
-  \iffieldundef{extrayear}
-    {\setunit{\relax}}
-    {\setunit{\apashortdash}}%
-    \printfield{extrayear}}
+% \DeclareFieldFormat{yearorunkyear}{%
+%   \ifthenelse{\iffieldequalstr{doubtfuldate}{true}}
+%     {\mkbibbrackets{ca\adddot\addspace#1}}
+%     {\ifthenelse{\iffieldundef{year}\AND\iffieldundef{month}\AND\iffieldundef{day}}
+%       {\mkbibparens{\usebibmacro{noyear}}}
+%       {\mkbibparens{#1}}}}
+
+% \newbibmacro*{noyear}{%
+%   \ifnameundef{shortauthor}
+%     {}
+%     {\ifciteseen
+%       {}
+%       {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
+%   \bibstring{nodate}%
+%   \iffieldundef{extrayear}
+%     {\setunit{\relax}}
+%     {\setunit{\apashortdash}}%
+%     \printfield{extrayear}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -462,7 +489,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.01 Example 10) Newspapers have prefix for pages.
 
-\DeclareFieldFormat[newsarticle]{pages}{\mkpageprefix{#1}}
+\DeclareFieldFormat[newsarticle]{pages}{%
+    \DeclareNumChars{.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}%
+    \mkpageprefix{#1}%
+    \DeclareNumChars{.}}
+
 \DeclareFieldFormat[newsarticle]{newspaper}{\mkbibemph{#1}}
 \DeclareFieldFormat[newsarticle]{entrysubtype}{\mkbibbrackets{#1}}
 \DeclareFieldFormat[newsarticle]{title}{#1}
@@ -662,11 +693,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.01 Example 20) Even non-numeral pages need prefix
+% (APA 7.01 Example 10) Even non-numeral pages need prefix
 
-\NumCheckSetup{\ifcurrentfield{pages}
-  {\DeclareNumChars{.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}}
-  {}}
+\DeclareFieldFormat{pages}{%
+  \NumCheckSetup{%
+    \DeclareNumChars{.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}
+    \mkpageprefix[bookpagination]{#1}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

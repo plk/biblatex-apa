@@ -29,9 +29,10 @@
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.16) year postfix is not emphasised or italic
+% (APA 6.16) labelyear postfix is not emphasised or italic
+%            Dashes between labelyear and non-numeric year (or pseudo-year)
 
-\DeclareFieldFormat{extrayear}{\mknumalph{#1}}
+\DeclareFieldFormat{extrayear}{\iffieldnums{labelyear}{\mknumalph{#1}}{\apashortdash\mknumalph{#1}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -160,8 +161,6 @@
 % (APA 6.16) Multiple same author cites in a compact citation call do not
 %            need to be repeated but the full years must be repeated with
 %            their extrayear postfixes
-%            "in press" extrayear needs a short dash to join to label
-% (APA 6.28) If no date, use "(n.d.)"
 % (APA 6.18) Cite ORIGYEAR/YEAR if ORIGYEAR present
 
 \newbibmacro*{cite:author}{%
@@ -254,16 +253,23 @@
 
 \newbibmacro*{cite:plabelyear+extrayear}{%
   \iffieldundef{labelyear}
-    {\usebibmacro{cite:noyear}}
-    {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
-      {\printtext[bibhyperref]{\bibxstring{inpress}%
-       \iffieldundef{extrayear}
-         {}
-         {\apashortdash}%
-       \printfield{extrayear}}}
-      {\printtext[bibhyperref]{%
+    {}
+    {\printtext[bibhyperref]{%
        \printfield[noformat]{origyear}\setunit*{\addslash}%
-       \printfield{labelyear}\printfield{extrayear}}}}}%
+       \printfield{labelyear}\printfield{extrayear}}}}
+
+% \newbibmacro*{cite:plabelyear+extrayear}{%
+%   \iffieldundef{labelyear}
+%     {\usebibmacro{cite:noyear}}
+%     {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
+%       {\printtext[bibhyperref]{\bibxstring{inpress}%
+%        \iffieldundef{extrayear}
+%          {}
+%          {\apashortdash}%
+%        \printfield{extrayear}}}
+%       {\printtext[bibhyperref]{%
+%        \printfield[noformat]{origyear}\setunit*{\addslash}%
+%        \printfield{labelyear}\printfield{extrayear}}}}}%
 
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
@@ -292,21 +298,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.22) Fall back to "nodate" bibstring for citations without dates
-%            Strings defined in apa.bbx
-% (APA 6.16) "in press" for PUBSTATE "inpress"
+% (APA 6.22, 6.28) Fall back to "nodate" bibstring for citations without dates
+%                  Strings defined in apa.bbx
 
-\newbibmacro*{cite:noyear}{%
-  \ifnameundef{shortauthor}
-    {}
-    {\ifciteseen
-      {}
-      {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-    \printtext[bibhyperref]{\bibstring{nodate}%
-      \iffieldundef{extrayear}
-        {\setunit{\relax}}
-        {\setunit{\apashortdash}}%
-      \printfield{extrayear}}}
+% \newbibmacro*{cite:noyear}{%
+%   \ifnameundef{shortauthor}
+%     {}
+%     {\ifciteseen
+%       {}
+%       {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
+%     \printtext[bibhyperref]{\bibstring{nodate}%
+%       \iffieldundef{extrayear}
+%         {\setunit{\relax}}
+%         {\setunit{\apashortdash}}%
+%       \printfield{extrayear}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -341,14 +346,24 @@
 % 
 \newbibmacro*{citeyear}{%
   \iffieldundef{labelyear}
-    {\usebibmacro{cite:noyear}%
-     \usebibmacro{cite:init}}
+    {\usebibmacro{cite:init}}
     {\iffieldequals{namehash}{\cbx@lasthash}
        {\setunit{\compcitedelim}%
         \usebibmacro{cite:plabelyear+extrayear}}
        {\usebibmacro{cite:plabelyear+extrayear}%
         \savefield{namehash}{\cbx@lasthash}}}%
   \setunit{\multicitedelim}}
+
+% \newbibmacro*{citeyear}{%
+%   \iffieldundef{labelyear}
+%     {\usebibmacro{cite:noyear}%
+%      \usebibmacro{cite:init}}
+%     {\iffieldequals{namehash}{\cbx@lasthash}
+%        {\setunit{\compcitedelim}%
+%         \usebibmacro{cite:plabelyear+extrayear}}
+%        {\usebibmacro{cite:plabelyear+extrayear}%
+%         \savefield{namehash}{\cbx@lasthash}}}%
+%   \setunit{\multicitedelim}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
