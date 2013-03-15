@@ -12,7 +12,7 @@
 %% 
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.bbx}[2013/03/07\space v5.8\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2013/03/20\space v5.9\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -410,55 +410,10 @@
       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}%
     {\printtext[yearorunkyear]{\printdateextralabel}}}
 
-% \newbibmacro*{labelyear+extrayear}{%
-%   \iffieldundef{labelyear}
-%     {\iffieldundef{origyear}
-%       {}
-%       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}%
-%     {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
-%       {\printtext[parens]{\biblcstring{inpress}%
-%        \iffieldundef{extrayear}
-%         {\setunit{\relax}}
-%         {\setunit{\apashortdash}}%
-%        \printfield[apaextrayear]{extrayear}}}
-%      {\printtext[yearorunkyear]{\printdateextra}}}}
-
-% \newbibmacro*{labelyear+extrayear}{%
-%   \iffieldundef{labelyear}
-%     {\iffieldundef{origyear}
-%       {\printtext[parens]{\usebibmacro{noyear}}}
-%       {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}%
-%     {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
-%       {\printtext[parens]{\biblcstring{inpress}%
-%        \iffieldundef{extrayear}
-%         {\setunit{\relax}}
-%         {\setunit{\apashortdash}}%
-%        \printfield{extrayear}}}
-%      {\printtext[yearorunkyear]{\printdateextra}}}}
-
 \DeclareFieldFormat{yearorunkyear}{%
   \ifthenelse{\iffieldequalstr{doubtfuldate}{true}}
     {\mkbibbrackets{ca\adddot\addspace#1}}
     {\mkbibparens{#1}}}
-
-% \DeclareFieldFormat{yearorunkyear}{%
-%   \ifthenelse{\iffieldequalstr{doubtfuldate}{true}}
-%     {\mkbibbrackets{ca\adddot\addspace#1}}
-%     {\ifthenelse{\iffieldundef{year}\AND\iffieldundef{month}\AND\iffieldundef{day}}
-%       {\mkbibparens{\usebibmacro{noyear}}}
-%       {\mkbibparens{#1}}}}
-
-% \newbibmacro*{noyear}{%
-%   \ifnameundef{shortauthor}
-%     {}
-%     {\ifciteseen
-%       {}
-%       {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-%   \bibstring{nodate}%
-%   \iffieldundef{extrayear}
-%     {\setunit{\relax}}
-%     {\setunit{\apashortdash}}%
-%     \printfield{extrayear}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -691,17 +646,6 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.01 Example 10) Even non-numeral pages need prefix
-
-\DeclareFieldFormat{pages}{%
-  \NumCheckSetup{%
-    \DeclareNumChars{.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}
-    \mkpageprefix[bookpagination]{#1}}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.27) Name format. Don't capitalise prefixes
@@ -1352,7 +1296,6 @@
   \usebibmacro{doi+eprint+url}%
   \setunit*{\addspace}\newblock
   \usebibmacro{origyear}%
-  \newunit\newblock
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock

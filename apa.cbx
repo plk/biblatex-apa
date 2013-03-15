@@ -25,7 +25,7 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.cbx}[2013/03/07\space v5.8\space APA biblatex citation style]
+\ProvidesFile{apa.cbx}[2013/03/20\space v5.9\space APA biblatex citation style]
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -258,19 +258,6 @@
        \printfield[noformat]{origyear}\setunit*{\addslash}%
        \printfield{labelyear}\printfield{extrayear}}}}
 
-% \newbibmacro*{cite:plabelyear+extrayear}{%
-%   \iffieldundef{labelyear}
-%     {\usebibmacro{cite:noyear}}
-%     {\ifthenelse{\iffieldequalstr{labelyear}{inpress}\OR\iffieldequalstr{labelyear}{in press}}
-%       {\printtext[bibhyperref]{\bibxstring{inpress}%
-%        \iffieldundef{extrayear}
-%          {}
-%          {\apashortdash}%
-%        \printfield{extrayear}}}
-%       {\printtext[bibhyperref]{%
-%        \printfield[noformat]{origyear}\setunit*{\addslash}%
-%        \printfield{labelyear}\printfield{extrayear}}}}}%
-
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
     {\printfield{shorthand}}
@@ -296,25 +283,6 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.22, 6.28) Fall back to "nodate" bibstring for citations without dates
-%                  Strings defined in apa.bbx
-
-% \newbibmacro*{cite:noyear}{%
-%   \ifnameundef{shortauthor}
-%     {}
-%     {\ifciteseen
-%       {}
-%       {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
-%     \printtext[bibhyperref]{\bibstring{nodate}%
-%       \iffieldundef{extrayear}
-%         {\setunit{\relax}}
-%         {\setunit{\apashortdash}}%
-%       \printfield{extrayear}}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.21) No parens round year for cites when the cite is in
@@ -353,17 +321,6 @@
        {\usebibmacro{cite:plabelyear+extrayear}%
         \savefield{namehash}{\cbx@lasthash}}}%
   \setunit{\multicitedelim}}
-
-% \newbibmacro*{citeyear}{%
-%   \iffieldundef{labelyear}
-%     {\usebibmacro{cite:noyear}%
-%      \usebibmacro{cite:init}}
-%     {\iffieldequals{namehash}{\cbx@lasthash}
-%        {\setunit{\compcitedelim}%
-%         \usebibmacro{cite:plabelyear+extrayear}}
-%        {\usebibmacro{cite:plabelyear+extrayear}%
-%         \savefield{namehash}{\cbx@lasthash}}}%
-%   \setunit{\multicitedelim}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
