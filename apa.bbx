@@ -197,12 +197,15 @@
   \literal{nodate}
 }
 
+\DeclareAutoCiteCommand{apainline}{\textcite}{\textcites}
+
 % Due to APA strange requirements like truncation after first cite and
 % ellipsis from 7th to n-1 in bib, there might be some really strange
 % edge cases which can't be handled as this needs treating in the style
 % after biber has finished. Very unlikely though.
-\ExecuteBibliographyOptions{labelyear=true,%
+\ExecuteBibliographyOptions{labeldate=true,%
                             sorting=apa,%
+                            autocite=apainline,%
                             backref=true,%
                             pagetracker=true,%
                             useprefix=true,%
