@@ -658,7 +658,7 @@
 % #4 = name prefix, a.k.a. 'von part'
 % #5 = name affix, a.k.a. 'junior part'
 
-\renewbibmacro*{name:apa:last-first}[5]{%
+\newbibmacro*{name:apa:last-first}[5]{%
   \ifuseprefix
     {\usebibmacro{name:delim}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
@@ -683,7 +683,7 @@
      \ifblank{#4}{}{\addlowpenspace\mkbibnameprefix{#4}\isdot}%
      \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
-\renewbibmacro*{name:apa:first-last}[5]{%
+\newbibmacro*{name:apa:first-last}[5]{%
   \ifuseprefix
     {\usebibmacro{name:delim}{#2}%
      \usebibmacro{name:hook}{#2}%
@@ -1197,7 +1197,7 @@
 \DeclareFieldFormat{related:reprintfrom}{\mkbibparens{#1}}
 \DeclareFieldFormat{related:reviewof}{\mkbibbrackets{#1}}
 
-\newbibmacro*{related:reprintfrom}[1]{%
+\renewbibmacro*{related:reprintfrom}[1]{%
   \entrydata*{#1}{%
     \printtext{\mkbibemph{\printfield[apacase]{title}}}%
     \setunit{\bibpagespunct}%
