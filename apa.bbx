@@ -977,7 +977,7 @@
 % (APA 7.06) Reviews
 
 % The title of the review depends on the entrytype of the thing reviewed
-\DeclareFieldFormat[review]{title}{
+\DeclareFieldFormat[review]{title}{%
   \entrydata*{\thefield{related}}{%
     \iffieldequalstr{entrytype}{article}
       {\mkbibemph{\printtext[apacase]{\thefield{savedtitle}}}}
