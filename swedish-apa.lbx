@@ -1,0 +1,131 @@
+% vim: set filetype=tex :
+\ProvidesFile{swedish-apa.lbx}[2013/05/19\space v5.9\space APA biblatex localisation]
+\InheritBibliographyExtras{swedish}
+
+% (APA 6.22) The example abbreviations
+
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{nodate}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{producer}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{director}
+\NewBibliographyString{writer}
+\NewBibliographyString{with}
+
+\DeclareBibliographyStrings{%
+  inherit          = {swedish},
+  revisededition   = {{reviderad\space utg{\aa}va}{rev\adddotspace utg\adddot}},
+  page             = {{sida}{{}s\adddot}},
+  pages            = {{sidor}{{}s\adddot}},
+  on               = {{p{\aa}}{p{\aa}}},
+  retrieved        = {{h\"amtad}{h\"amtad}},
+  available        = {{tillg\"anglig}{tillg\"anglig}},
+  from             = {{fr{\aa}n}{fr{\aa}n}},
+  archivedat       = {{arkiverat\space vid}{arkiverat\space vid}},
+  nodate           = {{utan\space {\aa}r}{u\adddot~{\aa}}},
+  reviewof         = {{granskning\space av}{granskning\space av}},
+  producer         = {{producent}{producent}},
+  execproducer     = {{exekutiv\space producent}{exekutiv\space producent}},
+  director         = {{regiss\"or}{regiss\"or}},
+  editor           = {{redakt\"or}{red\adddot}},
+  editors          = {{redakt\"or}{red\adddot}},
+  writer           = {{manus}{manus}},
+  with             = {{med}{med}},
+  paragraph        = {{\P}{\P}},
+  paragraphs       = {{\P\P}{\P\P}},
+  january          = {{januari}{januari}},
+  february         = {{februari}{februari}},
+  march            = {{mars}{mars}},
+  april            = {{april}{april}},
+  may              = {{maj}{maj}},
+  june             = {{juni}{juni}},
+  july             = {{juli}{juli}},
+  august           = {{augusti}{augusti}},
+  september        = {{september}{september}},
+  october          = {{oktober}{oktober}},
+  november         = {{november}{november}},
+  december         = {{december}{december}},
+  mathesis         = {{examensuppsats}{examensuppsats}},
+  phdthesis        = {{doktorsavhandling}{doktorsavhandling}},
+  origyear         = {{originalarbete\space publicerat}{originalarbete\space publicerat}},
+  typechair        = {{ordf\"orande}{ordf\"orande}},
+  typechairs       = {{ordf\"oranden}{ordf\"oranden}},
+  typevolume       = {{redakt\"or}{red\adddot}},
+  typevolumes      = {{redakt\"orer}{red\adddot}},
+  typeseries       = {{redakt\"or}{red\adddot}},
+  typeseriess      = {{redakt\"orer}{red\adddot}},
+  typevolseries    = {{redakt\"or}{red\adddot}},
+  typevolseriess   = {{redakt\"orer}{red\adddot}},
+}
+
+
+\DefineBibliographyExtras{swedish}{%
+  \protected\def\mkbibdateapalong#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\thefield{#1}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\thefield{#1}\printfield{extrayear}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3{%
+    \iffieldundef{#3}%
+      {}%
+      {\stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \thefield{#1}}}}
+
+\endinput
