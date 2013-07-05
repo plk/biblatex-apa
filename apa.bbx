@@ -695,7 +695,7 @@
        \mkbibnameprefix{#4\isdot}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamelast{#1\isdot}%
-     \ifblank{#5}{}{\mkbibnameaffix{#5}\isdot}}
+     \ifblank{#5}{}{\addlowpenspace\mkbibnameaffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
      \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#3}\isdot%
