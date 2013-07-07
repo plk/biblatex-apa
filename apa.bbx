@@ -12,7 +12,7 @@
 %% 
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.bbx}[2013/03/20\space v5.9\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2013/07/09\space v6.0\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -675,12 +675,10 @@
      \usebibmacro{name:hook}{#1}%
      \mkbibnamelast{#1}\isdot
      \ifblank{#2#4}{}{\addcomma}%
-     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#2}\isdot}%
      \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
-     \ifblank{#4}{}{\addlowpenspace\mkbibnameprefix{#4}\isdot}%
      \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
 \newbibmacro*{name:apa:first-last}[5]{%
@@ -698,14 +696,11 @@
      \ifblank{#5}{}{\addlowpenspace\mkbibnameaffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
-     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#3}\isdot%
+     \ifblank{#2}{}{\mkbibnamefirst{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
      \mkbibnamelast{#1}\isdot
-     \ifblank{#2#4}{}{\addcomma}%
-     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#2}\isdot}%
-     \ifblank{#4}{}{\addlowpenspace\mkbibnameprefix{#4}\isdot}%
      \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
 %
