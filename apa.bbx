@@ -362,8 +362,8 @@
      \ifnameundef{with}
        {}
        {\setunit{}\addspace\mkbibparens{\printtext{\bibstring{with}\addspace}%
-       \printnames[apaauthor][-\value{listtotal}]{with}}
-       \setunit*{\addspace}}}%
+        \printnames[apaauthor][-\value{listtotal}]{with}}
+        \setunit*{\addspace}}}%
   \newunit\newblock%
   \usebibmacro{labelyear+extrayear}}
 
@@ -405,6 +405,7 @@
     {\addcomma\space\printfield{issue}}}
 
 \newbibmacro*{labelyear+extrayear}{%
+  \setunit{\addspace}%
   \iffieldundef{labelyear}
     {\iffieldundef{origyear}
       {}
@@ -663,7 +664,7 @@
     {\usebibmacro{name:delim}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
      \ifblank{#4}{}{%
-       \mkbibnameprefix{#4\isdot}%
+       \mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamelast{#1\isdot}%
      \ifblank{#2}{}{\addcomma\addlowpenspace\mkbibnamefirst{#3}\isdot%
@@ -679,6 +680,9 @@
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
+     \ifblank{#4}{}{%
+       \addhighpenspace\mkbibnameprefix{#4}%
+       \ifpunctmark{'}{}{\addhighpenspace}}%
      \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
 \newbibmacro*{name:apa:first-last}[5]{%

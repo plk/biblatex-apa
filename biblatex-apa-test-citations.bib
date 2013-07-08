@@ -1,6 +1,6 @@
 % (APA 6.11)
 @BOOK{6.11,
-  AUTHOR         = {Kessler, Jr., A},
+  AUTHOR         = {Kessler, Jr, A.},
   TITLE          = {Title},
   YEAR           = {2003},
 }
@@ -432,4 +432,41 @@
   LOCATION    = {New York, NY},
   PUBLISHER   = {Wiley},
   PAGES       = {1--34}
+}
+
+% Prefix test (useprefix=true)
+@BOOK{pretest,
+  AUTHOR      = {Luis von Mises},
+  TITLE       = {A Title},
+  YEAR        = {2000}
+}
+
+% Prefix test (useprefix=false)
+@MISC{nopretest,
+  AUTHOR      = {Luis von Mises},
+  TITLE       = {Another Title},
+  YEAR        = {2001}
+}
+
+% Prefix + suffix test (useprefix=true) first-last
+@INCOLLECTION{presufftest,
+  EDITOR      = {von Greaves, Jr, Percy L.},
+  TITLE       = {A test of prefix 2},
+  DATE        = {1969},
+}
+
+% Prefix + suffix test (useprefix=false)
+@MISC{nopresufftest,
+  AUTHOR      = {von Greaves, Jr, Percy L.},
+  TITLE       = {A test of noprefix 2},
+  TITLE       = {Another Title},
+  YEAR        = {2001}
+}
+
+% Prefix + suffix test (useprefix=true)
+@BOOK{presufftest2,
+  AUTHOR      = {von Greaves, Jr, Percy L.},
+  TITLE       = {A test of noprefix 2},
+  TITLE       = {Another Title},
+  YEAR        = {2001}
 }

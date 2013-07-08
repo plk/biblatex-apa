@@ -15,7 +15,7 @@
 \MakeAutoQuote{«}{»}
 
 % Biblatex
-\usepackage[style=apa,useprefix=false]{biblatex}
+\usepackage[style=apa]{biblatex}
 
 % Custom settings for misc entries in order to format the table for 6.13*
 % This table implies that the examples on each line are in a separate
@@ -24,7 +24,7 @@
 % all of the examples MISC entrytypes and changing uniquelist
 % per-type. There is no point in just typsetting static data as this
 % wouldn't be a test of anything.
-\ExecuteBibliographyOptions[misc]{uniquelist=false}
+\ExecuteBibliographyOptions[misc]{uniquelist=false,useprefix=false}
 \DeclareNameFormat[misc]{labelname}{%
   \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
     {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
@@ -366,9 +366,18 @@ these appear in references\\
 \apaex{\textcite{6.27a}}\\
 \apaex{\textcite{6.27b}}
 
-\noindent Testing suffixes for first-last names\\
+\noindent Testing suffices\\
 \apaex{\textcite{stest1}}\\
 \apaex{\textcite{stest2}}
+
+\noindent Testing prefices\\
+\apaex{\textcite{pretest}}\\
+\apaex{\textcite{nopretest}}
+
+\noindent Testing prefices plus suffices\\
+\apaex{\textcite{presufftest}}\\
+\apaex{\textcite{presufftest2}}\\
+\apaex{\textcite{nopresufftest}}
 
 \end{refsection}
 \begin{refsection}[biblatex-apa-test-references]

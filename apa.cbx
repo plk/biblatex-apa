@@ -79,6 +79,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.11) Suffices are not shown in citations
 % (APA 6.12) 3-5 authors have "et al." after first cite
 
 % #1 = last name
@@ -92,11 +93,11 @@
 
 \newbibmacro*{labelname:doname}[8]{%
   \ifcase\value{uniquename}%
-     \usebibmacro{name:last}{#1}{#3}{#5}{#7}%
+     \usebibmacro{name:last}{#1}{#3}{#5}{}%
    \or
-     \usebibmacro{name:first-last}{#1}{#4}{#5}{#8}%
+     \usebibmacro{name:first-last}{#1}{#4}{#5}{}%
    \or
-     \usebibmacro{name:first-last}{#1}{#3}{#5}{#7}%
+     \usebibmacro{name:first-last}{#1}{#3}{#5}{}%
    \fi
    \usebibmacro{name:andothers}}
 
