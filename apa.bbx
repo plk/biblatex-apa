@@ -405,7 +405,6 @@
     {\addcomma\space\printfield{issue}}}
 
 \newbibmacro*{labelyear+extrayear}{%
-  \setunit{\addspace}%
   \iffieldundef{labelyear}
     {\iffieldundef{origyear}
       {}
@@ -676,7 +675,7 @@
      \usebibmacro{name:hook}{#1}%
      \mkbibnamelast{#1}\isdot
      \ifblank{#2#4}{}{\addcomma}%
-     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#3}\isdot%
+     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#3}%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
