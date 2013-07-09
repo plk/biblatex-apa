@@ -681,7 +681,7 @@
                       {}}%
      \ifblank{#4}{}{%
        \addhighpenspace\mkbibnameprefix{#4}%
-       \ifpunctmark{'}{}{\addhighpenspace}}%
+       \ifpunctmark{'}{}{\addhighpenspace}\nopunct}%
      \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
 \newbibmacro*{name:apa:first-last}[5]{%
