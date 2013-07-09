@@ -1,6 +1,6 @@
 % (APA 6.11)
 @BOOK{6.11,
-  AUTHOR         = {Kessler, Jr, A.},
+  AUTHOR         = {Kessler, Jr., A.},
   TITLE          = {Title},
   YEAR           = {2003},
 }
@@ -416,7 +416,7 @@
 % Suffix test for first-last (editor)
 @INCOLLECTION{stest1,
   AUTHOR      = {Gring, III, Alan J.},
-  EDITOR      = {Greaves, Jr, Percy L.},
+  EDITOR      = {Greaves, Jr., Percy L.},
   TITLE       = {A test of suffix 1},
   DATE        = {1968},
   LOCATION    = {New York, NY},
@@ -426,7 +426,7 @@
 
 % Suffix test for first-last (editor)
 @INCOLLECTION{stest2,
-  EDITOR      = {Greaves, Jr, Percy L.},
+  EDITOR      = {Greaves, Jr., Percy L.},
   TITLE       = {A test of suffix 2},
   DATE        = {1968},
   LOCATION    = {New York, NY},
@@ -434,6 +434,8 @@
   PAGES       = {1--34}
 }
 
+% Don't forget that useprefix=false doesn't ignore the prefix completely - it is still used in
+% hash and uniqueness generation and so there are two different "Greaves" here - one von and one not
 % Prefix test (useprefix=true)
 @BOOK{pretest,
   AUTHOR      = {Luis von Mises},
@@ -451,7 +453,7 @@
 
 % Prefix + suffix test (useprefix=true) first-last
 @INCOLLECTION{presufftest,
-  EDITOR      = {von Greaves, Jr, Percy L.},
+  EDITOR      = {von Greaves, Jr., Percy L.},
   TITLE       = {A test of prefix 2},
   DATE        = {1969},
 }
@@ -459,7 +461,7 @@
 % Prefix + suffix test (useprefix=false)
 @MISC{nopresufftest,
   OPTIONS     = {useprefix=false},
-  AUTHOR      = {von Greaves, Jr, Percy L.},
+  AUTHOR      = {von Greaves, Jr., Percy L.},
   TITLE       = {A test of noprefix 2},
   TITLE       = {Another Title},
   YEAR        = {2001}
@@ -467,7 +469,7 @@
 
 % Prefix + suffix test (useprefix=true)
 @BOOK{presufftest2,
-  AUTHOR      = {von Greaves, Jr, Percy L.},
+  AUTHOR      = {von Greaves, Jr., Percy L.},
   TITLE       = {A test of noprefix 2},
   TITLE       = {Another Title},
   YEAR        = {2001}
