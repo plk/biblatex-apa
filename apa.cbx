@@ -92,16 +92,12 @@
 % #8 = name affix (initials)
 
 \newbibmacro*{labelname:doname}[8]{%
-  \def\cbx@tempa{#5}%
-  \ifuseprefix
-    {}
-    {\def\cbx@tempa{}}%
   \ifcase\value{uniquename}%
-     \usebibmacro{name:last}{#1}{#3}{\cbx@tempa}{}%
+     \usebibmacro{name:last}{#1}{#3}{#5}{}%
    \or
-     \usebibmacro{name:first-last}{#1}{#4}{\cbx@tempa}{}%
+     \usebibmacro{name:first-last}{#1}{#4}{#5}{}%
    \or
-     \usebibmacro{name:first-last}{#1}{#3}{\cbx@tempa}{}%
+     \usebibmacro{name:first-last}{#1}{#3}{#5}{}%
    \fi
    \usebibmacro{name:andothers}}
 
