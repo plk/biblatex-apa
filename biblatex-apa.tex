@@ -25,7 +25,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={6.0},
+  revision={6.1},
   date={\today}}
 
 \hypersetup{%
@@ -364,15 +364,47 @@ general notes:
   value key (|PUBSTATE| takes a pre-defined set of localisation keys as
   values, see |biblatex| manual).
 \item APA style sometimes refers to the «series» of a multi-volume work.
-  This corresponds to the |MAINTITLE| field in the \path{.bib} and
+  This corresponds to the |MAINTITLE| field in the \file{.bib} and
   \emph{not} the |SERIES| field.
 \item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
   they are given as roman numerals, as required by \apa{6.22}.
 \end{itemize}
 
+\subsubsection{Retrieval dates for online items}
+
+APA 6th edition section 6.32 says «Do not include retrieval dates unless
+the source material may change over time (e.g., Wikis)». This is open to
+interpretation of what constitutes a Wiki and what counts as «changing over
+time». The style does not implement anything for this requirement by
+default but you can automate your own interpretation by putting this in
+your preamble:
+
+\begin{lstlisting}[style=latex]{}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+       \step[fieldsource=url,
+             notmatch=\regexp{wiki},
+             final=1]
+       \step[fieldset=urldate, null]
+    }
+  }
+}
+\end{lstlisting}
+
+\noindent This will dynamically remove the |URLDATE| field from any entry
+where the |URL| field doesn't match the regular expression «wiki». Modify this
+regular expression according to taste. This modification is dynamically
+applied to the data stream by |biber| and does not change your \file{.bib}.
+
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{6.1}{2013-07-19}
+\item Corrected APA 6.12 error and switched to uniquelist=minyear
+\item Documented way of automating some APA 6.32 requirements
+\end{release}
 
 \begin{release}{6.0}{2013-07-10}
 \item Added Swedish localisation
