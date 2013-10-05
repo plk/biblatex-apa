@@ -1,0 +1,135 @@
+\ProvidesFile{english-apa.lbx}[2013/07/19\space v6.1\space APA biblatex localisation]
+\InheritBibliographyExtras{american}
+
+% (APA 6.22) The example abbreviations
+
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{producer}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{director}
+\NewBibliographyString{writer}
+\NewBibliographyString{with}
+
+\DeclareBibliographyStrings{%
+  inherit          = {american},
+  revisededition   = {{Revised\space Edition}{rev\adddotspace ed\adddot}},
+  page             = {{Page}{{}p\adddot}},
+  pages            = {{Pages}{{}pp\adddot}},
+  on               = {{on}{on}},
+  retrieved        = {{retrieved}{retrieved}},
+  available        = {{available}{available}},
+  from             = {{from}{from}},
+  archivedat       = {{archived\space at}{archived\space at}},
+  with             = {{with}{with}},
+  reprintas        = {{reprinted as}{reprinted as}},
+  reprintfrom      = {{reprinted from}{reprinted from}},
+  reviewof         = {{review\space of}{review\space of}},
+  paragraph        = {{\P}{\P}},
+  paragraphs       = {{\P\P}{\P\P}},
+  producer         = {{producer}{producer}},
+  execproducer     = {{executive producer}{executive producer}},
+  director         = {{director}{director}},
+  writer           = {{writer}{writer}},
+  january          = {{January}{January}},
+  february         = {{February}{February}},
+  march            = {{March}{March}},
+  april            = {{April}{April}},
+  may              = {{May}{May}},
+  june             = {{June}{June}},
+  july             = {{July}{July}},
+  august           = {{August}{August}},
+  september        = {{September}{September}},
+  october          = {{October}{October}},
+  november         = {{November}{November}},
+  december         = {{December}{December}},
+  mathesis         = {{Master's\addabbrvspace thesis}{Master's\addabbrvspace thesis}},
+  phdthesis        = {{Doctoral\addabbrvspace dissertation}{Doctoral\addabbrvspace dissertation}},
+  origyear         = {{original\space work\space published}{original\space work\space published}},
+  typechair        = {{Chair}{Chair}},
+  typechairs       = {{Chairs}{Chairs}},
+  typevolume       = {{Volume\space Editor}{Vol\adddot\space Ed\adddot}},
+  typevolumes      = {{Volume\space Editors}{Vol\adddot\space Eds\adddot}},
+  typeseries       = {{Series\space Editor}{Series\space Ed\adddot}},
+  typeseriess      = {{Series\space Editors}{Series\space Eds\adddot}},
+  typevolseries    = {{Series\space and\space Volume\space Editor}{Series\space\& Vol\adddot\space Ed\adddot}},
+  typevolseriess   = {{Series\space and\space Volume\space Editors}{Series\space\& Vol\adddot\space Eds\adddot}},
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.10 Example 68) Drop end* when they are the same as *
+
+% You must use \printdate to get here otherwise it will be ignored
+
+\DefineBibliographyExtras{english}{%
+  \protected\def\mkbibdateapalong#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#1}}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extrayear}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#1}}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3{%
+    \iffieldundef{#2}%
+      {}%
+      {\mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\addspace}%
+       \stripzeros{\thefield{#3}}%
+    \iffieldundef{#1}%
+      {}%
+      {\ifthenelse{\iffieldundef{#3}}%
+        {\ifthenelse{\iffieldundef{#2}}%
+          {}%
+          {\addspace}}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput

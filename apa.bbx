@@ -226,6 +226,21 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+% Enforce ignoring of PUBSTATE if there is a YEAR or DATE field
+\DeclareStyleSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldsource=year, final]
+      \step[fieldset=pubstate, null]
+    }
+    \map{
+      \step[fieldsource=date, final]
+      \step[fieldset=pubstate, null]
+   }
+  }
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % It is not APA standard to have backrefs in the bib
 % Some users might like it though.
