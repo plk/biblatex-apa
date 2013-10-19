@@ -363,7 +363,7 @@
     {\addcomma\addspace\ldots\addspace}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
-      {\ifthenelse{\iffieldequalstr{doubtfulauthor}{true}}
+      {\iffieldequalstr{doubtfulauthor}{true}
         {\mkbibbrackets{\usebibmacro{name:apa:last-first}{#1}{#3}{#4}{#5}{#7}?}}
         {\usebibmacro{name:apa:last-first}{#1}{#3}{#4}{#5}{#7}}}}%
   \ifmorenames{\andothersdelim\bibstring{andothers}}{}}
