@@ -503,13 +503,13 @@
       {\printtext[title]{%
         \printfield[apacase]{title}%
         \setunit{\subtitlepunct}%
-        \printfield[apacase]{subtitle}}}%
+        \printfield[apacase]{subtitle}}}
       {\printfield{origtitle}%
        \setunit{\addspace}%
        \printtext[brackets]{%
         \printfield[apacase]{title}%
         \setunit{\subtitlepunct}%
-        \printfield[apacase]{subtitle}}}
+        \printfield[apacase]{subtitle}}}%
      \setunit{\addspace}%
      \printfield{titleaddon}%
      \iffieldequalstr{entrytype}{book}%
@@ -783,10 +783,10 @@
        \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}
       {\ifnameundef{translator}%
         {}%
-        {\setunit{\relax}%
+        {\setunit{\addspace}%
          \printtext[parens]{\printnames[apanames][-\value{listtotal}]{translator}%
-          \setunit{\addcomma\addspace}%
-          \printtext{\bibcpstring{translator}}}%
+         \setunit{\addcomma\addspace}%
+         \printtext{\bibcpstring{translator}}}%
          \clearname{translator}%
          \setunit{\adddot\addspace}}%
        \usebibmacro{in}%
