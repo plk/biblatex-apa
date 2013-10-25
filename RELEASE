@@ -5,4 +5,4 @@ Update version string in:
 * apa.bbx
 * apa.dbx
 * *.lbx
-
+* Generate 2 PDFs before packaging

@@ -25,7 +25,7 @@
 %% biblatex-apa-test-citations.bib (Style examples - citations)
 %% biblatex-apa-test-references.bib (Style examples - references)
 
-\ProvidesFile{apa.cbx}[2013/10/19\space v6.2\space APA biblatex citation style]
+\ProvidesFile{apa.cbx}[2013/10/27\space v6.3\space APA biblatex citation style]
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -64,7 +64,8 @@
   {\usebibmacro{citeindex}%
    \usebibmacro{cite}}
   {}
-  {\usebibmacro{postnote}}
+  {\usebibmacro{postnote}%
+   \usebibmacro{cite:post}}
 
 \DeclareCiteCommand*{\parencite}[\mkbibparens]
   {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
@@ -73,7 +74,8 @@
   {\usebibmacro{citeindex}%
    \usebibmacro{citeyear}}
   {}
-  {\usebibmacro{postnote}}
+  {\usebibmacro{postnote}%
+   \usebibmacro{cite:post}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -169,6 +171,12 @@
 %            need to be repeated but the full years must be repeated with
 %            their extrayear postfixes
 % (APA 6.18) Cite ORIGYEAR/YEAR if ORIGYEAR present
+\def\citeresetapa{\global\let\cbx@apa@names\@empty}
+\citeresetapa
+\def\cbx@apa@ifnamesaved{%
+  \xifinlist{\thefield{namehash}}{\cbx@apa@names}
+    {\@firstoftwo}
+    {\@secondoftwo}}
 
 \newbibmacro*{cite:author}{%
   \iffieldequals{namehash}{\cbx@lasthash}
@@ -183,7 +191,7 @@
 % Normal cite
      {\ifnameundef{shortauthor}
         {\printnames[labelname][-\value{listtotal}]{labelname}}%
-        {\ifciteseen
+        {\cbx@apa@ifnamesaved
           {\printnames{shortauthor}}
           {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \savefield{namehash}{\cbx@lasthash}}}%
@@ -204,7 +212,7 @@
 % Normal cite
      {\ifnameundef{shortauthor}
         {\printnames[labelname][-\value{listtotal}]{labelname}}%
-        {\ifciteseen
+        {\cbx@apa@ifnamesaved
           {\printnames{shortauthor}}
           {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\nameyeardelim}%
@@ -240,7 +248,7 @@
     % Normal full cite
          {\printnames[labelname][-\value{listtotal}]{labelname}}
     % Cite using short author
-         {\ifciteseen
+         {\cbx@apa@ifnamesaved
            {\printnames{shortauthor}}
            {\printnames[labelname][-\value{listtotal}]{author}}}%
   % Year
@@ -250,7 +258,7 @@
   % Put the shortauthor inside the year brackets if necessary
         \ifnameundef{shortauthor}
          {}
-         {\ifciteseen
+         {\cbx@apa@ifnamesaved
            {}
            {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
   % Actual year printing
@@ -309,9 +317,8 @@
   {\iffieldundef{postnote}
      {}
      {\nameyeardelim
-      \printfield{postnote}}}
-
-
+      \printfield{postnote}}%
+   \usebibmacro{cite:post}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -349,7 +356,8 @@
       \global\let\blx@related@loop\@empty}
     {\thefield{entrytype}}}
   {\multicitedelim}
-  {\usebibmacro{postnote}}
+  {\usebibmacro{postnote}%
+   \usebibmacro{cite:post}}
 
 \DeclareCiteCommand{\fullcitebib}
   {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
@@ -367,7 +375,8 @@
       \global\boolfalse{bbx:in}}
     {\thefield{entrytype}}\finentry}
   {\item}
-  {\endlist}
+  {\endlist
+   \usebibmacro{cite:post}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -384,6 +393,11 @@
 \newbibmacro*{cite:init}{%
   \global\boolfalse{cbx:parens}%
   \global\undef\cbx@lasthash}
+
+\newbibmacro*{cite:post}{%
+  \xifinlist{\thefield{namehash}}{\cbx@apa@names}
+    {}
+    {\listxadd{\cbx@apa@names}{\thefield{namehash}}}}
 
 \newbibmacro*{cite:labelyear}{%
   \printfield{labelyear}}
@@ -411,7 +425,8 @@
   {\usebibmacro{citeindex}%
    \usebibmacro{cite}}
   {}
-  {\usebibmacro{postnote}}
+  {\usebibmacro{postnote}%
+   \usebibmacro{cite:post}}
 
 \DeclareCiteCommand*{\cite}
   {\usebibmacro{cite:init}%
@@ -419,7 +434,8 @@
   {\usebibmacro{citeindex}%
    \usebibmacro{citeyear}}
   {}
-  {\usebibmacro{postnote}}
+  {\usebibmacro{postnote}%
+   \usebibmacro{cite:post}}
 
 \DeclareCiteCommand{\footcite}[\mkbibfootnote]
   {\bibsentence
@@ -428,7 +444,8 @@
   {\usebibmacro{citeindex}%
    \usebibmacro{cite}}
   {}
-  {\usebibmacro{postnote}}
+  {\usebibmacro{postnote}%
+   \usebibmacro{cite:post}}
 
 \DeclareMultiCiteCommand{\textcites}{\textcite}{\compcitedelim}
 
@@ -438,7 +455,8 @@
   {\usebibmacro{citeindex}%
    \usebibmacro{textcite}}
   {}
-  {\usebibmacro{textcite:postnote}}
+  {\usebibmacro{textcite:postnote}%
+   \usebibmacro{cite:post}}
 
 \DeclareCiteCommand{\citeauthor}
   {\usebibmacro{cite:init}%
@@ -446,6 +464,7 @@
   {\usebibmacro{citeindex}%
    \usebibmacro{cite:author}}
   {}
-  {\usebibmacro{postnote}}
+  {\usebibmacro{postnote}%
+   \usebibmacro{cite:post}}
 
 \endinput
