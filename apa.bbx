@@ -2081,14 +2081,12 @@
 
 \newbibmacro*{labeltitle}{%
   \iffieldundef{label}
-    {\iffieldundef{shorttitle}
-       {\printfield{title}%
-        \clearfield{title}%
-        \setunit{\addspace}%
-        \printfield{entrysubtype}%
-        \clearfield{entrysubtype}%
-        \global\booltrue{bbx:titleinauthpos}}
-       {\printfield[title]{shorttitle}}}
+    {\printfield{title}%
+     \clearfield{title}%
+     \setunit{\addspace}%
+     \printfield{entrysubtype}%
+     \clearfield{entrysubtype}%
+     \global\booltrue{bbx:titleinauthpos}}
     {\printfield{label}}}
 
 %
