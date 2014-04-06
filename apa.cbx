@@ -171,6 +171,7 @@
 %            need to be repeated but the full years must be repeated with
 %            their extrayear postfixes
 % (APA 6.18) Cite ORIGYEAR/YEAR if ORIGYEAR present
+% (APA 6.28) ISSUE after year when available
 \def\citeresetapa{\global\let\cbx@apa@names\@empty}
 \citeresetapa
 \def\cbx@apa@ifnamesaved{%
@@ -271,7 +272,10 @@
     {}
     {\printtext[bibhyperref]{%
        \printfield[noformat]{origyear}\setunit*{\addslash}%
-       \printfield{labelyear}\printfield{extrayear}}}}
+       \printfield{labelyear}\printfield{extrayear}}}%
+       \iffieldundef{issue}
+         {}
+         {\addcomma\addspace\printfield{issue}}}
 
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
@@ -287,8 +291,9 @@
 % (APA 6.15) Fall back to title for citations without authors
 
 \DeclareFieldFormat{citetitle}{\mkbibquote{#1}}
+\DeclareFieldFormat[online]{citetitle}{\mkbibquote{#1}}
+\DeclareFieldFormat[inbook]{citetitle}{\mkbibquote{#1}}
 \DeclareFieldFormat[book]{citetitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[inbook]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[report]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[periodical]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[patent]{citetitle}{#1}
