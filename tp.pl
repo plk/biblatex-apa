@@ -4,7 +4,7 @@ use Test::More;
 use Test::Deep;
 use CAM::PDF;
 
-cmp_pdf('biblatex-apa-test.pdf', 'reference.pdf');
+cmp_pdf('doc/biblatex-apa-test.pdf', 'doc/reference.pdf');
 done_testing;
 
 
