@@ -63,7 +63,7 @@
   \protected\def\mkbibdateapalong#1#2#3{%
     \iffieldundef{#1}%
       {}%
-      {\thefield{#1}}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
     \iffieldundef{#3}%
       {}%
       {\iffieldundef{#1}%
@@ -81,7 +81,7 @@
   \protected\def\mkbibdateapalongextra#1#2#3{%
     \iffieldundef{#1}%
       {}%
-      {\thefield{#1}\printfield{extrayear}}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extrayear}}%
     \iffieldundef{#3}%
       {}%
       {\iffieldundef{#1}%
@@ -111,7 +111,7 @@
       {\iffieldundef{#2}%
         {}%
         {\addspace}%
-       \thefield{#1}}}}
+       \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
