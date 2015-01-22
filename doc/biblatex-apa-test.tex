@@ -94,13 +94,15 @@
 \begin{document}
 \section*{|biblatex-apa| style examples}
 This file typesets just about all useful examples from
-\apa{6.11}--\apa{6.21} and \apa{7.01}--\apa{7.11}. Please refer to the
+\apa{6.11}--\apa{6.21} and \apa{7.01}--\apa{7.11}. Also included are some
+clarifications from the APA blog
+(\url{http://blog.apastyle.org/apastyle/}). Please refer to the
 |biblatex-apa-test-references.bib| file for details on the references
 entries. The |.bib| key for each entry in the References section is listed
 for convenience in the left margin. The keys are not arbitrary and consist
 of the APA section they are taken from (7.01--7.11), followed by a colon,
-followed by the example number. This makes it easier to cross-reference
-the typeset examples with the commented |.bib| file. I chose not to put the
+followed by the example number. This makes it easier to cross-reference the
+typeset examples with the commented |.bib| file. I chose not to put the
 examples in the References section in example number order so that the APA
 requirements for References list alphabetisation and order could also be
 demonstrated.
@@ -249,14 +251,9 @@ the author:\\
 
 \noindent\apa{6.14}\\
 Citations of an entry with an author who shares a
-surname with another entry always appears with initials\footnote{This is,
-  as with automatic name list disambiguation, fairly deep magic only
-  possible with biblatex 1.4+ and biber 0.9+}. Note that the APA example
-for this is not really correct for any automated system as the ambiguous
-surname should be disambiguated with initials in both cases---we still
-don't really know in the APA example whether the Light in the 2008 paper is
-the same as the Light in the 2006. The disambiguation performed by biblatex
-makes this clear (or as clear as it can be):\\
+surname with another entry always appears with initials when primary
+author. It is not explicit in the APA 6th edition manual but initials only
+appear with primary authors\footnote{\url{http://blog.apastyle.org/apastyle/2014/01/when-to-use-author-initials-for-text-citations.html}}:\\
 \apaex{\textcite{6.14}}\\
 \apaex{\textcite{7.01:3b}}
 
@@ -408,6 +405,12 @@ these appear in references\\
 % Testing season
 \noindent Testing seasonal periodical citations\\
 \apaex{\textcite{season1}}
+
+% Testing first list name initials only as per
+% http://blog.apastyle.org/apastyle/2014/01/when-to-use-author-initials-for-text-citations.html
+First citation:\\
+\apaex{\parencite{first,second,third,fourth}}\\
+\apaex{\parencite{first,second,third,fourth}}
 
 \end{refsection}
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
