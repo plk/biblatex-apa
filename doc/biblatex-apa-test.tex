@@ -142,7 +142,7 @@ which have two authors are never name-truncated after the first cite:\\
 \noindent First citation of 3--5 author entry:\\
 \apaex{\textcite{6.12b}}
 
-\noindent Subsequent first citations in a paragraph:\\
+\noindent Subsequent citations:\\
 \apaex{\textcite{6.12b}}\\
 Subsequent citations within a paragraph:\\
 \apaex{\citeauthor{6.12b}}
@@ -152,8 +152,7 @@ citations is not automatic as there may be cases where you don't want to do
 this (see APA 6.11).
 
 \noindent Automatic list disambiguation for ambiguous truncations after
-first cite\footnote{This feature is fairly deep magic and only works when using
-  biblatex 1.4+ together with biber 0.9+}. Note that «et al» is plural so
+first cite. Note that «et al» is plural so
 it will only truncate two or more names. If it would truncate just one
 name, we just give the name:\\
 \apaex{\textcite{6.12c}}\\
@@ -390,9 +389,8 @@ these appear in references\\
 \apaex{\textcite{pretest}}\\
 \apaex{\textcite{nopretest}}
 
-% presufftest2 and nopresufftest have same year but don't have extrayear
-% because useprefix=false for MISC and this is taken account of in
-% extrayear generation
+% presufftest2 and nopresufftest are the same name and so even though
+% useprefix=false nopresufftest, hashes are the same so there is an extrayear
 \noindent Testing prefices plus suffices\\
 \apaex{\textcite{presufftest}}\\
 \apaex{\textcite{presufftest2}}\\
@@ -413,6 +411,16 @@ First citation:\\
 Second citation:\\
 \apaex{\parencite{first,second,third,fourth}}
 
+% Testing name elision in cites
+% That is, \parencite{kingetal2005a,weissetal2007a,weissetal2009a}
+% Should give:
+% (King, Weiss, & Farmer, 2005; Weiss, King, & Hopkins, 2007; Weiss et al., 2009)
+% and not
+% (King, Weiss, & Farmer, 2005; Weiss, King, & Hopkins, 2007, 2009)
+% which happens if elision is based on namehash because the mincitenames
+% truncation of the 2007 and 2009 names is the same
+\noindent{Testing name elision in cites}\\
+\apaex{\parencite{kingetal2005a,weissetal2007a,weissetal2009a}}
 \end{refsection}
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 \nocite{*}
