@@ -360,13 +360,24 @@
 \DeclareNameAlias{default}{apaauthor}
 
 \DeclareNameFormat{apaauthor}{%
+  \setkeys{blx@opt@namepart}{#1}%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\addspace\ldots\addspace}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
       {\iffieldequalstr{doubtfulauthor}{true}
-        {\mkbibbrackets{\usebibmacro{name:apa:family-given}{#1}{#3}{#4}{#5}{#7}?}}
-        {\usebibmacro{name:apa:family-given}{#1}{#3}{#4}{#5}{#7}}}}%
+        {\mkbibbrackets{\usebibmacro{name:apa:family-given}%
+                         {\blx@namepart@family}%
+                         {\blx@namepart@given}%
+                         {\blx@namepart@giveni}%
+                         {\blx@namepart@prefix}%
+                         {\blx@namepart@suffix}?}}
+        {\usebibmacro{name:apa:family-given}%
+          {\blx@namepart@family}%
+          {\blx@namepart@given}%
+          {\blx@namepart@giveni}%
+          {\blx@namepart@prefix}%
+          {\blx@namepart@suffix}}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
       {\ifmorenames{\andothersdelim\bibstring{andothers}}{}}{}}
 
@@ -631,11 +642,17 @@
 % (APA 7.02 Example 27) ... unless there is no author
 
 \DeclareNameFormat{apanames}{%
+  \setkeys{blx@opt@namepart}{#1}%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\addspace\ldots}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
-      {\usebibmacro{name:apa:given-family}{#1}{#3}{#4}{#5}{#7}}}%
+      {\usebibmacro{name:apa:given-family}%
+        {\blx@namepart@family}%
+        {\blx@namepart@given}%
+        {\blx@namepart@giveni}%
+        {\blx@namepart@prefix}%
+        {\blx@namepart@suffix}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
       {\ifmorenames{\andothersdelim\bibstring{andothers}}{}}{}}
 
@@ -680,49 +697,49 @@
   \ifuseprefix
     {\usebibmacro{name:delim}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
-     \ifblank{#4}{}{%
+     \ifempty{#4}{}{%
        \mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamelast{#1\isdot}%
-     \ifblank{#2}{}{\addcomma\addlowpenspace\mkbibnamefirst{#3}\isdot%
+     \ifempty{#2}{}{\addcomma\addlowpenspace\mkbibnamefirst{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
-     \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}
+     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
      \mkbibnamelast{#1}\isdot
-     \ifblank{#2#4}{}{\addcomma}%
-     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#3}%
+     \ifempty{#2#4}{}{\addcomma}%
+     \ifempty{#2}{}{\addlowpenspace\mkbibnamefirst{#3}%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
-     \ifblank{#4}{}{%
+     \ifempty{#4}{}{%
        \addhighpenspace\mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
-     \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
+     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
 \newbibmacro*{name:apa:given-family}[5]{%
   \ifuseprefix
     {\usebibmacro{name:delim}{#2}%
      \usebibmacro{name:hook}{#2}%
-     \ifblank{#2}{}{\mkbibnamefirst{#3}\isdot%
+     \ifempty{#2}{}{\mkbibnamefirst{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
-     \ifblank{#4}{}{%
+     \ifempty{#4}{}{%
        \mkbibnameprefix{#4\isdot}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamelast{#1\isdot}%
-     \ifblank{#5}{}{\addlowpenspace\mkbibnameaffix{#5}\isdot}}
+     \ifempty{#5}{}{\addlowpenspace\mkbibnameaffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
-     \ifblank{#2}{}{\mkbibnamefirst{#3}\isdot%
+     \ifempty{#2}{}{\mkbibnamefirst{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
      \mkbibnamelast{#1}\isdot
-     \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
+     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
