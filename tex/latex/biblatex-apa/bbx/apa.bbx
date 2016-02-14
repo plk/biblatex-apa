@@ -360,24 +360,24 @@
 \DeclareNameAlias{default}{apaauthor}
 
 \DeclareNameFormat{apaauthor}{%
-  \setkeys{blx@opt@namepart}{#1}%
+  \nameparts{#1}%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\addspace\ldots\addspace}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
       {\iffieldequalstr{doubtfulauthor}{true}
         {\mkbibbrackets{\usebibmacro{name:apa:family-given}%
-                         {\blx@namepart@family}%
-                         {\blx@namepart@given}%
-                         {\blx@namepart@giveni}%
-                         {\blx@namepart@prefix}%
-                         {\blx@namepart@suffix}?}}
+                         {\namepartfamily}%
+                         {\namepartgiven}%
+                         {\namepartgiveni}%
+                         {\namepartprefix}%
+                         {\namepartsuffix}?}}
         {\usebibmacro{name:apa:family-given}%
-          {\blx@namepart@family}%
-          {\blx@namepart@given}%
-          {\blx@namepart@giveni}%
-          {\blx@namepart@prefix}%
-          {\blx@namepart@suffix}}}}%
+          {\namepartfamily}%
+          {\namepartgiven}%
+          {\namepartgiveni}%
+          {\namepartprefix}%
+          {\namepartsuffix}}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
       {\ifmorenames{\andothersdelim\bibstring{andothers}}{}}{}}
 
@@ -642,17 +642,17 @@
 % (APA 7.02 Example 27) ... unless there is no author
 
 \DeclareNameFormat{apanames}{%
-  \setkeys{blx@opt@namepart}{#1}%
+  \nameparts{#1}%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\addspace\ldots}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
       {\usebibmacro{name:apa:given-family}%
-        {\blx@namepart@family}%
-        {\blx@namepart@given}%
-        {\blx@namepart@giveni}%
-        {\blx@namepart@prefix}%
-        {\blx@namepart@suffix}}}%
+        {\namepartfamily}%
+        {\namepartgiven}%
+        {\namepartgiveni}%
+        {\namepartprefix}%
+        {\namepartsuffix}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
       {\ifmorenames{\andothersdelim\bibstring{andothers}}{}}{}}
 

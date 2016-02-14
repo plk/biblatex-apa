@@ -104,33 +104,33 @@
 %  all of the names in the list to work on here
 
 \DeclareNameFormat{labelname}{%
-  \setkeys{blx@opt@namepart}{#1}%
+  \nameparts{#1}%
   \ifthenelse{\value{uniquelist}>1}
     {\numdef\cbx@min{\value{uniquelist}}}
     {\numdef\cbx@min{\value{minnames}}}%
   \ifboolexpr{test {\ifnumcomp{\value{listcount}}{=}{1}}
               or test {\ifnumcomp{\value{listtotal}}{=}{2}}}
     {\usebibmacro{labelname:doname}%
-      {\blx@namepart@family}%
-      {\blx@namepart@familyi}%
-      {\blx@namepart@given}%
-      {\blx@namepart@giveni}%
-      {\blx@namepart@prefix}%
-      {\blx@namepart@prefixi}%
-      {\blx@namepart@suffix}%
-      {\blx@namepart@suffixi}}
+      {\namepartfamily}%
+      {\namepartfamilyi}%
+      {\namepartgiven}%
+      {\namepartgiveni}%
+      {\namepartprefix}%
+      {\namepartprefixi}%
+      {\namepartsuffix}%
+      {\namepartsuffixi}}
     {\ifboolexpr{test {\ifnumcomp{\value{listtotal}}{>}{5}}
                  or test {\ifciteseen}}
      {\ifnumcomp{\value{listcount}}{<}{\cbx@min + 1}% normal name
        {\usebibmacro{labelname:doname}%
-         {\blx@namepart@family}%
-         {\blx@namepart@familyi}%
-         {\blx@namepart@given}%
-         {\blx@namepart@giveni}%
-         {\blx@namepart@prefix}%
-         {\blx@namepart@prefixi}%
-         {\blx@namepart@suffix}%
-         {\blx@namepart@suffixi}}
+         {\namepartfamily}%
+         {\namepartfamilyi}%
+         {\namepartgiven}%
+         {\namepartgiveni}%
+         {\namepartprefix}%
+         {\namepartprefixi}%
+         {\namepartsuffix}%
+         {\namepartsuffixi}}
        {}%
       \ifnumcomp{\value{listcount}}{=}{\cbx@min + 1}% first past ul is et al
       % but enforce plurality of et al - only truncate here if there is at
@@ -139,27 +139,27 @@
        {\ifnumcomp{\value{listcount}}{<}{\value{listtotal}}
          {\andothersdelim\bibstring{andothers}}
          {\usebibmacro{labelname:doname}%
-           {\blx@namepart@family}%
-           {\blx@namepart@familyi}%
-           {\blx@namepart@given}%
-           {\blx@namepart@giveni}%
-           {\blx@namepart@prefix}%
-           {\blx@namepart@prefixi}%
-           {\blx@namepart@suffix}%
-           {\blx@namepart@suffixi}}}
+           {\namepartfamily}%
+           {\namepartfamilyi}%
+           {\namepartgiven}%
+           {\namepartgiveni}%
+           {\namepartprefix}%
+           {\namepartprefixi}%
+           {\namepartsuffix}%
+           {\namepartsuffixi}}}
        {}%
       \ifnumcomp{\value{listcount}}{>}{\cbx@min + 1}% nothing thereafter
        {\relax}%
        {}}%
      {\usebibmacro{labelname:doname}%
-       {\blx@namepart@family}%
-       {\blx@namepart@familyi}%
-       {\blx@namepart@given}%
-       {\blx@namepart@giveni}%
-       {\blx@namepart@prefix}%
-       {\blx@namepart@prefixi}%
-       {\blx@namepart@suffix}%
-       {\blx@namepart@suffixi}}}}
+       {\namepartfamily}%
+       {\namepartfamilyi}%
+       {\namepartgiven}%
+       {\namepartgiveni}%
+       {\namepartprefix}%
+       {\namepartprefixi}%
+       {\namepartsuffix}%
+       {\namepartsuffixi}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -169,26 +169,26 @@
 %            SHORTAUTHOR brackets in parencites
 
 \DeclareNameFormat{sabrackets}{%
-  \setkeys{blx@opt@namepart}{#1}%
+  \nameparts{#1}%
   \ifciteseen
   {\usebibmacro{labelname:doname}%
-     {\blx@namepart@family}%
-     {\blx@namepart@familyi}%
-     {\blx@namepart@given}%
-     {\blx@namepart@giveni}%
-     {\blx@namepart@prefix}%
-     {\blx@namepart@prefixi}%
-     {\blx@namepart@suffix}%
-     {\blx@namepart@suffixi}}
+     {\namepartfamily}%
+     {\namepartfamilyi}%
+     {\namepartgiven}%
+     {\namepartgiveni}%
+     {\namepartprefix}%
+     {\namepartprefixi}%
+     {\namepartsuffix}%
+     {\namepartsuffixi}}
   {\mkbibbrackets{\usebibmacro{labelname:doname}%
-     {\blx@namepart@family}%
-     {\blx@namepart@familyi}%
-     {\blx@namepart@given}%
-     {\blx@namepart@giveni}%
-     {\blx@namepart@prefix}%
-     {\blx@namepart@prefixi}%
-     {\blx@namepart@suffix}%
-     {\blx@namepart@suffixi}}}}
+     {\namepartfamily}%
+     {\namepartfamilyi}%
+     {\namepartgiven}%
+     {\namepartgiveni}%
+     {\namepartprefix}%
+     {\namepartprefixi}%
+     {\namepartsuffix}%
+     {\namepartsuffixi}}}}
 
 \DeclareFieldFormat{shorthand}{\ifciteseen
                                 {#1}

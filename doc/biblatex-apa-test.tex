@@ -25,19 +25,18 @@
 % per-type. There is no point in just typsetting static data as this
 % wouldn't be a test of anything.
 \ExecuteBibliographyOptions[misc]{uniquelist=false}
-\makeatletter
 \DeclareNameFormat[misc]{labelname}{%
-  \setkeys{blx@opt@namepart}{#1}%
+  \nameparts{#1}%
   \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
     {\usebibmacro{labelname:doname}
-      {\blx@namepart@family}
-      {\blx@namepart@familyi}
-      {\blx@namepart@given}
-      {\blx@namepart@giveni}
-      {\blx@namepart@prefix}
-      {\blx@namepart@prefixi}
-      {\blx@namepart@suffix}
-      {\blx@namepart@suffixi}}
+      {\namepartfamily}
+      {\namepartfamilyi}
+      {\namepartgiven}
+      {\namepartgiveni}
+      {\namepartprefix}
+      {\namepartprefixi}
+      {\namepartsuffix}
+      {\namepartsuffixi}}
     {\ifthenelse{\value{listtotal}>5}
       {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
        \ifnum\value{listcount}>2 \relax\fi}
@@ -47,15 +46,14 @@
         \ifnum\value{listcount}=4 \relax\fi
         \ifnum\value{listcount}=5 \relax\fi}
        {\usebibmacro{labelname:doname}
-         {\blx@namepart@family}
-         {\blx@namepart@familyi}
-         {\blx@namepart@given}
-         {\blx@namepart@giveni}
-         {\blx@namepart@prefix}
-         {\blx@namepart@prefixi}
-         {\blx@namepart@suffix}
-         {\blx@namepart@suffixi}}}}}
-\makeatother
+         {\namepartfamily}
+         {\namepartfamilyi}
+         {\namepartgiven}
+         {\namepartgiveni}
+         {\namepartprefix}
+         {\namepartprefixi}
+         {\namepartsuffix}
+         {\namepartsuffixi}}}}}
 \MakeShortVerb{\|}
 
 \newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
