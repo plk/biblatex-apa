@@ -12,7 +12,7 @@
 %% 
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.bbx}[2016/03/01\space v6.8\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2016/03/13\space v6.9\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -217,11 +217,11 @@
                             minbibnames=6,%
                             abbreviate=true,%
                             mincrossrefs=999,%
+                            eventdate=comp,%
                             date=apalong,%
                             datelabel=apalong,%
                             origdate=apalong,%
                             urldate=apalong,%
-                            eventdate=comp,
                             dateabbrev=false}
 
 %
@@ -360,7 +360,6 @@
 \DeclareNameAlias{default}{apaauthor}
 
 \DeclareNameFormat{apaauthor}{%
-  \nameparts{#1}%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\addspace\ldots\addspace}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
@@ -642,7 +641,6 @@
 % (APA 7.02 Example 27) ... unless there is no author
 
 \DeclareNameFormat{apanames}{%
-  \nameparts{#1}%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\addspace\ldots}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
@@ -687,11 +685,11 @@
 % (APA 6.27) Name format. Don't capitalise prefixes
 % (APA 6.27) Full name disambiguation using brackets
 
-% #1 = last name
-% #2 = first name
-% #3 = first name (initials)
-% #4 = name prefix, a.k.a. 'von part'
-% #5 = name affix, a.k.a. 'junior part'
+% #1 = family name
+% #2 = given name
+% #3 = given name (initials)
+% #4 = name prefix
+% #5 = name suffix
 
 \newbibmacro*{name:apa:family-given}[5]{%
   \ifuseprefix
@@ -700,46 +698,46 @@
      \ifempty{#4}{}{%
        \mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
-     \mkbibnamelast{#1\isdot}%
-     \ifempty{#2}{}{\addcomma\addlowpenspace\mkbibnamefirst{#3}\isdot%
+     \mkbibnamefamily{#1\isdot}%
+     \ifempty{#2}{}{\addcomma\addlowpenspace\mkbibnamegiven{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
-     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}
+     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
-     \mkbibnamelast{#1}\isdot
-     \ifempty{#2#4}{}{\addcomma}%
-     \ifempty{#2}{}{\addlowpenspace\mkbibnamefirst{#3}%
+     \mkbibnamefamily{#1}\isdot
+     \expandafter\expandafter\expandafter\ifempty\expandafter\expandafter\expandafter{\expandafter\expandafter#2#4}{}{\addcomma}%
+     \ifempty{#2}{}{\addlowpenspace\mkbibnamegiven{#3}%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
      \ifempty{#4}{}{%
        \addhighpenspace\mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
-     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
+     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
 
 \newbibmacro*{name:apa:given-family}[5]{%
   \ifuseprefix
     {\usebibmacro{name:delim}{#2}%
      \usebibmacro{name:hook}{#2}%
-     \ifempty{#2}{}{\mkbibnamefirst{#3}\isdot%
+     \ifempty{#2}{}{\mkbibnamegiven{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
      \ifempty{#4}{}{%
        \mkbibnameprefix{#4\isdot}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
-     \mkbibnamelast{#1\isdot}%
-     \ifempty{#5}{}{\addlowpenspace\mkbibnameaffix{#5}\isdot}}
+     \mkbibnamefamily{#1\isdot}%
+     \ifempty{#5}{}{\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
-     \ifempty{#2}{}{\mkbibnamefirst{#3}\isdot%
+     \ifempty{#2}{}{\mkbibnamegiven{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
-     \mkbibnamelast{#1}\isdot
-     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
+     \mkbibnamefamily{#1}\isdot
+     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

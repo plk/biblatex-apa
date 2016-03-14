@@ -26,7 +26,6 @@
 % wouldn't be a test of anything.
 \ExecuteBibliographyOptions[misc]{uniquelist=false}
 \DeclareNameFormat[misc]{labelname}{%
-  \nameparts{#1}%
   \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
     {\usebibmacro{labelname:doname}
       {\namepartfamily}
