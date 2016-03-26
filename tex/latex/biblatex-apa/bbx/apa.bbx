@@ -695,49 +695,54 @@
   \ifuseprefix
     {\usebibmacro{name:delim}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
-     \ifempty{#4}{}{%
+     \ifdefvoid{#4}{}{%
        \mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamefamily{#1\isdot}%
-     \ifempty{#2}{}{\addcomma\addlowpenspace\mkbibnamegiven{#3}\isdot%
+     ifdefvoid{#2}{}{\addcomma\addlowpenspace\mkbibnamegiven{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
-     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
+     ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
      \mkbibnamefamily{#1}\isdot
-     \expandafter\expandafter\expandafter\ifempty\expandafter\expandafter\expandafter{\expandafter\expandafter#2#4}{}{\addcomma}%
-     \ifempty{#2}{}{\addlowpenspace\mkbibnamegiven{#3}%
+     \ifboolexpe{%
+       test {\ifdefvoid{#2}}
+       and
+       test {\ifdefvoid{#4}}}
+       {}
+       {\addcomma}%
+     ifdefvoid{#2}{}{\addlowpenspace\mkbibnamegiven{#3}%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
-     \ifempty{#4}{}{%
+     ifdefvoid{#4}{}{%
        \addhighpenspace\mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
-     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
+     ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
 
 \newbibmacro*{name:apa:given-family}[5]{%
   \ifuseprefix
     {\usebibmacro{name:delim}{#2}%
      \usebibmacro{name:hook}{#2}%
-     \ifempty{#2}{}{\mkbibnamegiven{#3}\isdot%
+     ifdefvoid{#2}{}{\mkbibnamegiven{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
-     \ifempty{#4}{}{%
+     ifdefvoid{#4}{}{%
        \mkbibnameprefix{#4\isdot}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamefamily{#1\isdot}%
-     \ifempty{#5}{}{\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
+     ifdefvoid{#5}{}{\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
-     \ifempty{#2}{}{\mkbibnamegiven{#3}\isdot%
+     ifdefvoid{#2}{}{\mkbibnamegiven{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
      \mkbibnamefamily{#1}\isdot
-     \ifempty{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
+     ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
