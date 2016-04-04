@@ -699,7 +699,7 @@
        \mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamefamily{#1\isdot}%
-     ifdefvoid{#2}{}{\addcomma\addlowpenspace\mkbibnamegiven{#3}\isdot%
+     \ifdefvoid{#2}{}{\addcomma\addlowpenspace\mkbibnamegiven{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
@@ -713,36 +713,36 @@
        test {\ifdefvoid{#4}}}
        {}
        {\addcomma}%
-     ifdefvoid{#2}{}{\addlowpenspace\mkbibnamegiven{#3}%
+     \ifdefvoid{#2}{}{\addlowpenspace\mkbibnamegiven{#3}%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
-     ifdefvoid{#4}{}{%
+     \ifdefvoid{#4}{}{%
        \addhighpenspace\mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
-     ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
+     \ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
 
 \newbibmacro*{name:apa:given-family}[5]{%
   \ifuseprefix
     {\usebibmacro{name:delim}{#2}%
      \usebibmacro{name:hook}{#2}%
-     ifdefvoid{#2}{}{\mkbibnamegiven{#3}\isdot%
+     \ifdefvoid{#2}{}{\mkbibnamegiven{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
-     ifdefvoid{#4}{}{%
+     \ifdefvoid{#4}{}{%
        \mkbibnameprefix{#4\isdot}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamefamily{#1\isdot}%
-     ifdefvoid{#5}{}{\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
+     \ifdefvoid{#5}{}{\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
-     ifdefvoid{#2}{}{\mkbibnamegiven{#3}\isdot%
+     \ifdefvoid{#2}{}{\mkbibnamegiven{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
      \mkbibnamefamily{#1}\isdot
-     ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
+     \ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
