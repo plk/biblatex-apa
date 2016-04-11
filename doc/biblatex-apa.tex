@@ -18,7 +18,6 @@
                        {\texttt{(APA #2)}}%
                        {\texttt{(APA #2 Example #1)}}}
 
-
 \titlepage{%
   title={APA Bib\LaTeX\ style},
   subtitle={Citation and References macros for Bib\LaTeX},
@@ -121,7 +120,7 @@ APA Style Guide (6th Edition).
 \subsection{Requirements}\label{ref:req}
 
 You will need to be using \sty{csquotes} ($\geq$ 4.3), Bib\LaTeX\ ($\geq$
-2.6) and Biber ($\geq$ 1.6). If you want to take advantage of the
+3.4) and Biber ($\geq$ 2.5). If you want to take advantage of the
 Bib\LaTeX\ |\DeclareQuotePunctuation| facility to enforce the APA required
 «American» punctuation, you should normally use the \sty{babel} package
 with the «american» option (see Bib\LaTeX\ manual section |3.9.1|). You can
@@ -236,6 +235,12 @@ apamaxprtauth=<num>
 printed in the References. APA style defaults to 7. You can change this if
 you really want to fully print all author list references in certain
 contexts (for example in a CV where you are an author in position 8 \ldots)
+
+Setting Bib\LaTeX package options which change name processing
+like \opt{uniquename} and \opt{uniquelist} is not supported as this style
+does tricky things internally to match the peculiar APA standard. You
+should not need to change them anyway as then you wouldn't be using APA
+style anyway.
 
 \subsection{Localisation}
 

@@ -78,16 +78,16 @@
     {}%
   \ifcase\value{uniquename}%
     \ifuseprefix
-      {\usebibmacro{name:family}{#1}{#3}{#5}{}}
-      {\usebibmacro{name:family}{#1}{#3}{}{}}%
+      {\usebibmacro{name:family}{#1}{#3}{#5}{\relax}}
+      {\usebibmacro{name:family}{#1}{#3}{\relax}{\relax}}%
   \or
      \ifuseprefix
-       {\usebibmacro{name:given-family}{#1}{#4}{#5}{}}
-       {\usebibmacro{name:given-family}{#1}{#4}{}{}}%
+       {\usebibmacro{name:given-family}{#1}{#4}{#5}{\relax}}
+       {\usebibmacro{name:given-family}{#1}{#4}{\relax}{\relax}}%
   \or
      \ifuseprefix
-       {\usebibmacro{name:given-family}{#1}{#3}{#5}{}}
-       {\usebibmacro{name:given-family}{#1}{#3}{}{}}%
+       {\usebibmacro{name:given-family}{#1}{#3}{#5}{\relax}}
+       {\usebibmacro{name:given-family}{#1}{#3}{\relax}{\relax}}%
   \fi
   \usebibmacro{name:andothers}}
 
