@@ -703,7 +703,7 @@
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
-     ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
+     \ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
      \mkbibnamefamily{#1}\isdot

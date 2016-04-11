@@ -80,16 +80,16 @@
     \ifuseprefix
       {\usebibmacro{name:family}{#1}{#3}{#5}{}}
       {\usebibmacro{name:family}{#1}{#3}{}{}}%
-   \or
+  \or
      \ifuseprefix
        {\usebibmacro{name:given-family}{#1}{#4}{#5}{}}
        {\usebibmacro{name:given-family}{#1}{#4}{}{}}%
-   \or
+  \or
      \ifuseprefix
        {\usebibmacro{name:given-family}{#1}{#3}{#5}{}}
        {\usebibmacro{name:given-family}{#1}{#3}{}{}}%
-   \fi
-   \usebibmacro{name:andothers}}
+  \fi
+  \usebibmacro{name:andothers}}
 
 % Can't do this with the built-in printnames format as APA requires truncation
 % and disambiguation only after first cite
@@ -99,9 +99,9 @@
 % \printnames does different things depending on whether the format you are
 % calling is the default for the name field or is a custom format:
 %
-%  max/minnames truncation is done before calling the format so we have
-%  to do \printnames[format][-\value{listtotal}]{field} to ensure we get
-%  all of the names in the list to work on here
+% max/minnames truncation is done before calling the format so we have
+% to do \printnames[format][-\value{listtotal}]{field} to ensure we get
+% all of the names in the list to work on here
 
 \DeclareNameFormat{labelname}{%
   \nameparts{#1}%
