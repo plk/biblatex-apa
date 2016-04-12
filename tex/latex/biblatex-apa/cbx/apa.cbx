@@ -70,10 +70,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.11) Suffices are not shown in citations
 % (APA 6.12) 3-5 authors have "et al." after first cite
-% (Blog http://blog.apastyle.org/apastyle/2014/01/when-to-use-author-initials-for-text-citations.html) Initials only for primary author
+% (Blog http://blog.apastyle.org/apastyle/2014/01/when-to-use-author-initials-for-text-citations.html) Initials only for primary author and only when not unique across all *primary* authors
 
 \newbibmacro*{labelname:doname}[8]{%
-  \ifnumcomp{\value{listcount}}{>}{1}
+  \ifboolexpr{test {\ifnumcomp{\value{listcount}}{>}{1}}
+              or
+              test {\ifuniqueprimaryauthor}}
     {\setcounter{uniquename}{0}}
     {}%
   \ifcase\value{uniquename}%
