@@ -97,7 +97,7 @@
 % and disambiguation only after first cite
 % We either use uniquelist or minnames for truncation. If uniquelist isn't
 % defined, we fall back on minnames
-
+%
 % \printnames does different things depending on whether the format you are
 % calling is the default for the name field or is a custom format:
 %
@@ -106,9 +106,12 @@
 % all of the names in the list to work on here
 
 \DeclareNameFormat{labelname}{%
+  % First set the truncation point
   \ifthenelse{\value{uniquelist}>1}
     {\numdef\cbx@min{\value{uniquelist}}}
     {\numdef\cbx@min{\value{minnames}}}%
+  % Always print the first name and the second if there are only two since
+  % "et al" must always be plural
   \ifboolexpr{test {\ifnumcomp{\value{listcount}}{=}{1}}
               or test {\ifnumcomp{\value{listtotal}}{=}{2}}}
     {\usebibmacro{labelname:doname}%
@@ -120,9 +123,12 @@
       {\namepartprefixi}%
       {\namepartsuffix}%
       {\namepartsuffixi}}
+    % We are looking at name >=3
+    % If the list is 6 or more names or we have seen citation before, potential truncation
     {\ifboolexpr{test {\ifnumcomp{\value{listtotal}}{>}{5}}
                  or test {\ifciteseen}}
-     {\ifnumcomp{\value{listcount}}{<}{\cbx@min + 1}% normal name
+     % Less than the truncation point, print normally
+     {\ifnumcomp{\value{listcount}}{<}{\cbx@min + 1}
        {\usebibmacro{labelname:doname}%
          {\namepartfamily}%
          {\namepartfamilyi}%
@@ -133,25 +139,29 @@
          {\namepartsuffix}%
          {\namepartsuffixi}}
        {}%
-      \ifnumcomp{\value{listcount}}{=}{\cbx@min + 1}% first past ul is et al
-      % but enforce plurality of et al - only truncate here if there is at
-      % least one more element after the current potential truncation point
-      % so that "et al" covers at least two elements.
-       {\ifnumcomp{\value{listcount}}{<}{\value{listtotal}}
-         {\andothersdelim\bibstring{andothers}}
-         {\usebibmacro{labelname:doname}%
-           {\namepartfamily}%
-           {\namepartfamilyi}%
-           {\namepartgiven}%
-           {\namepartgiveni}%
-           {\namepartprefix}%
-           {\namepartprefixi}%
-           {\namepartsuffix}%
-           {\namepartsuffixi}}}
-       {}%
-      \ifnumcomp{\value{listcount}}{>}{\cbx@min + 1}% nothing thereafter
+      % At potential truncation point ...
+      \ifnumcomp{\value{listcount}}{=}{\cbx@min + 1}
+        % but enforce plurality of et al - only truncate here if there is at
+        % least one more element after the current potential truncation point
+        % so that "et al" covers at least two elements.
+        {\ifnumcomp{\value{listcount}}{<}{\value{listtotal}}
+          {\andothersdelim\bibstring{andothers}}
+          {\usebibmacro{labelname:doname}%
+            {\namepartfamily}%
+            {\namepartfamilyi}%
+            {\namepartgiven}%
+            {\namepartgiveni}%
+            {\namepartprefix}%
+            {\namepartprefixi}%
+            {\namepartsuffix}%
+            {\namepartsuffixi}}}
+        {}%
+      % After truncation point, do not print name
+      \ifnumcomp{\value{listcount}}{>}{\cbx@min + 1}
        {\relax}%
        {}}%
+     % We are looking at name >=3
+     % Name list is < 6 names or we haven't seen this citation before, print normally
      {\usebibmacro{labelname:doname}%
        {\namepartfamily}%
        {\namepartfamilyi}%
