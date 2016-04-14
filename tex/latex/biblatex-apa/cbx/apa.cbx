@@ -174,22 +174,6 @@
        {\namepartsuffix}%
        {\namepartsuffixi}}}}
 
-% The default uses \ifmorenames and this doesn't work here because it
-% falls back and checks listtotal vs liststop on false. This style
-% has a rather complex set of checks against such things in the labelname
-% format and so we need to use the generic test \ifandothers which just tests
-% for the presence of the \more<name> boolean
-\renewbibmacro*{name:andothers}{%
-  \ifboolexpr{%
-              test {\ifnumequal{\value{listcount}}{\value{liststop}}}
-              and
-              test {\ifandothers{\thefield{labelnamesource}}}}
-    {\ifnumgreater{\value{liststop}}{1}
-       {\finalandcomma}
-       {}%
-     \andothersdelim\bibstring{andothers}}
-    {}}
-
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
