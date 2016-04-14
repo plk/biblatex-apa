@@ -106,7 +106,6 @@
 % all of the names in the list to work on here
 
 \DeclareNameFormat{labelname}{%
-  \nameparts{#1}%
   \ifthenelse{\value{uniquelist}>1}
     {\numdef\cbx@min{\value{uniquelist}}}
     {\numdef\cbx@min{\value{minnames}}}%
@@ -171,7 +170,6 @@
 %            SHORTAUTHOR brackets in parencites
 
 \DeclareNameFormat{sabrackets}{%
-  \nameparts{#1}%
   \ifciteseen
   {\usebibmacro{labelname:doname}%
      {\namepartfamily}%
