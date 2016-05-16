@@ -300,6 +300,10 @@ APA compliant US date formats. Default sensible date formats are included
 for german, ngerman and french. You should redefine the |\mkbibdatelong|
 macro in the relevant language |*-apa.lbx| file to change this if needed.
 
+A customisable macro \cmd{urldatecomma} determines what comes between the
+date of a URL and the URL itself. This defaults to the standard comma and
+space as per APA style but just a space in germanic localisations.
+
 \subsection{Limitations}
 \label{use:limit}
 There are certain limitations you need to bear in mind when using these
@@ -308,7 +312,7 @@ citation and references processing---it just tells you how it wants things to
 look and the implicit assumption is that you would type out everything by
 hand if necessary. Having said that, the majority of the APA citation
 and references style is implemented, there are just a few exceptions which
-are hardly worth the coding pain since they ambiguous and easily worked
+are hardly worth the coding pain since they are ambiguous and easily worked
 around.
 
 \section{Details}
@@ -436,6 +440,10 @@ applied to the data stream by |biber| and does not change your \file{.bib}.
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{7.0}{2016}
+\item Added \cmd{urldatacomma}
+\end{release}
 
 \begin{release}{6.9}{2016-05-13}
 \item Bug fixes
