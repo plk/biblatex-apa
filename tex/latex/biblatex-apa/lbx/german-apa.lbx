@@ -3,6 +3,13 @@
 
 % (APA 6.22) The example abbreviations
 
+% Following DGP guidlines for German/Austrian
+% http://homepage.univie.ac.at/harald.werneck/Richtlinien_zur_Manuskriptgestaltung.pdf
+
+\DefineBibliographyStrings{german}{%
+  andothers = {et al\adddot}%
+}
+
 \NewBibliographyString{revisededition}
 \NewBibliographyString{typechair}
 \NewBibliographyString{typechairs}
@@ -60,8 +67,9 @@
 
 % You must use \printdate to get here otherwise it will be ignored
 \DeclareBibliographyExtras{%
+  \def\finalandcomma{}%
+  \renewcommand{\apashortdash}{~}%
   \def\urldatecomma{\addspace}%
-  \def\finalandcomma{\addcomma}%
   \protected\def\mkbibdateapalong#1#2#3{%
     \iffieldundef{#1}%
       {}%
