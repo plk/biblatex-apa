@@ -42,8 +42,6 @@
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
   abstractloc,
-  doubtfulauthor,
-  doubtfuldate,
   titleisdescription,
   newspaper,
   urldescription}
@@ -54,8 +52,6 @@
 \DeclareDatamodelEntryfields{
   titleisdescription,
   with,
-  doubtfulauthor,
-  doubtfuldate,
   abstractloc,
   abstracturl,
   urldescription}

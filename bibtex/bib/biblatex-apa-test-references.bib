@@ -872,14 +872,13 @@
 }
 
 % (APA 7.10 Example 67)
-% Pseudo-boolean fields "DOUBTFULAUTHOR" and "DOUBTFULDATE" to specify doubtful information
-% to the drivers. Values should only ever be "true" if present.
+% biblatex 3.4+ supports data annotations which can be use to deal with uncertain authors
+% biblatex 3.5+ supports uncertainty marker for dates
 @UNPUBLISHED{7.10:67,
-  DOUBTFULAUTHOR = {true},
-  DOUBTFULDATE   = {true},
   AUTHOR         = {A. Allport},
+  AUTHOR+an      = {=uncertain},
   TITLE          = {Marion {T}aylor Today---By the Biographer},
-  YEAR           = {1937},
+  DATE           = {1937~},
   HOWPUBLISHED   = {Unpublished manuscript, Marion Taylor Papers},
   LOCATION       = {{Schlesinger Library, Radcliffe College, Cambridge}, MA}
 }
@@ -935,17 +934,16 @@
 }
 
 % (APA 7.10 Example 73)
-% Use DOUBTFULDATE to specifiy the "known" status of the DATE (see Example 67)
+% biblatex 3.5+ supports circa markers in dates
 % Note that this example is inconsistent in the APA 6th Edition (2nd printing) manual
 % with example 7.10:67. They differ in that 7.10:67 has brackets around the approximate
 % date and 7.10:73 has parenthesis. I have chosen brackets for consistency.
 % Use TITLEISDESCRIPTION to indicate a title that is really a description and not a real
 % title
 @MISC{7.10:73,
-  DOUBTFULDATE   = {true},
   TITLEISDESCRIPTION = {true},
   TITLE          = {{Photographs of Robert M. Yerkes}},
-  DATE           = {1917/1954},
+  DATE           = {circa 1917/1954},
   HOWPUBLISHED   = {Robert Mearns Yerkes Papers (Box 137, Folder 2292)},
   LOCATION       = {{Manuscripts and Archives, Yale University Library, New Haven}, CT}
 }

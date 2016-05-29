@@ -321,15 +321,25 @@
   % Save name hash for checks later
         \savefield{fullhash}{\cbx@lasthash}}}}
 
+\DeclareFieldFormat{apaciteorigdate}{%
+  \ifboolexpr{ test {\iforigdatecirca} or test {\iforigdateuncertain} }
+    {\mkbibbrackets{\biblcstring{circa}\printdelim{datecircadelim}#1\iforigdateera{bce}{\printdelim{dateeradelim}\bibstring{beforechrist}}{}\bibdateuncertain}}
+    {#1\iforigdateera{bce}{\printdelim{dateeradelim}\bibstring{beforechrist}}{}}}
+
+\DeclareFieldFormat{apacitedate}{%
+  \ifboolexpr{ test {\ifdatecirca} or test {\ifdateuncertain} }
+    {\mkbibbrackets{\biblcstring{circa}\printdelim{datecircadelim}#1\ifdateera{bce}{\printdelim{dateeradelim}\bibstring{beforechrist}}{}\bibdateuncertain}}
+    {#1\ifdateera{bce}{\printdelim{dateeradelim}\bibstring{beforechrist}}{}}}
+
 \newbibmacro*{cite:plabelyear+extrayear}{%
   \iffieldundef{labelyear}
     {}
     {\printtext[bibhyperref]{%
-       \printfield[noformat]{origyear}\setunit*{\addslash}%
-       \printfield{labelyear}\printfield{extrayear}}}%
-       \iffieldundef{issue}
-         {}
-         {\addcomma\addspace\printfield{issue}}}
+       \printfield[apaciteorigdate]{origyear}\setunit*{\addslash}%
+       \printtext[apacitedate]{\printfield{labelyear}\printfield{extrayear}}}}%
+  \iffieldundef{issue}
+    {}
+    {\addcomma\addspace\printfield{issue}}}
 
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen

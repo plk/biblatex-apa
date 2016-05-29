@@ -74,56 +74,65 @@
 %
 
 % Date formats. Suppress end range of less specific fields
-
 \newcommand*{\mkbibrangeapalong}[1]{%
-  \ifthenelse{\equal{#1}{url}}
+  \blx@metadateinfo{#1}%
+  \datecircaprint
+  \ifstrequal{#1}{url}
     {\printtext{%
-     \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
-     \iffieldundef{#1endyear}%
-       {}%
-       {\iffieldequalstr{#1endyear}{}% open-ended range?
-         {\mbox{\bibdatedash}}
-         {\bibdatedash%
-          \iffieldsequal{#1year}{#1endyear}%
-            {\iffieldsequal{#1month}{#1endmonth}%
-              {\iffieldsequal{#1day}{#1endday}%
-                {}%
-                {\mkbibdateapalongmdy{}{}{#1endday}}}%
-              {\mkbibdateapalongmdy{}{#1endmonth}{#1endday}}}%
-            {\mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}}}}
+        \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
+        \iffieldundef{#1endyear}%
+          {}%
+          {\iffieldequalstr{#1endyear}{}% open-ended range?
+            {\mbox{\bibdatedash}}
+            {\bibdatedash%
+             \iffieldsequal{#1year}{#1endyear}%
+               {\iffieldsequal{#1month}{#1endmonth}%
+                 {\iffieldsequal{#1day}{#1endday}%
+                   {}%
+                   {\mkbibdateapalongmdy{}{}{#1endday}}}%
+                 {\mkbibdateapalongmdy{}{#1endmonth}{#1endday}}}%
+               {\mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}}}}
     {\printtext{%
-     \mkbibdateapalong{#1year}{#1month}{#1day}%
-     \iffieldundef{#1endyear}%
-       {}%
-       {\iffieldequalstr{#1endyear}{}% open-ended range?
-         {\mbox{\bibdatedash}}
-         {\bibdatedash%
-          \iffieldsequal{#1year}{#1endyear}%
-            {\iffieldsequal{#1month}{#1endmonth}%
-              {\iffieldsequal{#1day}{#1endday}%
-                {}%
-                {\mkbibdateapalong{}{}{#1endday}}}%
-              {\mkbibdateapalong{}{#1endmonth}{#1endday}}}%
-            {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}}}}}}}
-
+        \mkbibdateapalong{#1year}{#1month}{#1day}%
+        \iffieldundef{#1endyear}%
+          {}%
+          {\iffieldequalstr{#1endyear}{}% open-ended range?
+            {\mbox{\bibdatedash}}
+            {\bibdatedash%
+             \iffieldsequal{#1year}{#1endyear}%
+               {\iffieldsequal{#1month}{#1endmonth}%
+                 {\iffieldsequal{#1day}{#1endday}%
+                   {}%
+                   {\mkbibdateapalong{}{}{#1endday}}}%
+                 {\mkbibdateapalong{}{#1endmonth}{#1endday}}}%
+               {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}}}}%
+  \dateeraprint
+  \dateuncertainprint}}}
 
 % Only for DATE as only \printdateextra is used
 \newcommand*{\mkbibrangeapalongextra}[1]{%
-    \printtext{%
-     \mkbibdateapalongextra{#1year}{#1month}{#1day}%
-     \iffieldundef{#1endyear}%
-       {}%
-       {\iffieldequalstr{#1endyear}{}% open-ended range?
-         {\mbox{\bibdatedash}}
-         {\bibdatedash%
-          \iffieldsequal{#1year}{#1endyear}%
-            {\iffieldsequal{#1month}{#1endmonth}%
+  \blx@metadateinfo{#1}%
+  \printtext{%
+    \datecircaprint
+    \mkbibdateapalongextra{#1year}{#1month}{#1day}%
+    \iffieldundef{#1endyear}%
+      {}%
+      {\iffieldequalstr{#1endyear}{}% open-ended range?
+        {\mbox{\bibdatedash}}
+        {\bibdatedash%
+         \iffieldsequal{#1year}{#1endyear}%
+           {\iffieldsequal{#1month}{#1endmonth}%
               {\iffieldsequal{#1day}{#1endday}%
                 {}%
                 {\mkbibdateapalongextra{}{}{#1endday}}}
               {\mkbibdateapalongextra{}{#1endmonth}{#1endday}}}
-            {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}}}}}}
+           {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}}}}%
+  \dateeraprint
+  \dateuncertainprint}}
 
+\AtEndPreamble{%
+  \renewcommand*{\datecircaprint}{%
+    \ifdatecirca{\biblcstring{circa}\printdelim{datecircadelim}}{}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -223,7 +232,10 @@
                             datelabel=apalong,%
                             origdate=apalong,%
                             urldate=apalong,%
-                            dateabbrev=false}
+                            dateabbrev=false,%
+                            dateera=christian,%
+                            datecirca=true,%
+                            dateuncertain=true}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -365,7 +377,7 @@
     {\addcomma\addspace\ldots\addspace}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
-      {\iffieldequalstr{doubtfulauthor}{true}
+      {\iffieldannotation{uncertain}
         {\mkbibbrackets{\usebibmacro{name:apa:family-given}%
                          {\namepartfamily}%
                          {\namepartgiven}%
@@ -420,6 +432,7 @@
 %            Months and days go into parenthesis with year, if set
 % (APA 6.29) Issue goes where month normally goes if it
 %            is set.
+% (APA 7.10) circa or uncertain dates in brackets
 
 % Make sure endmonth gets an expansion too
 \DeclareFieldFormat{endmonth}{\mkbibmonth{#1}}
@@ -436,13 +449,13 @@
   \iffieldundef{labelyear}
     {\iffieldundef{origyear}
       {}
-      {\printtext[yearorunkyear]{\printfield[noformat]{origyear}}}}%
-    {\printtext[yearorunkyear]{\printdateextralabel}}}
+      {\printtext[apadate[{\printorigdate}}}%
+    {\printtext[apadate]{\printdateextralabel}}}
 
-\DeclareFieldFormat{yearorunkyear}{%
-  \ifthenelse{\iffieldequalstr{doubtfuldate}{true}}
-    {\mkbibbrackets{ca\adddot\addspace#1}}
-    {\mkbibparens{#1}}}
+\DeclareFieldFormat{apadate}{%
+  \ifboolexpr{ test {\ifdatecirca} or test {\ifdateuncertain} }
+    {\printtext{\mkbibbrackets{#1}}}
+    {\printtext{\mkbibparens{#1}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -847,16 +860,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.02 Example 21) Original year
 
-\DeclareFieldFormat{origyear}{\mkbibparens{\bibcpstring{origyear}~\thefield{origyear}}}
-
 % Only give ORIGYEAR in references if both:
 %   YEAR is also given
 %   YEAR and ORIGYEAR are different
 
 \newbibmacro*{origyear}{%
-  \ifthenelse{\NOT\iffieldundef{labelyear}\AND\NOT\iffieldsequal{labelyear}{origyear}}
-    {\printfield{origyear}}
-    {}}
+  \ifboolexpr{%
+    not test {\iffieldundef{origyear}}
+    not test {\iffieldundef{labelyear}}
+    and not test {\iffieldsequal{labelyear}{origyear}}}
+      {\printtext{\mkbibparens{\bibcpstring{origyear}~\printorigdate}}}
+      {}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1159,7 +1173,7 @@
           \setunit{\addspace}%
           \iffieldundef{urlyear}
             {}
-            {\printurldate%
+            {\printtext{\printurldate}%
              \setunit*{\urldatecomma}}%
           \printtext{\bibstring{from}}%
           \setunit*{\addspace}%
