@@ -6,10 +6,6 @@
 % Following DGPs guidlines for German/Austrian
 % http://homepage.univie.ac.at/harald.werneck/Richtlinien_zur_Manuskriptgestaltung.pdf
 
-\DefineBibliographyStrings{austrian}{%
-  andothers = {et al\adddot}%
-}
-
 \NewBibliographyString{revisededition}
 \NewBibliographyString{typechair}
 \NewBibliographyString{typechairs}
@@ -34,7 +30,8 @@
 
 \DeclareBibliographyStrings{%
   inherit          = {ngerman},
-  revisededition   = {{\"Uberarbeitete\space Auflage}{\"Uberarb\adddot\space Aufl\adddot}},
+  andothers        = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
+  revisededition   = {{\"Uberarbeitete\space Auflage}{\"Uberarb\adddotspace Aufl\adddot}},
   producer         = {{Produzent}{Produzent}},
   execproducer     = {{Produzent}{Produzent}},
   director         = {{Regisseur}{Regisseur}},
@@ -53,12 +50,12 @@
   origyear         = {{Original\space ver\"offentlicht}{Original\space ver\"offentlicht}},
   typechair        = {{Konferenzstuhl}{Konferenzstuhl}},
   typechairs       = {{Konferenzst\"uhle}{Konferenzst\"uhle}},
-  typevolume       = {{Band\space Herausgeber}{Bd\adddot\space Hrsg\adddot}},
-  typevolumes      = {{Band\space Herausgeber}{Bd\adddot\space Hrsg\adddot}},
+  typevolume       = {{Band\space Herausgeber}{Bd\adddotspace Hrsg\adddot}},
+  typevolumes      = {{Band\space Herausgeber}{Bd\adddotspace Hrsg\adddot}},
   typeseries       = {{Reihe\space Herausgeber}{Reihe\space Hrsg\adddot}},
   typeseriess      = {{Reihe\space Herausgeber}{Reihe\space Hrsg\adddot}},
-  typevolseries    = {{Reihe\space und\space Band\space Herausgeber}{Reihe\space\& Bd\adddot\space Hrsg\adddot}},
-  typevolseriess   = {{Reihe\space und\space Band\space Herausgeber}{Reihe\space\& Bd\adddot\space Hrsg\adddot}},
+  typevolseries    = {{Reihe\space und\space Band\space Herausgeber}{Reihe\space\& Bd\adddotspace Hrsg\adddot}},
+  typevolseriess   = {{Reihe\space und\space Band\space Herausgeber}{Reihe\space\& Bd\adddotspace Hrsg\adddot}},
   annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
   beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
 }
