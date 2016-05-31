@@ -6,10 +6,6 @@
 % Following DGPs guidlines for German/Austrian
 % http://homepage.univie.ac.at/harald.werneck/Richtlinien_zur_Manuskriptgestaltung.pdf
 
-\DefineBibliographyStrings{austrian}{%
-  andothers = {et al\adddot}%
-}
-
 \NewBibliographyString{revisededition}
 \NewBibliographyString{typechair}
 \NewBibliographyString{typechairs}
@@ -34,6 +30,7 @@
 
 \DeclareBibliographyStrings{%
   inherit          = {naustrian},
+  andothers        = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
   revisededition   = {{\"Uberarbeitete\space Auflage}{\"Uberarb\adddot\space Aufl\adddot}},
   producer         = {{Produzent}{Produzent}},
   execproducer     = {{Produzent}{Produzent}},

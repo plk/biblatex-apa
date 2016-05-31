@@ -6,10 +6,6 @@
 
 % (APA 6.22) The example abbreviations
 
-\DefineBibliographyStrings{austrian}{%
-  andothers = {et al\adddot}%
-}
-
 \NewBibliographyString{revisededition}
 \NewBibliographyString{typechair}
 \NewBibliographyString{typechairs}
@@ -34,6 +30,7 @@
 
 \DeclareBibliographyStrings{%
   inherit          = {austrian},
+  andothers        = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
   revisededition   = {{\"Uberarbeitete\space Auflage}{\"Uberarb\adddot\space Aufl\adddot}},
   producer         = {{Produzent}{Produzent}},
   execproducer     = {{Produzent}{Produzent}},
