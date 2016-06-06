@@ -155,12 +155,12 @@
 % (APA 6.12) Five author max before "et al" and a one author truncation policy
 %            However, only after the first cite, see the labelname format
 %            in .cbx. It's also overridden per-entry by uniquelist
-% (APA 6.x)  citation tracking is global
-% (APA 6.14) uses initials to disambiguate shared surnames
-% (APA 6.16) uses year postfix to disambiguate multiple items in same year
+% (APA 6.x)  Citation tracking is global
+% (APA 6.14) Use initials to disambiguate shared surnames
+% (APA 6.16) Use year postfix to disambiguate multiple items in same year
 % (APA 6.10) Never reference anything not cited
-% (APA 6.25) author initials only
-% (APA 6.25) sorting is nyt but we need to account for PUBSTATE which comes
+% (APA 6.25) Author initials only
+% (APA 6.25) Sorting is nyt but we need to account for PUBSTATE which comes
 %            after all normal cites for the same author
 
 \DeclareSortingScheme{apa}{
@@ -179,22 +179,22 @@
     \field{director}
     \field{producer}
     \field{execproducer}
-    \field{origauthor}
     \field{sorttitle}
     \field{title}
+  }
+  \sort{
+    \field{pubstate}
   }
   \sort{
     \field{sortyear}
     \field{year}
-    \field{pubstate}
   }
   \sort{
     \field{sorttitle}
     \field{title}
   }
   \sort{
-    \field[padside=left,padwidth=4,padchar=0]{volume}
-    \literal{0000}
+    \field{volume}
   }
 }
 
