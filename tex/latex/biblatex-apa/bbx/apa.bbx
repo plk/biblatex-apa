@@ -77,7 +77,7 @@
 \newcommand*{\mkbibrangeapalong}[1]{%
   \blx@metadateinfo{#1}%
   \datecircaprint
-  \ifstrequal{#1}{url}
+  \ifstrequal{#1}{url}% URL dates are unlikely to be BCE ...
     {\printtext{%
         \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
         \iffieldundef{#1endyear}%
@@ -94,6 +94,7 @@
                {\mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}}}}
     {\printtext{%
         \mkbibdateapalong{#1year}{#1month}{#1day}%
+        \dateeraprint{#1year}%
         \iffieldundef{#1endyear}%
           {}%
           {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -105,8 +106,8 @@
                    {}%
                    {\mkbibdateapalong{}{}{#1endday}}}%
                  {\mkbibdateapalong{}{#1endmonth}{#1endday}}}%
-               {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}}}}%
-  \dateeraprint
+               {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}%
+                \enddateeraprint{#1endyear}}}}%
   \dateuncertainprint}}}
 
 % Only for DATE as only \printdateextra is used
@@ -115,6 +116,7 @@
   \printtext{%
     \datecircaprint
     \mkbibdateapalongextra{#1year}{#1month}{#1day}%
+    \dateeraprint{#1year}%
     \iffieldundef{#1endyear}%
       {}%
       {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -126,8 +128,8 @@
                 {}%
                 {\mkbibdateapalongextra{}{}{#1endday}}}
               {\mkbibdateapalongextra{}{#1endmonth}{#1endday}}}
-           {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}}}}%
-  \dateeraprint
+           {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}%
+            \enddateeraprint{#1endyear}}}}%
   \dateuncertainprint}}
 
 \AtEndPreamble{%
@@ -212,32 +214,33 @@
 % ellipsis from 7th to n-1 in bib, there might be some really strange
 % edge cases which can't be handled as this needs treating in the style
 % after biber has finished. Very unlikely though.
-\ExecuteBibliographyOptions{labeldate=true,%
-                            sorting=apa,%
+\ExecuteBibliographyOptions{%
+                            abbreviate=true,%
                             autocite=inline,%
                             backref=true,%
+                            citetracker=true,%
+                            date=apalong,%
+                            dateabbrev=false,%
+                            datecirca=true,%
+                            dateera=christian,%
+                            datelabel=apalong,%
+                            dateuncertain=true,%
+                            eventdate=comp,%
+                            labeldate=true,%
+                            maxbibnames=7,%
+                            maxcitenames=2,%
+                            minbibnames=6,%
+                            mincitenames=1,%
+                            mincrossrefs=999,%
+                            origdate=apalong,%
                             pagetracker=true,%
-                            useprefix=true,%
-                            usetranslator=true,%
+                            sorting=apa,%
                             uniquelist=minyear,%
                             uniquename=full,%
-                            citetracker=true,%
-                            maxcitenames=2,%
-                            mincitenames=1,%
-                            maxbibnames=7,%
-                            minbibnames=6,%
-                            abbreviate=true,%
-                            mincrossrefs=999,%
                             uniqueprimaryauthor=true,%
-                            eventdate=comp,%
-                            date=apalong,%
-                            datelabel=apalong,%
-                            origdate=apalong,%
                             urldate=apalong,%
-                            dateabbrev=false,%
-                            dateera=christian,%
-                            datecirca=true,%
-                            dateuncertain=true}
+                            useprefix=true,%
+                            usetranslator=true}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -452,7 +455,7 @@
     {\iffieldundef{origyear}
       {}
       {\printtext[apadate[{\printorigdate}}}%
-    {\printtext[apadate]{\printdateextralabel}}}
+    {\printtext[apadate]{\printlabeldateextra}}}
 
 \DeclareFieldFormat{apadate}{%
   \ifboolexpr{ test {\ifdatecirca} or test {\ifdateuncertain} }
@@ -1265,7 +1268,7 @@
     \usebibmacro{related}}}
 
 \newbibmacro*{related:reviewof}[1]{%
-  \setunit{}% Sanitize this in case no author
+  \setunit{}% Sanitise this in case no author
   \entrydata*{#1}{%
     \ifentrytype{article}
       {\printtext{\printfield[apacase]{title}}}
@@ -2186,7 +2189,6 @@
 
 \newbibmacro*{bbx:savehash}{%
   \savefield{fullhash}{\bbx@lasthash}}
-
 
 \newbool{bbx@inset}
 \DeclareBibliographyDriver{set}{%

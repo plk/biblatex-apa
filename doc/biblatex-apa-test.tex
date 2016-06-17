@@ -64,32 +64,26 @@
 \makeatletter
 % This solution to detokenize leaving a space after the command and
 % arguments is due to Bruno Le Floch on T.SE
-\long\def\apaexi#1%
-  {%
-     \catcode64=11
-     \begingroup
-        % Ensure that every character is preserved by \lowercase.
-        \count@\z@
-        \loop\ifnum\count@<256
-          \lccode\count@\z@
-          \advance\count@\@ne
-        \repeat
-        % Except spaces, changed to ^^A
-        \lccode32=\@ne
-        \lowercase
-          {%
-            \endgroup
-            \expandafter\test@\detokenize{#1}\relax%
-            \catcode64=12
-          }%
-  }
+\long\def\apaexi#1{%
+  \catcode64=11
+  \begingroup
+  % Ensure that every character is preserved by \lowercase.
+  \count@\z@
+  \loop\ifnum\count@<256
+    \lccode\count@\z@
+    \advance\count@\@ne
+  \repeat
+  % Except spaces, changed to ^^A
+  \lccode32=\@ne
+  \lowercase{%
+    \endgroup
+    \expandafter\test@\detokenize{#1}\relax%
+    \catcode64=12}}
 % Then map {^^A => space, space =>} onto the string.
-\def\test@#1%
-  {%
-    \ifx#1\relax\test@end\fi
-    \ifnum`#1=\@ne\space\else#1\fi
-    \test@
-   }
+\def\test@#1{%
+  \ifx#1\relax\test@end\fi
+  \ifnum`#1=\@ne\space\else#1\fi
+  \test@}
 \def\test@end\fi#1\test@{\fi}
 
 \def\apaex#1{\hbox{\hspace{-4em}\texttt{\small\apaexi{#1}}}\\$\rcurvearrowse$ \textbf{#1}}
