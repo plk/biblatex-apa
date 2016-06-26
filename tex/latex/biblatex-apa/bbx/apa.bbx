@@ -92,7 +92,8 @@
                       {}%
                       {\mkbibdateapalongmdy{}{}{#1endday}}}%
                     {\mkbibdateapalongmdy{}{#1endmonth}{#1endday}}}%
-                  {\mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}}}}
+                  {\mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}}%
+           \dateuncertainprint}}
        {\printtext{%
            \mkbibdateapalong{#1year}{#1month}{#1day}%
            \dateeraprint{#1year}%
@@ -108,8 +109,8 @@
                       {\mkbibdateapalong{}{}{#1endday}}}%
                     {\mkbibdateapalong{}{#1endmonth}{#1endday}}}%
                   {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}%
-                 \enddateeraprint{#1endyear}}}}%
-     \dateuncertainprint}}}}
+                 \dateeraprint{#1endyear}}}%
+             \enddateuncertainprint}}}}}
 
 % Only for DATE as only \printdateextra is used
 \newcommand*{\mkdaterangeapalongextra}[1]{%
@@ -119,6 +120,7 @@
       \datecircaprint
       \mkbibdateapalongextra{#1year}{#1month}{#1day}%
       \dateeraprint{#1year}%
+      \dateuncertainprint
       \iffieldundef{#1endyear}%
         {}%
         {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -131,8 +133,8 @@
                   {\mkbibdateapalongextra{}{}{#1endday}}}
                 {\mkbibdateapalongextra{}{#1endmonth}{#1endday}}}
              {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}%
-              \enddateeraprint{#1endyear}}}}%
-    \dateuncertainprint}}}
+              \dateeraprint{#1endyear}}}%
+         \enddateuncertainprint}}}}
 
 \AtEndPreamble{%
   \renewcommand*{\datecircaprint}{%
