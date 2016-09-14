@@ -5,5 +5,5 @@ Update version string in:
 * apa.bbx
 * apa.dbx
 * *.lbx
-* ./install.sh (will generate 2 PDFs for packaging)
+* ./install.sh all (will generate 2 PDFs for packaging)
 * ./mkrelease.sh
