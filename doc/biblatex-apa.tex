@@ -24,7 +24,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={7.0},
+  revision={7.1},
   date={\today}}
 
 \hypersetup{%
@@ -44,9 +44,12 @@ Please see the revision history below (section \ref{rev}) for  details on change
 version. This section is just for important things like incompatible
 changes which users should be aware of.
 
+\minisec{7.1}
+This version requires |biblatex| $>=$3.6 and |biber| $>=$2.6.
+
 \minisec{7.0}
 This version requires |biblatex| $>=$3.5 and |biber| $>=$2.6. Uncertain,
-approximate and era-marked dates are now supported in the \biblatex core
+approximate and era-marked dates are now supported in the |biblatex| core
 and therefore special fields are no longer needed in the style. See example
 files, in particular \texttt{7.10:67} entry in the references test
 \file{.bib} and the \texttt{plato} entry in the citation test \file{.bib}.
@@ -451,6 +454,11 @@ applied to the data stream by |biber| and does not change your \file{.bib}.
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{7.1}{2016-09-15}
+\item Minor bugfix release for legacy YEAR fields and |inpress| strings
+\item Requires |biblatex| 3.6+ and biber 2.6+
+\end{release}
 
 \begin{release}{7.0}{2016-09-14}
 \item Added \cmd{urldatacomma}
