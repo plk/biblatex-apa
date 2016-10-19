@@ -324,6 +324,8 @@
 \newbibmacro*{cite:plabelyear+extrayear}{%
   \iffieldundef{labelyear}{}
     {\printtext[bibhyperref]{%
+        \clearfield{labelmonth}% dont' want months in citations
+        \clearfield{labelday}% dont' want days in citations
         \iffieldundef{origyear}{}
           {\ifboolexpr{ test {\iforigdatecirca} or test {\iforigdateuncertain} }
             {\mkbibbrackets{\printorigdate}}
