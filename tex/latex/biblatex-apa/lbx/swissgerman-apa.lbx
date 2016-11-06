@@ -1,0 +1,127 @@
+\ProvidesFile{swissgerman-apa.lbx}[2016/10/24\space v7.2\space APA biblatex localisation]
+\InheritBibliographyExtras{swissgerman}
+
+% Following DGPs guidlines for German/Austrian/Swiss German
+% http://homepage.univie.ac.at/harald.werneck/Richtlinien_zur_Manuskriptgestaltung.pdf
+
+% (APA 6.22) The example abbreviations
+
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{producer}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{director}
+\NewBibliographyString{writer}
+\NewBibliographyString{with}
+
+\DeclareBibliographyStrings{%
+  inherit          = {swissgerman},
+  andothers        = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
+  revisededition   = {{\"Uberarbeitete\space Auflage}{\"Uberarb\adddotspace Aufl\adddot}},
+  producer         = {{Produzent}{Produzent}},
+  execproducer     = {{Produzent}{Produzent}},
+  director         = {{Regisseur}{Regisseur}},
+  writer           = {{Schriftsteller}{Schriftsteller}},
+  page             = {{Seite}{{}S\adddot}},
+  pages            = {{Seiten}{{}S\adddot}},
+  on               = {{am}{am}},
+  retrieved        = {{Zugriff\space am}{Zugriff\space am}},
+  available        = {{Erh\"altlich}{Erh\"altlich}},
+  with             = {{mit}{mit}},
+  from             = {{unter}{unter}},
+  archivedat       = {{archiviert\space unter}{archiviert\space unter}},
+  reviewof         = {{Rezension\space des}{Rezension\space des}},
+  paragraph        = {{\P}{\P}},
+  paragraphs       = {{\P\P}{\P\P}},
+  origyear         = {{Original\space ver\"offentlicht}{Original\space ver\"offentlicht}},
+  typechair        = {{Konferenzstuhl}{Konferenzstuhl}},
+  typechairs       = {{Konferenzst\"uhle}{Konferenzst\"uhle}},
+  typevolume       = {{Band\space Herausgeber}{Bd\adddotspace Hrsg\adddot}},
+  typevolumes      = {{Band\space Herausgeber}{Bd\adddotspace Hrsg\adddot}},
+  typeseries       = {{Reihe\space Herausgeber}{Reihe\space Hrsg\adddot}},
+  typeseriess      = {{Reihe\space Herausgeber}{Reihe\space Hrsg\adddot}},
+  typevolseries    = {{Reihe\space und\space Band\space Herausgeber}{Reihe\space\& Bd\adddotspace Hrsg\adddot}},
+  typevolseriess   = {{Reihe\space und\space Band\space Herausgeber}{Reihe\space\& Bd\adddotspace Hrsg\adddot}},
+  annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
+  beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.10 Example 68) Drop end* when they are the same as *
+
+% You must use \printdate to get here otherwise it will be ignored
+\DeclareBibliographyExtras{%
+  \renewcommand{\apashortdash}{~}%
+  \def\urldatecomma{\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\thefield{#1}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3{%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\thefield{#1}}\printfield{extrayear}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3{%
+    \iffieldundef{#3}%
+      {}%
+      {\stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput
