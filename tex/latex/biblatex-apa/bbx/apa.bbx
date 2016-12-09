@@ -18,6 +18,28 @@
 \urlstyle{rm} % APA examples all have URLs in same font as text
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Automated capitalisation after colons
+%  (http://blog.apastyle.org/apastyle/2011/06/capitalization-after-colons.html)
+%  Copied and adapted from ieee.bbx
+
+% {<process>} {*} {<text>}
+\newcommand*{\bbx@colon@search}[3]{%
+  \bbx@colon@search@aux#1#2\empty#3: \stop
+}
+\long\def\bbx@colon@search@aux#1#2#3: #4\stop{%
+  \expandafter#1\expandafter#2\expandafter{#3}%
+  \ifblank{#4}
+    {}
+    {%
+      : %
+      \bbx@colon@search@aux#1#2\empty#4\stop
+    }%
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Used to join citations/references to
 %  extrayear
 
@@ -474,21 +496,21 @@
 % (APA 6.29) General format of titles.
 %            Ugly Chicago-style lowercasing of English titles
 
-\DeclareFieldFormat{apacase}{\MakeSentenceCase*{#1}}
+\DeclareFieldFormat{apacase}{\bbx@colon@search\MakeSentenceCase*{#1}}
 
 \DeclareFieldFormat{issuetitle}{#1\isdot}
 \DeclareFieldFormat{title}{\iffieldequalstr{titleisdescription}{true}{\mkbibbrackets{#1}}{\mkbibemph{#1}\isdot}}
-\DeclareFieldFormat{origtitle}{\mkbibemph{\MakeSentenceCase*{#1}}\isdot}
+\DeclareFieldFormat{origtitle}{\mkbibemph{\bbx@colon@search\MakeSentenceCase*{#1}}\isdot}
 \DeclareFieldFormat[article]{title}{#1\isdot}
-\DeclareFieldFormat[article]{origtitle}{\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat[article]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[inbook]{title}{#1\isdot}
-\DeclareFieldFormat[inbook]{origtitle}{\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat[inbook]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[incollection]{title}{#1\isdot}
-\DeclareFieldFormat[incollection]{origtitle}{\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat[incollection]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[inproceedings]{title}{#1\isdot}
-\DeclareFieldFormat[inproceedings]{origtitle}{\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat[inproceedings]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[proceedings]{title}{#1\isdot}
-\DeclareFieldFormat[proceedings]{origtitle}{\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat[proceedings]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -517,9 +539,9 @@
 % (APA 6.29)      Additional {main}title information in brackets (using)
 %                 {MAIN}TITLEADDON field. Colon after maintitle.
 
-\DeclareFieldFormat{titleaddon}{\mkbibbrackets{\MakeSentenceCase*{#1}}}
-\DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{\MakeSentenceCase*{#1}}}
-\DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{\MakeSentenceCase*{#1}}}
+\DeclareFieldFormat{titleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
+\DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
+\DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
 
 \newbibmacro*{bookaddinfo}{%
   \ifthenelse{\iffieldundef{edition}\AND\iffieldundef{volumes}}
