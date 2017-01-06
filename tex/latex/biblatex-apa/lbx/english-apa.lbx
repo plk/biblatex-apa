@@ -1,4 +1,4 @@
-\ProvidesFile{english-apa.lbx}[2016/12/21\space v7.3\space APA biblatex localisation]
+\ProvidesFile{english-apa.lbx}[2017/01/06\space v7.4\space APA biblatex localisation]
 \InheritBibliographyExtras{english}
 
 % (APA 6.22) The example abbreviations
@@ -82,7 +82,7 @@
        \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#3}%
       {}%
-      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#1}}%
+      {\iffieldundef{#2}%
         {}%
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%
@@ -98,7 +98,7 @@
        \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#3}%
       {}%
-      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#1}}%
+      {\iffieldundef{#2}%
         {}%
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%

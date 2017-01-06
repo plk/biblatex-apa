@@ -1,4 +1,4 @@
-\ProvidesFile{spanish-apa.lbx}[2016/12/21\space v7.3\space APA biblatex localisation]
+\ProvidesFile{spanish-apa.lbx}[2017/01/06\space v7.4\space APA biblatex localisation]
 \InheritBibliographyExtras{spanish}
 
 \setcounter{smartand}{0} % Turn off "smart and" or ampersands will all be replaced
@@ -92,7 +92,7 @@
        \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#3}%
       {}%
-      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#1}}%
+      {\iffieldundef{#2}%
         {}%
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%
@@ -107,7 +107,7 @@
         {\addcomma\addspace}%
     \iffieldundef{#3}%
       {}%
-      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#1}}%
+      {\iffieldundef{#2}%
         {}%
         {\stripzeros{\thefield{#3}}\addspace de\addspace}}%
        \mkbibmonth{\thefield{#2}}%

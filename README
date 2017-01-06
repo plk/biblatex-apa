@@ -1,9 +1,9 @@
-Version 7.2
+Version 7.4
 
 Permission is granted to copy, distribute and/or modify this software under
 the terms of the LaTeX Project Public License, version
 1.3c (http://www.latex-project.org/lppl.txt). The current
-maintainer is Philip Kime (© 2016).
+maintainer is Philip Kime (© 2017).
 
 This package is a biblatex style for APA (American Psychological
 Association) style compliant documents typeset in LaTeX. It
