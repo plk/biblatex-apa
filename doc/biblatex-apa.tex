@@ -44,6 +44,9 @@ Please see the revision history below (section \ref{rev}) for  details on change
 version. This section is just for important things like incompatible
 changes which users should be aware of.
 
+\minisec{7.5}
+This version requires |biblatex| $>=$3.8 and |biber| $>=$2.8.
+
 \minisec{7.1}
 This version requires |biblatex| $>=$3.6 and |biber| $>=$2.6.
 
@@ -202,7 +205,6 @@ are using \sty{babel}:
 \usepackage[american]{babel}
 \usepackage{csquotes}
 \usepackage[style=apa]{biblatex}
-\DeclareLanguageMapping{american}{american-apa}
 \end{ltxcode}
 
 or \sty{polyglossia}:
@@ -212,7 +214,6 @@ or \sty{polyglossia}:
 \setdefaultlanguage[variant=american]{english}
 \usepackage{csquotes}
 \usepackage[style=apa]{biblatex}
-\DeclareLanguageMapping{english}{english-apa}
 \end{ltxcode}
 
 \noindent Note that the APA manual requires the forcing of titles into
@@ -259,25 +260,10 @@ style anyway.
 \subsection{Localisation}
 
 Localisation is provided for APA-specific strings in the accompanying
-|.lbx| files. To use these files, put an appropriate mapping in your
-document preamble, after loading Bib\LaTeX.
+|.lbx| files which are loaded automatically.
 
 Normal use will invoke \sty{babel} with the «american» language or
-\sty{polyglossia} with «american» variant of «english». After
-loading \sty{babel}/\sty{polyglossia} and biblatex, put this in the
-preamble if you are using \sty{babel} (see full preamble example in section
-\ref{ref:use} above):
-
-\begin{ltxcode}
-\DeclareLanguageMapping{american}{american-apa}
-\end{ltxcode}
-
-or for \sty{polyglossia} (since there is no language «american» in
-\sty{polyglossia}---it's just an «english» variant:
-
-\begin{ltxcode}
-\DeclareLanguageMapping{english}{english-apa}
-\end{ltxcode}
+\sty{polyglossia} with «american» variant of «english».
 
 The \file{english-apa.lbx} is a copy of the \file{american-apa.lbx} since
 the default is «American» English.
@@ -286,21 +272,11 @@ The APA manual does not mention nor sanction any non «American» English
 strings but it is quite common for non-English journals to ask for APA style
 bibliographies and so this must be supported.
 
-Here is an example to load the German localisation strings. This assumes
-that you are using the \sty{babel} package with the appropriate language
-option:
-
-\begin{ltxcode}
-\DeclareLanguageMapping{german}{german-apa}
-\end{ltxcode}
-
-This loads the |german-apa.lbx| file which in turn, loads the |german.lbx|
-file and augments it with APA-specific strings. If you are not using the
-\sty{babel} «american» option, they you may need to set up the
-|\DeclareQuotePunctuation| option as mentioned in section \ref{ref:req} above.
-You would only need to do this if, for some strange reason, a non-american
-journal required the (rather horrible) american practice of moving final
-punctuation marks inside closing quotes.
+If not using the \sty{babel} «american» option, it may be necessary to set up
+the |\DeclareQuotePunctuation| option as mentioned in section \ref{ref:req}
+above. You would only need to do this if, for some strange reason, a
+non-american journal required the (unpleasant) american practice of moving
+final punctuation marks inside closing quotes.
 
 \subsubsection{Date formats}
 
@@ -454,6 +430,11 @@ applied to the data stream by |biber| and does not change your \file{.bib}.
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{7.5}{}
+\item |\DeclareLanguageMapping| is now no longer necessary due to the new
+  |\DeclareLanguageMappingSuffix| macro.
+\end{release}
 
 \begin{release}{7.4}{2017-01-06}
 \item Minor bugfix release
