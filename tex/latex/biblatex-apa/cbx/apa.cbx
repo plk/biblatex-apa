@@ -27,7 +27,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.11) requires comma separator between authors and years
 
-\renewcommand*{\nameyeardelim}{\addcomma\space}
+\DeclareDelimFormat{nameyeardelim}{\addcomma\space}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -36,7 +36,7 @@
 % (APA 6.12) No comma before "et al" if there is only one name
 %            preceding it
 
-\renewcommand*{\andothersdelim}{\ifnum\value{listcount}>2 \finalandcomma\fi\addspace}
+\DeclareDelimFormat{andothersdelim}{\ifnum\value{listcount}>2 \finalandcomma\fi\addspace}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,9 +44,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.12) ampersand separator in parenthetical cites
 
+\DeclareDelimFormat[parencite]{finalnamedelim}
+  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
+
 \DeclareCiteCommand{\parencite}[\mkbibparens]
-  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
-   \usebibmacro{cite:init}%
+  {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
    \usebibmacro{cite}}
@@ -55,8 +57,7 @@
    \usebibmacro{cite:post}}
 
 \DeclareCiteCommand*{\parencite}[\mkbibparens]
-  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
-   \usebibmacro{cite:init}%
+  {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
    \usebibmacro{citeyear}}
@@ -147,7 +148,7 @@
         % least one more element after the current potential truncation point
         % so that "et al" covers at least two elements.
         {\ifnumcomp{\value{listcount}}{<}{\value{listtotal}}
-          {\andothersdelim\bibstring{andothers}}
+          {\printdelim{andothersdelim}\bibstring{andothers}}
           {\usebibmacro{labelname:doname}%
             {\namepartfamily}%
             {\namepartfamilyi}%
@@ -261,7 +262,7 @@
    {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
 % No author/editor
      {\usebibmacro{cite:noname}%
-       \setunit{\nameyeardelim}%
+       \setunit{\printdelim{nameyeardelim}}%
        \usebibmacro{cite:plabelyear+extrayear}%
        \savefield{fullhash}{\cbx@lasthash}}
 % Normal cite
@@ -270,7 +271,7 @@
         {\cbx@apa@ifnamesaved
           {\printnames{shortauthor}}
           {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
-      \setunit{\nameyeardelim}%
+      \setunit{\printdelim{nameyeardelim}}%
       \usebibmacro{cite:plabelyear+extrayear}%
       \savefield{fullhash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
@@ -292,7 +293,7 @@
     % Cite using title
          {\usebibmacro{cite:noname}%
           \setunit{\ifbool{cbx:np}%
-                   {\nameyeardelim}%
+                   {\printdelim{nameyeardelim}}%
                    {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
           \usebibmacro{cite:plabelyear+extrayear}}
     % Cite using shorthand
@@ -308,14 +309,14 @@
            {\printnames[labelname][-\value{listtotal}]{author}}}%
   % Year
         \setunit{\ifbool{cbx:np}
-                  {\nameyeardelim}
+                  {\printdelim{nameyeardelim}}
                   {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
   % Put the shortauthor inside the year brackets if necessary
         \ifnameundef{shortauthor}
          {}
          {\cbx@apa@ifnamesaved
            {}
-           {\printnames{shortauthor}\setunit{\nameyeardelim}}}%
+           {\printnames{shortauthor}\setunit{\printdelim{nameyeardelim}}}}%
   % Actual year printing
         \usebibmacro{cite:plabelyear+extrayear}%
   % Save name hash for checks later
@@ -347,7 +348,7 @@
   \ifciteseen
     {\printfield{shorthand}}
     {\printnames[labelname][-\value{listtotal}]{labelname}%
-     \setunit{\nameyeardelim}%
+     \setunit{\printdelim{nameyeardelim}}%
      \printfield{title}\space\printfield{shorthand}}}
 
 %
@@ -374,11 +375,12 @@
 % (APA 6.21) No parens round year for cites when the cite is in
 %            parentheses. Use new command \nptextcite for such cites.
 
+\DeclareDelimFormat[nptextcite]{finalnamedelim}
+  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
 
 \DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\multicitedelim}
 \DeclareCiteCommand{\nptextcite}
-  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
-   \usebibmacro{cite:init}%
+  {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
    \global\booltrue{cbx:np}%
@@ -387,7 +389,7 @@
   {}
   {\iffieldundef{postnote}
      {}
-     {\nameyeardelim
+     {\printdelim{nameyeardelim}
       \printfield{postnote}}%
    \usebibmacro{cite:post}}
 
@@ -414,9 +416,12 @@
 % Fullcite should use "&"
 % Also need to reset the global booleans which are normally done at
 % every bib item but since these aren't bib items, they are not reset
+
+\DeclareDelimFormat[fullcite,fullcitebib]{finalnamedelim}
+  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
+
 \DeclareCiteCommand{\fullcite}
-  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
-  \usebibmacro{prenote}}
+  {\usebibmacro{prenote}}
   {\usedriver
     {\DeclareNameAlias{sortname}{default}%
       \global\boolfalse{bbx:parens}%
@@ -431,8 +436,7 @@
    \usebibmacro{cite:post}}
 
 \DeclareCiteCommand{\fullcitebib}
-  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
-   \list{}
+  {\list{}
    {\setlength{\leftmargin}{\bibhang}%
      \setlength{\itemindent}{-\leftmargin}%
      \setlength{\itemsep}{\bibitemsep}%
