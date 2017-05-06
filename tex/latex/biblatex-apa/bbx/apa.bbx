@@ -426,7 +426,7 @@
           {\namepartprefix}%
           {\namepartsuffix}}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
-      {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
+      {\ifmorenames{\andothersdelim\bibstring{andothers}}{}}{}}
 
 \renewbibmacro*{author}{%
   \ifnameundef{author}
@@ -452,12 +452,12 @@
 % (APA 6.27) Use blank for long lists
 % (APA 4.03) Serial comma for lists of three or more
 
-\DeclareDelimFormat[bib]{finalnamedelim}{%
-  \ifthenelse{\value{listcount}>\maxprtauth}
-    {}
-    {\ifthenelse{\value{liststop}>2}
-       {\finalandcomma\addspace\&\space}
-       {\addspace\&\space}}}
+\AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
+    \ifthenelse{\value{listcount}>\maxprtauth}
+      {}
+      {\ifthenelse{\value{liststop}>2}
+         {\finalandcomma\addspace\&\space}
+         {\addspace\&\space}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -701,7 +701,7 @@
         {\namepartprefix}%
         {\namepartsuffix}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
-      {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
+      {\ifmorenames{\andothersdelim\bibstring{andothers}}{}}{}}
 
 \renewbibmacro*{author/editor}{%
   \ifnameundef{author}
