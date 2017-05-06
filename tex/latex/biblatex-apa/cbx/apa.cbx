@@ -28,6 +28,7 @@
 % (APA 6.11) requires comma separator between authors and years
 
 \DeclareDelimFormat{nameyeardelim}{\addcomma\space}
+\DeclareDelimFormat[textcite]{nameyeardelim}{\addcomma\space}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -293,7 +294,7 @@
     % Cite using title
          {\usebibmacro{cite:noname}%
           \setunit{\ifbool{cbx:np}%
-                   {\nameyeardelim}%
+                   {\printdelim{nameyeardelim}}%
                    {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
           \usebibmacro{cite:plabelyear+extrayear}}
     % Cite using shorthand
