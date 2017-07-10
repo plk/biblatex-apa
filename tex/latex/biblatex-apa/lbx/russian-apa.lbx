@@ -34,22 +34,22 @@
   from             = {{c}{c}},
   archivedat       = {{в архиве\space на}{в архиве\space на}},
   with             = {{с}{с}},
-  paragraph        = {{\S}{\S}},
-  paragraphs       = {{\S\S}{\S\S}},
+  paragraph        = {{абзац}{абз\adddot}},
+  paragraphs       = {{абзацы}{абз\adddot}},
   producer         = {{продюсер}{продюсер}},
   execproducer     = {{исполнительный продюсер}{исполнительный продюсер}},
   director         = {{режиссер}{режиссер}},
   writer           = {{сценарист}{сценарист}},
-  origyear         = {{оригинальная\space работа\space опубликована}{оригинальная\space работа\space опубликована}},
+  origyear         = {{оригинальная\space работа\space опубликована}{ориг\adddotspace работа\space опубл\adddot}},
   typechair        = {{Председатель}{Председатель}},
   typechairs       = {{Председатели}{Председатели}},
   typevolume       = {{Редактор\space тома}{Ред\adddotspace т\adddot}},
-  typevolumes      = {{Редакторы\space тома}{Ред\adddot т\adddot}},
-  typeseries       = {{Редактор\space серии}{Ред\adddot сер\adddot}},
-  typeseriess      = {{Редакторы\space серии}{Ред\adddot сер\adddot}},
+  typevolumes      = {{Редакторы\space тома}{Ред\adddotspace т\adddot}},
+  typeseries       = {{Редактор\space серии}{Ред\adddotspace сер\adddot}},
+  typeseriess      = {{Редакторы\space серии}{Ред\adddotspace сер\adddot}},
   typevolseries    = {{Редактор\space серии\space и\space тома}{Ред\adddotspace сер\adddotspace и\space т\adddot}},
   typevolseriess   = {{Редакторы\space серии\space и\space тома}{Ред\adddotspace сер\adddotspace и\space т\adddot}},
-  annodomini       = {{нашей эры}{н\adddotspace э\adddot}},
+  annodomini       = {{нашей\space эры}{н\adddotspace э\adddot}},
   beforechrist     = {{до\space нашей\space эры}{до н\adddotspace э\adddot}},
 }
 
@@ -90,9 +90,9 @@
       {\iffieldundef{#3}
         {\iffieldundef{#1}
           {}%
-          {\addcomma\addspace}
+          {\addcomma\addspace}%
          \mkbibmonth{\thefield{#2}}}%
-        {\addspace\lbx@sl@mkbibmonth{\thefield{#2}}}}}
+        {\addspace\lbx@sl@mkbibmonth{\thefield{#2}}}}}%
   %
   \protected\def\mkbibdateapalongextra#1#2#3{%
     \iffieldundef{#1}%
@@ -111,7 +111,7 @@
           {}%
           {\addcomma\addspace}%
          \mkbibmonth{\thefield{#2}}}%
-        {\addspace\lbx@sl@mkbibmonth{\thefield{#2}}}}}
+        {\addspace\lbx@sl@mkbibmonth{\thefield{#2}}}}}%
   %
   \protected\def\mkbibdateapalongmdy#1#2#3{%
     \iffieldundef{#3}%
