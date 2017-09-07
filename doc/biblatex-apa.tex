@@ -401,6 +401,32 @@ general notes:
   they are given as roman numerals, as required by \apa{6.22}.
 \end{itemize}
 
+\subsubsection{Journal number for journals with per-issue pagination}
+As per APA 6th edition section 6.30 and 7.01, journals which paginate by
+issue need the volume number including in the reference section. Since
+there is no way to automatically determine when this is the case, use the
+|biber| sourcemap feature to implement this, removing the |NUMBER| field
+from journals known to implement continuous pagination across volumes. For
+example, with this in your preamble:
+
+\begin{lstlisting}[style=latex]{}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+       \step[fieldsource=journaltitle,
+             match=\regexp{(?:journal\stitle\sone|journal\stitle\stwo)}]
+       \step[fieldset=number, null]
+    }
+  }
+}
+\end{lstlisting}
+%
+Simply include |NUMBER| fields for all journals and entries with
+|JOURNALTITLE| of «journal title one» or «journal title two» (which
+are known to paginate across all numbers of a volume) will have
+their |NUMBER| field dynamically removed at document compile time, as
+required.
+
 \subsubsection{Retrieval dates for online items}
 
 APA 6th edition section 6.32 says «Do not include retrieval dates unless
