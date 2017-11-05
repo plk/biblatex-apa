@@ -44,7 +44,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Used to join citations/references to
-%  extrayear
+%  extradate
 
 \newcommand{\apashortdash}{-}
 
@@ -194,7 +194,7 @@
 % (APA 6.25) Sorting is nyt but we need to account for PUBSTATE which comes
 %            after all normal cites for the same author
 
-\DeclareSortingScheme{apa}{
+\DeclareSortingTemplate{apa}{
   \sort{
     \field{presort}
   }
@@ -440,7 +440,7 @@
         \printnames[apaauthor][-\value{listtotal}]{with}}
         \setunit*{\addspace}}}%
   \newunit\newblock%
-  \usebibmacro{labelyear+extrayear}}
+  \usebibmacro{labeldate+extradate}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -480,7 +480,7 @@
       \iffieldundef{endmonth}{}{/\printfield{endmonth}}}}
     {\addcomma\space\printfield{issue}}}
 
-\newbibmacro*{labelyear+extrayear}{%
+\newbibmacro*{labeldate+extradate}{%
   \iffieldundef{labelyear}
     {\iffieldundef{origyear}
       {}
@@ -583,7 +583,7 @@
        \ifnameundef{director}\AND%
        \ifnameundef{writer}}
         {\newunit\newblock
-         \usebibmacro{labelyear+extrayear}}
+         \usebibmacro{labeldate+extradate}}
         {}}}
 
 \renewbibmacro*{maintitle}{%
@@ -724,7 +724,7 @@
        % various year placement tests
        \clearname{editor}%
        \setunit{\adddot\addspace}%
-       \usebibmacro{labelyear+extrayear}%
+       \usebibmacro{labeldate+extradate}%
        \setunit{\adddot\addspace}}}
 
 %
@@ -1777,7 +1777,7 @@
      \usebibmacro{related}}
     {}%
   \newunit\newblock
-  \ifbool{bbx:noreviewauthor}{\usebibmacro{labelyear+extrayear}}{}%
+  \ifbool{bbx:noreviewauthor}{\usebibmacro{labeldate+extradate}}{}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
   \newunit\newblock
@@ -1915,7 +1915,7 @@
   \usebibmacro{director}%
   \usebibmacro{producer}%
   \newunit\newblock
-  \usebibmacro{labelyear+extrayear}%
+  \usebibmacro{labeldate+extradate}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \setunit{\addspace}\newblock
@@ -1944,7 +1944,7 @@
   \usebibmacro{director}%
   \usebibmacro{producer}%
   \newunit\newblock
-  \usebibmacro{labelyear+extrayear}%
+  \usebibmacro{labeldate+extradate}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \setunit{\addspace}\newblock
@@ -1973,7 +1973,7 @@
   \usebibmacro{director}%
   \usebibmacro{producer}%
   \newunit\newblock
-  \usebibmacro{labelyear+extrayear}%
+  \usebibmacro{labeldate+extradate}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \setunit{\addspace}\newblock

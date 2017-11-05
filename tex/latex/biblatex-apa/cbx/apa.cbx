@@ -19,7 +19,7 @@
 % (APA 6.16) labelyear postfix is not emphasised or italic
 %            Dashes between labelyear and non-numeric year (or pseudo-year)
 
-\DeclareFieldFormat{extrayear}{\iffieldnums{labelyear}{\mknumalph{#1}}{\apashortdash\mknumalph{#1}}}
+\DeclareFieldFormat{extradate}{\iffieldnums{labelyear}{\mknumalph{#1}}{\apashortdash\mknumalph{#1}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -216,7 +216,7 @@
 % (APA 6.13) Deal with SHORTAUTHOR fields
 % (APA 6.16) Multiple same author cites in a compact citation call do not
 %            need to be repeated but the full years must be repeated with
-%            their extrayear postfixes
+%            their extradate postfixes
 % (APA 6.18) Cite ORIGYEAR/YEAR if ORIGYEAR present
 % (APA 6.28) ISSUE after year when available
 \def\citeresetapa{\global\let\cbx@apa@names\@empty}
@@ -230,7 +230,7 @@
   \iffieldequals{fullhash}{\cbx@lasthash}
 % Multiple cites in one command
    {\setunit{\compcitedelim}%
-    \usebibmacro{cite:plabelyear+extrayear}}%
+    \usebibmacro{cite:plabeldate+extradate}}%
 % Single cite
    {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
 % No author/editor
@@ -258,13 +258,13 @@
   \iffieldequals{fullhash}{\cbx@lasthash}
 % Multiple cites in one command
    {\setunit{\compcitedelim}%
-    \usebibmacro{cite:plabelyear+extrayear}}%
+    \usebibmacro{cite:plabeldate+extradate}}%
 % Single cite
    {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
 % No author/editor
      {\usebibmacro{cite:noname}%
        \setunit{\printdelim{nameyeardelim}}%
-       \usebibmacro{cite:plabelyear+extrayear}%
+       \usebibmacro{cite:plabeldate+extradate}%
        \savefield{fullhash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
@@ -273,7 +273,7 @@
           {\printnames{shortauthor}}
           {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\printdelim{nameyeardelim}}%
-      \usebibmacro{cite:plabelyear+extrayear}%
+      \usebibmacro{cite:plabeldate+extradate}%
       \savefield{fullhash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
@@ -281,7 +281,7 @@
   \iffieldequals{fullhash}{\cbx@lasthash}
 % Compact cite - more than one thing for same author
     {\setunit{\compcitedelim}%
-     \usebibmacro{cite:plabelyear+extrayear}}
+     \usebibmacro{cite:plabeldate+extradate}}
 % New cite
     {%
     \ifbool{cbx:parens}
@@ -296,7 +296,7 @@
           \setunit{\ifbool{cbx:np}%
                    {\printdelim{nameyeardelim}}%
                    {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
-          \usebibmacro{cite:plabelyear+extrayear}}
+          \usebibmacro{cite:plabeldate+extradate}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
   % Normal cite with author/editor
@@ -319,11 +319,11 @@
            {}
            {\printnames{shortauthor}\setunit{\printdelim{nameyeardelim}}}}%
   % Actual year printing
-        \usebibmacro{cite:plabelyear+extrayear}%
+        \usebibmacro{cite:plabeldate+extradate}%
   % Save name hash for checks later
         \savefield{fullhash}{\cbx@lasthash}}}}
 
-\newbibmacro*{cite:plabelyear+extrayear}{%
+\newbibmacro*{cite:plabeldate+extradate}{%
   \iffieldundef{labelyear}{}
     {\printtext[bibhyperref]{%
         \clearfield{labelmonth}% don't want months in citations
@@ -405,8 +405,8 @@
     {\usebibmacro{cite:init}}
     {\iffieldequals{fullhash}{\cbx@lasthash}
        {\setunit{\compcitedelim}%
-        \usebibmacro{cite:plabelyear+extrayear}}
-       {\usebibmacro{cite:plabelyear+extrayear}%
+        \usebibmacro{cite:plabeldate+extradate}}
+       {\usebibmacro{cite:plabeldate+extradate}%
         \savefield{fullhash}{\cbx@lasthash}}}%
   \setunit{\multicitedelim}}
 
@@ -475,23 +475,11 @@
     {}
     {\listxadd{\cbx@apa@names}{\thefield{fullhash}}}}
 
-\newbibmacro*{cite:labelyear}{%
-  \printfield{labelyear}}
-
-\newbibmacro*{cite:extrayear}{%
-  \printfield{extrayear}}
-
-\newbibmacro*{cite:labelyear+extrayear}{%
-  \iffieldundef{labelyear}
-    {}
-    {\printfield{labelyear}%
-       \printfield{extrayear}}}
-
 \DeclareCiteCommand{\citeyear}
   {\boolfalse{citetracker}%
    \boolfalse{pagetracker}%
    \usebibmacro{prenote}}
-  {\usebibmacro{cite:plabelyear+extrayear}}
+  {\usebibmacro{cite:plabeldate+extradate}}
   {\multinamedelim}
   {\usebibmacro{postnote}}
 
