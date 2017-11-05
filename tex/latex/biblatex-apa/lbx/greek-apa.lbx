@@ -1,4 +1,4 @@
-\ProvidesFile{greek-apa.lbx}[2017/01/06\space v7.4\space APA biblatex localisation]
+\ProvidesFile{greek-apa.lbx}[2017/11/05\space v7.5\space APA biblatex localisation]
 \InheritBibliographyExtras{greek}
 
 % (APA 6.22) The example abbreviations
@@ -105,7 +105,7 @@
   \protected\def\mkbibdateapalongextra#1#2#3{%
     \iffieldundef{#1}%
       {}%
-      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extrayear}}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
     \iffieldundef{#2}%
       {}%
       {\iffieldundef{#1}%

@@ -1,6 +1,5 @@
 Update version string in:
 * doc .tex (including revision history)
-* README
 * apa.cbx
 * apa.bbx
 * apa.dbx
