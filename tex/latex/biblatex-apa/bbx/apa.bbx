@@ -869,10 +869,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.29) Special journal issues
+% (APA 6.29) Special journal issues are periodicals
 
+\DeclareFieldFormat[periodical]{pages}{#1}
 \DeclareFieldFormat[periodical]{title}{#1\isdot}
-\DeclareFieldFormat[periodical]{issuetitle}{\mkbibemph{#1}\isdot}
+\DeclareFieldFormat[periodical]{issuetitle}{\mkbibbrackets{#1}}
+\DeclareFieldFormat[periodical]{volume}{\mkbibemph{\apanum{#1}}}
+\DeclareFieldFormat[periodical]{number}{\mkbibparens{\apanum{#1}}}
+\DeclareListFormat[periodical]{location}{\mkbibemph{#1}}
 
 \renewbibmacro*{periodical}{%
   \iffieldundef{title}
@@ -884,10 +888,16 @@
 
 \renewbibmacro*{title+issuetitle}{%
   \usebibmacro{periodical}%
-  \newunit
-  \usebibmacro{issue}%
-  \setunit*{\addcomma\addspace}%
-  \setunit{\addcomma\space}}
+  \setunit{\addspace}%
+  \printfield{issuetitle}%
+  \notbool{bbx:editorinauthpos}
+    {\newunit
+     \usebibmacro{labelyear+extradate}}
+    {}}
+
+\newbibmacro*{pnumber}{%
+  \printfield{volume}%
+  \printfield{number}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1018,17 +1028,6 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.30) Periodicals emph number, location
-%            and pages (with no prefix)
-
-\DeclareFieldFormat[periodical]{pages}{\mkbibemph{#1}}
-\DeclareFieldFormat[periodical]{number}{\mkbibemph{\apanum{#1}}}
-\DeclareListFormat[periodical]{location}{\mkbibemph{#1}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.02 Example 38) Proceedings emph number, location
@@ -1694,12 +1693,12 @@
   \usebibmacro{author/editor}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title+issuetitle}%
+  \setunit{\adddot\addspace}
+  \usebibmacro{journal}%
   \setunit{\addcomma\addspace}
   \printlist{location}%
   \setunit{\addcomma\addspace}
-  \printfield{volume}%
-  \setunit*{\adddot}%
-  \printfield{number}%
+  \usebibmacro{pnumber}%
   \setunit{\addcomma\addspace}
   \printfield{pages}%
   \newunit\newblock
