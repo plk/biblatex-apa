@@ -9,7 +9,7 @@
 %% version 2005/12/01 or later.
 %%
 %% This work has the LPPL maintenance status `maintained'.
-%% 
+%%
 %% The Current Maintainer of this work is Philip Kime.
 
 \ProvidesFile{apa.bbx}[2017/11/05\space v7.5\space APA biblatex references style]
@@ -327,7 +327,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.30) Sometimes "Vol" is inside the additional
 %            material parens, sometimes not. This bool
-%            tracks if it has been inserted yet.     
+%            tracks if it has been inserted yet.
 %            Can't use \clearfield{volume} as some
 %            later number format tests need to know
 %            whether volume was defined.
@@ -447,17 +447,20 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.27) References section delimiters are ampersands, not " and "
-%            Needs to be in this hook otherwise it sets this for all
-%            citations too.
 % (APA 6.27) Use blank for long lists
 % (APA 4.03) Serial comma for lists of three or more
 
-\DeclareDelimFormat[bib]{finalnamedelim}{%
+\DeclareDelimFormat[bib,biblist]{finalnamedelim}{%
   \ifthenelse{\value{listcount}>\maxprtauth}
     {}
     {\ifthenelse{\value{liststop}>2}
        {\finalandcomma\addspace\&\space}
        {\addspace\&\space}}}
+
+\DeclareDelimFormat[bib,biblist]{finalnamedelim:apa:family-given}{%
+  \ifthenelse{\value{listcount}>\maxprtauth}
+    {}
+    {\finalandcomma\addspace\&\space}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -639,7 +642,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.29) Additional information for non-periodicals in
-%            parenthesis after title. This is ugly but it's 
+%            parenthesis after title. This is ugly but it's
 %            hard to put in "optional parens" like this
 %            around an unknown amount of characters.
 
@@ -740,20 +743,31 @@
 % #4 = name prefix
 % #5 = name suffix
 
+\newbibmacro*{name:delim:apa:family-given}[1]{%
+  \ifnumgreater{\value{listcount}}{\value{liststart}}
+    {\ifboolexpr{
+       test {\ifnumless{\value{listcount}}{\value{liststop}}}
+       or
+       test \ifmorenames
+     }
+       {\printdelim{multinamedelim}}
+       {\printdelim{finalnamedelim:apa:family-given}}}
+    {}}
+
 \newbibmacro*{name:apa:family-given}[5]{%
   \ifuseprefix
-    {\usebibmacro{name:delim}{#4#1}%
+    {\usebibmacro{name:delim:apa:family-given}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
      \ifdefvoid{#4}{}{%
-       \mkbibnameprefix{#4}%
-       \ifpunctmark{'}{}{\addhighpenspace}}%
-     \mkbibnamefamily{#1\isdot}%
-     \ifdefvoid{#2}{}{\addcomma\addlowpenspace\mkbibnamegiven{#3}\isdot%
-                    \ifthenelse{\value{uniquename}>1}
-                      {\addspace\mkbibbrackets{#2}}
-                      {}}%
-     \ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
-    {\usebibmacro{name:delim}{#1}%
+       \mkbibnameprefix{#4}\isdot%
+       \ifprefchar{}{\bibnamedelimc}}%
+     \mkbibnamefamily{#1}\isdot%
+     \ifdefvoid{#2}{}{\revsdnamepunct\bibnamedelimd\mkbibnamegiven{#3}\isdot%
+                      \ifthenelse{\value{uniquename}>1}
+                        {\bibnamedelimd\mkbibbrackets{#2}}
+                        {}}%
+     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}
+    {\usebibmacro{name:delim:apa:family-given}{#1}%
      \usebibmacro{name:hook}{#1}%
      \mkbibnamefamily{#1}\isdot
      \ifboolexpe{%
@@ -761,37 +775,39 @@
        and
        test {\ifdefvoid{#4}}}
        {}
-       {\addcomma}%
-     \ifdefvoid{#2}{}{\addlowpenspace\mkbibnamegiven{#3}%
-                    \ifthenelse{\value{uniquename}>1}
-                      {\addspace\mkbibbrackets{#2}}
-                      {}}%
+       {\revsdnamepunct}%
+     \ifdefvoid{#2}{}{\bibnamedelimd\mkbibnamegiven{#3}%
+                      \ifthenelse{\value{uniquename}>1}
+                        {\bibnamedelimd\mkbibbrackets{#2}}
+                        {}}%
      \ifdefvoid{#4}{}{%
-       \addhighpenspace\mkbibnameprefix{#4}%
-       \ifpunctmark{'}{}{\addhighpenspace}}%
-     \ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
+       \bibnamedelimc\mkbibnameprefix{#4}%
+       \ifprefchar{}{\bibnamedelimc}}%
+     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}}
 
 \newbibmacro*{name:apa:given-family}[5]{%
   \ifuseprefix
     {\usebibmacro{name:delim}{#2}%
      \usebibmacro{name:hook}{#2}%
      \ifdefvoid{#2}{}{\mkbibnamegiven{#3}\isdot%
-                    \ifthenelse{\value{uniquename}>1}
-                      {\addspace\mkbibbrackets{#2}}
-                      {}\addspace}%
+                      \ifthenelse{\value{uniquename}>1}
+                        {\bibnamedelimd\mkbibbrackets{#2}}
+                        {}%
+                      \bibnamedelimd}%
      \ifdefvoid{#4}{}{%
-       \mkbibnameprefix{#4\isdot}%
-       \ifpunctmark{'}{}{\addhighpenspace}}%
-     \mkbibnamefamily{#1\isdot}%
-     \ifdefvoid{#5}{}{\addlowpenspace\mkbibnamesuffix{#5}\isdot}}
+       \mkbibnameprefix{#4}\isdot%
+       \ifprefchar{}{\bibnamedelimc}}%
+     \mkbibnamefamily{#1}\isdot%
+     \ifdefvoid{#5}{}{\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
      \ifdefvoid{#2}{}{\mkbibnamegiven{#3}\isdot%
-                    \ifthenelse{\value{uniquename}>1}
-                      {\addspace\mkbibbrackets{#2}}
-                      {}\addspace}%
+                      \ifthenelse{\value{uniquename}>1}
+                        {\bibnamedelimd\mkbibbrackets{#2}}
+                        {}%
+                      \bibnamedelimd}%
      \mkbibnamefamily{#1}\isdot
-     \ifdefvoid{#5}{}{\addcomma\addlowpenspace\mkbibnamesuffix{#5}\isdot}}}
+     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -837,7 +853,7 @@
            \clearname{translator}%
            \setunit{\adddot}}%
         \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}}}
- 
+
 \newbibmacro*{editor+trans}{%
   \ifthenelse{\ifnameundef{editor}\AND%
               \ifnameundef{editora}\AND%
@@ -1276,7 +1292,7 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-       
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Related entries
 
@@ -2128,7 +2144,7 @@
     {\href{https://dx.doi.org/#1}{\nolinkurl{#1}}}
     {\nolinkurl{#1}}}
 
-% APA 6th 
+% APA 6th
 \newbibmacro*{location+publisher}{%
   \printlist[default][1-1]{location}%
   \setunit*{\addcolon\space}%
