@@ -83,7 +83,7 @@
       {\iffieldundef{#3}
         {\iffieldundef{#1}
           {}
-          {\addspace}}%
+          {\addcomma\space}}%  <- change here
         {\adddot\addspace}%
        \mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
@@ -101,7 +101,7 @@
       {\iffieldundef{#3}
         {\iffieldundef{#1}
           {}
-          {\addspace}}%
+          {\addcomma\space}}%  <- change here
         {\adddot\addspace}%
        \mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
