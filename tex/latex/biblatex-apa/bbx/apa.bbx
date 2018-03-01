@@ -100,66 +100,70 @@
 
 % Date formats. Suppress end range of less specific fields
 \newcommand*{\mkdaterangeapalong}[1]{%
-  \blx@metadateinfo{#1}%
-  \iffieldundef{#1year}{}
-    {\datecircaprint
-     \ifstrequal{#1}{url}% URL dates are unlikely to be BCE ...
-       {\printtext{%
-           \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
-           \iffieldundef{#1endyear}%
-             {}%
-             {\iffieldequalstr{#1endyear}{}% open-ended range?
-               {\mbox{\bibdatedash}}
-               {\bibdatedash%
-                \iffieldsequal{#1year}{#1endyear}%
-                  {\iffieldsequal{#1month}{#1endmonth}%
-                    {\iffieldsequal{#1day}{#1endday}%
-                      {}%
-                      {\mkbibdateapalongmdy{}{}{#1endday}}}%
-                    {\mkbibdateapalongmdy{}{#1endmonth}{#1endday}}}%
-                  {\mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}}%
-           \dateuncertainprint}}
-       {\printtext{%
-           \mkbibdateapalong{#1year}{#1month}{#1day}%
-           \dateeraprint{#1year}%
-           \iffieldundef{#1endyear}%
-             {}%
-             {\iffieldequalstr{#1endyear}{}% open-ended range?
-               {\mbox{\bibdatedash}}
-               {\bibdatedash%
-                \iffieldsequal{#1year}{#1endyear}%
-                  {\iffieldsequal{#1month}{#1endmonth}%
-                    {\iffieldsequal{#1day}{#1endday}%
-                      {}%
-                      {\mkbibdateapalong{}{}{#1endday}}}%
-                    {\mkbibdateapalong{}{#1endmonth}{#1endday}}}%
-                  {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}%
-                 \dateeraprint{#1endyear}}}%
-             \enddateuncertainprint}}}}}
+  \begingroup
+    \blx@metadateinfo{#1}%
+    \iffieldundef{#1year}{}
+      {\datecircaprint
+       \ifstrequal{#1}{url}% URL dates are unlikely to be BCE ...
+         {\printtext{%
+             \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
+             \iffieldundef{#1endyear}%
+               {}%
+               {\iffieldequalstr{#1endyear}{}% open-ended range?
+                 {\mbox{\bibdatedash}}
+                 {\bibdatedash%
+                  \iffieldsequal{#1year}{#1endyear}%
+                    {\iffieldsequal{#1month}{#1endmonth}%
+                      {\iffieldsequal{#1day}{#1endday}%
+                        {}%
+                        {\mkbibdateapalongmdy{}{}{#1endday}}}%
+                      {\mkbibdateapalongmdy{}{#1endmonth}{#1endday}}}%
+                    {\mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}}%
+             \dateuncertainprint}}
+         {\printtext{%
+             \mkbibdateapalong{#1year}{#1month}{#1day}%
+             \dateeraprint{#1year}%
+             \iffieldundef{#1endyear}%
+               {}%
+               {\iffieldequalstr{#1endyear}{}% open-ended range?
+                 {\mbox{\bibdatedash}}
+                 {\bibdatedash%
+                  \iffieldsequal{#1year}{#1endyear}%
+                    {\iffieldsequal{#1month}{#1endmonth}%
+                      {\iffieldsequal{#1day}{#1endday}%
+                        {}%
+                        {\mkbibdateapalong{}{}{#1endday}}}%
+                      {\mkbibdateapalong{}{#1endmonth}{#1endday}}}%
+                    {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}%
+                   \dateeraprint{#1endyear}}}%
+               \enddateuncertainprint}}}}%
+  \endgroup}
 
 % Only for DATE as only \printdateextra is used
 \newcommand*{\mkdaterangeapalongextra}[1]{%
-  \blx@metadateinfo{#1}%
-  \iffieldundef{#1year}{}
-    {\printtext{%
-      \datecircaprint
-      \mkbibdateapalongextra{#1year}{#1month}{#1day}%
-      \dateeraprint{#1year}%
-      \dateuncertainprint
-      \iffieldundef{#1endyear}%
-        {}%
-        {\iffieldequalstr{#1endyear}{}% open-ended range?
-          {\mbox{\bibdatedash}}
-          {\bibdatedash%
-           \iffieldsequal{#1year}{#1endyear}%
-             {\iffieldsequal{#1month}{#1endmonth}%
-                {\iffieldsequal{#1day}{#1endday}%
-                  {}%
-                  {\mkbibdateapalongextra{}{}{#1endday}}}
-                {\mkbibdateapalongextra{}{#1endmonth}{#1endday}}}
-             {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}%
-              \dateeraprint{#1endyear}}}%
-         \enddateuncertainprint}}}}
+  \begingroup
+    \blx@metadateinfo{#1}%
+    \iffieldundef{#1year}{}
+      {\printtext{%
+        \datecircaprint
+        \mkbibdateapalongextra{#1year}{#1month}{#1day}%
+        \dateeraprint{#1year}%
+        \dateuncertainprint
+        \iffieldundef{#1endyear}%
+          {}%
+          {\iffieldequalstr{#1endyear}{}% open-ended range?
+            {\mbox{\bibdatedash}}
+            {\bibdatedash%
+             \iffieldsequal{#1year}{#1endyear}%
+               {\iffieldsequal{#1month}{#1endmonth}%
+                  {\iffieldsequal{#1day}{#1endday}%
+                    {}%
+                    {\mkbibdateapalongextra{}{}{#1endday}}}
+                  {\mkbibdateapalongextra{}{#1endmonth}{#1endday}}}
+               {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}%
+                \dateeraprint{#1endyear}}}%
+           \enddateuncertainprint}}}%
+  \endgroup}
 
 \AtEndPreamble{%
   \renewcommand*{\datecircaprint}{%
