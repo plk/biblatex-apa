@@ -1301,7 +1301,14 @@
     \printfield{pages}%
     \setunit{\addcomma\addspace}%
     \bibstring{byauthor}\addspace
-    \printnames[apanames][-\value{listtotal}]{editor}%
+    \ifnameundef{editor}
+      {}
+      {\printnames[apanames][-\value{listtotal}]{editor}%
+       \setunit{\addcomma\addspace}%
+       \usebibmacro{apaeditorstrg}{editor}%
+       \setunit{\addcomma\addspace}%
+       \printlabeldateextra
+       \setunit{\addcomma\addspace}}%
     \printnames[apanames][-\value{listtotal}]{author}%
     \setunit{\addcomma\addspace}%
     \usebibmacro{location+publisher}%
