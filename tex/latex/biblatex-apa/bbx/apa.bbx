@@ -1215,7 +1215,9 @@
        {\ifthenelse{\iffieldundef{abstracturl}\AND\iffieldundef{abstractloc}}
          {}
          {\printtext{\bibcpstring{abstract}}\addspace}%
-          \printtext{\bibstring{retrieved}}%
+         \iffieldequalstr{entrysubtype}{{DVD}}
+           {\printtext{\bibstring{available}}}
+           {\printtext{\bibstring{retrieved}}}%
           \setunit{\addspace}%
           \iffieldundef{urlyear}
             {}
