@@ -2061,9 +2061,12 @@
   \usebibmacro{title}%
   \newunit\newblock
   \printfield{howpublished}%
-  \setunit{\addcomma\addspace}\newblock
+  \iflistundef{institution}
+    {\newunit}
+    {\setunit{\addcomma\addspace}}%
+  \newblock
   \printlist{institution}%
-  \newunit\newblock
+  \setunit*{\addcomma\addspace}\newblock
   \printfield{note}%
   \setunit*{\addcomma\addspace}\newblock
   \printlist{location}%
