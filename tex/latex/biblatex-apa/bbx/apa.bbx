@@ -675,8 +675,7 @@
    \setunit*{\addcomma\addspace}%
    \printfield{pages}%
    \setunit{}%
-   \printtext{\bibcloseparen}%
-   \newunit}}
+   \printtext{\bibcloseparen}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1597,7 +1596,10 @@
   \printfield[apacase]{eventtitle}%
   \newunit
   \printfield{venue}%
-  \newunit\newblock
+  \iffieldundef{pages}
+    {\setunit{\addcomma\addspace}}
+    {\newunit}%
+  \newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{origyear}%
@@ -2151,16 +2153,25 @@
     {\href{https://dx.doi.org/#1}{\nolinkurl{#1}}}
     {\nolinkurl{#1}}}
 
-% APA 6th
-\newbibmacro*{location+publisher}{%
-  \printlist[default][1-1]{location}%
-  \setunit*{\addcolon\space}%
-  \printlist{publisher}%
-  \newunit}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 7.02) No LOCATION/PUBLISHER if there is a DOI
+%            (Inconsistent in 2nd printing, see 7.04:39 which
+%            is incorrect in 2nd printing)
 
+\newbibmacro*{location+publisher}{%
+  \iffieldundef{doi}
+    {\printlist[default][1-1]{location}%
+     \setunit*{\addcolon\space}%
+     \printlist{publisher}%
+     \newunit}
+    {}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  
 \newbibmacro*{type+institution}{%
   \setunit{\addspace}%
-  \ifthenelse{\iffieldundef{type}\AND\iffieldundef{institution}}
+  \ifboolexpr{ test {\iffieldundef{type}} and test {\iflistundef{institution}} }
     {}
     {\printtext[parens]{%
        \iflistundef{institution}
