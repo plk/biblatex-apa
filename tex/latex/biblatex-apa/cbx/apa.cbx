@@ -52,19 +52,19 @@
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
-  {}
-  {\usebibmacro{postnote}%
+   \usebibmacro{cite}%
    \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
 
 \DeclareCiteCommand*{\parencite}[\mkbibparens]
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{citeyear}}
-  {}
-  {\usebibmacro{postnote}%
+   \usebibmacro{citeyear}%
    \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -184,25 +184,16 @@
 %            SHORTAUTHOR brackets in parencites
 
 \DeclareNameFormat{sabrackets}{%
-  \ifciteseen
-  {\usebibmacro{labelname:doname}%
-     {\namepartfamily}%
-     {\namepartfamilyi}%
-     {\namepartgiven}%
-     {\namepartgiveni}%
-     {\namepartprefix}%
-     {\namepartprefixi}%
-     {\namepartsuffix}%
-     {\namepartsuffixi}}
-  {\mkbibbrackets{\usebibmacro{labelname:doname}%
-     {\namepartfamily}%
-     {\namepartfamilyi}%
-     {\namepartgiven}%
-     {\namepartgiveni}%
-     {\namepartprefix}%
-     {\namepartprefixi}%
-     {\namepartsuffix}%
-     {\namepartsuffixi}}}}
+  \mkbibbrackets{%
+    \usebibmacro{labelname:doname}%
+      {\namepartfamily}%
+      {\namepartfamilyi}%
+      {\namepartgiven}%
+      {\namepartgiveni}%
+      {\namepartprefix}%
+      {\namepartprefixi}%
+      {\namepartsuffix}%
+      {\namepartsuffixi}}}
 
 \DeclareFieldFormat{shorthand}{\ifciteseen
                                 {#1}
@@ -386,13 +377,13 @@
   {\usebibmacro{citeindex}%
    \global\booltrue{cbx:np}%
    \usebibmacro{textcite}%
+   \usebibmacro{cite:post}
    \global\boolfalse{cbx:np}}%
   {}
   {\iffieldundef{postnote}
      {}
      {\printdelim{nameyeardelim}%
-      \printfield{postnote}}%
-   \usebibmacro{cite:post}}
+      \printfield{postnote}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -431,10 +422,10 @@
       \global\boolfalse{bbx:editorinauthpos}%
       \global\boolfalse{bbx:in}%
       \global\let\blx@related@loop\@empty}
-    {\thefield{entrytype}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}%
+    {\thefield{entrytype}}%
    \usebibmacro{cite:post}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
 
 \DeclareCiteCommand{\fullcitebib}
   {\list{}
@@ -449,10 +440,11 @@
       \global\boolfalse{bbx:titleinauthpos}%
       \global\boolfalse{bbx:editorinauthpos}%
       \global\boolfalse{bbx:in}}
-    {\thefield{entrytype}}\finentry}
-  {\item}
-  {\endlist
+    {\thefield{entrytype}}%
+   \finentry
    \usebibmacro{cite:post}}
+  {\item}
+  {\endlist}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -499,29 +491,29 @@
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
-  {}
-  {\usebibmacro{postnote}%
+   \usebibmacro{cite}%
    \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
 
 \DeclareCiteCommand*{\cite}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{citeyear}}
-  {}
-  {\usebibmacro{postnote}%
+   \usebibmacro{citeyear}%
    \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
 
 \DeclareCiteCommand{\footcite}[\mkbibfootnote]
   {\bibsentence
    \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
-  {}
-  {\usebibmacro{postnote}%
+   \usebibmacro{cite}%
    \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
 
 \DeclareMultiCiteCommand{\textcites}{\textcite}{\compcitedelim}
 
@@ -529,18 +521,18 @@
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{textcite}}
-  {}
-  {\usebibmacro{textcite:postnote}%
+   \usebibmacro{textcite}%
    \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{textcite:postnote}}
 
 \DeclareCiteCommand{\citeauthor}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{cite:author}}
-  {}
-  {\usebibmacro{postnote}%
+   \usebibmacro{cite:author}%
    \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
 
 \endinput
