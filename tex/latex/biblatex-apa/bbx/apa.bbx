@@ -414,7 +414,7 @@
 
 \DeclareNameFormat{apaauthor}{%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
-    {\addcomma\addspace\ldots\addspace}
+    {\addcomma\space\ldots\space}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
       {\iffieldannotation{uncertain}
@@ -698,7 +698,7 @@
 
 \DeclareNameFormat{apanames}{%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
-    {\addcomma\addspace\ldots}
+    {\addcomma\space\ldots\space}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
       {\usebibmacro{name:apa:given-family}%
