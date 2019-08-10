@@ -1075,7 +1075,7 @@
 \newcommand*{\begrelateddelimreviewof}{\addspace}
 \DeclareFieldFormat[review]{title}{%
   \entrydata*{\thefield{related}}{%
-    \iffieldequalstr{entrytype}{article}
+    \ifentrytype{article}
       {\mkbibemph{\printtext[apacase]{\thefield{savedtitle}}}}
       {\printtext[apacase]{\thefield{savedtitle}}}}}
 

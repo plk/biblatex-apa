@@ -69,6 +69,12 @@
   \renewcommand{\apashortdash}{~}%
   \def\urldatecomma{\addspace}%
   \protected\def\mkbibdateapalong#1#2#3{%
+    % As per 6.28, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\thefield{#1}}%
@@ -85,6 +91,12 @@
       {}%
       {\mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
+    % As per 6.28, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\thefield{#1}}%
@@ -102,6 +114,12 @@
       {}%
       {\mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
+    % As per 6.28, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
     \iffieldundef{#3}%
       {}%
       {\mkbibordinal{\thefield{#3}}}%

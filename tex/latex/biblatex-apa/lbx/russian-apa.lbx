@@ -74,8 +74,13 @@
 
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addspace}%
-  %
   \protected\def\mkbibdateapalong#1#2#3{%
+    % As per 6.28, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
@@ -93,8 +98,13 @@
           {\addcomma\addspace}%
          \mkbibmonth{\thefield{#2}}}%
         {\addspace\lbx@sl@mkbibmonth{\thefield{#2}}}}}%
-  %
   \protected\def\mkbibdateapalongextra#1#2#3{%
+    % As per 6.28, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
@@ -112,8 +122,13 @@
           {\addcomma\addspace}%
          \mkbibmonth{\thefield{#2}}}%
         {\addspace\lbx@sl@mkbibmonth{\thefield{#2}}}}}%
-  %
   \protected\def\mkbibdateapalongmdy#1#2#3{%
+    % As per 6.28, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
     \iffieldundef{#3}%
       {}%
       {\stripzeros{\thefield{#3}}}%

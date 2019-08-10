@@ -69,6 +69,12 @@
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
   \protected\def\mkbibdateapalong#1#2#3{%
+    % As per 6.28, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
@@ -85,6 +91,12 @@
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
+    % As per 6.28, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
@@ -101,6 +113,12 @@
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
+    % As per 6.28, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
     \iffieldundef{#3}%
       {}%
       {\stripzeros{\thefield{#3}}}%

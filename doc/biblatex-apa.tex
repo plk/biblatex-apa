@@ -24,7 +24,7 @@
   url={http://mirror.ctan.org/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={7.7},
+  revision={7.8},
   date={\today}}
 
 \hypersetup{%
@@ -43,6 +43,19 @@
 Please see the revision history below (section \ref{rev}) for  details on changes in each
 version. This section is just for important things like incompatible
 changes which users should be aware of.
+
+\minisec{7.8}
+|ARTICLE| entries now correctly do not print month/day in the bibliography
+as per APA 6.28. For non-academic articles (APA 7.01, examples 7, 8 and 9),
+use the new:
+
+\begin{verbatim}
+  ENTRYSUBTYPE = {nonacademic}
+\end{verbatim}
+
+This will allow month/day data in the bibliography. In the future, there
+may be other differences for |ARTICLE| subtypes and it is better to keep
+these semantically distinct from standard academic journal articles.
 
 \minisec{7.5}
 This version requires |biblatex| $>=$3.8 and |biber| $>=$2.8.
@@ -451,6 +464,10 @@ applied to the data stream by |biber| and does not change your \file{.bib}.
 
 \begin{changelog}
 
+\begin{release}{7.8}{2019}
+\item Fixed date rules for |ARTICLE|s
+\end{release}
+
 \begin{release}{7.7}{2018-04-02}
 \item Bug fixes and example alignments
 \end{release}
@@ -847,3 +864,7 @@ applied to the data stream by |biber| and does not change your \file{.bib}.
 
 \end{changelog}
 \end{document}
+
+% Local Variables:
+% TeX-engine: luatex
+% End:
