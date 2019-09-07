@@ -382,7 +382,7 @@
 % Set up some standard APA formats
 
 \DeclareFieldFormat{volume}{\apanum{#1}}
-\DeclareFieldFormat{series}{#1}
+%\DeclareFieldFormat{series}{#1}
 \DeclareFieldFormat{chapter}{\bibcpstring{chapter}~\apanum{#1}}
 \DeclareFieldFormat{volumes}{\bibcpstring{volumes}~#1}
 \DeclareFieldFormat{addendum}{\mkbibparens{#1}}
@@ -623,11 +623,11 @@
 \renewbibmacro*{journal+issuetitle}{%
   \usebibmacro{journal}%
   \setunit*{\addcomma\addspace}%
-  \iffieldundef{series}
-    {}
-    {\newunit
-     \printfield{series}
-     \setunit{\addcomma\space}}%
+  % \iffieldundef{series}
+  %   {}
+  %   {\newunit
+  %    \printfield{series}
+  %    \setunit{\addcomma\space}}%
   \printfield{volume}%
   \printfield{number}%
   \setunit{\addspace}\newblock
@@ -1393,8 +1393,8 @@
   \setunit{\addspace}\newblock
   \usebibmacro{book:editor+trans}%
   \newunit\newblock
-  \printfield{series}%
-  \newunit\newblock
+  % \printfield{series}%
+  % \newunit\newblock
   \printfield{note}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
@@ -1484,8 +1484,8 @@
   \setunit{\addcomma\addspace}%
   \printfield{number}%
   \newunit\newblock
-  \printfield{series}%
-  \newunit\newblock
+  % \printfield{series}%
+  % \newunit\newblock
   \printfield{note}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
@@ -1513,8 +1513,8 @@
   \newblock
   \usebibmacro{addinfo}%
   \newunit\newblock
-  \printfield{series}%
-  \newunit\newblock
+  % \printfield{series}%
+  % \newunit\newblock
   \printfield{note}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
@@ -1546,8 +1546,8 @@
   \newblock
   \usebibmacro{addinfo}%
   \newunit\newblock
-  \printfield{series}%
-  \newunit\newblock
+  % \printfield{series}%
+  % \newunit\newblock
   \printfield{note}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
@@ -1581,8 +1581,8 @@
   \setunit*{\addspace}\newblock
   \usebibmacro{addinfo}%
   \newunit\newblock
-  \printfield{series}%
-  \newunit\newblock
+  % \printfield{series}%
+  % \newunit\newblock
   \printfield{note}%
   \newunit\newblock
   \printlist{organization}%
@@ -1619,8 +1619,8 @@
   \newunit\newblock
   \printfield{edition}%
   \newunit\newblock
-  \printfield{series}%
-  \newunit\newblock
+  % \printfield{series}%
+  % \newunit\newblock
   \printfield{type}%
   \newunit
   \printfield{version}%
