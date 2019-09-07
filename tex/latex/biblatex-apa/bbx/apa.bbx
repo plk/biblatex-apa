@@ -669,8 +669,6 @@
       \printfield{volume}%
       \iffieldundef{part}{}{\printfield{part}}}{}%
    \setunit*{\addcomma\addspace}%
-   \printfield{number}%
-   \setunit*{\addcomma\addspace}%
    \printfield{volumes}%
    \setunit*{\addcomma\addspace}%
    \printfield{pages}%
@@ -948,8 +946,6 @@
          {\setunit{\global\booltrue{bbx:volseen}}%
           \printfield{volume}%
           \printfield{part}%
-          \setunit{\adddot}%
-          \printfield{number}%
           \setunit{\adddot\space}}}}%
   \usebibmacro{title}%
   \newunit}
@@ -967,8 +963,6 @@
          {\setunit{\addspace\global\booltrue{bbx:volseen}}%
           \printfield{volume}%
           \printfield{part}%
-          \setunit{\adddot}%
-          \printfield{number}%
           \setunit{\adddot\addspace}}}%
     \usebibmacro{booktitle}}}
 
