@@ -139,7 +139,11 @@ don't therefore have a bibliography database entry.
 
 \noindent\apa{8.10}\\
 Simple cite. «Jr.» suffix is not shown (bib entry for this example has a suffix):\\
-\apaex{\textcite{8.10}}
+\apaex{\textcite{8.10a}}\\
+
+\noindent Testing seasonal periodical citations--should be ignored and only
+year printed:\\
+\apaex{\textcite{8.10b}}
 
 \noindent\apa{8.11}\\
 Within a paragraph, not in the narrative sense:\\
@@ -280,10 +284,6 @@ the author:\\
 \noindent Testing «and others»\\
 \apaex{\textcite{ao1}}\\
 \apaex{\textcite{ao2}}
-
-\noindent Testing seasonal periodical citations\\
-\apaex{\textcite{season1}}
-
 
 % Testing name elision in cites
 % That is, \parencite{kingetal2005a,weissetal2007a,weissetal2009a}

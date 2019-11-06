@@ -70,8 +70,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.11) Suffices are not shown in citations
-% (APA 8.17) 3+ authors have "et al.", even on first cite
+% (APA 8.10) Suffices are not shown in citations
+% (APA 8.17) 3+ authors have "et al."
 % (APA 8.20) Initials only for primary author and only when not unique across all *primary* authors
 
 \newbibmacro*{labelname:doname}[8]{%
@@ -110,7 +110,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.13) Groups as names
+% (APA 8.21) Groups as names
 %            SHORTAUTHOR brackets in parencites
 
 \DeclareNameFormat{sabrackets}{%
@@ -135,11 +135,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.21) Deal with SHORTAUTHOR fields
-% (APA 6.16) Multiple same author cites in a compact citation call do not
+% (APA 8.12) Multiple same author cites in a compact citation call do not
 %            need to be repeated but the full years must be repeated with
 %            their extradate postfixes
-% (APA 6.18) Cite ORIGYEAR/YEAR if ORIGYEAR present
-% (APA 6.28) ISSUE after year when available
+% (APA 8.15) Cite ORIGYEAR/YEAR if ORIGYEAR present
 \def\citeresetapa{\global\let\cbx@apa@names\@empty}
 \citeresetapa
 \def\cbx@apa@ifnamesaved{%
@@ -257,10 +256,7 @@
         \iffieldundef{origyear}{}
           {\printorigdate%
            \setunit*{\addslash}}%
-        \printlabeldateextra}}%
-  \iffieldundef{issue}
-    {}
-    {\addcomma\addspace\printfield{issue}}}
+        \printlabeldateextra}}}
 
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
@@ -273,7 +269,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.15) Fall back to title for citations without authors
+% (APA 8.14) Fall back to title for citations without authors
 
 \DeclareFieldFormat{citetitle}{\mkbibquote{#1}}
 \DeclareFieldFormat[online]{citetitle}{\mkbibquote{#1}}
@@ -290,7 +286,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.21) No parens round year for cites when the cite is in
+% (APA 8.11) No parens round year for cites when the cite is in
 %            parentheses. Use new command \nptextcite for such cites.
 
 \DeclareDelimFormat[nptextcite]{finalnamedelim}
