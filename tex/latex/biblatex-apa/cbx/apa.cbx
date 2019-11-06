@@ -12,11 +12,11 @@
 %% 
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.cbx}[2019/09/07\space v8.0\space APA biblatex citation style]
+\ProvidesFile{apa.cbx}[2019/12/31\space v9.0\space APA biblatex citation style]
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.16) labelyear postfix is not emphasised or italic
+% (APA 8.19) labelyear postfix is not emphasised or italic
 %            Dashes between labelyear and non-numeric year (or pseudo-year)
 
 \DeclareFieldFormat{extradate}{\iffieldnums{labelyear}{\mknumalph{#1}}{\apashortdash\mknumalph{#1}}}
@@ -25,7 +25,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.11) requires comma separator between authors and years
+% (APA 8.11) requires comma separator between authors and years
 
 \DeclareDelimFormat{nameyeardelim}{\addcomma\space}
 \DeclareDelimFormat[textcite]{nameyeardelim}{\addcomma\space}
@@ -34,7 +34,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.12) No comma before "et al" if there is only one name
+% (APA 8.17) No comma before "et al" if there is only one name
 %            preceding it
 
 \DeclareDelimFormat{andothersdelim}{\ifnum\value{listcount}>2 \finalandcomma\fi\addspace}
@@ -43,7 +43,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.12) ampersand separator in parenthetical cites
+% (APA 8.17) ampersand separator in parenthetical cites
 
 \DeclareDelimFormat[parencite]{finalnamedelim}
   {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
@@ -71,8 +71,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.11) Suffices are not shown in citations
-% (APA 6.12) 3-5 authors have "et al." after first cite
-% (Blog http://blog.apastyle.org/apastyle/2014/01/when-to-use-author-initials-for-text-citations.html) Initials only for primary author and only when not unique across all *primary* authors
+% (APA 8.17) 3+ authors have "et al.", even on first cite
+% (APA 8.20) Initials only for primary author and only when not unique across all *primary* authors
 
 \newbibmacro*{labelname:doname}[8]{%
   \ifboolexpr{test {\ifnumcomp{\value{listcount}}{>}{1}}
@@ -95,6 +95,18 @@
   \fi
   \usebibmacro{name:andothers}}
 
+\DeclareNameFormat{labelname}{%
+  \usebibmacro{labelname:doname}%
+    {\namepartfamily}%
+    {\namepartfamilyi}%
+    {\namepartgiven}%
+    {\namepartgiveni}%
+    {\namepartprefix}%
+    {\namepartprefixi}%
+    {\namepartsuffix}%
+    {\namepartsuffixi}}
+
+%REMOVE
 % Can't do this with the built-in printnames format as APA requires truncation
 % and disambiguation only after first cite
 % We either use uniquelist or minnames for truncation. If uniquelist isn't
@@ -109,72 +121,72 @@
 %
 % Explicit "and others" is dealt with in labelname:doname via a custom name:andothers
 
-\DeclareNameFormat{labelname}{%
-  % First set the truncation point
-  \ifthenelse{\value{uniquelist}>1}
-    {\numdef\cbx@min{\value{uniquelist}}}
-    {\numdef\cbx@min{\value{minnames}}}%
-  % Always print the first name and the second if there are only two since
-  % "et al" must always be plural
-  \ifboolexpr{test {\ifnumcomp{\value{listcount}}{=}{1}}
-              or test {\ifnumcomp{\value{listtotal}}{=}{2}}}
-    {\usebibmacro{labelname:doname}%
-      {\namepartfamily}%
-      {\namepartfamilyi}%
-      {\namepartgiven}%
-      {\namepartgiveni}%
-      {\namepartprefix}%
-      {\namepartprefixi}%
-      {\namepartsuffix}%
-      {\namepartsuffixi}}
-    % We are looking at name >=3
-    % If the list is 6 or more names or we have seen citation before, potential truncation
-    {\ifboolexpr{test {\ifnumcomp{\value{listtotal}}{>}{5}}
-                 or test {\ifciteseen}}
-     % Less than the truncation point, print normally
-     {\ifnumcomp{\value{listcount}}{<}{\cbx@min + 1}
-       {\usebibmacro{labelname:doname}%
-         {\namepartfamily}%
-         {\namepartfamilyi}%
-         {\namepartgiven}%
-         {\namepartgiveni}%
-         {\namepartprefix}%
-         {\namepartprefixi}%
-         {\namepartsuffix}%
-         {\namepartsuffixi}}
-       {}%
-      % At potential truncation point ...
-      \ifnumcomp{\value{listcount}}{=}{\cbx@min + 1}
-        % but enforce plurality of et al - only truncate here if there is at
-        % least one more element after the current potential truncation point
-        % so that "et al" covers at least two elements.
-        {\ifnumcomp{\value{listcount}}{<}{\value{listtotal}}
-          {\printdelim{andothersdelim}\bibstring{andothers}}
-          {\usebibmacro{labelname:doname}%
-            {\namepartfamily}%
-            {\namepartfamilyi}%
-            {\namepartgiven}%
-            {\namepartgiveni}%
-            {\namepartprefix}%
-            {\namepartprefixi}%
-            {\namepartsuffix}%
-            {\namepartsuffixi}}}
-        {}%
-      % After truncation point, do not print name
-      \ifnumcomp{\value{listcount}}{>}{\cbx@min + 1}
-       {\relax}%
-       {}}%
-     % We are looking at name >=3
-     % Name list is < 6 names or we haven't seen this citation before, print normally
-     {\usebibmacro{labelname:doname}%
-       {\namepartfamily}%
-       {\namepartfamilyi}%
-       {\namepartgiven}%
-       {\namepartgiveni}%
-       {\namepartprefix}%
-       {\namepartprefixi}%
-       {\namepartsuffix}%
-       {\namepartsuffixi}}}}
+% \DeclareNameFormat{labelname}{%
+%   % First set the truncation point
+%   \ifthenelse{\value{uniquelist}>1}
+%     {\numdef\cbx@min{\value{uniquelist}}}
+%     {\numdef\cbx@min{\value{minnames}}}%
+%   % Always print the first name and the second if there are only two since
+%   % "et al" must always be plural
+%   \ifboolexpr{test {\ifnumcomp{\value{listcount}}{=}{1}}
+%               or test {\ifnumcomp{\value{listtotal}}{=}{2}}}
+%     {\usebibmacro{labelname:doname}%
+%       {\namepartfamily}%
+%       {\namepartfamilyi}%
+%       {\namepartgiven}%
+%       {\namepartgiveni}%
+%       {\namepartprefix}%
+%       {\namepartprefixi}%
+%       {\namepartsuffix}%
+%       {\namepartsuffixi}}
+%     % We are looking at name >=3
+%     % If the list is 6 or more names or we have seen citation before, potential truncation
+%     {\ifboolexpr{test {\ifnumcomp{\value{listtotal}}{>}{5}}
+%                  or test {\ifciteseen}}
+%      % Less than the truncation point, print normally
+%      {\ifnumcomp{\value{listcount}}{<}{\cbx@min + 1}
+%        {\usebibmacro{labelname:doname}%
+%          {\namepartfamily}%
+%          {\namepartfamilyi}%
+%          {\namepartgiven}%
+%          {\namepartgiveni}%
+%          {\namepartprefix}%
+%          {\namepartprefixi}%
+%          {\namepartsuffix}%
+%          {\namepartsuffixi}}
+%        {}%
+%       % At potential truncation point ...
+%       \ifnumcomp{\value{listcount}}{=}{\cbx@min + 1}
+%         % but enforce plurality of et al - only truncate here if there is at
+%         % least one more element after the current potential truncation point
+%         % so that "et al" covers at least two elements.
+%         {\ifnumcomp{\value{listcount}}{<}{\value{listtotal}}
+%           {\printdelim{andothersdelim}\bibstring{andothers}}
+%           {\usebibmacro{labelname:doname}%
+%             {\namepartfamily}%
+%             {\namepartfamilyi}%
+%             {\namepartgiven}%
+%             {\namepartgiveni}%
+%             {\namepartprefix}%
+%             {\namepartprefixi}%
+%             {\namepartsuffix}%
+%             {\namepartsuffixi}}}
+%         {}%
+%       % After truncation point, do not print name
+%       \ifnumcomp{\value{listcount}}{>}{\cbx@min + 1}
+%        {\relax}%
+%        {}}%
+%      % We are looking at name >=3
+%      % Name list is < 6 names or we haven't seen this citation before, print normally
+%      {\usebibmacro{labelname:doname}%
+%        {\namepartfamily}%
+%        {\namepartfamilyi}%
+%        {\namepartgiven}%
+%        {\namepartgiveni}%
+%        {\namepartprefix}%
+%        {\namepartprefixi}%
+%        {\namepartsuffix}%
+%        {\namepartsuffixi}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -204,7 +216,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.13) Deal with SHORTAUTHOR fields
+% (APA 8.21) Deal with SHORTAUTHOR fields
 % (APA 6.16) Multiple same author cites in a compact citation call do not
 %            need to be repeated but the full years must be repeated with
 %            their extradate postfixes
@@ -229,11 +241,13 @@
        \savefield{fullhash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
-        {\printnames[labelname][-\value{listtotal}]{labelname}}%
-        {\cbx@apa@ifnamesaved
+%REMOVE        {\printnames[labelname][-\value{listtotal}]{labelname}}%
+       {\printnames{labelname}}%
+       {\cbx@apa@ifnamesaved
           {\printnames{shortauthor}}
-          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
-      \savefield{fullhash}{\cbx@lasthash}}}%
+%REMOVE          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+          {\printnames{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+        \savefield{fullhash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
 % Using fullhash instead of namehash otherwise we may omit namelist for
@@ -259,11 +273,13 @@
        \savefield{fullhash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
-        {\printnames[labelname][-\value{listtotal}]{labelname}}%
-        {\cbx@apa@ifnamesaved
-          {\printnames{shortauthor}}
-          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
-      \setunit{\printdelim{nameyeardelim}}%
+%REMOVE        {\printnames[labelname][-\value{listtotal}]{labelname}}%
+       {\printnames{labelname}}%
+       {\cbx@apa@ifnamesaved
+         {\printnames{shortauthor}}
+%REMOVE         {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+         {\printnames{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+       \setunit{\printdelim{nameyeardelim}}%
       \usebibmacro{cite:plabelyear+extradate}%
       \savefield{fullhash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
@@ -294,11 +310,13 @@
   % Normal full cite
        {\ifnameundef{shortauthor}%
     % Normal full cite
-         {\printnames[labelname][-\value{listtotal}]{labelname}}
+%REMOVE         {\printnames[labelname][-\value{listtotal}]{labelname}}
+         {\printnames{labelname}}
     % Cite using short author
          {\cbx@apa@ifnamesaved
            {\printnames{shortauthor}}
-           {\printnames[labelname][-\value{listtotal}]{author}}}%
+%REMOVE           {\printnames[labelname][-\value{listtotal}]{author}}}%
+           {\printnames{author}}}%
   % Year
         \setunit{\ifbool{cbx:np}
                   {\printdelim{nameyeardelim}}
@@ -325,13 +343,9 @@
           {\clearfield{labelendyear}}
           {}%
         \iffieldundef{origyear}{}
-          {\ifboolexpr{ test {\iforigdatecirca} or test {\iforigdateuncertain} }
-            {\mkbibbrackets{\printorigdate}}
-            {\printorigdate}%
+          {\printorigdate%
            \setunit*{\addslash}}%
-       \ifboolexpr{ test {\iflabeldatecirca} or test {\iflabeldateuncertain} }
-         {\mkbibbrackets{\printlabeldateextra}}
-         {\printlabeldateextra}}}%
+        \printlabeldateextra}}%
   \iffieldundef{issue}
     {}
     {\addcomma\addspace\printfield{issue}}}
@@ -339,7 +353,8 @@
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
     {\printfield{shorthand}}
-    {\printnames[labelname][-\value{listtotal}]{labelname}%
+%REMOVE    {\printnames[labelname][-\value{listtotal}]{labelname}%
+    {\printnames{labelname}%
      \setunit{\printdelim{nameyeardelim}}%
      \printfield{title}\space\printfield{shorthand}}}
 

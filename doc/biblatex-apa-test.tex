@@ -13,10 +13,11 @@
 \setsansfont[Ligatures=TeX]{TexGyreHeros}
 \setmonofont[Ligatures=NoCommon]{TeXGyreCursor}
 \MakeAutoQuote{«}{»}
-
+\maxdeadcycles=1000
 % Biblatex
 \usepackage[style=apa]{biblatex}
 
+%REMOVE
 % Custom settings for misc entries in order to format the table for 6.13*
 % This table implies that the examples on each line are in a separate
 % document but since we are generating the citations from a real data
@@ -24,35 +25,35 @@
 % all of the examples MISC entrytypes and changing uniquelist
 % per-type. There is no point in just typesetting static data as this
 % wouldn't be a test of anything.
-\ExecuteBibliographyOptions[misc]{uniquelist=false}
-\DeclareNameFormat[misc]{labelname}{%
-  \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
-    {\usebibmacro{labelname:doname}
-      {\namepartfamily}
-      {\namepartfamilyi}
-      {\namepartgiven}
-      {\namepartgiveni}
-      {\namepartprefix}
-      {\namepartprefixi}
-      {\namepartsuffix}
-      {\namepartsuffixi}}
-    {\ifthenelse{\value{listtotal}>5}
-      {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
-       \ifnum\value{listcount}>2 \relax\fi}
-      {\ifciteseen
-       {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
-        \ifnum\value{listcount}=3 \relax\fi
-        \ifnum\value{listcount}=4 \relax\fi
-        \ifnum\value{listcount}=5 \relax\fi}
-       {\usebibmacro{labelname:doname}
-         {\namepartfamily}
-         {\namepartfamilyi}
-         {\namepartgiven}
-         {\namepartgiveni}
-         {\namepartprefix}
-         {\namepartprefixi}
-         {\namepartsuffix}
-         {\namepartsuffixi}}}}}
+% \ExecuteBibliographyOptions[misc]{uniquelist=false}
+% \DeclareNameFormat[misc]{labelname}{%
+%   \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
+%     {\usebibmacro{labelname:doname}
+%       {\namepartfamily}
+%       {\namepartfamilyi}
+%       {\namepartgiven}
+%       {\namepartgiveni}
+%       {\namepartprefix}
+%       {\namepartprefixi}
+%       {\namepartsuffix}
+%       {\namepartsuffixi}}
+%     {\ifthenelse{\value{listtotal}>5}
+%       {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
+%        \ifnum\value{listcount}>2 \relax\fi}
+%       {\ifciteseen
+%        {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
+%         \ifnum\value{listcount}=3 \relax\fi
+%         \ifnum\value{listcount}=4 \relax\fi
+%         \ifnum\value{listcount}=5 \relax\fi}
+%        {\usebibmacro{labelname:doname}
+%          {\namepartfamily}
+%          {\namepartfamilyi}
+%          {\namepartgiven}
+%          {\namepartgiveni}
+%          {\namepartprefix}
+%          {\namepartprefixi}
+%          {\namepartsuffix}
+%          {\namepartsuffixi}}}}}
 \MakeShortVerb{\|}
 
 \newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
@@ -101,14 +102,13 @@
 
 \begin{document}
 \section*{|biblatex-apa| style examples}
-This file typesets just about all useful examples from
-\apa{6.11}--\apa{6.21} and \apa{7.01}--\apa{7.11}. Also included are some
-clarifications from the APA blog
+This file typesets just about all useful examples from \apa{8}--\apa{10}.
+Also included are some clarifications from the APA blog
 (\url{http://blog.apastyle.org/apastyle/}). Please refer to the
 |biblatex-apa-test-references.bib| file for details on the references
 entries. The |.bib| key for each entry in the References section is listed
 for convenience in the left margin. The keys are not arbitrary and consist
-of the APA section they are taken from (7.01--7.11), followed by a colon,
+of the APA section they are taken from, followed by a colon,
 followed by the example number. This makes it easier to cross-reference the
 typeset examples with the commented |.bib| file. I chose not to put the
 examples in the References section in example number order so that the APA
@@ -120,273 +120,147 @@ demonstrated.
 \noindent Please see accompanying file |biblatex-apa-test-citations.bib|
 for the bibliographic entries which these examples use.
 
-\noindent\apa{4.03}\\
-Oxford comma in citations for three or more names:\\
-\apaex{\textcite{oc1}}\\
-\apaex{\parencite{oc2}}
+\noindent\apa{8.6}\\
+Secondary sources. The example in APA 7th is inconsistent with other
+examples of similar format which use a semi-colon:\\
+\apaex{\parencites{8.6a}[as cited in][]{8.6b}}\\\\
+\noindent To obtain the exact format, if desired, wrap the citation in:\\
+|\DeclareDelimFormat{multicitedelim}{\addcomma\space}|\\
+|\DeclareDelimFormat{multicitedelim}{\addsemicolon\space}|\\
+\DeclareDelimFormat{multicitedelim}{\addcomma\space}\\
+\apaex{\parencites{8.6a}[as cited in][]{8.6b}}\\
+\DeclareDelimFormat{multicitedelim}{\addsemicolon\space}\\
+\noindent Primary source with no date:\\
+\apaex{Allport's diary \parencite[as cited in][]{8.6c}}
 
-\noindent\apa{6.11}\\
-Simple cite. «Jr.» suffix is not shown (bib entry for this example has a suffix):\\
-\apaex{\textcite{6.11}}
-
-\noindent Within a paragraph, not in the «narrative sense»:\\
-\apaex{\autocite{6.11}}
-
-\noindent To cite the parts separately:\\
-\apaex{\citeyear{6.11}, \citeauthor{6.11}}
-
-\noindent The per-paragraph rules for elision of years are more flexible in
-APA 6th edition. There is more discretion to do this as the narrative
-consistency suggests and so this style no longer automatically elides years
-after the first mention within a paragraph. Cases can be handled as
-per the examples above.
-
-\noindent\apa{6.12} \apa{6.13}\\
-Citations like\\
-\apaex{\textcite{6.12a}}\\
-which have two authors are never name-truncated after the first cite:\\
-\apaex{\textcite{6.12a}}
-
-\noindent First citation of 3--5 author entry:\\
-\apaex{\textcite{6.12b}}
-
-\noindent Subsequent citations:\\
-\apaex{\textcite{6.12b}}\\
-Subsequent citations within a paragraph:\\
-\apaex{\citeauthor{6.12b}}
-
-\noindent Note that the dropping of the year for subsequent paragraph
-citations is not automatic as there may be cases where you don't want to do
-this (see APA 6.11).
-
-\noindent Automatic list disambiguation for ambiguous truncations after
-first cite. Note that «et al» is plural so
-it will only truncate two or more names. If it would truncate just one
-name, we just give the name:\\
-\apaex{\textcite{6.12c}}\\
-\apaex{\textcite{6.12d}}\\
-\apaex{\textcite{6.12c}}\footnote{This example is incorrect in the
-  APA 6th edition manual because «et al» is replacing only one name. This has been
-  verified with the APA and will be corrected in future editions.}\\
-\apaex{\textcite{6.12d}}
-
-\noindent Multiple-authors in running text are separated by «and».
-However, in parenthetical cites, multiple authors are separated by «\&»:\\
-\apaex{\textcite{6.12e}}\\
-\apaex{\parencite{6.12f}}
-
-\noindent Automatic list disambiguation for ambiguous truncations again,
-this time the truncation is on first cite as there are more than 5 authors:\\
-\apaex{\textcite{6.12g}}\\
-\apaex{\textcite{6.12h}}
-
-\noindent Automatic list disambiguation is only for ambiguous author lists
-in the same year so these are not disambiguated:\\
-\apaex{\textcite{6.12i}}\\
-\apaex{\textcite{6.12j}}\\
-\apaex{\textcite{6.12i}}\\
-\apaex{\textcite{6.12j}}
-
-\noindent The following table replicates with real data the examples
-in Table 6.1, p.~177 of the APA 6th Edition manual. Note that this
-table in the APA manual essentially assumes that the citations on each
-line are in a separate document since there is no list disambiguation
-or repeated cite truncations between lines. To simulate this with real
-data, the source for this document uses |\citereset| between lines and
-makes all of the data entries of MISC type, unsetting «uniquelist» for
-this type and using a custom labelname style.
-
-\begin{center}
-\begin{tabular}{lllll}
-\textbf{\parbox{2cm}{\center Type of citation}} & \textbf{\parbox{2.4cm}{\center First
-    citation in text}} & \textbf{\parbox{2.4cm}{\center Subsequent citations in
-    text}} & \textbf{\parbox{2.4cm}{\center Parenthetical format, first citation
-    in text}} & \textbf{\parbox{2.4cm}{\center Parenthetical format, subsequent
-    citations in text}}\\\\
-\hline
-\\
-\parbox{2cm}{\raggedright One work by one author}
-& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13a}}} &
-\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13a}}}\citereset
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13a}}}
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13a}}}\\\\
-\parbox{2cm}{\raggedright One work by two authors}
-& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13b}}} & 
-\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13b}}}\citereset
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13b}}}
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13b}}}\\\\
-\parbox{2cm}{\raggedright One work by three authors}
-& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13c}}} & 
-\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13c}}}\citereset
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13c}}}
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13c}}}\\\\
-\parbox{2cm}{\raggedright One work by four authors}
-& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13d}}} & 
-\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13d}}}\citereset
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13d}}}
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13d}}}\\\\
-\parbox{2cm}{\raggedright One work by five authors}
-& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13e}}} & 
-\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13e}}}\citereset
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13e}}}
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13e}}}\\\\
-\parbox{2cm}{\raggedright One work by six authors}
-& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13f}}} & 
-\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13f}}}\citereset
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13f}}}
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13f}}}\\\\
-\parbox{2cm}{\raggedright Groups (readily identified through abbreviation) as authors}
-& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13g}}} & 
-\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13g}}}\citereset\citeresetapa
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13g}}}
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13g}}}\\\\
-\parbox{2cm}{\raggedright Groups (no abbreviation) as authors}
-& \parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13h}}} & 
-\parbox{2.4cm}{\raggedright\apaexs{\textcite{6.13h}}}\citereset
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13h}}}
-& \parbox{2.4cm}{\raggedright\apaexs{\parencite{6.13h}}}\\\\
-\hline
-\end{tabular}
-\end{center}
-
-\noindent\apa{6.13}\\
-Author abbreviations should work between citations of different works by
-the author:\\
-\apaex{\parencite{6.13i}}\\
-\apaex{\parencite{6.13i}}\\
-\apaex{\parencite{6.13j}}
-
-\noindent\apa{6.14}\\
-Citations of an entry with an author who shares a
-surname with another entry always appears with initials when primary
-author. It is not explicit in the APA 6th edition manual but initials only
-appear with primary authors\footnote{\url{http://blog.apastyle.org/apastyle/2014/01/when-to-use-author-initials-for-text-citations.html}}:\\
-\apaex{\textcite{6.14}}\\
-\apaex{\textcite{7.01:3b}}
-
-\noindent\apa{6.15}\\
-Use |SHORTTITLE| field of the entry if it exists:\\
-\apaex{\parencite{6.15a}}\\\\
-Books, reports etc. use italics instead of quotes:\\
-\apaex{\textcite{6.15b}}\\\\
-Citing anonymous author:\\
-\apaex{\textcite{6.15c}}
-
-\noindent\apa{6.16}\\
-Two or more works within the same parentheses:\\
-\apaex{\parencite{6.16a,6.16b}}\\
-\apaex{\parencite{6.16c,6.16d,6.16e}}
-
-\noindent Citations of works by same authors in the same year:\\
-\apaex{\parencite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\\\
-\textcolor{red}{Note: This example, (p.~178 APA Manual 6th edition, 2nd
-  printing) is slightly odd as the «in press-a» is not indicated and
-  should be «in press» since no other in press items are listed for the
-  same authors in the example.}
-
-\noindent Compact citations in alphabetic order:\\
-\apaex{\parencites{6.16k,6.16l}}
-
-\noindent Compact citations with special order:\\
-\apaex{\parencites{6.16m}[see also][]{6.16n,6.16o}}
-
-\noindent «in press» should have hyphen before disambiguating part of label
-(also in references):\\
-\apaex{\parencite{6.16p,6.16q,6.16r}}
-
-\noindent\apa{6.17}\\
-Secondary sources:\\
-\apaex{\parencite[as cited in][]{6.17}}
-
-\noindent\apa{6.18}\\
-Classical works:\\
-\apaex{(\citeauthor{6.18a}, trans. \citeyear{6.18a})}\\
-\textcolor{red}{Note: The example is managed using lower-level cite
-  commands. This is another example of the APA not really thinking about
-  automated processing and specifying an anomalous infix format. It would
-  be better and probably acceptable for it to be:}\\
-\apaex{\parencite[][trans.]{6.18a}}\\\\
-Entries with an |ORIGDATE| field will automatically use it:\\
-\apaex{\textcite{6.18b}}\\\\
-The other examples of standard classical texts in this section should just
-be typed by hand--there is little benefit to automating these examples and
-they wouldn't usually be in the References section anyway.
-
-\noindent\apa{6.19}\\
-These examples are easily dealt with using standard |biblatex| functionality.\\
-\apaex{\parencite[][10]{6.19a}}\\
-\apaex{\parencite[][Chapter 3]{6.19b}}
-
-\noindent\apa{6.20}\\
+\noindent\apa{8.9}\\
 Such cases are just typed out--they have no Reference section entry and
 don't therefore have a bibliography database entry.
 
-\noindent\apa{6.21}\\
-Within parentheses, use the |\nptextcite| command which is equivalent to
+\noindent\apa{8.10}\\
+Simple cite. «Jr.» suffix is not shown (bib entry for this example has a suffix):\\
+\apaex{\textcite{8.10}}
+
+\noindent\apa{8.11}\\
+Within a paragraph, not in the narrative sense:\\
+\apaex{\autocite{8.11a}}
+
+\noindent Within parentheses, use the |\nptextcite| command which is equivalent to
 the |\textcite| command but omits the parenthesis and uses commas instead.
 See the |biblatex-apa| docs.\\
-\apaex{(\nptextcite[see Table 3 of][]{6.21} for complete data)}
+\apaex{(\nptextcite[see][for more detail]{8.11a})}\\
+\apaex{(e.g., falsely balanced news coverage; \nptextcite{8.11a})}\\
+\apaex{\textcite{8.11a} noted the dangers of falsely balanced news coverage.}\\
+\apaex{In \citeyear{8.11a}, \citeauthor{8.11a} noted the dangers of falsely balanced news coverage.}
 
-\noindent\apa{6.28}\\
-Entries with no date use «n.d.».\\
-\apaex{\textcite{6.28a}}\\
-\apaex{\parencite{6.28a}}\\
-\apaex{(\nptextcite{6.28a})}
+\noindent\apa{8.12}\\
+Citing multiple works:\\
+\apaex{\parencite{8.12a,8.12b,8.12c}}\\
+\apaex{\parencite{8.12d,8.12e,8.12f, 8.12g}}\\
+\apaex{\parencite{8.12h,8.12i,8.12j, 8.12k}}\\
+\apaex{\parencite{8.12l,8.12m,8.12n}}\\
+\apaex{\parencites{8.12o}[see also][]{8.12p,8.12q, 8.12r}}
 
-\noindent\apa{7.01:12c}\\
-Issue with no editors\\
-\apaex{\parencite{7.01:12c}}
+\noindent «in press» should have hyphen before disambiguating part of label\\
+\apaex{\parencite{8.12s,8.12t,8.12u}}
 
-\noindent\apa{A7.07}\\
-A patent citation uses the title but with no quotes\\
-\apaex{\textcite{A7.07}}\\
-\apaex{\parencite{A7.07}}
+\noindent\apa{8.13}\\
+Classical and part works:\\
+\apaex{\parencite[10]{8.13a}}\\
+\apaex{\parencite[Chapter 3]{8.13b}}\\
+\apaex{\parencite[3--17]{8.13c}}\\
+\apaex{\parencite[paras. 2--3]{8.13d}}\\
+\apaex{\parencite[Table 1]{8.13e}}\\
+\apaex{\parencite[Slide 7]{8.13f}}\\
+\apaex{\parencite[1:30:40]{8.13g}}\\
+\apaex{\parencite[1 Cor. 13:1]{8.13h}}\\
+\apaex{\parencite[Part IV]{8.13i}}\\
+\apaex{\parencite[\nopp 1.3.36--37]{8.13j}}\\\\
+Note the use of |\nopp| in the Shakespeare example to suppress the
+pagination prefix since the part specification is auto-detected as a range
+by |biblatex| which it then assumes is a page range. Note also the date
+format for the Aristotle example, see the reference file for the data
+format--no special formatting is required by the user as |biblatex| fully
+supports the relevant parts of the ISO 8601 specification and can
+parse/format such dates automatically.
 
-\noindent Some tests of uniqueness and uniquelist
+\noindent\apa{8.14}\\
+Use |SHORTTITLE| field of the entry if it exists:\\
+\apaex{\parencite{8.14a}}\\\\
+Articles use quotes instead of italics:\\
+\apaex{\parencite{8.14b}}\\\\
+Citing anonymous author:\\
+\apaex{\parencite{8.14c}}
 
-\noindent Two works by same authors in same year are disambiguated by extradate «a»
-and «b» and are truncated after first cite because it is the same author
-list and therefore not ambiguous:\\
-\apaex{\textcite{UL1}}\\
-\apaex{\textcite{UL1}}\\
-\apaex{\textcite{UL2}}\\
-\apaex{\textcite{UL2}}\\
+\noindent\apa{8.15}\\
+Citations with reprint/reissue dates:\\
+\apaex{\textcite{8.15a}}\\
+\apaex{\parencite{8.15b}}
 
-\noindent One author list is an ordered subset of the other and so both need fully
-expanding to be properly disambiguated. Truncating either would be ambiguous.\\
-\apaex{\textcite{UL3}}\\
-\apaex{\textcite{UL3}}\\
-\apaex{\textcite{UL4}}\\
-\apaex{\textcite{UL4}}
+\noindent\apa{8.17}\\
+Basic in-text citation styles:\\
+\begin{center}
+\begin{tabular}{p{0.33\textwidth}p{0.33\textwidth}p{0.33\textwidth}}
+  \textbf{Author type} & \textbf{Parenthetical citation} & \textbf{Narrative citation}\\\\
+  \hline
+  \\
+  One author & \apaexs{\parencite{8.17a}} & \apaexs{\textcite{8.17a}}\\\\
+  Two authors & \apaexs{\parencite{8.17b}} & \apaexs{\textcite{8.17b}}\\\\
+  Three or more authors & \apaexs{\parencite{8.17c}} & \apaexs{\textcite{8.17c}}\\\\
+  Group author with abbreviation & &\\
+  ~~First citation & \apaexs{\parencite{8.17d}}\citeresetapa & \apaexs{\textcite{8.17d}}\\\\
+  ~~Subsequent citations & \apaexs{\parencite{8.17d}} & \apaexs{\textcite{8.17d}}\\\\
+  Group author without abbreviation & \apaexs{\parencite{8.17e}} & \apaexs{\textcite{8.17e}}\\\\
+  \hline
+\end{tabular}
+\end{center}
 
-\noindent Some misc citation cases\\
-\apaex{\textcite{6.16c,6.16d,6.16e}}\\
-\apaex{\textcite{6.16f,6.16g,6.16h}}\\
-\apaex{\textcite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\
-Note here that the multicite delimiter is a comma as in running text, a
-semi-colon would be strange:
-\apaex{\textcites{6.16f}{6.16g}{6.16h}{6.16i}{6.16j}}\\
-\apaex{\cite{6.16f,6.16g,6.16h,6.16i,6.16j}}\\
-\apaex{\cite{6.16k,6.16l}}\\
-\apaex{\fullcite{FC1}}\\
-\apaex{\fullcitebib{FC1}}
+\noindent Authors in narrative citations are separated by «and».
+However, in parenthetical cites, authors are separated by «\&»:\\
+\apaex{\parencite{8.17f}}\\
+\apaex{\textcite{8.17g}}\\
+\apaex{\parencite{8.17h}}
 
-\noindent Testing «with»---should not be present in cites (APA 6.27)\\
-\apaex{\cite{with1}}\\
-\apaex{\textcite{with1}}
+\noindent Automatic list disambiguation for ambiguous truncations. Note
+that «et al» is plural so it will only truncate two or more names. If it
+would truncate just one name, we just give the name:\\
+\apaex{\textcite{8.18a}}\\
+\apaex{\textcite{8.18b}}\\
+\apaex{\textcite{8.18c}}\\
+\apaex{\textcite{8.18d}}
 
-\noindent Testing author name citing\\
-\apaex{\citeauthor{ca1}}\\
-\apaex{\citeauthor{ca1}}
+\noindent Automatic list disambiguation is only for ambiguous author lists
+in the same year. This is implied in \apa{8.18} by the phrase «the same
+in-text citation form». So these are not disambiguated:\\
+\apaex{\textcite{8.18e}}\\
+\apaex{\textcite{8.18f}}
 
-\noindent Testing nodate\\
-\apaex{\textcite{nodate1}}\\
-\apaex{\textcite{nodate2}}
+\noindent\apa{8.19}\\
+Citations of works by same authors in the same year:\\
+\apaex{\parencite{8.19a}}\\
+\apaex{\textcite{8.19b}}\\
+\apaex{\parencite{8.19c,8.19d}}
 
-\noindent Testing full name expansion (APA 6.27). See citation refs for how
-these appear in references\\
-\apaex{\textcite{6.27a}}\\
-\apaex{\textcite{6.27b}}
+\noindent\apa{8.20}\\
+Citations of an entry with an author who shares a surname with another
+entry always appears with initials when primary author:\\
+\apaex{\parencite{8.20a,8.20b}}
+
+\noindent When initials are also the same, revert to standard format:\\
+\apaex{\parencite{8.20c,8.20d}}
+
+\noindent Only the primary author should have initials:\\
+\apaex{\parencite{8.20f,8.20g,8.20h,8.20i,8.20j}}\\
+
+\noindent Authors in same reference with same surname:\\
+\apaex{\parencite{8.20e}}
+
+\noindent\apa{8.21}\\
+Group author abbreviations should work between citations of different works by
+the author:\\
+\apaex{\parencite{8.21a}}\\
+\apaex{\parencite{8.21a}}\\
+\apaex{\parencite{8.21b}}
 
 \noindent Testing suffices\\
 \apaex{\textcite{stest1}}\\
@@ -410,12 +284,6 @@ these appear in references\\
 \noindent Testing seasonal periodical citations\\
 \apaex{\textcite{season1}}
 
-\noindent Testing first list name initials only as per:\\
-\url{http://blog.apastyle.org/apastyle/2014/01/when-to-use-author-initials-for-text-citations.html}\\
-First citation:\\
-\apaex{\parencite{first,second,third,fourth,deutsch1963}}\\
-Second citation:\\
-\apaex{\parencite{first,second,third,fourth,deutsch1963}}
 
 % Testing name elision in cites
 % That is, \parencite{kingetal2005a,weissetal2007a,weissetal2009a}
@@ -427,9 +295,6 @@ Second citation:\\
 % truncation of the 2007 and 2009 names is the same
 \noindent{Testing name elision in cites}\\
 \apaex{\parencite{kingetal2005a,weissetal2007a,weissetal2009a}}
-
-\noindent Testing circa/BCE/uncertain era format\\
-\apaex{\nptextcite{plato}}
 
 \noindent Testing citation formats for complete dates\\
 \apaex{\textcite{Ludwig2014}}
