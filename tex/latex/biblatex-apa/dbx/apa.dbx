@@ -25,7 +25,8 @@
   writer,
   producer,
   execproducer,
-  director}
+  director,
+  groupauthor}
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
   abstractloc,
@@ -39,6 +40,7 @@
 \DeclareDatamodelEntryfields{
   titleisdescription,
   with,
+  groupauthor,
   abstractloc,
   abstracturl,
   urldescription}

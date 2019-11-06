@@ -161,7 +161,10 @@
        {\printnames{labelname}}%
        {\cbx@apa@ifnamesaved
           {\printnames{shortauthor}}
-          {\printnames[labelname]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+          {\ifnameundef{groupauthor}
+            {\printnames[labelname]{author}}
+            {\printnames[labelname]{groupauthor}}%
+           \addspace\printnames[sabrackets]{shortauthor}}}%
         \savefield{fullhash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
@@ -191,7 +194,10 @@
        {\printnames{labelname}}%
        {\cbx@apa@ifnamesaved
          {\printnames{shortauthor}}
-         {\printnames[labelname]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+         {\ifnameundef{groupauthor}
+           {\printnames[labelname]{author}}
+           {\printnames[labelname]{groupauthor}}%
+          \addspace\printnames[sabrackets]{shortauthor}}}%
        \setunit{\printdelim{nameyeardelim}}%
       \usebibmacro{cite:plabelyear+extradate}%
       \savefield{fullhash}{\cbx@lasthash}}}%
@@ -227,7 +233,9 @@
     % Cite using short author
          {\cbx@apa@ifnamesaved
            {\printnames{shortauthor}}
-           {\printnames[labelname]{author}}}%
+           {\ifnameundef{groupauthor}
+             {\printnames[labelname]{author}}
+             {\printnames[labelname]{groupauthor}}}}%
   % Year
         \setunit{\ifbool{cbx:np}
                   {\printdelim{nameyeardelim}}
