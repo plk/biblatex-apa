@@ -250,15 +250,10 @@
 \DeclareLabeldate{%
   \field{pubstate}
   \field{date}
-  \field{year}%legacy - no EDTF support
+  \field{year}%legacy - no ISO8601 support
   \literal{nodate}
 }
 
-% Due to APA strange requirements like truncation after first cite and
-% ellipsis from 7th to n-1 in bib, there might be some
-% edge cases which can't be handled as this needs treating in the style
-% after biber has finished. Very unlikely though.
-%
 \ExecuteBibliographyOptions{%
                             abbreviate=true,%
                             autocite=inline,%

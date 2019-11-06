@@ -1,9 +1,10 @@
 \ProvidesFile{brazilian-apa.lbx}[2019/12/31\space v9.0\space APA biblatex localisation]
 \InheritBibliographyExtras{brazilian}
 
-% (APA 6.22) The example abbreviations
+% (APA 9.50) Abbreviations
 
 \NewBibliographyString{revisededition}
+\NewBibliographyString{secondedition}
 \NewBibliographyString{typechair}
 \NewBibliographyString{typechairs}
 \NewBibliographyString{typevolume}
@@ -24,10 +25,20 @@
 \NewBibliographyString{director}
 \NewBibliographyString{writer}
 \NewBibliographyString{with}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{supplement}
 
 \DeclareBibliographyStrings{%
   inherit          = {brazilian},
+  supplement       = {{supplement}{suppl\adddot}},%FIXME
+  part             = {{part}{pt\adddot}},%FIXME
+  narrator         = {{narrator}{nar\adddot}},%FIXME
+  narrators        = {{narrators}{narrs\adddot}},%FIXME
+  paragraph        = {{paragraph}{para\adddot}},%FIXME
+  paragraphs       = {{paragraphs}{paras\adddot}},%FIXME
   revisededition   = {{Edi\c{c}\~ao\space Revisada}{ed\adddotspace rev\adddot}},
+  secondedition    = {{Second\space Edition}{2nd\adddotspace ed\adddot}},%FIXME
   on               = {{em}{em}},
   retrieved        = {{recuperado}{recuperado}},
   available        = {{dispon\'ivel}{disp.}},
@@ -65,7 +76,7 @@
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
   \protected\def\mkbibdateapalong#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -87,7 +98,7 @@
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -109,7 +120,7 @@
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%

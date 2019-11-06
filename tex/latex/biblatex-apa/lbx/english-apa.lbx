@@ -1,9 +1,10 @@
 \ProvidesFile{english-apa.lbx}[2019/12/31\space v9.0\space APA biblatex localisation]
 \InheritBibliographyExtras{english}
 
-% (APA 6.22) The example abbreviations
+% (APA 9.50) Abbreviations
 
 \NewBibliographyString{revisededition}
+\NewBibliographyString{secondedition}
 \NewBibliographyString{typechair}
 \NewBibliographyString{typechairs}
 \NewBibliographyString{typevolume}
@@ -24,10 +25,18 @@
 \NewBibliographyString{director}
 \NewBibliographyString{writer}
 \NewBibliographyString{with}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{supplement}
 
 \DeclareBibliographyStrings{%
   inherit          = {american},
+  supplement       = {{supplement}{suppl\adddot}},
+  part             = {{part}{pt\adddot}},
+  narrator         = {{narrator}{nar\adddot}},
+  narrators        = {{narrators}{narrs\adddot}},
   revisededition   = {{Revised\space Edition}{rev\adddotspace ed\adddot}},
+  secondedition    = {{Second\space Edition}{2nd\adddotspace ed\adddot}},
   page             = {{Page}{{}p\adddot}},
   pages            = {{Pages}{{}pp\adddot}},
   on               = {{on}{on}},
@@ -39,8 +48,8 @@
   reprintas        = {{reprinted as}{reprinted as}},
   reprintfrom      = {{reprinted from}{reprinted from}},
   reviewof         = {{review\space of}{review\space of}},
-  paragraph        = {{\P}{\P}},
-  paragraphs       = {{\P\P}{\P\P}},
+  paragraph        = {{paragraph}{para\adddot}},
+  paragraphs       = {{paragraphs}{paras\adddot}},
   producer         = {{producer}{producer}},
   execproducer     = {{executive producer}{executive producer}},
   director         = {{director}{director}},
@@ -73,7 +82,7 @@
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
   \protected\def\mkbibdateapalong#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -95,7 +104,7 @@
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -117,7 +126,7 @@
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%

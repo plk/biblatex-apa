@@ -3,9 +3,10 @@
 
 \setcounter{smartand}{0} % Turn off "smart and" or ampersands will all be replaced
 
-% (APA 6.22) The example abbreviations
+% (APA 9.50) Abbreviations
 
 \NewBibliographyString{revisededition}
+\NewBibliographyString{secondedition}
 \NewBibliographyString{typechair}
 \NewBibliographyString{typechairs}
 \NewBibliographyString{typevolume}
@@ -26,10 +27,16 @@
 \NewBibliographyString{director}
 \NewBibliographyString{writer}
 \NewBibliographyString{with}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{supplement}
 
 \DeclareBibliographyStrings{%
   inherit          = {galician},
-  inpress          = {{no prelo}{no prelo}},% remove when biblatex has it
+  supplement       = {{supplement}{suppl\adddot}},%FIXME
+  part             = {{part}{pt\adddot}},%FIXME
+  narrator         = {{narrator}{nar\adddot}},%FIXME
+  narrators        = {{narrators}{narrs\adddot}},%FIXME
   january          = {{xaneiro}{xaneiro}},
   february         = {{febreiro}{febreiro}},
   march            = {{marzo}{marzo}},
@@ -46,6 +53,7 @@
   mathesis         = {{tese\addabbrvspace de\addabbrvspace mestrado}{tese\addabbrvspace de\addabbrvspace mestrado}},
   phdthesis        = {{tese\addabbrvspace doutoral}{tese\addabbrvspace doutoral}},
   revisededition   = {{edici\'on\space revisada}{edici\'on\space revisada}},
+  secondedition    = {{Second\space Edition}{2nd\adddotspace ed\adddot}},%FIXME
   producer         = {{produtor}{produtor}},
   execproducer     = {{produtor executivo}{produtor executivo}},
   director         = {{director}{director}},
@@ -59,8 +67,8 @@
   from             = {{desde}{desde}},
   archivedat       = {{arquivado en}{arquivado en}},
   reviewof         = {{revisi\'on\space de}{revisi\'on\space de}},
-  paragraph        = {{\P}{\P}},
-  paragraphs       = {{\P\P}{\P\P}},
+  paragraph        = {{paragraph}{para\adddot}},%FIXME
+  paragraphs       = {{paragraphs}{paras\adddot}},%FIXME
   origyear         = {{data\space orixinal\space de\space publicaci\'on}{data\space orixinal\space de\space publicaci\'on}},
   typechair        = {{coordinador}{coord\adddot}},
   typechairs       = {{coordinadores}{coords\adddot}},
@@ -84,7 +92,7 @@
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
   \protected\def\mkbibdateapalong#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -106,7 +114,7 @@
         {\addspace}%
        \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -128,7 +136,7 @@
        \mkbibmonth{\thefield{#2}}%
 }}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%

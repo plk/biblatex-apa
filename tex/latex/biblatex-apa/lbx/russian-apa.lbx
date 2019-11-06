@@ -1,9 +1,10 @@
 \ProvidesFile{russian-apa.lbx}[2019/12/31\space v9.0\space APA biblatex localisation]
 \InheritBibliographyExtras{russian}
 
-% (APA 6.22) The example abbreviations
+% (APA 9.50) Abbreviations
 
 \NewBibliographyString{revisededition}
+\NewBibliographyString{secondedition}
 \NewBibliographyString{typechair}
 \NewBibliographyString{typechairs}
 \NewBibliographyString{typevolume}
@@ -24,10 +25,18 @@
 \NewBibliographyString{director}
 \NewBibliographyString{writer}
 \NewBibliographyString{with}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{supplement}
 
 \DeclareBibliographyStrings{%
   inherit          = {russian},
+  supplement       = {{supplement}{suppl\adddot}},%FIXME
+  part             = {{part}{pt\adddot}},%FIXME
+  narrator         = {{narrator}{nar\adddot}},%FIXME
+  narrators        = {{narrators}{narrs\adddot}},%FIXME
   revisededition   = {{исправленное издание}{испр\adddotspace изд\adddot}},
+  secondedition    = {{Second\space Edition}{2nd\adddotspace ed\adddot}},%FIXME
   on               = {{на}{на}},
   retrieved        = {{получено}{получено}},
   available        = {{доступно}{доступно}},
@@ -77,7 +86,7 @@
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addspace}%
   \protected\def\mkbibdateapalong#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -101,7 +110,7 @@
          \mkbibmonth{\thefield{#2}}}%
         {\addspace\lbx@sl@mkbibmonth{\thefield{#2}}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -125,7 +134,7 @@
          \mkbibmonth{\thefield{#2}}}%
         {\addspace\lbx@sl@mkbibmonth{\thefield{#2}}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%

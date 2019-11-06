@@ -1,9 +1,10 @@
 \ProvidesFile{norwegian-apa.lbx}[2019/12/31\space v9.0\space APA biblatex localisation]
 \InheritBibliographyExtras{norwegian}
 
-% (APA 6.22) The example abbreviations
+% (APA 9.50) Abbreviations
 
 \NewBibliographyString{revisededition}
+\NewBibliographyString{secondedition}
 \NewBibliographyString{typechair}
 \NewBibliographyString{typechairs}
 \NewBibliographyString{typevolume}
@@ -24,10 +25,18 @@
 \NewBibliographyString{director}
 \NewBibliographyString{writer}
 \NewBibliographyString{with}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{supplement}
 
 \DeclareBibliographyStrings{%
   inherit          = {norwegian},
+  supplement       = {{supplement}{suppl\adddot}},%FIXME
+  part             = {{part}{pt\adddot}},%FIXME
+  narrator         = {{narrator}{nar\adddot}},%FIXME
+  narrators        = {{narrators}{narrs\adddot}},%FIXME
   revisededition   = {{revidert\space utgave}{rev\adddotspace utg\adddot}},
+  secondedition    = {{Second\space Edition}{2nd\adddotspace ed\adddot}},%FIXME
   page             = {{side}{{}s\adddot}},
   pages            = {{sider}{{}s\adddot}},
   on               = {{p{\aa}}{p{\aa}}},
@@ -41,8 +50,8 @@
   director         = {{regiss{\o}r}{regiss{\o}r}},
   writer           = {{manus}{manus}},
   with             = {{med}{med}},
-  paragraph        = {{\P}{\P}},
-  paragraphs       = {{\P\P}{\P\P}},
+  paragraph        = {{paragraph}{para\adddot}},%FIXME
+  paragraphs       = {{paragraphs}{paras\adddot}},%FIXME
   mathesis         = {{Masteroppgave}{Masteroppgave}},
   phdthesis        = {{Doktoravhandling}{Doktoravhandling}},
   origyear         = {{opprinnelig\space publisert}{opprinnelig\space publisert}},
@@ -71,7 +80,7 @@
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
   \protected\def\mkbibdateapalong#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -95,7 +104,7 @@
         {\adddot\addspace}%
        \mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
@@ -119,7 +128,7 @@
         {\adddot\addspace}%
        \mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
-    % As per 6.28, Articles only have year
+    % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
