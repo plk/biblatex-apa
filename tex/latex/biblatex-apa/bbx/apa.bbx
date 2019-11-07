@@ -55,7 +55,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Allow variable max authors/editors limit
 
-\newcommand{\maxprtauth}{7}
+\newcommand{\maxprtauth}{20}
 \DeclareBibliographyOption{apamaxprtauth}{%
   \ifstrempty{#1}
     {}
@@ -172,19 +172,19 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.09 Example 62) ERIC
-% eprint references
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.1 Example 6) eprints (eLocator)
 
-\DeclareFieldFormat{eprint:eric}{%
-  \printtext{\bibcpstring{retrieved}}%
-  \setunit{\addspace}%
-  \printtext{\bibstring{from}}\addspace%
-  ERIC\addspace database\adddot\addspace%
-  \mkbibparens{#1}}
+\renewbibmacro*{eprint}{%
+  \iffieldundef{eprinttype}
+    {\printfield{eprint}}
+    {\printfield[eprint:\strfield{eprinttype}]{eprint}}}
+
+\DeclareFieldFormat{eprint}{#1}
+\DeclareFieldFormat{eprint:article}{Article\space#1}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.12) sort citations
@@ -532,17 +532,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.01 Example 10) Newspapers have prefix for pages.
+% (APA 9.25) No prefix for pages
 
-\DeclareFieldFormat[newsarticle]{pages}{%
-    \DeclareNumChars{.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}%
-    \mkpageprefix{#1}%
-    \DeclareNumChars{.}}
+\DeclareFieldFormat{pages}{#1}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% newspapers
 
 \DeclareFieldFormat[newsarticle]{newspaper}{\mkbibemph{#1}}
 \DeclareFieldFormat[newsarticle]{entrysubtype}{\mkbibbrackets{#1}}
 \DeclareFieldFormat[newsarticle]{title}{#1}
-\DeclareFieldFormat[article]{pages}{#1}
 
 \newbibmacro*{newspaper}{%
   \printfield{newspaper}
@@ -614,7 +616,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.30) Format of volume and number for articles
+% (APA 10.1) Format of volume and number for articles
 
 \DeclareFieldFormat[article]{volume}{\mkbibemph{\apanum{#1}}}
 \DeclareFieldFormat[article]{number}{\mkbibparens{\apanum{#1}}}
@@ -622,15 +624,26 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.1:11) Format of number for reprints
+
+\DeclareFieldFormat[reprint]{number}{\mkbibbrackets{\apanum{#1}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.30) Commas between title and volume for articles
+% (APA 10)   Commas between title and volume for articles
+% (APA 10.6) eLocator is part of journal info
 
 \renewbibmacro*{journal+issuetitle}{%
   \usebibmacro{journal}%
   \setunit*{\addcomma\addspace}%
   \printfield{volume}%
   \printfield{number}%
-  \setunit{\addspace}\newblock
+  \setunit*{\addcomma\addspace}%
+  \usebibmacro{eprint}%
+  \newunit\newblock
   \usebibmacro{issuename}%
   \newunit}
 
@@ -807,13 +820,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.27) Editor string in parens after author list
 % (APA 7.02 Example 21) Collapse editor and trans if same
-% (APA 7.02 Example 26) Translator
-
+% (APA 10.1 Example 10) Translator
 
 % Separated out into book and in* macros because otherwise
 % this makes one ugly, huge, unreadable beast.
 
-\newbibmacro*{book:editor+trans}{%
+\newbibmacro*{bookart:editor+trans}{%
   \ifthenelse{\ifnameundef{editor}\AND%
               \ifnameundef{editora}\AND%
               \ifnameundef{editorb}\AND%
@@ -911,7 +923,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.02 Example 21) Original year
+% (APA 10.1 Example 10) Original year
 
 % Only give ORIGYEAR in references if both:
 %   YEAR is also given
@@ -1208,15 +1220,13 @@
        {\ifthenelse{\iffieldundef{abstracturl}\AND\iffieldundef{abstractloc}}
          {}
          {\printtext{\bibcpstring{abstract}}\addspace}%
-         \iffieldequalstr{entrysubtype}{{DVD}}
-           {\printtext{\bibstring{available}}}
-           {\printtext{\bibstring{retrieved}}}%
-          \setunit{\addspace}%
           \iffieldundef{urlyear}
             {}
-            {\printtext{\printurldate}%
-             \setunit*{\urldatecomma}}%
-          \printtext{\bibstring{from}}%
+            {\printtext{\bibstring{retrieved}}%
+             \addspace
+             \printtext{\printurldate}%
+             \setunit{\urldatecomma}%
+             \printtext{\bibstring{from}}}%
           \setunit*{\addspace}%
           \printfield{urldescription}%
           \setunit*{\addcolon\addspace}%
@@ -1228,11 +1238,11 @@
 %%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.11) Non-emph titles for online items
-%            Subtype in brackets
-
+% (APA 10.1 Example 17) Non-emph titles for online items
+%                       Emph organization 
 
 \DeclareFieldFormat[online]{title}{#1}
+\DeclareListFormat[online]{organization}{\mkbibemph{#1}}
 \DeclareFieldFormat[online]{entrysubtype}{\mkbibbrackets{#1}}
 
 %
@@ -1285,30 +1295,44 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Related entries
+%
+% Have to force capitlisation bibstring variant because the delim
+% has no printable char and this breaks default capitalisation
 
-\DeclareFieldFormat{related:reprintfrom}{\mkbibparens{#1}}
+\newcommand*{\begrelateddelimreprintfrom}{\addspace}
+\DeclareFieldFormat{related:reprintfrom}{\def\bibstring{\blx@imc@bibcpstring}\mkbibparens{#1}}
 \DeclareFieldFormat{related:reviewof}{\mkbibbrackets{#1}}
 
 \renewbibmacro*{related:reprintfrom}[1]{%
   \entrydata*{#1}{%
-    \printtext{\mkbibemph{\printfield[apacase]{title}}}%
-    \setunit{\bibpagespunct}%
+    \mkbibquote{%
+      \printfield[apacase]{title}%
+      \setunit{\subtitlepunct}%
+      \printfield[apacase]{subtitle}}%
+    \setunit{\addcomma\addspace}%
+    \printlabeldateextra
+    \setunit{\addcomma\addspace}%
+    \usebibmacro{journal}%
+    \setunit*{\addcomma\addspace}%
+    \printfield{volume}%
+    \printfield[reprint]{number}%
+    \setunit*{\addcomma\addspace}%
+    \usebibmacro{eprint}%
+    \setunit{\addcomma\addspace}%
+    \iffieldundef{issuetitle}
+      {}
+      {\printtext[issuetitle]{%
+         \printfield[noformat]{issuetitle}%
+         \setunit{\subtitlepunct}%
+         \printfield[noformat]{issuesubtitle}}}%
+    \setunit{\addcomma\addspace}%
     \printfield{pages}%
     \setunit{\addcomma\addspace}%
-    \bibstring{byauthor}\addspace
-    \ifnameundef{editor}
-      {}
-      {\printnames[apanames][-\value{listtotal}]{editor}%
-       \setunit{\addcomma\addspace}%
-       \usebibmacro{apaeditorstrg}{editor}%
-       \setunit{\addcomma\addspace}%
-       \printlabeldateextra
-       \setunit{\addcomma\addspace}}%
-    \printnames[apanames][-\value{listtotal}]{author}%
+    \printfield{note}%
     \setunit{\addcomma\addspace}%
     \usebibmacro{location+publisher}%
-    \newunit\newblock
-    \usebibmacro{related}}}
+    \setunit{\addcomma\addspace}%
+    \usebibmacro{doi+url}}}
 
 \newbibmacro*{related:reviewof}[1]{%
   \setunit{}% Sanitise this in case no author
@@ -1330,7 +1354,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.x) General type layouts
+% (APA 10.x) General type layouts
 
 \DeclareBibliographyDriver{article}{%
   \usebibmacro{bibindex}%
@@ -1338,6 +1362,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{bookart:editor+trans}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
   \setunit{\bibpagespunct}%
@@ -1345,10 +1371,12 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{origyear}%
   \newunit\newblock
   \printfield{addendum}%
-  \newunit\newblock
+  \setunit{\addspace}\newblock
   \iftoggle{bbx:related}
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
@@ -1372,7 +1400,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1391,13 +1419,13 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{maintitle+title}%
   \setunit{\addspace}\newblock
-  \usebibmacro{book:editor+trans}%
+  \usebibmacro{bookart:editor+trans}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
@@ -1426,7 +1454,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1459,7 +1487,7 @@
   \newunit\newblock
   \printlist{organization}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1484,7 +1512,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1513,7 +1541,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \setunit*{\addspace}\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
@@ -1546,7 +1574,7 @@
   \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1588,7 +1616,7 @@
   \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1619,7 +1647,7 @@
   \newunit
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1638,6 +1666,8 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
   \ifthenelse{\iffieldundef{title}\AND\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
+  \printlist{organization}%
+  \addperiod\addspace
   \printfield{entrysubtype}%
   \addperiod\addspace
   \iftoggle{bbx:doi}
@@ -1679,7 +1709,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1708,7 +1738,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1734,7 +1764,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1757,7 +1787,7 @@
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1789,7 +1819,7 @@
   \setunit{\bibpagespunct}%
   \printfield{pages}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:pageref}%
@@ -1819,7 +1849,7 @@
   \setunit*{\addcomma\addspace}%
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1848,7 +1878,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1875,7 +1905,7 @@
   \setunit{\addcomma\addspace}\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1902,7 +1932,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1931,7 +1961,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1960,7 +1990,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -1987,7 +2017,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -2028,7 +2058,7 @@
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \printfield{addendum}%
   \newunit\newblock
   \iftoggle{bbx:related}
@@ -2057,7 +2087,7 @@
   \setunit*{\addcomma\addspace}\newblock
   \printlist{location}%
   \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -2114,15 +2144,10 @@
          {\bibcpstring{type\thefield{#1type}s}}
          {\bibcpstring{type\thefield{#1type}}}}}
 
-\renewbibmacro*{doi+eprint+url}{%
+\renewbibmacro*{doi+url}{%
   \iftoggle{bbx:doi}
     {\printfield{doi}%
      \iffieldundef{doi}{}{\renewcommand*{\finentrypunct}{\relax}}}
-    {}%
-  \newunit\newblock
-  \iftoggle{bbx:eprint}
-    {\usebibmacro{eprint}%
-     \iffieldundef{eprint}{}{\renewcommand*{\finentrypunct}{\relax}}}
     {}%
   \newunit\newblock
   \iftoggle{bbx:url}
@@ -2130,12 +2155,10 @@
      \iffieldundef{url}{}{\renewcommand*{\finentrypunct}{\relax}}}
     {}}
 
-
 \DeclareFieldFormat{doi}{%
-  doi\addcolon
   \ifhyperref
-    {\href{https://doi.org/#1}{\nolinkurl{#1}}}
-    {\nolinkurl{#1}}}
+    {\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
+    {\nolinkurl{https://doi.org/#1}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.02) No LOCATION/PUBLISHER if there is a DOI

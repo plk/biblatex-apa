@@ -261,8 +261,13 @@
         \iffieldsequal{labelyear}{labelendyear}% Don't want no-op year ranges
           {\clearfield{labelendyear}}
           {}%
-        \iffieldundef{origyear}{}
+        \iffieldundef{origyear}
+          {}
           {\printorigdate%
+           \setunit*{\addslash}}%
+        \iffieldundef{related}
+          {}
+          {\entrydata*{\thefield{related}}{\printlabeldateextra}%
            \setunit*{\addslash}}%
         \printlabeldateextra}}}
 

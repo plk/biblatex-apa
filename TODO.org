@@ -1,4 +1,4 @@
-* DONE '%REMOVE' marker 
+* TODO '%REMOVE' marker in .bbx
 * DONE 8.20e - p268 - uniquename=inits doesn't do this
 * DONE 8.20f--8.20j - only primary author with inits
 * TODO Document groupauthor as preferable
