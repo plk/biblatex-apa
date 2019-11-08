@@ -26,7 +26,8 @@
   producer,
   execproducer,
   director,
-  groupauthor}
+  groupauthor,
+  narrator}
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
   abstractloc,
@@ -43,7 +44,8 @@
   groupauthor,
   abstractloc,
   abstracturl,
-  urldescription}
+  urldescription,
+  narrator}
 
 
 \DeclareDatamodelEntryfields[video]{

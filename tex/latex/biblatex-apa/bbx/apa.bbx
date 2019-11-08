@@ -821,16 +821,18 @@
 % (APA 6.27) Editor string in parens after author list
 % (APA 7.02 Example 21) Collapse editor and trans if same
 % (APA 10.1 Example 10) Translator
+% (APA 10.2 Example 22) Narrator
 
 % Separated out into book and in* macros because otherwise
 % this makes one ugly, huge, unreadable beast.
 
-\newbibmacro*{bookart:editor+trans}{%
+\newbibmacro*{editor+trans+narr}{%
   \ifthenelse{\ifnameundef{editor}\AND%
               \ifnameundef{editora}\AND%
               \ifnameundef{editorb}\AND%
               \ifnameundef{editorc}\AND%
-              \ifnameundef{translator}}%
+              \ifnameundef{translator}\AND%
+              \ifnameundef{narrator}}%
     {}%
     {\ifnamesequal{editor}{translator}%
        {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
@@ -856,6 +858,13 @@
            \printtext{\bibcpstring{translator}}%
            \clearname{translator}%
            \setunit{\adddot}}%
+        \ifnameundef{narrator}%
+          {\setunit{}}%
+          {\printnames[apanames][-\value{listtotal}]{narrator}%
+           \setunit{\addcomma\addspace}%
+           \printtext{\bibcpstring{narrator}}%
+           \clearname{narrator}%
+           \setunit{\adddot}}
         \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}}}
 
 \newbibmacro*{editor+trans}{%
@@ -1363,7 +1372,7 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
   \setunit{\addspace}\newblock
-  \usebibmacro{bookart:editor+trans}%
+  \usebibmacro{editor+trans+narr}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
   \setunit{\bibpagespunct}%
@@ -1419,7 +1428,7 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{maintitle+title}%
   \setunit{\addspace}\newblock
-  \usebibmacro{bookart:editor+trans}%
+  \usebibmacro{editor+trans+narr}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock

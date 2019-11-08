@@ -139,6 +139,8 @@
 %            need to be repeated but the full years must be repeated with
 %            their extradate postfixes
 % (APA 8.15) Cite ORIGYEAR/YEAR if ORIGYEAR present
+% (APA 10.1:11) Reprints have original year in citation
+
 \def\citeresetapa{\global\let\cbx@apa@names\@empty}
 \citeresetapa
 \def\cbx@apa@ifnamesaved{%
@@ -267,8 +269,10 @@
            \setunit*{\addslash}}%
         \iffieldundef{related}
           {}
-          {\entrydata*{\thefield{related}}{\printlabeldateextra}%
-           \setunit*{\addslash}}%
+          {\iffieldequalstr{relatedtype}{reprintfrom}
+            {\entrydata*{\thefield{related}}{\printlabeldateextra}%
+             \setunit*{\addslash}}
+            {}}%
         \printlabeldateextra}}}
 
 \newbibmacro*{cite:shorthand}{%
