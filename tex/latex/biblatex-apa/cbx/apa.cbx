@@ -292,6 +292,7 @@
 \DeclareFieldFormat[online]{citetitle}{\mkbibquote{#1}}
 \DeclareFieldFormat[inbook]{citetitle}{\mkbibquote{#1}}
 \DeclareFieldFormat[book]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[manual]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[report]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[periodical]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[patent]{citetitle}{#1}
@@ -302,6 +303,21 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.2:32) Raw field cite formats
+
+\DeclareFieldFormat{citefield}{%
+  \ifcurrentfield{edition}
+    {\ifinteger{#1}
+      {\mkbibordedition{#1}~\bibstring{edition}}
+      {#1\isdot}}
+    {\ifcurrentfield{shorthand}
+      {\mkbibemph{#1}}
+      {#1}}}
+  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.11) No parens round year for cites when the cite is in
 %            parentheses. Use new command \nptextcite for such cites.

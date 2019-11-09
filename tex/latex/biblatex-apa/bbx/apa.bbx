@@ -208,8 +208,8 @@
   \sort{
     \field{sortname}
     \field{author}
+    \field{groupauthor}
     \field{editor}
-    \field{translator}
     \field{writer}
     \field{director}
     \field{producer}
@@ -242,7 +242,6 @@
   \field{groupauthor}
   \field{shorteditor}
   \field{editor}
-  \field{translator}
 }
 
 % Don't fall back on other year fields if there is no year, use
@@ -286,8 +285,9 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 % Enforce ignoring of PUBSTATE if there is a YEAR or DATE field
+% (APA 10.2:32) Remove PUBLISHER if it is the same as GROUPAUTHOR                          
+
 \DeclareStyleSourcemap{
   \maps[datatype=bibtex]{
     \map{
@@ -298,7 +298,12 @@
       \step[fieldsource=date, final]
       \step[fieldset=pubstate, null]
    }
-  }
+    \map{
+      \step[fieldsource=groupauthor, match=\regexp{([^{}]+)}, final]
+      \step[fieldsource=publisher, match=\regexp{$1}, final]%$
+      \step[fieldset=publisher, null]
+   }
+ }
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -439,9 +444,11 @@
       {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
 
 \renewbibmacro*{author}{%
-  \ifnameundef{author}
+  \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
     {\usebibmacro{labeltitle}}
-    {\printnames[apaauthor][-\value{listtotal}]{author}%
+    {\ifnameundef{author}
+       {\printnames[apaauthor][-\value{listtotal}]{groupauthor}}
+       {\printnames[apaauthor][-\value{listtotal}]{author}}%
      \setunit*{\addspace}%
      \printfield{nameaddon}%
      \ifnameundef{with}
@@ -553,24 +560,47 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.29)      Additional {main}title information in brackets (using)
-%                 {MAIN}TITLEADDON field. Colon after maintitle.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.2:27) Additional information after title
+%                 
 
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
 \DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
 \DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
 
-\newbibmacro*{bookaddinfo}{%
-  \ifthenelse{\iffieldundef{edition}\AND\iffieldundef{volumes}}
+\newbibmacro*{addinfo}{%
+  \ifentrytype{book}{
+    \ifthenelse{%
+              \iffieldundef{edition}\AND%
+              \iffieldundef{volume}\AND%
+              \iffieldundef{volumes}\AND%
+              \ifnameundef{editor}\AND%
+              \ifnameundef{translator}\AND%
+              \ifnameundef{narrator}}
     {}
     {\printtext{\bibopenparen}%
+     \usebibmacro{editor+trans+narr}%
+     \setunit*{\addsemicolon\addspace}%
      \printfield{edition}%
      \setunit*{\addcomma\addspace}%
      \printfield{volumes}%
+     \setunit*{\addcomma\addspace}%
+     \printfield{volume}%
      \setunit{}%
-     \printtext{\bibcloseparen}}%
-}
+     \printtext{\bibcloseparen}}}
+   {
+    \ifthenelse{%
+              \iffieldundef{edition}\AND%
+              \ifnameundef{editor}\AND%
+              \ifnameundef{translator}\AND%
+              \ifnameundef{narrator}}
+    {}
+    {\printtext{\bibopenparen}%
+     \usebibmacro{editor+trans+narr}%
+     \setunit*{\addsemicolon\addspace}%
+     \printfield{edition}%
+     \setunit{}%
+     \printtext{\bibcloseparen}}}}
 
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
@@ -587,12 +617,12 @@
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}%
      \setunit{\addspace}%
+     \usebibmacro{addinfo}%
+     \setunit{\addspace}%
      \printfield{titleaddon}%
-     \iffieldequalstr{entrytype}{book}%
-       {\setunit{\addspace}\usebibmacro{bookaddinfo}}%
-       {}%
      \ifthenelse{%
        \ifnameundef{author}\AND%
+       \ifnameundef{groupauthor}\AND%
        \(\ifnameundef{editor}\AND\NOT\boolean{bbx:editorinauthpos}\)\AND%
        \ifnameundef{producer}\AND%
        \ifnameundef{director}\AND%
@@ -613,7 +643,7 @@
   \addcolon}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.1) Format of volume and number for articles
@@ -663,8 +693,8 @@
 %            parenthesis after title. This is ugly but it's
 %            hard to put in "optional parens" like this
 %            around an unknown amount of characters.
-
-\newbibmacro*{addinfo}{%
+%REMOVE
+\newbibmacro*{OLDaddinfo}{%
   \ifthenelse{\iffieldundef{edition}\AND%
               \iffieldundef{chapter}\AND%
               \iffieldundef{volumes}\AND%
@@ -722,7 +752,7 @@
       {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
 
 \renewbibmacro*{author/editor}{%
-  \ifnameundef{author}
+  \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
     {\ifnameundef{editor}
       {}
       {\usebibmacro{editorinauthpos}}}
@@ -833,39 +863,32 @@
               \ifnameundef{editorc}\AND%
               \ifnameundef{translator}\AND%
               \ifnameundef{narrator}}%
-    {}%
+    {\printtext{}}% Print nothing, so the puncutation tracker is kept informed
     {\ifnamesequal{editor}{translator}%
-       {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
-        \printnames[apanames][-\value{listtotal}]{editor}%
+       {\printnames[apanames][-\value{listtotal}]{editor}%
         \setunit*{\addcomma\addspace}%
         \usebibmacro{apaeditorstrg}{editor}%
         \setunit*{\addspace\&\space}%
-        \printtext{\bibcpstring{translator}}%
-        \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}
-       {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
-        \ifnameundef{editor}%
+        \printtext{\bibcpstring{translator}}}
+       {\ifnameundef{editor}%
           {}%
           {\printnames[apanames][-\value{listtotal}]{editor}%
            \setunit{\addcomma\addspace}%
            \usebibmacro{apaeditorstrg}{editor}%
            \clearname{editor}%
-           \setunit{\adddot}%
            \setunit*{\addspace\&\space}}%
         \ifnameundef{translator}%
           {\setunit{}}%
           {\printnames[apanames][-\value{listtotal}]{translator}%
            \setunit{\addcomma\addspace}%
            \printtext{\bibcpstring{translator}}%
-           \clearname{translator}%
-           \setunit{\adddot}}%
+           \clearname{translator}}%
         \ifnameundef{narrator}%
           {\setunit{}}%
           {\printnames[apanames][-\value{listtotal}]{narrator}%
            \setunit{\addcomma\addspace}%
            \printtext{\bibcpstring{narrator}}%
-           \clearname{narrator}%
-           \setunit{\adddot}}
-        \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}}}
+           \clearname{narrator}}}}}
 
 \newbibmacro*{editor+trans}{%
   \ifthenelse{\ifnameundef{editor}\AND%
@@ -1044,15 +1067,23 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.30) Location only shows first item
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.2.24) Multiple publishers, semi-colon sep
 
-\DeclareListFormat{default}{%
-  \usebibmacro{list:delim}{#1}%
+\DeclareListFormat{publisher}{%
+  \usebibmacro{publisher:delim}{#1}%
   #1\isdot}
 
+\newbibmacro*{publisher:delim}[1]{%
+  \ifnumgreater{\value{listcount}}{\value{liststart}}
+    {\printdelim[publisher]{multilistdelim}}
+    {}}
+
+\DeclareDelimFormat[publisher]{multilistdelim}{\addsemicolon\space}
+\DeclareDelimFormat[publisher]{finallistdelim}{\addsemicolon\space}
+
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.02 Example 38) Proceedings emph number, location
@@ -1157,6 +1188,14 @@
 
 %
 %%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.2:22) Entrysubtype for audio books
+
+\DeclareFieldFormat[book]{entrysubtype}{\mkbibbrackets{#1}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.07) Audiovisual
@@ -1371,8 +1410,6 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
-  \setunit{\addspace}\newblock
-  \usebibmacro{editor+trans+narr}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
   \setunit{\bibpagespunct}%
@@ -1428,14 +1465,14 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{maintitle+title}%
   \setunit{\addspace}\newblock
-  \usebibmacro{editor+trans+narr}%
+  \printfield{entrysubtype}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{doi+url}%
-  \newunit\newblock
+  \setunit*{\addspace}\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
   \printfield{addendum}%
@@ -1643,8 +1680,6 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
-  \newunit\newblock
-  \printfield{edition}%
   \newunit\newblock
   \printfield{type}%
   \newunit
@@ -2169,21 +2204,11 @@
     {\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
     {\nolinkurl{https://doi.org/#1}}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.02) No LOCATION/PUBLISHER if there is a DOI
-%            (Inconsistent in 2nd printing, see 7.04:39 which
-%            is incorrect in 2nd printing)
-
 \newbibmacro*{location+publisher}{%
-  \iffieldundef{doi}
-    {\printlist[default][1-1]{location}%
-     \setunit*{\addcolon\space}%
-     \printlist{publisher}%
-     \newunit}
-    {}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  \printlist[default][1-1]{location}%
+    \setunit*{\addcolon\space}%
+    \printlist{publisher}%
+    \newunit}
   
 \newbibmacro*{type+institution}{%
   \setunit{\addspace}%
@@ -2240,6 +2265,7 @@
 \DeclareNameAlias{author}{sortname}
 \DeclareNameAlias{editor}{sortname}
 \DeclareNameAlias{translator}{sortname}
+\DeclareNameAlias{narrator}{sortname}
 
 \defbibenvironment{bibliography}
   {\list

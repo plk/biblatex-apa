@@ -17,43 +17,6 @@
 % Biblatex
 \usepackage[style=apa]{biblatex}
 
-%REMOVE
-% Custom settings for misc entries in order to format the table for 6.13*
-% This table implies that the examples on each line are in a separate
-% document but since we are generating the citations from a real data
-% source, we have to prevent the usual uniquelist processing by making
-% all of the examples MISC entrytypes and changing uniquelist
-% per-type. There is no point in just typesetting static data as this
-% wouldn't be a test of anything.
-% \ExecuteBibliographyOptions[misc]{uniquelist=false}
-% \DeclareNameFormat[misc]{labelname}{%
-%   \ifthenelse{\value{listcount}=1\OR\value{listtotal}=2}
-%     {\usebibmacro{labelname:doname}
-%       {\namepartfamily}
-%       {\namepartfamilyi}
-%       {\namepartgiven}
-%       {\namepartgiveni}
-%       {\namepartprefix}
-%       {\namepartprefixi}
-%       {\namepartsuffix}
-%       {\namepartsuffixi}}
-%     {\ifthenelse{\value{listtotal}>5}
-%       {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
-%        \ifnum\value{listcount}>2 \relax\fi}
-%       {\ifciteseen
-%        {\ifnum\value{listcount}=2 \andothersdelim\bibstring{andothers}\fi
-%         \ifnum\value{listcount}=3 \relax\fi
-%         \ifnum\value{listcount}=4 \relax\fi
-%         \ifnum\value{listcount}=5 \relax\fi}
-%        {\usebibmacro{labelname:doname}
-%          {\namepartfamily}
-%          {\namepartfamilyi}
-%          {\namepartgiven}
-%          {\namepartgiveni}
-%          {\namepartprefix}
-%          {\namepartprefixi}
-%          {\namepartsuffix}
-%          {\namepartsuffixi}}}}}
 \MakeShortVerb{\|}
 
 \newcommand\apa[2][]{\ifthenelse{\equal{#1}{}}%
@@ -87,7 +50,7 @@
   \test@}
 \def\test@end\fi#1\test@{\fi}
 
-\def\apaex#1{\hbox{\hspace{-4em}\texttt{\small\apaexi{#1}}}\\$\rcurvearrowse$ \textbf{#1}}
+\def\apaex#1{\hspace*{-4em}\parbox{\textwidth}{\texttt{\small\apaexi{#1}}}\\$\rcurvearrowse$ \textbf{#1}}
 \def\apaexs#1{\hbox{\texttt{\footnotesize\apaexi{#1}}} \textbf{\small #1}}
 \makeatother
 
@@ -388,9 +351,91 @@ the author:\\
 
 \subsection*{APA 10.2--Books and Reference Works}
 
-\noindent\apa{10.2:1}\\
-\apaex{\parencite{10.2:1}}\\
-\apaex{\textcite{10.2:1}}
+\noindent\apa{10.2:20}\\
+\apaex{\parencite{10.2:20}}\\
+\apaex{\textcite{10.2:20}}
+
+\noindent\apa{10.2:21}\\
+\apaex{\parencite{10.2:21}}\\
+\apaex{\textcite{10.2:21}}
+
+\noindent\apa{10.2:22}\\
+\apaex{\parencite{10.2:22a,10.2:22b}}\\
+\apaex{\textcite{10.2:22a} and \textcite{10.2:22b}}
+
+\noindent\apa{10.2:23}\\
+\apaex{\parencite{10.2:23}}\\
+\apaex{\textcite{10.2:23}}
+
+\noindent\apa{10.2:24}\\
+\apaex{\parencite{10.2:24}}\\
+\apaex{\textcite{10.2:24}}
+
+\noindent\apa{10.2:25}\\
+\apaex{\parencite{10.2:25}}\\
+\apaex{\textcite{10.2:25}}
+
+\noindent\apa{10.2:26}\\
+\apaex{\parencite{10.2:26}}\\
+\apaex{\textcite{10.2:26}}
+
+\noindent\apa{10.2:27}\\
+\apaex{\parencite{10.2:27a,10.2:27b}}\\
+\apaex{\textcite{10.2:27a} and \textcite{10.2:27b}}
+
+\noindent\apa{10.2:28}\\
+\apaex{\parencite{10.2:28}}\\
+\apaex{\textcite{10.2:28}}
+
+\noindent\apa{10.2:29}\\
+\apaex{\parencite{10.2:29a,10.2:29b}}\\
+\apaex{\textcite{10.2:29a} and \textcite{10.2:29b}}
+
+\noindent\apa{10.2:30}\\
+\apaex{\parencite{10.2:30a,10.2:30b}}\\
+\apaex{\textcite{10.2:30a} and \textcite{10.2:30b}}
+
+\noindent\apa{10.2:31}\\
+\apaex{\parencite{10.2:31}}\\
+\apaex{\textcite{10.2:31}}
+
+\noindent\apa{10.2:32}\\
+The examples for citing such manuals are a mess in the 7th edition with a
+language-dependent possessive in the narrative examples. However, these
+rules are not strict according to the comments and can be constructed with
+the help of lower-level commands:\\\\
+\apaex{\citetitle{10.2:32a} (\citefield{10.2:32a}{edition};
+  \citefield{10.2:32a}{shorthand}; \citeauthor{10.2:32a}, \citeyear{10.2:32a})}\\
+\apaex{\citetitle{10.2:32b} (\citefield{10.2:32b}{edition};
+  \citefield{10.2:32b}{shorthand}; \citeauthor{10.2:32b}, \citeyear{10.2:32b})}\\\\
+\apaex{\citeauthor{10.2:32a}'s (\citeyear{10.2:32a}) \citetitle{10.2:32a}
+  (\citefield{10.2:32a}{edition}; \citefield{10.2:32a}{shorthand})}\\
+\apaex{\citeauthor{10.2:32b}'s (\citeyear{10.2:32b}) \citetitle{10.2:32b}
+  (\citefield{10.2:32b}{edition}; \citefield{10.2:32b}{shorthand})}\\\\
+
+\noindent Then for subsequent cites, use the normal commands:\\
+\apaex{\parencite{10.2:32a,10.2:32b}}\\
+\apaex{\textcite{10.2:32a} and \textcite{10.2:32b}}
+
+\noindent\apa{10.2:33}\\
+\apaex{\parencite{10.2:33a,10.2:33b,10.2:33c}}\\
+\apaex{\textcite{10.2:33a} and \textcite{10.2:33b} and \textcite{10.2:33c}}
+
+\noindent\apa{10.2:34}\\
+\apaex{\parencite{10.2:34}}\\
+\apaex{\textcite{10.2:34}}
+
+\noindent\apa{10.2:35}\\
+\apaex{\parencite{10.2:35a,10.2:35b,10.2:35c}}\\
+\apaex{\textcite{10.2:35a} and \textcite{10.2:35b} and \textcite{10.2:35c}}
+
+\noindent\apa{10.2:36}\\
+\apaex{\parencite{10.2:36}}\\
+\apaex{\textcite{10.2:36}}
+
+\noindent\apa{10.2:37}\\
+\apaex{\parencite{10.2:37}}\\
+\apaex{\textcite{10.2:37}}
 
 \end{refsection}
 \newpage
