@@ -568,39 +568,43 @@
 \DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
 \DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
 
+% Thanks to egreg from https://tex.stackexchange.com/questions/53068/how-to-check-if-a-macro-value-is-empty-or-will-not-create-text-with-plain-tex-co
+% for this test for expanded emptiness so that we can easily opt to not print parens around nothing
+% Without this, it is very messy - you have to test all potential fields for defness first and this
+% is messy because the fields in the additional info vary betwee entrytypes
+\def\foreverunspace{%
+  \ifnum\lastnodetype=11
+    \unskip\foreverunspace
+  \else
+    \ifnum\lastnodetype=12
+      \unkern\foreverunspace
+    \else
+      \ifnum\lastnodetype=13
+        \unpenalty\foreverunspace
+      \fi
+    \fi
+  \fi
+}
+
+\newrobustcmd{\mkbibparense}[1]{%
+  \setbox0=\hbox{#1\foreverunspace}\ifdim\wd0=0pt
+  \else
+    \mkbibparens{#1}%
+  \fi}
+
 \newbibmacro*{addinfo}{%
-  \ifentrytype{book}{
-    \ifthenelse{%
-              \iffieldundef{edition}\AND%
-              \iffieldundef{volume}\AND%
-              \iffieldundef{volumes}\AND%
-              \ifnameundef{editor}\AND%
-              \ifnameundef{translator}\AND%
-              \ifnameundef{narrator}}
-    {}
-    {\printtext{\bibopenparen}%
-     \usebibmacro{editor+trans+narr}%
-     \setunit*{\addsemicolon\addspace}%
-     \printfield{edition}%
-     \setunit*{\addcomma\addspace}%
-     \printfield{volumes}%
-     \setunit*{\addcomma\addspace}%
-     \printfield{volume}%
-     \setunit{}%
-     \printtext{\bibcloseparen}}}
-   {
-    \ifthenelse{%
-              \iffieldundef{edition}\AND%
-              \ifnameundef{editor}\AND%
-              \ifnameundef{translator}\AND%
-              \ifnameundef{narrator}}
-    {}
-    {\printtext{\bibopenparen}%
-     \usebibmacro{editor+trans+narr}%
-     \setunit*{\addsemicolon\addspace}%
-     \printfield{edition}%
-     \setunit{}%
-     \printtext{\bibcloseparen}}}}
+  \printtext{%
+    \mkbibparense{%
+      \setunit{}%
+      \usebibmacro{editor+trans+narr}%
+      \setunit*{\addsemicolon\addspace}%
+      \printfield{edition}%
+      \setunit*{\addcomma\addspace}%
+      \ifentrytype{inbook}{\printfield{pages}}{}%
+      \setunit*{\addcomma\addspace}%
+      \ifentrytype{book}{\printfield{volumes}}{}%
+      \setunit*{\addcomma\addspace}%
+      \ifentrytype{book}{\printfield{volume}}{}}}}
 
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
@@ -617,7 +621,7 @@
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}%
      \setunit{\addspace}%
-     \usebibmacro{addinfo}%
+     \ifentrytype{inbook}{}{\usebibmacro{addinfo}}% No additional info here for inbook
      \setunit{\addspace}%
      \printfield{titleaddon}%
      \ifthenelse{%
@@ -919,6 +923,15 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.3) Pages in reprint/reference works need prefix
+
+\DeclareFieldFormat[inbook]{pages}{\mkpageprefix[bookpagination]{#1}}
+\DeclareFieldFormat[incollection]{pages}{\mkpageprefix[bookpagination]{#1}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.29) Special journal issues are periodicals
@@ -1353,34 +1366,58 @@
 
 \renewbibmacro*{related:reprintfrom}[1]{%
   \entrydata*{#1}{%
-    \mkbibquote{%
-      \printfield[apacase]{title}%
-      \setunit{\subtitlepunct}%
-      \printfield[apacase]{subtitle}}%
-    \setunit{\addcomma\addspace}%
-    \printlabeldateextra
-    \setunit{\addcomma\addspace}%
-    \usebibmacro{journal}%
-    \setunit*{\addcomma\addspace}%
-    \printfield{volume}%
-    \printfield[reprint]{number}%
-    \setunit*{\addcomma\addspace}%
-    \usebibmacro{eprint}%
-    \setunit{\addcomma\addspace}%
-    \iffieldundef{issuetitle}
-      {}
-      {\printtext[issuetitle]{%
-         \printfield[noformat]{issuetitle}%
+    \ifentrytype{article}
+      {\mkbibquote{%
+         \printfield[apacase]{title}%
          \setunit{\subtitlepunct}%
-         \printfield[noformat]{issuesubtitle}}}%
-    \setunit{\addcomma\addspace}%
-    \printfield{pages}%
-    \setunit{\addcomma\addspace}%
-    \printfield{note}%
-    \setunit{\addcomma\addspace}%
-    \usebibmacro{location+publisher}%
-    \setunit{\addcomma\addspace}%
-    \usebibmacro{doi+url}}}
+         \printfield[apacase]{subtitle}}%
+       \setunit{\addcomma\addspace}%
+       \printlabeldateextra
+       \setunit{\addcomma\addspace}%
+       \usebibmacro{journal}%
+       \setunit*{\addcomma\addspace}%
+       \printfield{volume}%
+       \printfield[reprint]{number}%
+       \setunit*{\addcomma\addspace}%
+       \usebibmacro{eprint}%
+       \setunit{\addcomma\addspace}%
+       \iffieldundef{issuetitle}
+         {}
+         {\printtext[issuetitle]{%
+            \printfield[noformat]{issuetitle}%
+            \setunit{\subtitlepunct}%
+            \printfield[noformat]{issuesubtitle}}}%
+       \setunit{\addcomma\addspace}%
+       \printfield{pages}%
+       \setunit{\addcomma\addspace}%
+       \printfield{note}%
+       \setunit{\addcomma\addspace}%
+       \usebibmacro{location+publisher}%
+       \setunit{\addcomma\addspace}%
+       \usebibmacro{doi+url}%
+       \setunit{}}
+   {\ifentrytype{incollection}
+      {\mkbibemph{%
+         \printfield[apacase]{title}%
+         \setunit{\subtitlepunct}%
+         \printfield[apacase]{subtitle}}%
+       \setunit{\addcomma\addspace}%
+       \printfield{pages}%
+       \setunit{\addcomma\addspace}%
+       \biblstring{byauthor}\space
+       \printnames[apanames][-\value{listtotal}]{editor}%
+       \setunit{\addcomma\addspace}%
+       \usebibmacro{apaeditorstrg}{editor}%
+       \setunit{\addcomma\addspace}%
+       \printlabeldateextra
+       \setunit{\addcomma\addspace}%
+       \printlist[default][1-1]{location}%
+       \setunit*{\addcolon\space}%
+       \printlist{publisher}%
+       \setunit{\addcomma\addspace}%
+       \usebibmacro{doi+url}%
+       \setunit{}}
+     {}}}}
 
 \newbibmacro*{related:reviewof}[1]{%
   \setunit{}% Sanitise this in case no author
@@ -1401,8 +1438,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 10.x) General type layouts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.x) General entrytype drivers
 
 \DeclareBibliographyDriver{article}{%
   \usebibmacro{bibindex}%
@@ -1418,7 +1455,7 @@
   \printfield{note}%
   \newunit\newblock
   \usebibmacro{doi+url}%
-  \setunit{\addspace}\newblock
+  \setunit*{\addspace}\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
   \printfield{addendum}%
@@ -1466,6 +1503,37 @@
   \usebibmacro{maintitle+title}%
   \setunit{\addspace}\newblock
   \printfield{entrysubtype}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \setunit*{\addspace}\newblock
+  \usebibmacro{origyear}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{apa:finpunct}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{inbook}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{editor+trans}%
+  \newblock
+  \usebibmacro{maintitle+booktitle}%
+  \newblock
+  \usebibmacro{addinfo}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
@@ -1559,37 +1627,6 @@
   \printfield{note}%
   \newunit\newblock
   \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{inbook}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
-  \usebibmacro{editor+trans}%
-  \newblock
-  \usebibmacro{maintitle+booktitle}%
-  \newblock
-  \usebibmacro{addinfo}%
-  \newunit\newblock
-  \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \setunit*{\addspace}\newblock
-  \usebibmacro{origyear}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -2208,7 +2245,7 @@
   \printlist[default][1-1]{location}%
     \setunit*{\addcolon\space}%
     \printlist{publisher}%
-    \newunit}
+    \addperiod}
   
 \newbibmacro*{type+institution}{%
   \setunit{\addspace}%
@@ -2227,7 +2264,7 @@
 
 \newbibmacro*{labeltitle}{%
   \iffieldundef{label}
-    {\printfield{title}%
+    {\printfield[apacase]{title}%
      \clearfield{title}%
      \setunit{\addspace}%
      \printfield{entrysubtype}%
