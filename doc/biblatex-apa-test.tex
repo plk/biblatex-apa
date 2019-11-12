@@ -57,7 +57,8 @@
 % This just makes it easier to find a specific (APA 7.x) example in the
 % typeset references section
 \reversemarginpar
-\renewbibmacro*{begentry}{\marginpar{\footnotesize \textcolor{blue}{\thefield{entrykey}}}}
+\renewbibmacro*{begentry}{\marginpar{\footnotesize\textcolor{blue}{\thefield{entrykey}}}%
+                          \ifkeyword{meta}{\textsuperscript{*}}{}}
 
 \usepackage[colorlinks=true]{hyperref}
 
@@ -271,7 +272,7 @@ the author:\\
 \printbibliography[title={APA 8 Citation References}]
 
 \end{refsection}
-
+\newpage
 \section*{APA 9--General Reference List}
 
 % (APA 9.44)
@@ -287,7 +288,7 @@ the author:\\
 done via |SORTNAME|.
 
 \end{refsection}
-
+\newpage
 % (APA 9.46)
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
   
@@ -297,7 +298,7 @@ done via |SORTNAME|.
 \printbibliography[title={APA 9.46--Order of Multiple Works by the Same First Author}]
 
 \end{refsection}
-
+\newpage
 % (APA 9.47)
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -311,7 +312,7 @@ Same Date}]
 also ignoring of «The», «An» and «A» in titles.
 
 \end{refsection}
-
+\newpage
 % (APA 9.48)
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -321,20 +322,41 @@ also ignoring of «The», «An» and «A» in titles.
   the Same Surname}]
 
 \end{refsection}
-
+\newpage
 % (APA 9.49)
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
-\nocite{9.49:1,9.49:2,9.49:3,9.49:4}
+\nocite{9.49:1,9.49:2,9.49:3,9.49:4,9.49:5,9.49:6}
 
 \printbibliography[title={APA 9.49--Order of Works with No Author or an
   Anonymous Author}]
 
-\noindent\textbf{Note:} Examples added for anonymous authors and numeral expansion
-using |SORTTITLE|.
+\noindent\textbf{Note:} Examples added for anonymous authors and numeral
+expansion/series sorting using |SORTTITLE|.
 
 \end{refsection}
+\newpage
+% (APA 9.51)
+\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
+\nocite{9.51:1,9.51:2}
+
+\printbibliography[title={APA 9.51--Annotated Bibliographies}]
+
+\end{refsection}
+\newpage
+% (APA 9.52)
+\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+
+\nocite{9.52:1,9.52:2,9.52:3,9.52:4}
+
+\printbibliography[title={APA 9.52--References Included in a Meta-Analysis}]
+
+\noindent\textbf{Note:} Use the |meta| keyword in the |KEYWORDS| field to
+indicate works included in a Meta-Analysis.
+
+\end{refsection}
+\newpage
 \section*{APA 10--References Examples}
 \subsection*{APA 10.1--Periodicals}
 
@@ -419,7 +441,7 @@ using |SORTTITLE|.
 \printbibliography[title={APA 10.1 References}]
 
 \end{refsection}
-
+\newpage
 \subsection*{APA 10.2--Books and Reference Works}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
@@ -513,6 +535,7 @@ the help of lower-level commands:\\\\
 \printbibliography[title={APA 10.2 References}]
 
 \end{refsection}
+\newpage
 \subsection*{APA 10.3--Edited Book Chapters and Entries in Reference Works}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]

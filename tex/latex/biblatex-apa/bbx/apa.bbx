@@ -418,19 +418,12 @@
     {\addcomma\space\ldots\space}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
-      {\iffieldannotation{uncertain}
-        {\mkbibbrackets{\usebibmacro{name:apa:family-given}%
-                         {\namepartfamily}%
-                         {\namepartgiven}%
-                         {\namepartgiveni}%
-                         {\namepartprefix}%
-                         {\namepartsuffix}?}}
-        {\usebibmacro{name:apa:family-given}%
-          {\namepartfamily}%
-          {\namepartgiven}%
-          {\namepartgiveni}%
-          {\namepartprefix}%
-          {\namepartsuffix}}}}%
+      {\usebibmacro{name:apa:family-given}%
+         {\namepartfamily}%
+         {\namepartgiven}%
+         {\namepartgiveni}%
+         {\namepartprefix}%
+         {\namepartsuffix}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
       {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
 
@@ -550,6 +543,14 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 9.52) References in a meta-analysis
+
+\renewbibmacro*{begentry}{\ifkeyword{meta}{\textsuperscript{*}}{}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.2:27) Additional information after title
@@ -717,7 +718,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.27) "In " precedes editor/trans list, no colon
+% (APA 10.3) "In " precedes editor/trans list, no colon
 
 \newbibmacro*{in}{%
   \ifbool{bbx:in}%
@@ -1332,15 +1333,16 @@
 % Hacky bits to suppress final period in some cases.
 % * If there is an ORIGYEAR field (APA 7.02:21)
 % * Unless there is a RELATED and ADDENDUM
-\newbibmacro*{apa:finpunct}{%
-  \iffieldundef{origyear}
-    {\ifboolexpr{
-       test {\iffieldundef{addendum}}
-       and
-       test {\iffieldundef{related}}}
-     {}
-     {\renewcommand*{\finentrypunct}{\relax}}}
-    {\renewcommand*{\finentrypunct}{\relax}}}
+%REMOVE
+% \newbibmacro*{apa:finpunct}{%
+%   \iffieldundef{origyear}
+%     {\ifboolexpr
+%       {  test {\iffieldundef{addendum}}
+%          and
+%          test {\iffieldundef{related}}}
+%       {}
+%       {\renewcommand*{\finentrypunct}{\relax}}}
+%     {\renewcommand*{\finentrypunct}{\relax}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1429,6 +1431,17 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 9.51) Annotations
+
+\newbibmacro*{annotation}{%
+  \newline
+  \setunit{}%
+  \printfield{annotation}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.x) General entrytype drivers
 
@@ -1455,8 +1468,9 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
   \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{newsarticle}{%
@@ -1482,8 +1496,9 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
   \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{book}{%
@@ -1510,7 +1525,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{inbook}{%
@@ -1541,7 +1557,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
+  % REMOVE  \usebibmacro{apa:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{booklet}{%
@@ -1568,7 +1585,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{proceedings}{%
@@ -1601,7 +1619,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{collection}{%
@@ -1626,7 +1645,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{incollection}{%
@@ -1657,7 +1677,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{inproceedings}{%
@@ -1699,7 +1720,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{manual}{%
@@ -1728,7 +1750,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{online}{%
@@ -1762,7 +1785,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{patent}{%
@@ -1790,7 +1814,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{periodical}{%
@@ -1819,7 +1844,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{report}{%
@@ -1845,7 +1871,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{thesis}{%
@@ -1868,7 +1895,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{review}{%
@@ -1895,7 +1923,8 @@
   \newunit\newblock
   \printfield{addendum}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{misc}{%
@@ -1930,7 +1959,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{data}{%
@@ -1959,7 +1989,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{letter}{%
@@ -1986,7 +2017,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{letters}{%
@@ -2013,7 +2045,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{video}{%
@@ -2042,7 +2075,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{movie}{%
@@ -2071,7 +2105,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{audio}{%
@@ -2098,7 +2133,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{music}{%
@@ -2118,7 +2154,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{software}{%
@@ -2138,7 +2175,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{unpublished}{%
@@ -2168,7 +2206,8 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-  \usebibmacro{apa:finpunct}
+%REMOVE  \usebibmacro{apa:finpunct}
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 %
