@@ -74,26 +74,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Apa defines no particular hanging indent but this makes it look like the
-% examples in the style manual.
+% (APA 9.43) Hanging indent of 0.5in
 
-\setlength{\bibhang}{2.5em}
+\setlength{\bibhang}{0.5in}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 29) Some DSM macros
-
-\gdef\DSMIII{\emph{DSM-III}}
-\gdef\DSMIIIR{\emph{DSM-III-R}}
-\gdef\DSMIV{\emph{DSM-IV}}
-\gdef\DSMIVTR{\emph{DSM-IV-TR}}
-\gdef\PsycSCAN{\emph{PsycSCAN}}
-\gdef\PsycARTICLES{\emph{PsycARTICLES}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -190,13 +176,18 @@
 % (APA 8.12) sort citations
 % (APA 8.17) More than two authors is truncated to one but overriden for list ambiguity to
 %            point of no ambiguity
-% (APA 6.x)  Citation tracking is global
-% (APA 6.14) Use initials to disambiguate shared surnames
-% (APA 6.16) Use year postfix to disambiguate multiple items in same year
-% (APA 6.10) Never reference anything not cited
-% (APA 6.25) Author initials only
-% (APA 6.25) Sorting is nyt but we need to account for PUBSTATE which comes
-%            after all normal cites for the same author
+% (APA 8.20) Use initials to disambiguate shared surnames
+% (APA 8.19) Use year postfix to disambiguate multiple items in same year
+% (APA 9.44, 9.46, 9.47) Sorting is nyt but we need to account for PUBSTATE which comes
+%                        after all normal cites for the same author
+% (APA 9.42) Secular Before Common Era dates, approximate dates
+% (APA Figure 9.2) Sorting ignores punctuation in names
+% (APA 9.47) Ignore "The", "An" and "A" when sorting titles
+
+\DeclareNosort{
+  \nosort{setnames}{\regexp{\p{General_Category=Punctuation}}}
+  \nosort{settitles}{\regexp{\A(?:The|An|A)\s+}}
+}
 
 \DeclareSortingTemplate{apa}{
   \sort{
@@ -402,11 +393,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.25) Works by the same author have the full author
+% (APA 9.47) Works by the same author have the full author
 %            name, not an eliding dash. Author is always
 %            last name first.
-% (APA 6.27) Ellipsis in 7th position and then nothing until last
-% (APA 7.10 Example 67) Unknown names and dates
+% (APA 10.1:4) Ellipsis from 20th position and then nothing until last
+% (APA 9.x) Unknown names and dates
 %
 
 % \printnames does different things depending on whether the format you are
