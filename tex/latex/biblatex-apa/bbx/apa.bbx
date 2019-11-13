@@ -183,6 +183,8 @@
 % (APA 9.42) Secular Before Common Era dates, approximate dates
 % (APA Figure 9.2) Sorting ignores punctuation in names
 % (APA 9.47) Ignore "The", "An" and "A" when sorting titles
+% (APA 9.51) In annotations, citations obey max/minbibnames so set this to max/mincitenames
+%            since max/minbibnames is ignored anyway due to custom APA requirements
 
 \DeclareNosort{
   \nosort{setnames}{\regexp{\p{General_Category=Punctuation}}}
@@ -257,9 +259,9 @@
                             dateuncertain=true,%
                             eventdate=comp,%
                             labeldateparts=true,%
-                            maxbibnames=7,%
+                            maxbibnames=2,%
                             maxcitenames=2,%
-                            minbibnames=6,%
+                            minbibnames=1,%
                             mincitenames=1,%
                             mincrossrefs=999,%
                             origdate=apalong,%
@@ -271,7 +273,8 @@
                             uniqueprimaryauthor=true,%
                             urldate=apalong,%
                             useprefix=true,%
-                            usetranslator=true}
+                            usetranslator=true,%
+                            usenarrator=true}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1434,10 +1437,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 9.51) Annotations
 
-\newbibmacro*{annotation}{%
-  \newline
-  \setunit{}%
-  \printfield{annotation}}
+\renewbibmacro*{annotation}{%
+  \iffieldundef{annotation}
+    {}
+    {\newline
+     \setunit{}%
+     \printfield{annotation}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2255,7 +2260,7 @@
          {\bibcpstring{type\thefield{#1type}s}}
          {\bibcpstring{type\thefield{#1type}}}}}
 
-\renewbibmacro*{doi+url}{%
+\newbibmacro*{doi+url}{%
   \iftoggle{bbx:doi}
     {\printfield{doi}%
      \iffieldundef{doi}{}{\renewcommand*{\finentrypunct}{\relax}}}
