@@ -74,10 +74,7 @@ entries. The |.bib| key for each entry in the References section is listed
 for convenience in the left margin. The keys are not arbitrary and consist
 of the APA section they are taken from, followed by a colon,
 followed by the example number. This makes it easier to cross-reference the
-typeset examples with the commented |.bib| file. I chose not to put the
-examples in the References section in example number order so that the APA
-requirements for References list alphabetisation and order could also be
-demonstrated.
+typeset examples with the commented |.bib| file.
 
 \section*{Citations}
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-citations]
@@ -274,6 +271,42 @@ the author:\\
 \end{refsection}
 \newpage
 \section*{APA 9--General Reference List}
+
+% (APA 9.8)
+\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+
+\apaex{\parencite{9.8:1}}\\
+\apaex{\parencite{9.8:2}}\\
+\apaex{\parencite{9.8:3}}\\
+\apaex{\parencite{9.8:4}}\\
+\apaex{\parencite{9.8:5}}\\
+\apaex{\parencite{9.8:6}}\\
+\apaex{\parencite{9.8:7}}\\
+\apaex{\parencite{9.8:8}}\\
+\apaex{\parencite{9.8:9}}\\
+\apaex{\parencite{9.8:10}}\\
+\apaex{\parencite{9.8:11}}
+
+\apaex{\textcite{9.8:1}}\\
+\apaex{\textcite{9.8:2}}\\
+\apaex{\textcite{9.8:3}}\\
+\apaex{\textcite{9.8:4}}\\
+\apaex{\textcite{9.8:5}}\\
+\apaex{\textcite{9.8:6}}\\
+\apaex{\textcite{9.8:7}}\\
+\apaex{\textcite{9.8:8}}\\
+\apaex{\textcite{9.8:9}}\\
+\apaex{\textcite{9.8:10}}\\
+\apaex{\textcite{9.8:11}}
+
+\printbibliography[title={APA 9.8--Format of the Author Element}]
+
+\noindent\textbf{Note:} The username feature is nicely managed by |biber|'s
+annotation feature which allows arbitrary strings to be attached to any
+list member.
+
+\end{refsection}
+\newpage
 
 % (APA 9.44)
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
@@ -590,6 +623,17 @@ the help of lower-level commands:\\\\
 
 \printbibliography[title={APA 10.3 References}]
 
+\end{refsection}
+\newpage
+\subsection*{APA 10.4--Reports and Gray Literature}
+
+\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+
+\noindent\apa{10.4 Example 50}\\
+\apaex{\parencite{10.4:50a,10.4:50b,10.4:50c}}\\
+\apaex{\textcite{10.4:50a} and \textcite{10.4:50b} and \textcite{10.4:50c}}
+
+\printbibliography[title={APA 10.4 References }]
 \end{refsection}
 
 \end{document}

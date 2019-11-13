@@ -183,8 +183,6 @@
 % (APA 9.42) Secular Before Common Era dates, approximate dates
 % (APA Figure 9.2) Sorting ignores punctuation in names
 % (APA 9.47) Ignore "The", "An" and "A" when sorting titles
-% (APA 9.51) In annotations, citations obey max/minbibnames so set this to max/mincitenames
-%            since max/minbibnames is ignored anyway due to custom APA requirements
 
 \DeclareNosort{
   \nosort{setnames}{\regexp{\p{General_Category=Punctuation}}}
@@ -259,9 +257,9 @@
                             dateuncertain=true,%
                             eventdate=comp,%
                             labeldateparts=true,%
-                            maxbibnames=2,%
+                            maxbibnames=20,%
                             maxcitenames=2,%
-                            minbibnames=1,%
+                            minbibnames=19,%
                             mincitenames=1,%
                             mincrossrefs=999,%
                             origdate=apalong,%
@@ -401,7 +399,7 @@
 %            last name first.
 % (APA 10.1:4) Ellipsis from 20th position and then nothing until last
 % (APA 9.x) Unknown names and dates
-%
+% (APA 9.8) Two group authors drop the comma in between
 
 % \printnames does different things depending on whether the format you are
 % calling is the default for the name field or is a custom format:
@@ -413,6 +411,16 @@
 %     max/minnames truncation is done before calling the format so we have
 %     to do \printnames[format][-\value{listtotal}]{field} to ensure we get
 %     all of the names in the list to work on
+
+% It's not completely obvious but it's implied that name identical other than a suffix
+% are to be treated as different name lists for extradate calculation so we add suffix
+% to the default definition
+\DeclareUniquenameTemplate{
+  \namepart[use=true, base=true]{prefix}
+  \namepart[base=true]{family}
+  \namepart{given}
+  \namepart{suffix}
+}
 
 \DeclareNameAlias{default}{apaauthor}
 
@@ -426,7 +434,8 @@
          {\namepartgiven}%
          {\namepartgiveni}%
          {\namepartprefix}%
-         {\namepartsuffix}}}%
+         {\namepartsuffix}%
+       \hasitemannotation{\addspace\mkbibbrackets{\getitemannotation}}{}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
       {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
 
@@ -450,9 +459,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.27) References section delimiters are ampersands, not " and "
-% (APA 6.27) Use blank for long lists
-% (APA 4.03) Serial comma for lists of three or more
+% (APA 9.8) Author delimiters are ampersands before final author
+%           Long author lists
+%           Serial comma for lists of three or more
+%           Ampersand only (no comma) between two group authors
 
 \DeclareDelimFormat[bib,biblist]{finalnamedelim}{%
   \ifthenelse{\value{listcount}>\maxprtauth}
@@ -464,8 +474,11 @@
 \DeclareDelimFormat[bib,biblist]{finalnamedelim:apa:family-given}{%
   \ifthenelse{\value{listcount}>\maxprtauth}
     {}
-    {\finalandcomma\addspace\&\space}}
-
+    {\ifthenelse{\ifcurrentname{groupauthor}\AND%
+                 \value{liststop}=2}
+     {\addspace\&\space}
+     {\finalandcomma\addspace\&\space}}}
+  
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -786,7 +799,7 @@
 % #3 = given name (initials)
 % #4 = name prefix
 % #5 = name suffix
-
+  
 \newbibmacro*{name:delim:apa:family-given}[1]{%
   \ifnumgreater{\value{listcount}}{\value{liststart}}
     {\ifboolexpr{
@@ -1440,10 +1453,13 @@
 \renewbibmacro*{annotation}{%
   \iffieldundef{annotation}
     {}
-    {\newline
+    {\begingroup
+     \togglefalse{blx@bibliography}%
+     \newline
      \setunit{}%
-     \printfield{annotation}}}
-
+     \printfield{annotation}%
+     \endgroup}}
+ 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
