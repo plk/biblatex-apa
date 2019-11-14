@@ -31,7 +31,6 @@
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
   abstractloc,
-  titleisdescription,
   newspaper,
   urldescription}
 
@@ -39,7 +38,6 @@
   abstracturl}
 
 \DeclareDatamodelEntryfields{
-  titleisdescription,
   with,
   groupauthor,
   abstractloc,
@@ -130,3 +128,36 @@
   urlyear,
   version}
 
+\DeclareDatamodelEntryfields[report]{
+  addendum,
+  author,
+  authortype,
+  chapter,
+  doi,
+  eprint,
+  eprintclass,
+  eprinttype,
+  institution,
+  isrn,
+  language,
+  location,
+  note,
+  number,
+  pages,
+  pagetotal,
+  pubstate,
+  subtitle,
+  title,
+  titleaddon,
+  type,
+  version}
+
+\DeclareDatamodelConstraints[book,inbook,article,newsarticle,report]{
+  \constraint[type=mandatory]{
+    \constraintfieldsor{
+      \constraintfield{author}
+      \constraintfield{groupauthor}
+    }
+    \constraintfield{title}
+  }
+}

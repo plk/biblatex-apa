@@ -424,6 +424,8 @@
 
 \DeclareNameAlias{default}{apaauthor}
 
+\DeclareFieldFormat{authortype}{\mkbibparens{#1}}
+
 \DeclareNameFormat{apaauthor}{%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\space\ldots\space}
@@ -435,6 +437,9 @@
          {\namepartgiveni}%
          {\namepartprefix}%
          {\namepartsuffix}%
+       \iffieldundef{authortype}
+         {}
+         {\addcomma\addspace\printfield{authortype}}
        \hasitemannotation{\addspace\mkbibbrackets{\getitemannotation}}{}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
       {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
@@ -608,6 +613,8 @@
       \setunit*{\addsemicolon\addspace}%
       \printfield{edition}%
       \setunit*{\addcomma\addspace}%
+      \ifentrytype{report}{\usebibmacro{apa:reportinfo}}{}%
+      \setunit*{\addcomma\addspace}%
       \ifentrytype{inbook}{\printfield{pages}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{book}{\printfield{volumes}}{}%
@@ -706,29 +713,29 @@
 %            hard to put in "optional parens" like this
 %            around an unknown amount of characters.
 %REMOVE
-\newbibmacro*{OLDaddinfo}{%
-  \ifthenelse{\iffieldundef{edition}\AND%
-              \iffieldundef{chapter}\AND%
-              \iffieldundef{volumes}\AND%
-              \iffieldundef{pages}\AND%
-              \iffieldundef{number}\AND%
-              \(\iffieldundef{volume}\OR\boolean{bbx:volseen}\)}
-  {}
-  {\printtext{\bibopenparen}%
-   \printfield{edition}%
-   \setunit*{\addcomma\addspace}%
-   \printfield{chapter}%
-   \setunit*{\addcomma\addspace}%
-   \notbool{bbx:volseen}%
-     {\iffieldundef{volume}{}{\global\booltrue{bbx:volseen}}%
-      \printfield{volume}%
-      \iffieldundef{part}{}{\printfield{part}}}{}%
-   \setunit*{\addcomma\addspace}%
-   \printfield{volumes}%
-   \setunit*{\addcomma\addspace}%
-   \printfield{pages}%
-   \setunit{}%
-   \printtext{\bibcloseparen}}}
+% \newbibmacro*{addinfo}{%
+%   \ifthenelse{\iffieldundef{edition}\AND%
+%               \iffieldundef{chapter}\AND%
+%               \iffieldundef{volumes}\AND%
+%               \iffieldundef{pages}\AND%
+%               \iffieldundef{number}\AND%
+%               \(\iffieldundef{volume}\OR\boolean{bbx:volseen}\)}
+%   {}
+%   {\printtext{\bibopenparen}%
+%    \printfield{edition}%
+%    \setunit*{\addcomma\addspace}%
+%    \printfield{chapter}%
+%    \setunit*{\addcomma\addspace}%
+%    \notbool{bbx:volseen}%
+%      {\iffieldundef{volume}{}{\global\booltrue{bbx:volseen}}%
+%       \printfield{volume}%
+%       \iffieldundef{part}{}{\printfield{part}}}{}%
+%    \setunit*{\addcomma\addspace}%
+%    \printfield{volumes}%
+%    \setunit*{\addcomma\addspace}%
+%    \printfield{pages}%
+%    \setunit{}%
+%    \printtext{\bibcloseparen}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1065,9 +1072,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.30) Number for reports with no prefix if not
-%            a numeral. Report number is optional and so must be
-%            the parens.
+% (APA 10.4) Number for reports with prefix but not when
+%            introduced by issue instead of type
 
 \DeclareFieldFormat{number}{\iffieldundef{volume}
                              {\ifinteger{\thefield{number}}
@@ -1075,15 +1081,20 @@
                                {\apanum{#1}}}
                              {\mkbibemph{\apanum{#1}}}}
 
-\DeclareFieldFormat[report]{number}{\mkbibparens{\iffieldundef{type}
-                                                  {}
-                                                  {\printfield{type}\setunit{\addspace}}%
-                                                  \bibcpstring{number}~\apanum{#1}}}
+\DeclareFieldFormat[report]{number}{\apanum{#1}}
 
-\newbibmacro*{apa:reportnum}{%
-  \iffieldundef{number}%
-    {}%
-    {\printfield{number}}}
+\newbibmacro*{apa:reportinfo}{%
+  \iffieldundef{type}
+    {\iffieldundef{issue}
+      {}
+      {\printfield{issue}\setunit{\addspace}%
+       \iffieldundef{number}
+         {}
+         {\printfield{number}}}}%
+    {\printfield{type}\setunit{\addspace}%
+     \iffieldundef{number}
+       {}
+       {\bibcpstring{number}~\printfield{number}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1875,7 +1886,6 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
-  \usebibmacro{apa:reportnum}%
   \newunit\newblock
   \printlist{institution}%
   \newunit\newblock

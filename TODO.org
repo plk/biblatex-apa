@@ -3,3 +3,5 @@
 * DONE 8.20f--8.20j - only primary author with inits
 * TODO Document groupauthor as preferable
 * TODO Remove \usebibmacro{apa:finpunct}, \usebibmacro{apa:pageref}?
+* TODO Document username annotation use
+* TODO Combine all roles (9.10)
