@@ -535,15 +535,26 @@
 \DeclareFieldFormat[inbook]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[incollection]{title}{#1\isdot}
 \DeclareFieldFormat[incollection]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
-\DeclareFieldFormat[inproceedings]{title}{#1\isdot}
+\DeclareFieldFormat[inproceedings]{title}{\mkbibemph{#1}\isdot}
 \DeclareFieldFormat[inproceedings]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
-\DeclareFieldFormat[proceedings]{title}{#1\isdot}
+\DeclareFieldFormat[proceedings]{title}{\mkbibemph{#1}\isdot}
 \DeclareFieldFormat[proceedings]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.5) Conference event information
+
+\newbibmacro*{eventinfo}{%
+  \printfield{eventtitle}%
+  \setunit{\addcomma\addspace}%
+  \usebibmacro{location+publisher}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % (APA 9.25) No prefix for pages
 
 \DeclareFieldFormat{pages}{#1}
@@ -658,8 +669,7 @@
        \setunit{\subtitlepunct}%
        \printfield[apacase]{mainsubtitle}}%
     \setunit{\addspace}}
-  \printfield{maintitleaddon}%
-  \addcolon}
+  \printfield{maintitleaddon}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1036,7 +1046,9 @@
           \printfield{volume}%
           \printfield{part}%
           \setunit{\adddot\addspace}}}%
-    \usebibmacro{booktitle}}}
+      \usebibmacro{booktitle}%
+      \setunit{\addspace}%
+      \usebibmacro{addinfo}}}
 
 \renewbibmacro*{booktitle}{%
   \ifthenelse{\iffieldundef{booktitle}\AND\iffieldundef{booksubtitle}}
@@ -1116,18 +1128,6 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.02 Example 38) Proceedings emph number, location
-%                       and location. Pages have no prefix
-
-\DeclareListFormat[proceedings]{location}{\mkbibemph{#1}}
-\DeclareFieldFormat[proceedings]{pages}{#1}
-\DeclareFieldFormat[proceedings]{number}{\mkbibemph{\apanum{#1}}}
-\DeclareFieldFormat[proceedings]{volume}{\mkbibemph{\apanum{#1}}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.02 Example 40--44) Theses titles and volume
@@ -1571,8 +1571,6 @@
   \usebibmacro{editor+trans}%
   \newblock
   \usebibmacro{maintitle+booktitle}%
-  \newblock
-  \usebibmacro{addinfo}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
@@ -1591,6 +1589,32 @@
   \usebibmacro{apa:pageref}%
   \usebibmacro{annotation}%
   % REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{report}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \printlist{institution}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{booklet}{%
@@ -1628,9 +1652,9 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
   \newunit\newblock
+  \usebibmacro{eventinfo}%
+  \setunit{\addcomma\addspace}%
   \usebibmacro{booktitle}%
-  \setunit{\addcomma\addspace}\newblock
-  \usebibmacro{location+publisher}%
   \setunit{\addcomma\addspace}%
   \printfield{volume}%
   \setunit*{\adddot}%
@@ -1691,8 +1715,6 @@
   \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
-  \newblock
-  \usebibmacro{addinfo}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
@@ -1723,24 +1745,18 @@
   \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
-  \iffieldundef{eventyear}{}{\setunit{\addcomma\addspace}}%
-  \printeventdate
-  \setunit*{\addspace}\newblock
-  \usebibmacro{addinfo}%
+  \newunit\newblock
+  \usebibmacro{eventinfo}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
   \printlist{organization}%
-  \newunit
-  \printfield[apacase]{eventtitle}%
   \newunit
   \printfield{venue}%
   \iffieldundef{pages}
     {\setunit{\addcomma\addspace}}
     {\newunit}%
   \newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
   \usebibmacro{doi+url}%
@@ -1866,32 +1882,6 @@
   \printfield{pages}%
   \newunit\newblock
   \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{report}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \printlist{institution}%
-  \newunit\newblock
-  \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{doi+url}%
   \newunit\newblock
