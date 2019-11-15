@@ -17,8 +17,7 @@
 
 \DeclareDatamodelEntrytypes{
   letters,
-  data,
-  newsarticle}
+  data}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
   with,
@@ -51,51 +50,6 @@
   producer,
   execproducer,
   director}
-
-\DeclareDatamodelEntryfields[newsarticle]{
-  author,
-  newspaper,
-  title,
-  day,
-  endday,
-  endmonth,
-  endyear,
-  month,
-  year,
-  addendum,
-  doi,
-  editor,
-  editora,
-  editorb,
-  editorc,
-  editoratype,
-  editorbtype,
-  editorctype,
-  eid,
-  eprint,
-  eprintclass,
-  eprinttype,
-  issn,
-  issue,
-  issuetitle,
-  issuesubtitle,
-  language,
-  note,
-  number,
-  origlanguage,
-  pages,
-  series,
-  subtitle,
-  titleaddon,
-  translator,
-  url,
-  urlday,
-  urlendday,
-  urlendmonth,
-  urlendyear,
-  urlmonth,
-  urlyear,
-  volume}
 
 \DeclareDatamodelEntryfields[data]{
   title,
@@ -152,7 +106,7 @@
   type,
   version}
 
-\DeclareDatamodelConstraints[book,inbook,article,newsarticle,report]{
+\DeclareDatamodelConstraints[book,inbook,article,report]{
   \constraint[type=mandatory]{
     \constraintfieldsor{
       \constraintfield{author}

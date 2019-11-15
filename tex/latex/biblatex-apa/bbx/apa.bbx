@@ -624,7 +624,7 @@
       \setunit*{\addsemicolon\addspace}%
       \printfield{edition}%
       \setunit*{\addcomma\addspace}%
-      \ifentrytype{report}{\usebibmacro{apa:reportinfo}}{}%
+      \ifthenelse{\ifentrytype{report}\OR\ifentrytype{thesis}}{\usebibmacro{apa:pubinfo}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{inbook}{\printfield{pages}}{}%
       \setunit*{\addcomma\addspace}%
@@ -1084,8 +1084,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 10.4) Number for reports with prefix but not when
-%            introduced by issue instead of type
+% (APA 10.4, 10.6) Number for reports/theses with prefix but not when
+%                  introduced by issue instead of type
 
 \DeclareFieldFormat{number}{\iffieldundef{volume}
                              {\ifinteger{\thefield{number}}
@@ -1095,7 +1095,7 @@
 
 \DeclareFieldFormat[report]{number}{\apanum{#1}}
 
-\newbibmacro*{apa:reportinfo}{%
+\newbibmacro*{apa:pubinfo}{%
   \iffieldundef{type}
     {\iffieldundef{issue}
       {}
@@ -1903,7 +1903,9 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
   \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
-  \usebibmacro{type+institution}%
+  \printlist{institution}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
@@ -2297,21 +2299,6 @@
     \setunit*{\addcolon\space}%
     \printlist{publisher}%
     \addperiod}
-  
-\newbibmacro*{type+institution}{%
-  \setunit{\addspace}%
-  \ifboolexpr{ test {\iffieldundef{type}} and test {\iflistundef{institution}} }
-    {}
-    {\printtext[parens]{%
-       \iflistundef{institution}
-         {\setunit*{\addspace}}
-         {\setunit*{\addcolon\space}}%
-       \printfield{type}%
-       \setunit*{\addcomma\space}%
-       \printlist{institution}%
-       \setunit*{\addcomma\space}%
-       \printlist{location}}%
-     \newunit}}
 
 \newbibmacro*{labeltitle}{%
   \iffieldundef{label}

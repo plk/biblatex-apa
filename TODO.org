@@ -4,4 +4,6 @@
 * TODO Document groupauthor as preferable
 * TODO Remove \usebibmacro{apa:finpunct}, \usebibmacro{apa:pageref}?
 * TODO Document username annotation use
+* TODO Document ENTRYSUBTYPE=academic
 * TODO Combine all roles (9.10)
+* TODO 10.1.18 -> related comment on in line with reviews
