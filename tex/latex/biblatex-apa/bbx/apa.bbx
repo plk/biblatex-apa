@@ -610,7 +610,9 @@
       \setunit*{\addsemicolon\addspace}%
       \printfield{edition}%
       \setunit*{\addcomma\addspace}%
-      \ifthenelse{\ifentrytype{report}\OR\ifentrytype{thesis}}{\usebibmacro{apa:pubinfo}}{}%
+      \ifthenelse{\ifentrytype{report}\OR%
+                  \ifentrytype{thesis}\OR%
+                  \ifentrytype{unpublished}}{\usebibmacro{apa:pubinfo}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{inbook}{\printfield{pages}}{}%
       \setunit*{\addcomma\addspace}%
@@ -1095,7 +1097,7 @@
 \newbibmacro*{apa:pubinfo}{%
   \iffieldundef{type}
     {\iffieldundef{issue}
-      {}
+      {\printfield{number}}
       {\printfield{issue}\setunit{\addspace}%
        \iffieldundef{number}
          {}
@@ -1135,13 +1137,13 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.05) Unpublished theses
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.8) Unpublished manuscripts
 
 \DeclareFieldFormat[unpublished]{title}{\mkbibemph{#1}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.06) Reviews
@@ -1268,21 +1270,14 @@
 %
 %%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 10.16) Emph titles for online items
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.8) HOWPUBLISHED for unpublished manuscripts
 
-%\DeclareFieldFormat[online]{title}{\mkbibemph{\bbx@colon@search\MakeSentenceCase*{#1}}}
+\DeclareFieldFormat[unpublished]{howpublished}{\mkbibbrackets{%
+  \ifbibstring{#1}{\bibcpstring{#1}}{#1}}}
 
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA A7.07) Emph titles for patents
-
-%\DeclareFieldFormat[patent]{title}{\mkbibemph{#1}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.08 Example 56) Software has version in title
@@ -1582,7 +1577,6 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-%REMOVE  \usebibmacro{apa:finpunct}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
@@ -1611,7 +1605,6 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1642,121 +1635,6 @@
     {}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{annotation}%
-  % REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{report}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \printlist{institution}%
-  \newunit\newblock
-  \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{booklet}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \printfield{howpublished}%
-  \newunit\newblock
-  \printfield{type}%
-  \newunit\newblock
-  \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{proceedings}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \usebibmacro{eventinfo}%
-  \setunit{\addcomma\addspace}%
-  \usebibmacro{booktitle}%
-  \setunit{\addcomma\addspace}%
-  \printfield{volume}%
-  \setunit*{\adddot}%
-  \printfield{number}%
-  \setunit{\addcomma\addspace}
-  \printfield{pages}%
-  \newunit\newblock
-  \printfield{note}%
-  \newunit\newblock
-  \printlist{organization}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{collection}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \setunit{\addcomma\addspace}%
-  \printfield{number}%
-  \newunit\newblock
-  \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{incollection}{%
@@ -1785,7 +1663,6 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1822,7 +1699,6 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1852,7 +1728,6 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1875,9 +1750,166 @@
      \usebibmacro{related}}
     {}%
   \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{proceedings}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{eventinfo}%
+  \setunit{\addcomma\addspace}%
+  \usebibmacro{booktitle}%
+  \setunit{\addcomma\addspace}%
+  \printfield{volume}%
+  \setunit*{\adddot}%
+  \printfield{number}%
+  \setunit{\addcomma\addspace}
+  \printfield{pages}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \printlist{organization}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{report}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \printlist{institution}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{unpublished}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \setunit{\addspace}%
+  \printfield{howpublished}%
+  \newunit\newblock
+  \printlist{location}%
+  \setunit{\addcomma\addspace}
+  \printlist{institution}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% NOT VETTED TYPES
+
+\DeclareBibliographyDriver{booklet}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \printfield{howpublished}%
+  \newunit\newblock
+  \printfield{type}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
 %REMOVE  \usebibmacro{apa:finpunct}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
+
+
+\DeclareBibliographyDriver{collection}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \setunit{\addcomma\addspace}%
+  \printfield{number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+%REMOVE  \usebibmacro{apa:finpunct}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
 
 \DeclareBibliographyDriver{patent}{%
   \usebibmacro{bibindex}%
@@ -2244,36 +2276,6 @@
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
-\DeclareBibliographyDriver{unpublished}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \printfield{howpublished}%
-  \iflistundef{institution}
-    {\newunit}
-    {\setunit{\addcomma\addspace}}%
-  \newblock
-  \printlist{institution}%
-  \setunit*{\addcomma\addspace}\newblock
-  \printfield{note}%
-  \setunit*{\addcomma\addspace}\newblock
-  \printlist{location}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
