@@ -16,8 +16,7 @@
 \RequireBiber[3]
 
 \DeclareDatamodelEntrytypes{
-  letters,
-  data}
+  letters}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
   with,
@@ -31,7 +30,7 @@
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
   abstractloc,
-  newspaper,
+  appentry,
   urldescription}
 
 \DeclareDatamodelFields[type=field, datatype=verbatim]{
@@ -45,6 +44,8 @@
   urldescription,
   narrator}
 
+\DeclareDatamodelEntryfields[software]{
+  appentry}
 
 \DeclareDatamodelEntryfields[video]{
   writer,
@@ -52,37 +53,6 @@
   host,
   execproducer,
   director}
-
-\DeclareDatamodelEntryfields[data]{
-  title,
-  day,
-  endday,
-  endmonth,
-  endyear,
-  day,
-  endday,
-  endmonth,
-  endyear,
-  month,
-  year,
-  addendum,
-  author,
-  language,
-  location,
-  note,
-  organization,
-  pubstate,
-  subtitle,
-  titleaddon,
-  type,
-  url,
-  urlday,
-  urlendday,
-  urlendmonth,
-  urlendyear,
-  urlmonth,
-  urlyear,
-  version}
 
 \DeclareDatamodelEntryfields[report]{
   addendum,

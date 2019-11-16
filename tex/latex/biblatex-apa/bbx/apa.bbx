@@ -253,9 +253,9 @@
                             dateabbrev=false,%
                             datecirca=true,%
                             dateera=secular,%
-                            labeldate=apalong,%
                             dateuncertain=true,%
                             eventdate=comp,%
+                            labeldate=apalong,%
                             labeldateparts=true,%
                             maxbibnames=20,%
                             maxcitenames=2,%
@@ -289,7 +289,10 @@
     \map{
       \step[fieldsource=date, final]
       \step[fieldset=pubstate, null]
-   }
+    }
+    \map{
+      \step[typesource=hardware, typetarget=software, final]
+    }
     \map{
       \step[fieldsource=groupauthor, match=\regexp{([^{}]+)}, final]
       \step[fieldsource=publisher, match=\regexp{$1}, final]%$
@@ -571,8 +574,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 10.2:27,10.7) Additional information after title
+% Additional information after title
 %                 
+
+\DeclareFieldFormat{number}{\iffieldundef{volume}
+                             {\ifinteger{\thefield{number}}
+                               {\addspace\mkbibemph{\bibcpstring{number}~\apanum{#1}}\adddot}
+                               {\apanum{#1}}}
+                             {\mkbibemph{\apanum{#1}}}}
+
+\DeclareFieldFormat[report]{number}{\apanum{#1}}
 
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
 \DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
@@ -602,7 +613,14 @@
     \mkbibparens{#1}%
   \fi}
 
-\newbibmacro*{addinfo}{%
+\newrobustcmd{\mkbibbracketse}[1]{%
+  \setbox0=\hbox{#1\foreverunspace}\ifdim\wd0=0pt
+  \else
+    \mkbibbrackets{#1}%
+  \fi}
+
+% Additional post title information in parens
+\newbibmacro*{addinfo1}{%
   \printtext{%
     \mkbibparense{%
       \setunit{}%
@@ -613,13 +631,38 @@
       \ifthenelse{\ifentrytype{report}\OR%
                   \ifentrytype{thesis}\OR%
                   \ifentrytype{unpublished}\OR%
-                  \ifentrytype{data}}{\usebibmacro{apa:pubinfo}}{}%
+                  \ifentrytype{dataset}\OR%
+                  \ifentrytype{software}}{\usebibmacro{addinfo3}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{inbook}{\printfield{pages}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{book}{\printfield{volumes}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{book}{\printfield{volume}}{}}}}
+
+% Additional post title information in brackets
+\newbibmacro*{addinfo2}{%
+  \printtext{%
+    \mkbibbracketse{%
+      \printfield{entrysubtype}}}}
+
+% number/issue information
+\newbibmacro*{addinfo3}{%
+  \iffieldundef{type}
+    {\iffieldundef{issue}
+      {\printfield{number}}
+      {\printfield{issue}\setunit{\addspace}%
+       \iffieldundef{number}
+         {}
+         {\printfield{number}}}}%
+    {\printfield{type}\setunit{\addspace}%
+     \iffieldundef{number}
+       {}
+       {\bibcpstring{number}~\printfield{number}}}%
+     \ifthenelse{\ifentrytype{dataset}\OR\ifentrytype{software}}
+       {\setunit*{\addsemicolon\addspace}%
+        \printfield{version}}
+       {}}
 
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
@@ -636,7 +679,7 @@
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}%
      \setunit{\addspace}%
-     \ifentrytype{inbook}{}{\usebibmacro{addinfo}}% No additional info here for inbook
+     \ifentrytype{inbook}{}{\usebibmacro{addinfo1}}% additional info in parens
      \setunit{\addspace}%
      \iffieldundef{related}
        {}
@@ -646,9 +689,11 @@
                     \iffieldequalstr{relatedtype}{commentonarticle}}
          {\usebibmacro{related:init}%
           \usebibmacro{related}%
-          \togglefalse{bbx:related}}
+          \togglefalse{bbx:related}}% disable default related expansion later on
          {}}%
      \setunit{\addspace}%
+     \ifthenelse{\ifentrytype{dataset}\OR%
+                 \ifentrytype{software}}{\usebibmacro{addinfo2}}{}% additional info in brackets
      \printfield{titleaddon}%
      \ifthenelse{%
        \ifnameundef{author}\AND%
@@ -1010,9 +1055,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.02) "In " before booktitle, edited or not
-% (APA 6.30) Non-periodical volume number followed by "."
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.3) Reference work references
 
 \renewbibmacro*{maintitle+title}{%
   \iffieldsequal{maintitle}{title}
@@ -1048,7 +1092,7 @@
           \setunit{\adddot\addspace}}}%
       \usebibmacro{booktitle}%
       \setunit{\addspace}%
-      \usebibmacro{addinfo}}}
+      \usebibmacro{addinfo1}}}
 
 \renewbibmacro*{booktitle}{%
   \ifthenelse{\iffieldundef{booktitle}\AND\iffieldundef{booksubtitle}}
@@ -1061,11 +1105,11 @@
   \printfield{booktitleaddon}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.29) Colon separates title/subtitle
-%            Skip if following terminating punctuation
+%  Colon separates title/subtitle
+%  Skip if following terminating punctuation
 
 \renewcommand*{\subtitlepunct}{\ifterm{}{\addcolon}\space}
 
@@ -1082,38 +1126,6 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 10.4, 10.6,10.8, 10.9) - Various bits of additional info
-%                               after title                            
-
-\DeclareFieldFormat{number}{\iffieldundef{volume}
-                             {\ifinteger{\thefield{number}}
-                               {\addspace\mkbibemph{\bibcpstring{number}~\apanum{#1}}\adddot}
-                               {\apanum{#1}}}
-                             {\mkbibemph{\apanum{#1}}}}
-
-\DeclareFieldFormat[report]{number}{\apanum{#1}}
-
-\newbibmacro*{apa:pubinfo}{%
-  \iffieldundef{type}
-    {\iffieldundef{issue}
-      {\printfield{number}}
-      {\printfield{issue}\setunit{\addspace}%
-       \iffieldundef{number}
-         {}
-         {\printfield{number}}}}%
-    {\printfield{type}\setunit{\addspace}%
-     \iffieldundef{number}
-       {}
-       {\bibcpstring{number}~\printfield{number}}}%
-     \ifentrytype{data}
-       {\setunit{\addsemicolon\addspace}%
-         \printfield{version}}
-       {}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.2.24) Multiple publishers, semi-colon sep
@@ -1211,20 +1223,26 @@
 %%%%%%%%%%%%%%%%%
 % (APA 10.9) Data
 
-\DeclareFieldFormat[data]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat[data]{version}{\bibcpstring{version}\addspace #1}
+\DeclareFieldFormat[dataset]{version}{\bibcpstring{version}~#1}
 
 % 
 %%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 10.2:22) Entrysubtype for audio books
+%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.10) Software
 
-\DeclareFieldFormat[book]{entrysubtype}{\mkbibbrackets{#1}}
+\DeclareFieldFormat[software]{version}{\bibcpstring{version}~#1}
 
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newbibmacro*{appentry}{%
+  \iffieldundef{appentry}
+    {\newunit\newblock}
+    {\printfield[apacase]{appentry}%
+     \newunit\newblock
+     \usebibmacro{in}%
+     \setunit{\addspace}}}
 
+% 
+%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 % (APA 7.10) Letter/Letters
@@ -1274,26 +1292,6 @@
   \ifbibstring{#1}{\bibcpstring{#1}}{#1}}}
 
 % 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.08 Example 56) Software has version in title
-
-\DeclareFieldFormat[software]{title}{#1}
-\DeclareFieldFormat[software]{version}{\mkbibparens{\bibcpstring{version}~#1}}
-
-\newbibmacro*{apa:softwaretitle}{%
-  \printtext[title]{%
-  \printfield[apacase]{title}%
-  \setunit{\subtitlepunct}%
-  \printfield[apacase]{subtitle}}%
-  \setunit{\addspace}%
-  \iffieldundef{version}%
-     {}
-     {\printfield{version}}
-  \printfield{titleaddon}}
-
-%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1605,7 +1603,7 @@
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
-\DeclareBibliographyDriver{data}{%
+\DeclareBibliographyDriver{dataset}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
   \usebibmacro{author}%
@@ -1827,6 +1825,27 @@
   \newunit\newblock
   \usebibmacro{doi+url}%
   \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{software}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{appentry}%
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
   \printfield{addendum}%
   \newunit\newblock
   \iftoggle{bbx:related}
@@ -2241,27 +2260,6 @@
   \usebibmacro{album}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{software}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{apa:softwaretitle}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
   \printfield{addendum}%
   \newunit\newblock
   \iftoggle{bbx:related}
