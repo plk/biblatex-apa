@@ -612,7 +612,8 @@
       \setunit*{\addcomma\addspace}%
       \ifthenelse{\ifentrytype{report}\OR%
                   \ifentrytype{thesis}\OR%
-                  \ifentrytype{unpublished}}{\usebibmacro{apa:pubinfo}}{}%
+                  \ifentrytype{unpublished}\OR%
+                  \ifentrytype{data}}{\usebibmacro{apa:pubinfo}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{inbook}{\printfield{pages}}{}%
       \setunit*{\addcomma\addspace}%
@@ -622,7 +623,7 @@
 
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
-    {}
+    {\printfield{titleaddon}}
     {\iffieldundef{origtitle}
       {\printtext[title]{%
         \printfield[apacase]{title}%
@@ -1083,8 +1084,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 10.4, 10.6) Number for reports/theses with prefix but not when
-%                  introduced by issue instead of type
+% (APA 10.4, 10.6,10.8, 10.9) - Various bits of additional info
+%                               after title                            
 
 \DeclareFieldFormat{number}{\iffieldundef{volume}
                              {\ifinteger{\thefield{number}}
@@ -1105,7 +1106,11 @@
     {\printfield{type}\setunit{\addspace}%
      \iffieldundef{number}
        {}
-       {\bibcpstring{number}~\printfield{number}}}}
+       {\bibcpstring{number}~\printfield{number}}}%
+     \ifentrytype{data}
+       {\setunit{\addsemicolon\addspace}%
+         \printfield{version}}
+       {}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1198,26 +1203,18 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%
-% (APA 7.07) Misc and data
 
-\DeclareFieldFormat[data]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat[data]{entrysubtype}{\mkbibbrackets{#1}}
 \DeclareFieldFormat[misc]{entrysubtype}{\mkbibbrackets{#1}}
 \DeclareFieldFormat[misc]{nameaddon}{\mkbibparens{#1}}
 \DeclareFieldFormat[misc]{title}{\iffieldequalstr{titleisdescription}{true}{\mkbibbrackets{#1}}{{#1}\isdot}}
 
-\newbibmacro*{datatitle}{%
-  \iffieldundef{title}
-    {\iffieldundef{entrysubtype}
-      {}
-      {\printfield{entrysubtype}}}
-    {\iffieldundef{entrysubtype}
-      {}
-      {\usebibmacro{title}\addspace
-       \printfield{entrysubtype}}}}
+%%%%%%%%%%%%%%%%%
+% (APA 10.9) Data
 
-%
+\DeclareFieldFormat[data]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[data]{version}{\bibcpstring{version}\addspace #1}
+
+% 
 %%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1597,6 +1594,35 @@
   \usebibmacro{doi+url}%
   \setunit*{\addspace}\newblock
   \usebibmacro{origyear}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{data}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \printfield{type}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
+  \printlist{organization}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \printlist{institution}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock
@@ -2060,35 +2086,6 @@
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
-\DeclareBibliographyDriver{data}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{datatitle}%
-  \newunit\newblock
-  \printfield{type}%
-  \newunit
-  \printfield{version}%
-  \newunit
-  \printfield{note}%
-  \newunit\newblock
-  \printlist{organization}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{letter}{%
   \usebibmacro{bibindex}%
