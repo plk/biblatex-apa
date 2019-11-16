@@ -29,6 +29,11 @@
 \NewBibliographyString{narrator}
 \NewBibliographyString{narrators}
 \NewBibliographyString{supplement}
+\NewBibliographyString{commentonarticle}
+\NewBibliographyString{reviewofbook}
+\NewBibliographyString{reviewoffilm}
+\NewBibliographyString{reviewoftv}
+\NewBibliographyString{host}
 
 \DeclareBibliographyStrings{%
   inherit          = {spanish},
@@ -52,11 +57,17 @@
   mathesis         = {{Tesis\addabbrvspace de\addabbrvspace maestr\'ia}{Tesis\addabbrvspace de\addabbrvspace maestr\'ia}},
   phdthesis        = {{Tesis\addabbrvspace doctoral}{Tesis\addabbrvspace doctoral}},
   revisededition   = {{Edici\'on\space revisada}{Edici\'on\space revisada}},
+  commentonarticle = {{comment\space on\space the\space article}
+                      {comment\space on\space the\space article}},%FIXME
+  reviewofbook     = {{review\space of\space the\space book}{review\space of\space the\space book}},%FIXME
+  reviewoffilm     = {{review\space of\space the\space film}{review\space of\space the\space film}},%FIXME
+  reviewoftv       = {{review\space of\space the\space {TV}\space series\space episode}{review\space of\space the\space {TV}\space series\space episode}},%FIXME
   producer         = {{productor}{productor}},
   execproducer     = {{productor ejecutivo}{productor ejecutivo}},
-  director         = {{director}{director}},
+  director         = {{director}{dir\adddot}},%FIXME
   writer           = {{escritor}{escritor}},
   with             = {{con}{con}},
+  host             = {{host}{host}},
   page             = {{P\'agina}{{}p\adddot}},
   pages            = {{P\'aginas}{{}pp\adddot}},
   on               = {{el}{el}},

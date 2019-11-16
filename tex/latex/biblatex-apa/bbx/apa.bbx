@@ -562,20 +562,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% newspapers
-
-\DeclareFieldFormat[newsarticle]{newspaper}{\mkbibemph{#1}}
-\DeclareFieldFormat[newsarticle]{entrysubtype}{\mkbibbrackets{#1}}
-\DeclareFieldFormat[newsarticle]{title}{#1}
-
-\newbibmacro*{newspaper}{%
-  \printfield{newspaper}
-  \setunit{\addcomma\space}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 9.52) References in a meta-analysis
 
@@ -584,8 +570,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 10.2:27) Additional information after title
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.2:27,10.7) Additional information after title
 %                 
 
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
@@ -649,6 +635,17 @@
      \setunit{\addspace}%
      \ifentrytype{inbook}{}{\usebibmacro{addinfo}}% No additional info here for inbook
      \setunit{\addspace}%
+     \iffieldundef{related}
+       {}
+       {\ifthenelse{\iffieldequalstr{relatedtype}{reviewofbook}\OR%
+                    \iffieldequalstr{relatedtype}{reviewoffilm}\OR%
+                    \iffieldequalstr{relatedtype}{reviewoftv}\OR%
+                    \iffieldequalstr{relatedtype}{commentonarticle}}
+         {\usebibmacro{related:init}%
+          \usebibmacro{related}%
+          \togglefalse{bbx:related}}
+         {}}%
+     \setunit{\addspace}%
      \printfield{titleaddon}%
      \ifthenelse{%
        \ifnameundef{author}\AND%
@@ -672,7 +669,7 @@
   \printfield{maintitleaddon}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.1) Format of volume and number for articles
@@ -1229,52 +1226,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.07) Audiovisual
-
-\DeclareFieldFormat[video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}}{#1}}
-\DeclareFieldFormat[video]{maintitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[video]{entrysubtype}{\mkbibbrackets{#1}}
-\DeclareFieldFormat[audio]{entrysubtype}{\mkbibbrackets{#1}}
-\DeclareFieldFormat[music]{title}{#1}
-\DeclareFieldFormat[music]{maintitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[music]{mainsubtitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[audio]{howpublished}{\mkbibparens{#1}}
-
-\newbibmacro*{tvseries}{%
-  \iffieldundef{maintitle}
-    {}
-    {\usebibmacro{in}%
-     \ifnameundef{execproducer}
-       {}
-       {\printnames[apanames][-\value{listtotal}]{execproducer}%
-         \addspace
-         \printtext[parens]{\bibcpstring{execproducer}}}
-     \setunit{\addcomma\addspace}%
-     \usebibmacro{avmaintitle}%
-     \newunit}}
-
-\newbibmacro*{avmaintitle}{%
-  \ifthenelse{\iffieldundef{maintitle}\AND\iffieldundef{mainsubtitle}}
-    {}
-    {\printtext[maintitle]{%
-       \printfield[apacase]{maintitle}%
-       \setunit{\subtitlepunct}%
-       \printfield[apacase]{mainsubtitle}}%
-    \setunit{\addspace}}
-  \printfield{maintitleaddon}}
-
-\newbibmacro*{album}{%
-  \iffieldundef{maintitle}
-    {}
-    {\bibcpstring{on}%
-     \setunit{\addspace}%
-     \usebibmacro{avmaintitle}%
-     \newunit}}
-
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 % (APA 7.10) Letter/Letters
@@ -1318,12 +1269,9 @@
 %%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 10.1 Example 17) Non-emph titles for online items
-%                       Emph organization 
+% (APA 10.16) Emph titles for online items
 
-\DeclareFieldFormat[online]{title}{#1}
-\DeclareListFormat[online]{organization}{\mkbibemph{#1}}
-\DeclareFieldFormat[online]{entrysubtype}{\mkbibbrackets{#1}}
+%\DeclareFieldFormat[online]{title}{\mkbibemph{\bbx@colon@search\MakeSentenceCase*{#1}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1331,7 +1279,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA A7.07) Emph titles for patents
 
-\DeclareFieldFormat[patent]{title}{\mkbibemph{#1}}
+%\DeclareFieldFormat[patent]{title}{\mkbibemph{#1}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1375,6 +1323,140 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.1 Example 18) Comment on article
+
+\newcommand*{\begrelateddelimcommentonarticle}{\addspace}
+\DeclareFieldFormat{related:commentonarticle}{\def\bibstring{\blx@imc@bibcpstring}\mkbibbrackets{#1}}
+
+\renewbibmacro*{related:commentonarticle}[1]{%
+  \entrydata*{#1}{%
+    \printtext{\mkbibquote{\printfield[apacase]{title}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.7) Reviews - role strings need to be the
+%                      short versions in reviews
+
+\newcommand*{\begrelateddelimreviewofbook}{\addspace}
+\DeclareFieldFormat{related:reviewofbook}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
+\newbibmacro*{related:reviewofbook}[1]{\usebibmacro{related:reviewofx}{#1}}
+
+\newcommand*{\begrelateddelimreviewoffilm}{\addspace}
+\DeclareFieldFormat{related:reviewoffilm}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
+\newbibmacro*{related:reviewoffilm}[1]{\usebibmacro{related:reviewofx}{#1}}
+
+\newcommand*{\begrelateddelimreviewoftv}{\addspace}
+\DeclareFieldFormat{related:reviewoftv}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
+\newbibmacro*{related:reviewoftv}[1]{\usebibmacro{related:reviewofx}{#1}}
+
+\newbibmacro*{related:reviewofx}[1]{%
+  \entrydata*{#1}{%
+    \printtext{\mkbibemph{%
+                 \printfield{title}%
+                 \iffieldundef{subtitle}
+                   {}
+                   {\setunit{\addcolon\addspace}%
+                    \printfield{subtitle}}}%
+               \setunit{\addcomma\addspace}%
+               \biblstring{byauthor}%
+               \setunit{\addspace}%
+               \usebibmacro{avauthor}}}}
+         
+%         
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.12) Audiovisual
+
+% \DeclareFieldFormat[video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}}{#1}}
+% \DeclareFieldFormat[video]{maintitle}{\mkbibemph{#1}}
+% \DeclareFieldFormat[video]{entrysubtype}{\mkbibbrackets{#1}}
+% \DeclareFieldFormat[audio]{entrysubtype}{\mkbibbrackets{#1}}
+% \DeclareFieldFormat[music]{title}{#1}
+% \DeclareFieldFormat[music]{maintitle}{\mkbibemph{#1}}
+% \DeclareFieldFormat[music]{mainsubtitle}{\mkbibemph{#1}}
+% \DeclareFieldFormat[audio]{howpublished}{\mkbibparens{#1}}
+
+% \newbibmacro*{tvseries}{%
+%   \iffieldundef{maintitle}
+%     {}
+%     {\usebibmacro{in}%
+%      \ifnameundef{execproducer}
+%        {}
+%        {\printnames[apanames][-\value{listtotal}]{execproducer}%
+%          \addspace
+%          \printtext[parens]{\bibcpstring{execproducer}}}
+%      \setunit{\addcomma\addspace}%
+%      \usebibmacro{avmaintitle}%
+%      \newunit}}
+
+% \newbibmacro*{avmaintitle}{%
+%   \ifthenelse{\iffieldundef{maintitle}\AND\iffieldundef{mainsubtitle}}
+%     {}
+%     {\printtext[maintitle]{%
+%        \printfield[apacase]{maintitle}%
+%        \setunit{\subtitlepunct}%
+%        \printfield[apacase]{mainsubtitle}}%
+%     \setunit{\addspace}}
+%   \printfield{maintitleaddon}}
+
+% \newbibmacro*{album}{%
+%   \iffieldundef{maintitle}
+%     {}
+%     {\bibcpstring{on}%
+%      \setunit{\addspace}%
+%      \usebibmacro{avmaintitle}%
+%      \newunit}}
+
+\DeclareFieldFormat[video]{title}{%
+  \iffieldequalstr{entrysubtype}{tv}
+    {\mkbibquote{\bbx@colon@search\MakeSentenceCase*{#1}}}
+    {\bbx@colon@search\MakeSentenceCase*{#1}}}
+         
+\newbibmacro*{avauthor}{%
+  \ifnamesequal{director}{writer}% Combine writer and director
+    {\printnames[apanames][-\value{listtotal}]{director}%
+     \setunit{\addcomma\addspace}%
+     \bibstring{writer}\space\&\space\bibstring{director}}
+    {\ifnameundef{writer}
+       {}
+       {\printnames[apanames][-\value{listtotal}]{writer}%
+        \setunit{\addcomma\addspace}%
+        \bibstring{writer}%
+        \setunit{\addcomma\&\addspace}}%
+     \ifnameundef{director}
+       {}
+       {\printnames[apanames][-\value{listtotal}]{director}%
+        \setunit{\addcomma\addspace}%
+        \bibstring{director}%
+        \setunit{\addcomma\&\addspace}}}%
+  \ifnameundef{execproducer}
+    {}
+    {\printnames[apanames][-\value{listtotal}]{execproducer}%
+     \setunit{\addcomma\addspace}%
+     \bibstring{execproducer}%
+     \setunit{\addcomma\&\addspace}}%
+  \ifnameundef{producer}
+    {}
+    {\printnames[apanames][-\value{listtotal}]{producer}%
+     \setunit{\addcomma\addspace}%
+     \bibstring{producer}%
+     \setunit{\addcomma\&\addspace}}%
+  \ifnameundef{host}
+    {}
+    {\printnames[apanames][-\value{listtotal}]{host}%
+     \setunit{\addcomma\addspace}%
+     \bibstring{host}}%
+  \ifnameundef{author}
+    {}
+    {\printnames[apanames][-\value{listtotal}]{author}}}
+
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+         
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % Related entries
 %
 % Have to force capitlisation bibstring variant because the delim
@@ -1496,34 +1578,6 @@
   \newunit\newblock
   \printfield{addendum}%
   \setunit{\addspace}\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{apa:pageref}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{newsarticle}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \usebibmacro{newspaper}%
-  \setunit{\bibpagespunct}%
-  \printfield{pages}%
-  \newunit\newblock
-  \printfield{entrysubtype}%
-  \newunit\newblock
-  \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
   \iftoggle{bbx:related}
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
@@ -1808,23 +1862,11 @@
   \usebibmacro{author}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
-  \ifthenelse{\iffieldundef{title}\AND\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
+  \newunit\newblock
   \printlist{organization}%
   \addperiod\addspace
-  \printfield{entrysubtype}%
-  \addperiod\addspace
-  \iftoggle{bbx:doi}
-    {\printfield{doi}%
-     \iffieldundef{doi}{}{\renewcommand*{\finentrypunct}{\relax}}}
-    {}%
   \newunit\newblock
-  \iftoggle{bbx:eprint}
-    {\usebibmacro{eprint}%
-     \iffieldundef{eprint}{}{\renewcommand*{\finentrypunct}{\relax}}}
-    {}%
-  \newunit\newblock
-  \usebibmacro{url+urldate}%
-  \iffieldundef{url}{}{\renewcommand*{\finentrypunct}{\relax}}
+  \usebibmacro{doi+url}%
   \newunit\newblock
   \printfield{addendum}%
   \newunit\newblock

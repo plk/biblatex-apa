@@ -24,6 +24,7 @@
   writer,
   producer,
   execproducer,
+  host,
   director,
   groupauthor,
   narrator}
@@ -48,6 +49,7 @@
 \DeclareDatamodelEntryfields[video]{
   writer,
   producer,
+  host,
   execproducer,
   director}
 

@@ -778,16 +778,37 @@
 }
 
 % (APA 10.1 Example 18)
+% This uses the RELATED method which is sensitive to language for the
+% "Comment on the article" string. A simpler but less general way of getting the same
+% results would be:
+%@ARTICLE{10.1:18,
+%  ENTRYSUBTYPE   = {nonacademic},
+%  AUTHOR         = {{KS in NJ}},
+%  TITLE          = {From this article, it sounds like men are figuring
+%                    something out that women have known forever. {I} know of many},
+%  TITLEADDON     = {Comment on the article ``How workout buddies can help stave off loneliness''},
+%  JOURNALTITLE   = {The Washington Post},
+%  DATE           = {2019-01-15},
+%  URL            = {https://wapo.st/2HDToGJ}
+%}
+
 @ARTICLE{10.1:18,
   ENTRYSUBTYPE   = {nonacademic},
   AUTHOR         = {{KS in NJ}},
   TITLE          = {From this article, it sounds like men are figuring
                     something out that women have known forever. {I} know of many},
-  TITLEADDON     = {Comment on the article ``{H}ow workout buddies can help
-                    stave off loneliness''},
+  RELATED        = {10.1:18r},
+  RELATEDTYPE    = {commentonarticle},
   JOURNALTITLE   = {The Washington Post},
   DATE           = {2019-01-15},
   URL            = {https://wapo.st/2HDToGJ}
+}
+
+@ARTICLE{10.1:18r,
+  AUTHOR         = {A. Author},
+  TITLE          = {How Workout Buddies can Help Stave off Loneliness},
+  JOURNALTITLE   = {The Washington Post},
+  DATE           = {2019-01-15}
 }
 
 % (APA 10.1 Example 19)
@@ -1495,16 +1516,73 @@
 @ARTICLE{10.7:67,
   AUTHOR         = {L. A. Mirabito and N. C. Heck},
   TITLE          = {Bringing {LGBTQ} Youth Theater into the Spotlight},
-  REVIEWTEXT     = {the book},
   RELATED        = {10.7:67r},
-  RELATEDTYPE    = {reviewof},
-  RELATEDSTRING  = {Review of the book},
-  JOURNALTITLE   = {},
-  VOLUME         = {290},
-  PAGES          = {1304},
+  RELATEDTYPE    = {reviewoffilm},
+  JOURNALTITLE   = {Psychology of Sexual Orientation and Gender Diversity},
+  VOLUME         = {3},
+  NUMBER         = {4},
+  PAGES          = {499--500},
   DATE           = {2016},
-  DOI            = {10.1126/science.290.5495.1304},
+  DOI            = {10.1037/sgd0000205}
 }
+
+@VIDEO{10.7:67r,
+  ENTRYSUBTYPE = {film},
+  DIRECTOR = {E. Brodsky},
+  TITLE    = {The Year We Thought About Love},
+  DATE     = {2016}
+}
+
+% (APA 10.7 Example 68)
+@ARTICLE{10.7:68,
+  ENTRYSUBTYPE   = {nonacademic},
+  AUTHOR         = {F. Santos},
+  TITLE          = {Reframing Refugee Children's Stories},
+  RELATED        = {10.7:68r},
+  RELATEDTYPE    = {reviewofbook},
+  JOURNALTITLE   = {The New York Times},
+  DATE           = {2019-01-11},
+  URL            = {https://nyt.ms/2Hlgjk3}
+}
+
+@BOOK{10.7:68r,
+  AUTHOR   = {M. Yousafzai},
+  TITLE    = {We are Displaced},
+  SUBTITLE = {My Journey and Stories From Refugee Girls Around the World},
+  DATE     = {2016}
+}
+
+% (APA 10.7 Example 69)
+% APA gives little thought to automated formatting in general, likely
+% because they are not aware of any automated styles and expect people to
+% just manually type bibliographies ... have to manually "reverse
+% emphasise" part of the title
+@ONLINE{10.7:69,
+  AUTHOR         = {D. Perkins},
+  TITLE          = {\textup{The good place} ends its Remarkable Second
+                    Season With Irrational Hope, Unexpected Gifts, and a Smile},
+  RELATED        = {10.7:69r},
+  RELATEDTYPE    = {reviewoftv},
+  ORGANIZATION   = {A. V. Club},
+  DATE           = {2018-02-01},
+  URL            = {https://www.avclub.com/the-good-place-ends-its-remarkable-second-season-with-i-1822649316}
+}
+
+@VIDEO{10.7:69r,
+  ENTRYSUBTYPE = {tv},
+  DIRECTOR     = {M. Schur},
+  WRITER       = {M. Schur},
+  TITLE        = {Somewhere Else},
+  DATE         = {2018}
+}
+
+
+
+
+
+
+
+
 
 
 

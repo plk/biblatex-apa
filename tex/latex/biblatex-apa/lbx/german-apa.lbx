@@ -30,6 +30,11 @@
 \NewBibliographyString{narrator}
 \NewBibliographyString{narrators}
 \NewBibliographyString{supplement}
+\NewBibliographyString{commentonarticle}
+\NewBibliographyString{reviewofbook}
+\NewBibliographyString{reviewoffilm}
+\NewBibliographyString{reviewoftv}
+\NewBibliographyString{host}
 
 \DeclareBibliographyStrings{%
   inherit          = {german},
@@ -39,9 +44,14 @@
   narrators        = {{narrators}{narrs\adddot}},%FIXME
   andothers        = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
   revisededition   = {{\"uberarbeitete\space Auf\noligature lage}{\"uberarb\adddotspace Aufl\adddot}},
+  commentonarticle = {{comment\space on\space the\space article}
+                      {comment\space on\space the\space article}},%FIXME
+  reviewofbook     = {{review\space of\space the\space book}{review\space of\space the\space book}},%FIXME
+  reviewoffilm     = {{review\space of\space the\space film}{review\space of\space the\space film}},%FIXME
+  reviewoftv       = {{review\space of\space the\space {TV}\space series\space episode}{review\space of\space the\space {TV}\space series\space episode}},%FIXME
   producer         = {{Produzent}{Produzent}},
   execproducer     = {{ausf\"uhrender Produzent}{ausf\adddotspace Produzent}},
-  director         = {{Regisseur}{Regisseur}},
+  director         = {{Regisseur}{Reg\adddot}},
   writer           = {{Autor}{Autor}},
   page             = {{Seite}{{}S\adddot}},
   pages            = {{Seiten}{{}S\adddot}},
@@ -49,6 +59,7 @@
   retrieved        = {{Zugriff}{Zugriff}},
   available        = {{Erh\"altlich}{Erh\"altlich}},
   with             = {{mit}{mit}},
+  host             = {{host}{host}},
   from             = {{unter}{unter}},
   archivedat       = {{archiviert\space unter}{archiviert\space unter}},
   reviewof         = {{Rezension\space des}{Rezension\space des}},
