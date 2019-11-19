@@ -201,10 +201,6 @@
     \field{author}
     \field{groupauthor}
     \field{editor}
-    \field{writer}
-    \field{director}
-    \field{producer}
-    \field{execproducer}
     \field{sorttitle}
     \field{title}
   }
@@ -262,6 +258,7 @@
                             minbibnames=19,%
                             mincitenames=1,%
                             mincrossrefs=999,%
+                            maxitems=999,%
                             origdate=apalong,%
                             pagetracker=true,%
                             sortcites=true,%
@@ -415,7 +412,7 @@
 %     to do \printnames[format][-\value{listtotal}]{field} to ensure we get
 %     all of the names in the list to work on
 
-% It's not completely obvious but it's implied that name identical other than a suffix
+% It's not completely obvious but it's implied that names identical apart from a suffix
 % are to be treated as different name lists for extradate calculation so we add suffix
 % to the default definition
 \DeclareUniquenameTemplate{
@@ -427,26 +424,55 @@
 
 \DeclareNameAlias{default}{apaauthor}
 
-\DeclareFieldFormat{authortype}{\mkbibparens{#1}}
-
 \DeclareNameFormat{apaauthor}{%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
     {\addcomma\space\ldots\space}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
-      {\usebibmacro{name:apa:family-given}%
+      {\printtext{\usebibmacro{name:apa:family-given}%
          {\namepartfamily}%
          {\namepartgiven}%
          {\namepartgiveni}%
          {\namepartprefix}%
-         {\namepartsuffix}%
-       \iffieldundef{authortype}
-         {}
-         {\addcomma\addspace\printfield{authortype}}
-       \hasitemannotation{\addspace\mkbibbrackets{\getitemannotation}}{}}}%
+         {\namepartsuffix}}%
+       \let\bibstring\bibcplstring
+       \setunit{\addspace}%
+       \printtext{\mkbibparense{\usebibmacro{role}}}%
+       \hasitemannotation[\currentname][username]{\addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}{}}}%
     \ifthenelse{\value{listcount}=\value{listtotal}}%
-      {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
+      {\ifmorenames
+         {\printdelim{andothersdelim}
+           \bibstring{andothers}}
+         {}%
+       \let\bibstring\bibcplstring
+       \setunit{\addspace}%
+       \printtext{\mkbibparense{\usebibmacro{roles}}}}
+      {}}
 
+\DeclareNameFormat{apanames}{%
+  \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
+    {\addcomma\space\ldots\space}
+    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
+      {}
+      {\printtext{\usebibmacro{name:apa:given-family}%
+         {\namepartfamily}%
+         {\namepartgiven}%
+         {\namepartgiveni}%
+         {\namepartprefix}%
+         {\namepartsuffix}}%       
+       \let\bibstring\bibcpsstring
+       \setunit{\addcomma\addspace}%
+       \usebibmacro{role}}}%
+  \ifthenelse{\value{listcount}=\value{listtotal}}%
+    {\ifmorenames
+       {\printdelim{andothersdelim}%
+        \bibstring{andothers}}
+       {}%
+     \let\bibstring\bibcplstring
+     \setunit{\addspace}%
+     \usebibmacro{roles}}
+    {}}
+  
 \renewbibmacro*{author}{%
   \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
     {\usebibmacro{labeltitle}}
@@ -608,15 +634,17 @@
 }
 
 \newrobustcmd{\mkbibparense}[1]{%
-  \setbox0=\hbox{#1\foreverunspace}\ifdim\wd0=0pt
+  \setbox0=\hbox{#1\foreverunspace}%
+  \ifdim\wd0=0pt
   \else
-    \mkbibparens{#1}%
+    \mkbibparens{\box0}%
   \fi}
 
 \newrobustcmd{\mkbibbracketse}[1]{%
-  \setbox0=\hbox{#1\foreverunspace}\ifdim\wd0=0pt
+  \setbox0=\hbox{#1\foreverunspace}%
+  \ifdim\wd0=0pt
   \else
-    \mkbibbrackets{#1}%
+    \mkbibbrackets{\box0}%
   \fi}
 
 % Additional post title information in parens
@@ -644,7 +672,11 @@
 \newbibmacro*{addinfo2}{%
   \printtext{%
     \mkbibbracketse{%
-      \printfield{entrysubtype}}}}
+      \iffieldbibstring{entrysubtype}
+        {\bibcplstring{\thefield{entrysubtype}}}
+        {\printfield{entrysubtype}}%
+      \setunit*{\addsemicolon\addspace}%
+      \printfield{note}}}}
 
 % number/issue information
 \newbibmacro*{addinfo3}{%
@@ -693,12 +725,15 @@
          {}}%
      \setunit{\addspace}%
      \ifthenelse{\ifentrytype{dataset}\OR%
-                 \ifentrytype{software}}{\usebibmacro{addinfo2}}{}% additional info in brackets
+                 \ifentrytype{software}\OR%
+                 \ifentrytype{video}}{\usebibmacro{addinfo2}}{}% additional info in brackets
      \printfield{titleaddon}%
      \ifthenelse{%
        \ifnameundef{author}\AND%
        \ifnameundef{groupauthor}\AND%
        \(\ifnameundef{editor}\AND\NOT\boolean{bbx:editorinauthpos}\)\AND%
+       \ifnameundef{execproducer}\AND%
+       \ifnameundef{narrator}\AND%
        \ifnameundef{producer}\AND%
        \ifnameundef{director}\AND%
        \ifnameundef{writer}}
@@ -808,22 +843,67 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.27) Editors have first names first ...
-% (APA 7.02 Example 27) ... unless there is no author
+% Names
 
-\DeclareNameFormat{apanames}{%
-  \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
-    {\addcomma\space\ldots\space}
-    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
-      {}
-      {\usebibmacro{name:apa:given-family}%
-        {\namepartfamily}%
-        {\namepartgiven}%
-        {\namepartgiveni}%
-        {\namepartprefix}%
-        {\namepartsuffix}}}%
-    \ifthenelse{\value{listcount}=\value{listtotal}}%
-      {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
+% Individual name roles
+\newbibmacro*{role}{%
+  \hasitemannotation[\currentname][role]%
+    {\getitemannotation[\currentname][role]}
+    {\ifitemannotation[\currentname][role]{writer}
+       {\bibstring{writer}%
+        \setunit{\addspace\&\addspace}}
+       {}%
+     \ifitemannotation[\currentname][role]{director}
+       {\bibstring{director}%
+         \setunit{\addspace\&\addspace}}
+       {}%
+     \ifitemannotation[\currentname][role]{execproducer}
+       {\bibstring{execproducer}%
+         \setunit{\addspace\&\addspace}}
+       {}%
+     \ifitemannotation[\currentname][role]{producer}
+       {\bibstring{producer}%
+         \setunit{\addspace\&\addspace}}
+       {}%
+     \ifitemannotation[\currentname][role]{host}
+       {\bibstring{host}%
+         \setunit{\addspace\&\addspace}}
+       {}%
+     \ifitemannotation[\currentname][role]{guestexpert}
+       {\bibstring{guestexpert}%
+         \setunit{\addspace\&\addspace}}
+       {}}%
+  \setunit{}}
+
+% roles for complete name lists
+\newbibmacro*{roles}{%
+  \hasfieldannotation[\currentname][role]%
+    {\getfieldannotation[\currentname][role]}
+    {\iffieldannotation[\currentname][role]{writers}
+       {\bibstring{writers}%
+         \setunit{\addspace\&\addspace}}
+       {}%
+     \iffieldannotation[\currentname][role]{directors}
+       {\bibstring{directors}%
+         \setunit{\addspace\&\addspace}}
+       {}%
+     \iffieldannotation[\currentname][role]{execproducers}
+       {\bibstring{execproducers}%
+         \setunit{\addspace\&\addspace}}
+       {}%
+     \iffieldannotation[\currentname][role]{producers}
+       {\bibstring{producers}%
+         \setunit{\addspace\&\addspace}}
+       {}%
+     \iffieldannotation[\currentname][role]{hosts}
+       {\bibstring{hosts}%
+         \setunit{\addspace\&\addspace}}
+       {}%
+     \iffieldannotation[\currentname][role]{guestexperts}
+       {\bibstring{guestexperts}%
+         \setunit{\addspace\&\addspace}}
+       {}}%
+  \setunit{}}
 
 \renewbibmacro*{author/editor}{%
   \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
@@ -1341,24 +1421,44 @@
 \DeclareFieldFormat{related:reviewoftv}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
 \newbibmacro*{related:reviewoftv}[1]{\usebibmacro{related:reviewofx}{#1}}
 
+\DeclareFieldFormat{reviewtitle}{%
+  \iffieldequalstr{entrysubtype}{tv}
+    {\mkbibquote{\bbx@colon@search\MakeSentenceCase*{#1}}}
+    {\bbx@colon@search\MakeSentenceCase*{#1}}}
+
 \newbibmacro*{related:reviewofx}[1]{%
   \entrydata*{#1}{%
     \printtext{\mkbibemph{%
-                 \printfield{title}%
+                 \printfield[reviewtitle]{title}%
                  \iffieldundef{subtitle}
                    {}
                    {\setunit{\addcolon\addspace}%
-                    \printfield{subtitle}}}%
+                    \printfield[reviewtitle]{subtitle}}}%
                \setunit{\addcomma\addspace}%
                \biblstring{byauthor}%
                \setunit{\addspace}%
-               \usebibmacro{avauthor}}}}
+               \printnames[apanames][-\value{listtotal}]{author}}}}
          
 %         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.12) Audiovisual
+
+\newbibmacro*{mainseries}{%
+  \iffieldequalstr{entrysubtype}{tvepisode}
+    {\usebibmacro{in}%
+     \printnames[apanames][-\value{listtotal}]{execproducer}%
+     \setunit{\addspace}%
+     \printtext{\mkbibparens{\bibcplstring{execproducers}}}%
+     \setunit{\addcomma\addspace}%
+     \printfield{maintitle}}
+   {}}
+         
+\DeclareFieldFormat[video]{title}{%
+  \iffieldundef{maintitle}
+    {\mkbibemph{#1}\isdot}
+    {#1}}
 
 % \DeclareFieldFormat[video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}}{#1}}
 % \DeclareFieldFormat[video]{maintitle}{\mkbibemph{#1}}
@@ -1399,49 +1499,44 @@
 %      \setunit{\addspace}%
 %      \usebibmacro{avmaintitle}%
 %      \newunit}}
-
-\DeclareFieldFormat[video]{title}{%
-  \iffieldequalstr{entrysubtype}{tv}
-    {\mkbibquote{\bbx@colon@search\MakeSentenceCase*{#1}}}
-    {\bbx@colon@search\MakeSentenceCase*{#1}}}
          
-\newbibmacro*{avauthor}{%
-  \ifnamesequal{director}{writer}% Combine writer and director
-    {\printnames[apanames][-\value{listtotal}]{director}%
-     \setunit{\addcomma\addspace}%
-     \bibstring{writer}\space\&\space\bibstring{director}}
-    {\ifnameundef{writer}
-       {}
-       {\printnames[apanames][-\value{listtotal}]{writer}%
-        \setunit{\addcomma\addspace}%
-        \bibstring{writer}%
-        \setunit{\addcomma\&\addspace}}%
-     \ifnameundef{director}
-       {}
-       {\printnames[apanames][-\value{listtotal}]{director}%
-        \setunit{\addcomma\addspace}%
-        \bibstring{director}%
-        \setunit{\addcomma\&\addspace}}}%
-  \ifnameundef{execproducer}
-    {}
-    {\printnames[apanames][-\value{listtotal}]{execproducer}%
-     \setunit{\addcomma\addspace}%
-     \bibstring{execproducer}%
-     \setunit{\addcomma\&\addspace}}%
-  \ifnameundef{producer}
-    {}
-    {\printnames[apanames][-\value{listtotal}]{producer}%
-     \setunit{\addcomma\addspace}%
-     \bibstring{producer}%
-     \setunit{\addcomma\&\addspace}}%
-  \ifnameundef{host}
-    {}
-    {\printnames[apanames][-\value{listtotal}]{host}%
-     \setunit{\addcomma\addspace}%
-     \bibstring{host}}%
-  \ifnameundef{author}
-    {}
-    {\printnames[apanames][-\value{listtotal}]{author}}}
+% \newbibmacro*{avauthor}{%
+%   \ifnamesequal{director}{writer}% Combine writer and director
+%     {\printnames[apanames][-\value{listtotal}]{director}%
+%      \setunit{\addcomma\addspace}%
+%      \bibstring{writer}\space\&\space\bibstring{director}}
+%     {\ifnameundef{writer}
+%        {}
+%        {\printnames[apanames][-\value{listtotal}]{writer}%
+%         \setunit{\addcomma\addspace}%
+%         \bibstring{writer}%
+%         \setunit{\addcomma\&\addspace}}%
+%      \ifnameundef{director}
+%        {}
+%        {\printnames[apanames][-\value{listtotal}]{director}%
+%         \setunit{\addcomma\addspace}%
+%         \bibstring{director}%
+%         \setunit{\addcomma\&\addspace}}}%
+%   \ifnameundef{execproducer}
+%     {}
+%     {\printnames[apanames][-\value{listtotal}]{execproducer}%
+%      \setunit{\addcomma\addspace}%
+%      \bibstring{execproducer}%
+%      \setunit{\addcomma\&\addspace}}%
+%   \ifnameundef{producer}
+%     {}
+%     {\printnames[apanames][-\value{listtotal}]{producer}%
+%      \setunit{\addcomma\addspace}%
+%      \bibstring{producer}%
+%      \setunit{\addcomma\&\addspace}}%
+%   \ifnameundef{host}
+%     {}
+%     {\printnames[apanames][-\value{listtotal}]{host}%
+%      \setunit{\addcomma\addspace}%
+%      \bibstring{host}}%
+%   \ifnameundef{author}
+%     {}
+%     {\printnames[apanames][-\value{listtotal}]{author}}}
 
 % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1918,6 +2013,28 @@
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
+\DeclareBibliographyDriver{video}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{mainseries}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
 
 
 
@@ -2162,36 +2279,6 @@
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
-\DeclareBibliographyDriver{video}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{writer}%
-  \usebibmacro{director}%
-  \usebibmacro{producer}%
-  \newunit\newblock
-  \usebibmacro{labelyear+extradate}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \setunit{\addspace}\newblock
-  \printfield{entrysubtype}%
-  \newunit\newblock
-  \usebibmacro{tvseries}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
 \DeclareBibliographyDriver{movie}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
@@ -2335,9 +2422,9 @@
 
 \newbibmacro*{location+publisher}{%
   \printlist[default][1-1]{location}%
-    \setunit*{\addcolon\space}%
-    \printlist{publisher}%
-    \addperiod}
+  \setunit*{\addcolon\space}%
+  \printlist{publisher}%
+  \addperiod}
 
 \newbibmacro*{labeltitle}{%
   \iffieldundef{label}

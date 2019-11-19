@@ -19,32 +19,64 @@
 \NewBibliographyString{archivedat}
 \NewBibliographyString{origyear}
 \NewBibliographyString{reviewof}
-\NewBibliographyString{producer}
-\NewBibliographyString{execproducer}
-\NewBibliographyString{director}
-\NewBibliographyString{writer}
 \NewBibliographyString{with}
-\NewBibliographyString{narrator}
-\NewBibliographyString{narrators}
 \NewBibliographyString{supplement}
 \NewBibliographyString{commentonarticle}
 \NewBibliographyString{reviewofbook}
 \NewBibliographyString{reviewoffilm}
 \NewBibliographyString{reviewoftv}
-\NewBibliographyString{host}
 \NewBibliographyString{manunpub}
 \NewBibliographyString{maninprep}
 \NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
 
 \DeclareBibliographyStrings{%
   inherit          = {dutch},
+  video            = {{video}{video}},%FIXME
+  film             = {{film}{film}},%FIXME
+  tvseries         = {{TV\space series}{TV\space series}},%FIXME
+  tvepisode        = {{TV\space series\space episode}{TV\space series\space episode}},%FIXME
+  narrator         = {{narrator}{narr\adddot}},%FIXME
+  narrators        = {{narrators}{narrs\adddot}},%FIXME
+  producer         = {{producent}{producent}},
+  producers        = {{producers}{producers}},%FIXME
+  execproducer     = {{uitvoerend producent}{uitvoerend producent}},
+  execproducers    = {{Executive\space Producers}{Exec\adddot\space Prods\adddot}},%FIXME
+  execdirector     = {{Executive\space Director}{Exec\adddot\space Dir\adddot}},%FIXME
+  execdirectors    = {{Executive\space Directorss}{Exec\adddot\space Dirs\adddot}},%FIXME
+  director         = {{regisseur}{reg\adddot}},
+  directors        = {{directors}{dirs\adddot}},%FIXME
+  writer           = {{schrijver}{schrijver}},
+  writers          = {{writers}{writers}},%FIXME
+  host             = {{host}{host}},%FIXME
+  hosts            = {{hosts}{hosts}},%FIXME
+  guestexpert      = {{Guest\space Expert}{Guest\space Expert}},%FIXME
+  guestexperts     = {{Guest\space Experts}{Guest\space Experts}},%FIXME
+  with             = {{met}{met}},% FIXME: check
   manunpub         = {{unpublished\space manuscript}{unpublished\space manuscript}},%FIXME
   maninprep        = {{manuscript\space in\space preparation}{manuscript\space in\space preparation}},%FIXME
   mansub           = {{manuscript\space submitted\space for\space publication}{manuscript\space submitted\space for\space publication}},%FIXME
   supplement       = {{supplement}{suppl\adddot}},%FIXME
   part             = {{part}{pt\adddot}},%FIXME
-  narrator         = {{narrator}{narr\adddot}},%FIXME
-  narrators        = {{narrators}{narrs\adddot}},%FIXME
   revisededition   = {{Herziene\space editie}{herz\adddotspace ed\adddot}},
   commentonarticle = {{comment\space on\space the\space article}
                       {comment\space on\space the\space article}},%FIXME
@@ -59,12 +91,6 @@
   from             = {{van}{van}},
   archivedat       = {{gearchiveerd\space onder}{gearchiveerd\space onder}},
   reviewof         = {{bespreking\space van}{bespreking\space van}},
-  producer         = {{producent}{producent}},
-  execproducer     = {{uitvoerend producent}{uitvoerend producent}},
-  director         = {{regisseur}{reg\adddot}},
-  writer           = {{schrijver}{schrijver}},
-  with             = {{met}{met}},% FIXME: check
-  host             = {{host}{host}},
   paragraph        = {{par\adddot}{par\adddot}},
   paragraphs       = {{par\adddot}{par\adddot}},
   mathesis         = {{masterscriptie}{masterscriptie}},

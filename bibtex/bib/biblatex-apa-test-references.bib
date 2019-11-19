@@ -60,11 +60,12 @@
 }
 
 % using the biber string annotation feature for usernames. This allows
-% usernames to be attached to any name in a name list
+% usernames to be attached to any name in a name list. Must call a username
+% annotation "username"
 @BOOK{9.8:11,
-  AUTHOR    = {U. Author},
-  AUTHOR+an = {1="@username"},
-  DATE      = {2014}
+  AUTHOR             = {U. Author},
+  AUTHOR+an:username = {1="@ausername"},
+  DATE               = {2014}
 }
 
 % (APA 9.44)
@@ -1376,9 +1377,12 @@
 }
 
 % (APA 10.4 Example 56)
+% Annotations for author roles must be called "role". This is an example of
+% a literal annotation as there is not localised strong for this since it
+% is quite rare
 @REPORT{10.4:56,
   AUTHOR         = {C. B. Blair},
-  AUTHORTYPE     = {Principal Investigator},
+  AUTHOR+an:role = {1="Principal Investigator"},
   TITLE          = {Stress, Self-Regulation and Psychopathology in Middle Childhood},
   TITLEADDON     = {Grant},
   TYPE           = {Project No. 5R01HD081252-04},
@@ -1527,10 +1531,11 @@
 }
 
 @VIDEO{10.7:67r,
-  ENTRYSUBTYPE = {film},
-  DIRECTOR = {E. Brodsky},
-  TITLE    = {The Year We Thought About Love},
-  DATE     = {2016}
+  ENTRYSUBTYPE   = {film},
+  AUTHOR         = {E. Brodsky},
+  AUTHOR+an:role = {1=director},
+  TITLE          = {The Year We Thought About Love},
+  DATE           = {2016}
 }
 
 % (APA 10.7 Example 68)
@@ -1569,11 +1574,11 @@
 }
 
 @VIDEO{10.7:69r,
-  ENTRYSUBTYPE = {tv},
-  DIRECTOR     = {M. Schur},
-  WRITER       = {M. Schur},
-  TITLE        = {Somewhere Else},
-  DATE         = {2018}
+  ENTRYSUBTYPE   = {tvseries},
+  AUTHOR         = {M. Schur},
+  AUTHOR+an:role = {1=writer,director},
+  TITLE          = {Somewhere Else},
+  DATE           = {2018}
 }
 
 % (APA 10.8 Example 70)
@@ -1782,7 +1787,147 @@
   DATE           = {2000}
 }
 
+% (APA 10.12 Example 84)
+% Annotations for author roles must be called "role". This is an example of
+% an annotation which is a localisation string
+@VIDEO{10.12:84a,
+  ENTRYSUBTYPE   = {film},
+  AUTHOR         = {M. Forman},
+  AUTHOR+an:role = {1=director},
+  TITLE          = {One Flew Over the Cuckoo's Nest},
+  PUBLISHER      = {United Artists},
+  DATE           = {1975}
+}
 
+@VIDEO{10.12:84b,
+  ENTRYSUBTYPE   = {film},
+  AUTHOR         = {D. Fosha and H. Levenson},
+  AUTHOR+an:role = {1=guestexpert;2=host},
+  TITLE          = {Accelerated Experiental Dynamic Psychotherapy ({AEDP}) Supervision},
+  NOTE           = {educational DVD},
+  PUBLISHER      = {American Pychological Association},
+  URL            = {http://www.apa.org/pubs/videos/4310958.aspx},
+  DATE           = {2017}
+}
+
+@VIDEO{10.12:84c,
+  ENTRYSUBTYPE   = {film},
+  AUTHOR         = {P. Jackson},
+  AUTHOR+an:role = {1=director},
+  TITLE          = {The Lord of the Rings},
+  SUBTITLE       = {The Fellowship of the Ring},
+  NOTE           = {four-disc special extended ed. on DVD},
+  PUBLISHER      = {WingNut Films and The Saul Zaentz Company},
+  DATE           = {2001}
+}
+
+% (APA 10.12 Example 85)
+@VIDEO{10.12:85,
+  ENTRYSUBTYPE   = {film},
+  AUTHOR         = {L. Malle},
+  AUTHOR+an:role = {1=director},
+  TITLE          = {Goodbye Children},
+  ORIGTITLE      = {Au revoir les enfants},
+  PUBLISHER      = {Nouvelles Éditions de Films},
+  DATE           = {1987}
+}
+
+% (APA 10.12 Example 86)
+@VIDEO{10.12:86,
+  ENTRYSUBTYPE    = {tvseries},
+  AUTHOR          = {D. Simon and R. F. Colesberry and Kostroff Noble, N.},
+  AUTHOR+an:role  = {=execproducers},
+  TITLE           = {The Wire},
+  PUBLISHER       = {Blown Deadline Productions and HBO},
+  DATE            = {2002/2008}
+}
+
+% (APA 10.12 Example 87)
+@VIDEO{10.12:87a,
+  ENTRYSUBTYPE    = {tvepisode},
+  AUTHOR          = {K. Barris},
+  AUTHOR+an:role  = {1=director,writer},
+  TITLE           = {Lemons ({S}eason 3, {E}pisode 12)},
+  MAINTITLE       = {Black-ish},
+  EXECPRODUCER    = {K. Barris and J. Groff and A. Anderson and E. B.
+                     Dobbins and L. Fishburne and H. Sugland},
+  PUBLISHER       = {Wilmore Films and Artists First and Cinema Gypsy
+                     Productions and ABC Studios}, 
+  DATE            = {2017-01-11}
+}
+
+@VIDEO{10.12:87b,
+  ENTRYSUBTYPE    = {tvepisode},
+  AUTHOR          = {B. Oakley and J. Weinstein and J. Lynch},
+  AUTHOR+an:role  = {1=writer;2=writer;3=director},
+  TITLE           = {Who Shot {M}r. {B}urns? ({P}art {O}ne) ({S}eason 6,
+                     {E}pisode 25)},
+  MAINTITLE       = {The Simpsons},
+  EXECPRODUCER    = {D. Mirkin and J. L. Brooks and M. Groening and S. Simon},
+  PUBLISHER       = {Gracie Films and Twentieth Century Fox Film Corporation},
+  DATE            = {1995-05-21}
+}
+
+% (APA 10.12 Example 88)
+@VIDEO{10.12:88a,
+  ENTRYSUBTYPE    = {video},
+  AUTHOR          = {S. Giertz},
+  TITLE           = {Why You Should Make Useless Things},
+  PUBLISHER       = {TED Conferences}, 
+  DATE            = {2018-04},
+  URL             = {https://www.ted.com/talks/simone_giertz_why_you_should_make_useless_things}
+}
+
+@VIDEO{10.12:88b,
+  ENTRYSUBTYPE    = {video},
+  GROUPAUTHOR     = {TED},
+  TITLE           = {Brené {B}rown},
+  SUBTITLE        = {Listening to Shame},
+  PUBLISHER       = {YouTube}, 
+  DATE            = {2012-03-16},
+  URL             = {https://www.youtube.com/watch?v=psN1DORYYV0}
+}
+
+% (APA 10.12 Example 89)
+% Here, the ENTRYSUBTYPE is not a localisation string as there is no
+% localisation necessary for such ugly neologisms
+@VIDEO{10.12:89,
+  ENTRYSUBTYPE    = {Webinar},
+  AUTHOR          = {J. F. Goldberg},
+  TITLE           = {Evaluating Adverse Drug Effects},
+  PUBLISHER       = {American Psychiatric Association}, 
+  DATE            = {2018},
+  URL             = {https://education.psychiatry.org/Users/ProductDetails.aspx?ActivityID=6172}
+}
+
+% (APA 10.12 Example 90)
+@VIDEO{10.12:90a,
+  ENTRYSUBTYPE    = {video},
+  AUTHOR          = {S. Cutts},
+  TITLE           = {Happiness},
+  PUBLISHER       = {Vimeo}, 
+  DATE            = {2017-11-24},
+  URL             = {https://vimeo.com/244405542}
+}
+
+@VIDEO{10.12:90b,
+  ENTRYSUBTYPE       = {video},
+  AUTHOR             = {M. Fogarty},
+  AUTHOR+an:username = {1="Grammar Girl"},
+  TITLE              = {How to Diagram a Sentence (Absolute Basics)},
+  PUBLISHER          = {YouTube}, 
+  DATE               = {2016-09-30},
+  URL                = {https://youtube.be/deiEY5Yq1ql}
+}
+
+@VIDEO{10.12:90c,
+  ENTRYSUBTYPE       = {video},
+  GROUPAUTHOR        = {{University of Oxford}},
+  TITLE              = {How Do Geckos Walk on Water?},
+  PUBLISHER          = {YouTube}, 
+  DATE               = {2016-12-06},
+  URL             = {https://www.youtube.com/watch?v=qm1xGfOZJc8}
+}
 
 
 

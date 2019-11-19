@@ -19,31 +19,46 @@
 \NewBibliographyString{archivedat}
 \NewBibliographyString{origyear}
 \NewBibliographyString{reviewof}
-\NewBibliographyString{producer}
-\NewBibliographyString{execproducer}
-\NewBibliographyString{director}
-\NewBibliographyString{writer}
 \NewBibliographyString{with}
-\NewBibliographyString{narrator}
-\NewBibliographyString{narrators}
 \NewBibliographyString{supplement}
 \NewBibliographyString{commentonarticle}
 \NewBibliographyString{reviewofbook}
 \NewBibliographyString{reviewoffilm}
 \NewBibliographyString{reviewoftv}
-\NewBibliographyString{host}
 \NewBibliographyString{manunpub}
 \NewBibliographyString{maninprep}
 \NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
 
 \DeclareBibliographyStrings{%
   inherit          = {american},
+  video            = {{video}{video}},
+  film             = {{film}{film}},
+  tvseries         = {{TV\space series}{TV\space series}},
+  tvepisode        = {{TV\space series\space episode}{TV\space series\space episode}},
   manunpub         = {{unpublished\space manuscript}{unpublished\space manuscript}},
   maninprep        = {{manuscript\space in\space preparation}{manuscript\space in\space preparation}},
   mansub           = {{manuscript\space submitted\space for\space publication}{manuscript\space submitted\space for\space publication}},
   supplement       = {{supplement}{suppl\adddot}},
-  narrator         = {{narrator}{narr\adddot}},
-  narrators        = {{narrators}{narrs\adddot}},
   revisededition   = {{Revised\space Edition}{rev\adddotspace ed\adddot}},
   reviewof         = {{review of}{rev\adddotspace of}},
   page             = {{Page}{{}p\adddot}},
@@ -63,11 +78,22 @@
   part             = {{part}{pt\adddot}},
   paragraph        = {{paragraph}{para\adddot}},
   paragraphs       = {{paragraphs}{paras\adddot}},
+  narrator         = {{narrator}{narr\adddot}},
+  narrators        = {{narrators}{narrs\adddot}},
   producer         = {{producer}{producer}},
-  execproducer     = {{executive producer}{executive producer}},
+  producers        = {{producers}{producers}},
+  execproducer     = {{Executive\space Producer}{Exec\adddot\space Prod\adddot}},
+  execproducers    = {{Executive\space Producers}{Exec\adddot\space Prods\adddot}},
+  execdirector     = {{Executive\space Director}{Exec\adddot\space Dir\adddot}},
+  execdirectors    = {{Executive\space Directorss}{Exec\adddot\space Dirs\adddot}},
   director         = {{director}{dir\adddot}},
+  directors        = {{directors}{dirs\adddot}},
   writer           = {{writer}{writer}},
+  writers          = {{writers}{writers}},
   host             = {{host}{host}},
+  hosts            = {{hosts}{hosts}},
+  guestexpert      = {{Guest\space Expert}{Guest\space Expert}},
+  guestexperts     = {{Guest\space Experts}{Guest\space Experts}},
   mathesis         = {{Master's\addabbrvspace thesis}{Master's\addabbrvspace thesis}},
   phdthesis        = {{Doctoral\addabbrvspace dissertation}{Doctoral\addabbrvspace dissertation}},
   origyear         = {{original\space work\space published}{original\space work\space published}},

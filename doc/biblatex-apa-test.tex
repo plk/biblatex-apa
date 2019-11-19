@@ -61,11 +61,13 @@
                           \ifkeyword{meta}{\textsuperscript{*}}{}}
 
 \usepackage[colorlinks=true]{hyperref}
+\setcounter{secnumdepth}{0}
+\setcounter{tocdepth}{3}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% END PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\section*{|biblatex-apa| style examples}
+\section{APA style examples}
 This file typesets just about all useful examples from \apa{8}--\apa{10}.
 Also included are some clarifications from the APA blog
 (\url{http://blog.apastyle.org/apastyle/}). Please refer to the
@@ -76,7 +78,9 @@ of the APA section they are taken from, followed by a colon,
 followed by the example number. This makes it easier to cross-reference the
 typeset examples with the commented |.bib| file.
 
-\section*{Citations}
+\tableofcontents
+\newpage
+\section{APA 8--Citations}
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-citations]
 \noindent Please see accompanying file |biblatex-apa-test-citations.bib|
 for the bibliographic entries which these examples use.
@@ -270,7 +274,7 @@ the author:\\
 
 \end{refsection}
 \newpage
-\section*{APA 9--General Reference List}
+\section{APA 9--General Reference List}
 
 % (APA 9.8)
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
@@ -390,8 +394,8 @@ indicate works included in a Meta-Analysis.
 
 \end{refsection}
 \newpage
-\section*{APA 10--References Examples}
-\subsection*{APA 10.1--Periodicals}
+\section{APA 10--References Examples}
+\subsection{APA 10.1--Periodicals}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -475,7 +479,7 @@ indicate works included in a Meta-Analysis.
 
 \end{refsection}
 \newpage
-\subsection*{APA 10.2--Books and Reference Works}
+\subsection{APA 10.2--Books and Reference Works}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -569,7 +573,7 @@ the help of lower-level commands:\\\\
 
 \end{refsection}
 \newpage
-\subsection*{APA 10.3--Edited Book Chapters and Entries in Reference Works}
+\subsection{APA 10.3--Edited Book Chapters and Entries in Reference Works}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -625,7 +629,7 @@ the help of lower-level commands:\\\\
 
 \end{refsection}
 \newpage
-\subsection*{APA 10.4--Reports and Gray Literature}
+\subsection{APA 10.4--Reports and Gray Literature}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -672,7 +676,7 @@ the help of lower-level commands:\\\\
 \printbibliography[title={APA 10.4 References }]
 \end{refsection}
 \newpage
-\subsection*{APA 10.5--Conference Sessions and Presentations}
+\subsection{APA 10.5--Conference Sessions and Presentations}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -695,7 +699,7 @@ the help of lower-level commands:\\\\
 \printbibliography[title={APA 10.5 References }]
 \end{refsection}
 \newpage
-\subsection*{APA 10.6--Dissertations and Theses}
+\subsection{APA 10.6--Dissertations and Theses}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -714,7 +718,7 @@ the help of lower-level commands:\\\\
 \printbibliography[title={APA 10.6 References }]
 \end{refsection}
 \newpage
-\subsection*{APA 10.7--Reviews}
+\subsection{APA 10.7--Reviews}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -733,7 +737,7 @@ the help of lower-level commands:\\\\
 \printbibliography[title={APA 10.7 References}]
 \end{refsection}
 \newpage
-\subsection*{APA 10.8--Unpublished Works and Informally Published Works}
+\subsection{APA 10.8--Unpublished Works and Informally Published Works}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -760,7 +764,7 @@ the help of lower-level commands:\\\\
 \printbibliography[title={APA 10.8 References}]
 \end{refsection}
 \newpage
-\subsection*{APA 10.9--Data Sets}
+\subsection{APA 10.9--Data Sets}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -775,7 +779,7 @@ the help of lower-level commands:\\\\
 \printbibliography[title={APA 10.9 References}]
 \end{refsection}
 \newpage
-\subsection*{APA 10.10--Computer Software, Mobile Apps, Apparatuses, and Equipment}
+\subsection{APA 10.10--Computer Software, Mobile Apps, Apparatuses, and Equipment}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -798,7 +802,7 @@ the help of lower-level commands:\\\\
 \printbibliography[title={APA 10.10 References}]
 \end{refsection}
 \newpage
-\subsection*{APA 10.11--Tests, Scales, and Inventories}
+\subsection{APA 10.11--Tests, Scales, and Inventories}
 
 \begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
 
@@ -814,7 +818,42 @@ the help of lower-level commands:\\\\
 \apaex{\parencite{10.11:83a,10.11:83b}}\\
 \apaex{\textcite{10.11:83a} and \textcite{10.11:83b}}
 
-\printbibliography[title={APA 10.10 References}]
+\printbibliography[title={APA 10.11 References}]
+\end{refsection}
+\newpage
+\subsection{APA 10.12--Audiovisual Works}
+
+\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+
+\noindent\apa{10.12 Example 84}\\
+\apaex{\parencite{10.12:84a,10.12:84b,10.12:84c}}\\
+\apaex{\textcite{10.12:84a} and \textcite{10.12:84b} and \textcite{10.12:84c}}
+
+\noindent\apa{10.11 Example 85}\\
+\apaex{\parencite{10.12:85}}\\
+\apaex{\textcite{10.12:85}}
+
+\noindent\apa{10.11 Example 86}\\
+\apaex{\parencite{10.12:86}}\\
+\apaex{\textcite{10.12:86}}
+
+\noindent\apa{10.12 Example 87}\\
+\apaex{\parencite{10.12:87a,10.12:87b}}\\
+\apaex{\textcite{10.12:87a} and \textcite{10.12:87b}}
+
+\noindent\apa{10.12 Example 88}\\
+\apaex{\parencite{10.12:88a,10.12:88b}}\\
+\apaex{\textcite{10.12:88a} and \textcite{10.12:88b}}
+
+\noindent\apa{10.11 Example 89}\\
+\apaex{\parencite{10.12:89}}\\
+\apaex{\textcite{10.12:89}}
+
+\noindent\apa{10.12 Example 90}\\
+\apaex{\parencite{10.12:90a,10.12:90b,10.12:90c}}\\
+\apaex{\textcite{10.12:90a} and \textcite{10.12:90b} and \textcite{10.12:90c}}
+
+\printbibliography[title={APA 10.12 References}]
 \end{refsection}
 
 \end{document}

@@ -19,32 +19,64 @@
 \NewBibliographyString{archivedat}
 \NewBibliographyString{origyear}
 \NewBibliographyString{reviewof}
-\NewBibliographyString{producer}
-\NewBibliographyString{execproducer}
-\NewBibliographyString{director}
-\NewBibliographyString{writer}
 \NewBibliographyString{with}
-\NewBibliographyString{narrator}
-\NewBibliographyString{narrators}
 \NewBibliographyString{supplement}
 \NewBibliographyString{commentonarticle}
 \NewBibliographyString{reviewofbook}
 \NewBibliographyString{reviewoffilm}
 \NewBibliographyString{reviewoftv}
-\NewBibliographyString{host}
 \NewBibliographyString{manunpub}
 \NewBibliographyString{maninprep}
 \NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
 
 \DeclareBibliographyStrings{%
   inherit          = {french},
+  video            = {{video}{video}},%FIXME
+  film             = {{film}{film}},%FIXME
+  tvseries         = {{TV\space series}{TV\space series}},%FIXME
+  tvepisode        = {{TV\space series\space episode}{TV\space series\space episode}},%FIXME
+  narrator         = {{narrator}{narr\adddot}},%FIXME
+  narrators        = {{narrators}{narrs\adddot}},%FIXME
+  producer         = {{producteur}{producteur}},
+  producers        = {{producers}{producers}},%FIXME
+  execproducer     = {{producteur ex\'ecutif}{producteur ex\'ecutif}},
+  execproducers    = {{Executive\space Producers}{Exec\adddot\space Prods\adddot}},%FIXME
+  execdirector     = {{Executive\space Director}{Exec\adddot\space Dir\adddot}},%FIXME
+  execdirectors    = {{Executive\space Directorss}{Exec\adddot\space Dirs\adddot}},%FIXME
+  director         = {{r\'ealisateur}{r\'ealisateur}},
+  directors        = {{directors}{dirs\adddot}},%FIXME
+  writer           = {{\'ecrivain}{\'ecrivain}},
+  writers          = {{writers}{writers}},%FIXME
+  host             = {{host}{host}},%FIXME
+  hosts            = {{hosts}{hosts}},%FIXME
+  guestexpert      = {{Guest\space Expert}{Guest\space Expert}},%FIXME
+  guestexperts     = {{Guest\space Experts}{Guest\space Experts}},%FIXME
+  with             = {{avec}{avec}},
   manunpub         = {{unpublished\space manuscript}{unpublished\space manuscript}},%FIXME
   maninprep        = {{manuscript\space in\space preparation}{manuscript\space in\space preparation}},%FIXME
   mansub           = {{manuscript\space submitted\space for\space publication}{manuscript\space submitted\space for\space publication}},%FIXME
   supplement       = {{supplement}{suppl\adddot}},%FIXME
   part             = {{part}{pt\adddot}},%FIXME
-  narrator         = {{narrator}{narr\adddot}},%FIXME
-  narrators        = {{narrators}{narrs\adddot}},%FIXME
   revisededition   = {{\'Edition\space R\'evis\'e}{\'Ed\adddotspace R\'ev\adddot}},
   commentonarticle = {{comment\space on\space the\space article}
                       {comment\space on\space the\space article}},%FIXME
@@ -55,12 +87,6 @@
   pages            = {{Pages}{{}p\adddot}},
   on               = {{le}{le}},
   retrieved        = {{R\'ecup\'er\'ee}{R\'ecup\'er\'ee}},
-  with             = {{avec}{avec}},
-  host             = {{host}{host}},
-  producer         = {{producteur}{producteur}},
-  execproducer     = {{producteur ex\'ecutif}{producteur ex\'ecutif}},
-  director         = {{r\'ealisateur}{r\'ealisateur}},
-  writer           = {{\'ecrivain}{\'ecrivain}},
   available        = {{disponible}{disponible}},
   from             = {{\`a\space partir\space de}{\`a\space partir\space de}},
   archivedat       = {{archiv\'es\space \`a}{archiv\'es\space \`a}},

@@ -19,14 +19,11 @@
   letters}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
-  with,
-  writer,
-  producer,
-  execproducer,
-  host,
-  director,
   groupauthor,
-  narrator}
+  narrator,
+  execproducer,
+  execdirector,
+  with}
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
   abstractloc,
@@ -39,20 +36,15 @@
 \DeclareDatamodelEntryfields{
   with,
   groupauthor,
+  narrator,
+  execproducer,
+  execdirector,
   abstractloc,
   abstracturl,
-  urldescription,
-  narrator}
+  urldescription}
 
 \DeclareDatamodelEntryfields[software]{
   appentry}
-
-\DeclareDatamodelEntryfields[video]{
-  writer,
-  producer,
-  host,
-  execproducer,
-  director}
 
 \DeclareDatamodelEntryfields[report]{
   addendum,
