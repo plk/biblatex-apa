@@ -96,7 +96,7 @@
              \iffieldundef{#1endyear}%
                {}%
                {\iffieldequalstr{#1endyear}{}% open-ended range?
-                 {\mbox{\bibdatedash}}
+                 {\bibdatedash\bibstring{present}}
                  {\bibdatedash%
                   \iffieldsequal{#1year}{#1endyear}%
                     {\iffieldsequal{#1month}{#1endmonth}%
@@ -112,7 +112,7 @@
              \iffieldundef{#1endyear}%
                {}%
                {\iffieldequalstr{#1endyear}{}% open-ended range?
-                 {\mbox{\bibdatedash}}
+                 {\bibdatedash\bibstring{present}}
                  {\bibdatedash%
                   \iffieldsequal{#1year}{#1endyear}%
                     {\iffieldsequal{#1month}{#1endmonth}%
@@ -138,7 +138,7 @@
         \iffieldundef{#1endyear}%
           {}%
           {\iffieldequalstr{#1endyear}{}% open-ended range?
-            {\mbox{\bibdatedash}}
+            {\bibdatedash\bibstring{present}}
             {\bibdatedash%
              \iffieldsequal{#1year}{#1endyear}%
                {\iffieldsequal{#1month}{#1endmonth}%
@@ -637,21 +637,26 @@
   \setbox0=\hbox{#1\foreverunspace}%
   \ifdim\wd0=0pt
   \else
-    \mkbibparens{\box0}%
+    % Since we are evaluating the argument twice and it contains \setunit,
+    % need to sanitise \setunit second time around. Can't just put in \box0
+    % as it might be long and won't linebreak
+    \mkbibparens{\setunit{}#1}%
   \fi}
 
 \newrobustcmd{\mkbibbracketse}[1]{%
   \setbox0=\hbox{#1\foreverunspace}%
   \ifdim\wd0=0pt
   \else
-    \mkbibbrackets{\box0}%
+    % Since we are evaluating the argument twice and it contains \setunit,
+    % need to sanitise \setunit second time around. Can't just put in \box0
+    % as it might be long and won't linebreak
+    \mkbibbrackets{\setunit{}#1}%
   \fi}
 
 % Additional post title information in parens
 \newbibmacro*{addinfo1}{%
   \printtext{%
     \mkbibparense{%
-      \setunit{}%
       \usebibmacro{editor+trans+narr}%
       \setunit*{\addsemicolon\addspace}%
       \printfield{edition}%
@@ -660,7 +665,8 @@
                   \ifentrytype{thesis}\OR%
                   \ifentrytype{unpublished}\OR%
                   \ifentrytype{dataset}\OR%
-                  \ifentrytype{software}}{\usebibmacro{addinfo3}}{}%
+                  \ifentrytype{software}\OR%
+                  \ifentrytype{audio}}{\usebibmacro{addinfo3}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{inbook}{\printfield{pages}}{}%
       \setunit*{\addcomma\addspace}%
@@ -682,15 +688,15 @@
 \newbibmacro*{addinfo3}{%
   \iffieldundef{type}
     {\iffieldundef{issue}
-      {\printfield{number}}
+      {\iffieldint{number}{\bibcpstring{number}~}{}\printfield{number}}
       {\printfield{issue}\setunit{\addspace}%
        \iffieldundef{number}
          {}
-         {\printfield{number}}}}%
+         {\iffieldint{number}{\bibcpstring{number}~}{}\printfield{number}}}}%
     {\printfield{type}\setunit{\addspace}%
      \iffieldundef{number}
        {}
-       {\bibcpstring{number}~\printfield{number}}}%
+       {\iffieldint{number}{\bibcpstring{number}~}{}\printfield{number}}}%
      \ifthenelse{\ifentrytype{dataset}\OR\ifentrytype{software}}
        {\setunit*{\addsemicolon\addspace}%
         \printfield{version}}
@@ -726,7 +732,8 @@
      \setunit{\addspace}%
      \ifthenelse{\ifentrytype{dataset}\OR%
                  \ifentrytype{software}\OR%
-                 \ifentrytype{video}}{\usebibmacro{addinfo2}}{}% additional info in brackets
+                 \ifentrytype{video}\OR%
+                 \ifentrytype{audio}}{\usebibmacro{addinfo2}}{}% additional info in brackets
      \printfield{titleaddon}%
      \ifthenelse{%
        \ifnameundef{author}\AND%
@@ -1129,7 +1136,8 @@
     not test {\iffieldundef{origyear}}
     not test {\iffieldundef{labelyear}}
     and not test {\iffieldsequal{labelyear}{origyear}}}
-      {\printtext{\mkbibparens{\bibcpstring{origyear}~\printorigdate}}}
+    {\printtext{\mkbibparens{\bibcpstring{origyear}~\printorigdate}}%
+     \renewcommand*{\finentrypunct}{\relax}}
       {}}
 
 %
@@ -1443,17 +1451,33 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.13) Audio
+
+\newbibmacro*{mainaudio}{%
+  \iffieldundef{maintitle}{}
+    {\iffieldequalstr{entrysubtype}{podcastepisode}{\bibcpstring{in}}{\bibcpstring{on}}%
+     \setunit{\addspace}%
+     \printfield{maintitle}}}
+
+ \DeclareFieldFormat[audio]{title}{%
+  \iffieldundef{maintitle}
+    {\mkbibemph{#1}\isdot}
+    {#1}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % (APA 10.12) Audiovisual
 
-\newbibmacro*{mainseries}{%
-  \iffieldequalstr{entrysubtype}{tvepisode}
+\newbibmacro*{mainvideo}{%
+  \iffieldundef{maintitle}{}
     {\usebibmacro{in}%
      \printnames[apanames][-\value{listtotal}]{execproducer}%
      \setunit{\addspace}%
      \printtext{\mkbibparens{\bibcplstring{execproducers}}}%
      \setunit{\addcomma\addspace}%
-     \printfield{maintitle}}
-   {}}
+     \printfield{maintitle}}}
          
 \DeclareFieldFormat[video]{title}{%
   \iffieldundef{maintitle}
@@ -1656,6 +1680,31 @@
   \printfield{pages}%
   \newunit\newblock
   \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \setunit*{\addspace}\newblock
+  \usebibmacro{origyear}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \setunit{\addspace}\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{audio}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{mainaudio}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{doi+url}%
   \setunit*{\addspace}\newblock
@@ -2020,7 +2069,7 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
   \newunit\newblock
-  \usebibmacro{mainseries}%
+  \usebibmacro{mainvideo}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
@@ -2293,34 +2342,6 @@
   \printfield{entrysubtype}%
   \newunit\newblock
   \usebibmacro{tvseries}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{apa:pageref}%
-%REMOVE  \usebibmacro{apa:finpunct}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{audio}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{writer}%
-  \usebibmacro{director}%
-  \usebibmacro{producer}%
-  \newunit\newblock
-  \usebibmacro{labelyear+extradate}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \setunit{\addspace}\newblock
-  \printfield{entrysubtype}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
