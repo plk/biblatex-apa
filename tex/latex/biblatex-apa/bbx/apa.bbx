@@ -666,7 +666,8 @@
                   \ifentrytype{unpublished}\OR%
                   \ifentrytype{dataset}\OR%
                   \ifentrytype{software}\OR%
-                  \ifentrytype{audio}}{\usebibmacro{addinfo3}}{}%
+                  \ifentrytype{audio}\OR%
+                  \ifentrytype{image}}{\usebibmacro{addinfo3}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{inbook}{\printfield{pages}}{}%
       \setunit*{\addcomma\addspace}%
@@ -730,11 +731,14 @@
           \togglefalse{bbx:related}}% disable default related expansion later on
          {}}%
      \setunit{\addspace}%
+     \printfield{titleaddon}%
+     \setunit{\addspace}%
      \ifthenelse{\ifentrytype{dataset}\OR%
                  \ifentrytype{software}\OR%
                  \ifentrytype{video}\OR%
-                 \ifentrytype{audio}}{\usebibmacro{addinfo2}}{}% additional info in brackets
-     \printfield{titleaddon}%
+                 \ifentrytype{audio}\OR%
+                 \ifentrytype{image}\OR%
+                 \ifentrytype{online}}{\usebibmacro{addinfo2}}{}% additional info in brackets
      \ifthenelse{%
        \ifnameundef{author}\AND%
        \ifnameundef{groupauthor}\AND%
@@ -1246,6 +1250,14 @@
 % (APA 10.8) Unpublished manuscripts
 
 \DeclareFieldFormat[unpublished]{title}{\mkbibemph{#1}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 10.14) Visual works
+
+\DeclareFieldFormat[image]{title}{\mkbibemph{#1}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1776,6 +1788,27 @@
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
+\DeclareBibliographyDriver{image}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
 \DeclareBibliographyDriver{inbook}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
@@ -1902,24 +1935,10 @@
 \DeclareBibliographyDriver{misc}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{author}%
+  \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
-  \ifthenelse{\iffieldundef{title}\AND\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
-  \printfield{entrysubtype}%
   \newunit\newblock
-  \printfield{howpublished}%
-  \newunit\newblock
-  \printfield{type}%
-  \newunit
-  \printfield{version}%
-  \newunit
-  \printfield{note}%
-  \newunit\newblock
-  \printlist{organization}%
-  \newunit\newblock
-  \printlist{institution}%
-  \setunit*{\addcomma\addspace}%
   \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{doi+url}%
@@ -1937,7 +1956,7 @@
 \DeclareBibliographyDriver{online}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{author}%
+  \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
   \newunit\newblock
@@ -2442,8 +2461,8 @@
     {\nolinkurl{https://doi.org/#1}}}
 
 \newbibmacro*{location+publisher}{%
-  \printlist[default][1-1]{location}%
-  \setunit*{\addcolon\space}%
+  \printlist{location}%
+  \setunit*{\addcomma\space}%
   \printlist{publisher}%
   \addperiod}
 
