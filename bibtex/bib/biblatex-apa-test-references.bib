@@ -500,6 +500,16 @@
   DOI            = {10.1080/09658211.2018.1441423},
 }
 
+
+
+
+
+
+
+
+
+
+
 % (APA 10.1 Example 1)
 % Note that the URL is suppressed if there is a DOI
 @ARTICLE{10.1:1,
@@ -847,6 +857,8 @@
 }
 
 % (APA 10.2 Example 22)
+% The ENTRYSUBTYPE is inserted as a literal string because it is not a known
+% localisation string - this is automatically detected.
 @BOOK{10.2:22a,
   ENTRYSUBTYPE   = {Audiobook},
   AUTHOR         = {S. Cain},
@@ -990,6 +1002,7 @@
 }
 
 % (APA 10.2 Example 32)
+% Note the use of GROUPAUTHOR instead of AUTHOR here
 @MANUAL{10.2:32a,
   GROUPAUTHOR    = {{American Psychiatric Association}},
   TITLE          = {Diagnostic and Statistical Manual of Mental Disorders},
@@ -1045,6 +1058,7 @@
 }
 
 % (APA 10.2 Example 35)
+% No AUTHOR or GROUPAUTHOR - title goes in author position
 @BOOK{10.2:35a,
   TITLE           = {{K}ing {J}ames {B}ible},
   DATE            = {2017},
@@ -1070,6 +1084,9 @@
 }
 
 % (APA 10.2 Example 36)
+% Note the special format of the ORIGDATE field and the resulting output.
+% Biber supports considerable ISO8601 date formats like this with full
+% localisation support for the output. See the BibLaTeX manual.
 @BOOK{10.2:36,
   AUTHOR         = {Aristotle},
   TRANSLATOR     = {S. H. Butcher},
@@ -1161,6 +1178,7 @@
 }
 
 % (APA 10.3 Example 43)
+% Note that this done with the related entries functionality supported by Biber
 @INBOOK{10.3:43,
   AUTHOR         = {C. Sacchett and G. W. Humphreys},
   EDITOR         = {D. A. Balota and E. J. Marsh},
@@ -1296,6 +1314,8 @@
   DATE           = {2013}
 }
 
+% NUMBER field has the (localised) "No." prefix as the field is basically
+% numerical. This detection is automatic.
 @REPORT{10.4:50c,
   GROUPAUTHOR    = {{National Cancer Institute}},
   TITLE          = {Facing Forward}, 
@@ -1380,8 +1400,10 @@
 
 % (APA 10.4 Example 56)
 % Annotations for author roles must be called "role". This is an example of
-% a literal annotation as there is not localised strong for this since it
-% is quite rare
+% a literal annotation as there is no localised string for this role since it
+% is quite rare. You could create a localisation string for this with
+% \NewBibliographyString and \DeclareBibliographyStrings and remove the
+% quotes. See the Data Annotation documentation in the biblatex manual
 @REPORT{10.4:56,
   AUTHOR         = {C. B. Blair},
   AUTHOR+an:role = {1="Principal Investigator"},
@@ -1420,6 +1442,7 @@
 
 % (APA 10.4 Example 59)
 % PUBLISHER should be ignored as it is the same as the GROUPAUTHOR
+% This is enforced by a Biber style source map
 @REPORT{10.4:59,
   GROUPAUTHOR    = {{U.S. Food and Drug Administration}},
   TITLE          = {{FDA} Authorizes First Interoperable Insulin Pup
@@ -1467,6 +1490,8 @@
 }
 
 % (APA 10.5 Example 63)
+% A special case here of roles for uncommon, secondary name lists. Use the
+% EDITORA--EDITORC fields with an associated EDITORTYPE localisation string
 @INPROCEEDINGS{10.5:63,
   AUTHOR         = {De Boer, D. and LaFavour, T.},
   EDITORA        = {A. M. Schmidt and A. Kryvanos},
@@ -1531,6 +1556,8 @@
   DOI            = {10.1037/sgd0000205}
 }
 
+% Data annotation for the first name in the |AUTHOR| list. "director" is a
+% localisation string
 @VIDEO{10.7:67r,
   ENTRYSUBTYPE   = {film},
   AUTHOR         = {E. Brodsky},
@@ -1574,6 +1601,8 @@
   URL            = {https://www.avclub.com/the-good-place-ends-its-remarkable-second-season-with-i-1822649316}
 }
 
+% Two data annotations for the first name in the |AUTHOR| list. These are automatically
+% combined
 @VIDEO{10.7:69r,
   ENTRYSUBTYPE   = {tvepisode},
   AUTHOR         = {M. Schur},
@@ -1727,6 +1756,8 @@
 }
 
 % (APA 10.10 Example 79)
+% The ENTRYSUBTYPE here is not a localisation string as such neologisms
+% don't need them usually - it's just inserted as it is
 @SOFTWARE{10.10:79,
   ENTRYSUBTYPE   = {Mobile app},
   AUTHOR         = {Epocrates},
@@ -1801,6 +1832,7 @@
   DATE           = {1975}
 }
 
+% ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:84b,
   ENTRYSUBTYPE   = {film},
   AUTHOR         = {D. Fosha and H. Levenson},
@@ -1812,6 +1844,7 @@
   DATE           = {2017}
 }
 
+% ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:84c,
   ENTRYSUBTYPE   = {film},
   AUTHOR         = {P. Jackson},
@@ -1824,6 +1857,7 @@
 }
 
 % (APA 10.12 Example 85)
+% ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:85,
   ENTRYSUBTYPE   = {film},
   AUTHOR         = {L. Malle},
@@ -1835,6 +1869,7 @@
 }
 
 % (APA 10.12 Example 86)
+% ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:86,
   ENTRYSUBTYPE    = {tvseries},
   AUTHOR          = {D. Simon and R. F. Colesberry and Kostroff Noble, N.},
@@ -1845,6 +1880,8 @@
 }
 
 % (APA 10.12 Example 87)
+% ENTRYSUBTYPE is a localisation string
+% Dual localisation string data annotation for the first AUTHOR
 @VIDEO{10.12:87a,
   ENTRYSUBTYPE    = {tvepisode},
   AUTHOR          = {K. Barris},
@@ -1858,6 +1895,8 @@
   DATE            = {2017-01-11}
 }
 
+% ENTRYSUBTYPE is a localisation string
+% Three data annotations, one for each name in the AUTHOR list
 @VIDEO{10.12:87b,
   ENTRYSUBTYPE    = {tvepisode},
   AUTHOR          = {B. Oakley and J. Weinstein and J. Lynch},
@@ -1871,6 +1910,7 @@
 }
 
 % (APA 10.12 Example 88)
+% ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:88a,
   ENTRYSUBTYPE    = {video},
   AUTHOR          = {S. Giertz},
@@ -1880,6 +1920,7 @@
   URL             = {https://www.ted.com/talks/simone_giertz_why_you_should_make_useless_things}
 }
 
+% ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:88b,
   ENTRYSUBTYPE    = {video},
   GROUPAUTHOR     = {TED},
@@ -1903,6 +1944,7 @@
 }
 
 % (APA 10.12 Example 90)
+% ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:90a,
   ENTRYSUBTYPE    = {video},
   AUTHOR          = {S. Cutts},
@@ -1912,6 +1954,8 @@
   URL             = {https://vimeo.com/244405542}
 }
 
+% ENTRYSUBTYPE is a localisation string
+% A literal data annotation (not a localisation string) for the AUTHOR username
 @VIDEO{10.12:90b,
   ENTRYSUBTYPE       = {video},
   AUTHOR             = {M. Fogarty},
@@ -1922,6 +1966,7 @@
   URL                = {https://youtube.be/deiEY5Yq1ql}
 }
 
+% ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:90c,
   ENTRYSUBTYPE       = {video},
   GROUPAUTHOR        = {{University of Oxford}},
@@ -1932,6 +1977,7 @@
 }
 
 % (APA 10.13 Example 91)
+% ENTRYSUBTYPE is (obviously) not a localisation string, inserted literally
 @AUDIO{10.13:91a,
   ENTRYSUBTYPE   = {Album recorded by Academy of St Martin in the Fields},
   AUTHOR         = {J. S. Bach},
@@ -1953,6 +1999,7 @@
 % (APA 10.13 Example 92)
 % Notice that useprefix is disabled as Beethoven generally does not have
 % the prefix leading
+% ENTRYSUBTYPE is not a localisation string
 @AUDIO{10.13:92a,
   OPTIONS        = {useprefix=false},
   ENTRYSUBTYPE   = {Song recorded by Staatskapelle Dresden},
@@ -1964,6 +2011,7 @@
   ORIGDATE       = {1804}
 }
 
+% ENTRYSUBTYPE is a localisation string
 @AUDIO{10.13:92b,
   ENTRYSUBTYPE   = {song},
   AUTHOR         = {Beyoncé},
@@ -1973,6 +2021,7 @@
   DATE           = {2016}
 }
 
+% ENTRYSUBTYPE is a localisation string
 @AUDIO{10.13:92c,
   ENTRYSUBTYPE   = {song},
   GROUPAUTHOR    = {{Childish Gambino}},
@@ -1981,6 +2030,7 @@
   DATE           = {2018}
 }
 
+% ENTRYSUBTYPE is a localisation string
 @AUDIO{10.13:92d,
   ENTRYSUBTYPE   = {song},
   AUTHOR         = {K. Lamar},
@@ -1992,6 +2042,8 @@
 }
 
 % (APA 10.13 Example 93)
+% ENTRYSUBTYPE is a localisation string as it expands to the localisable "Audio podcast"
+% for some reason best known to the APA
 @AUDIO{10.13:93,
   ENTRYSUBTYPE   = {podcast},
   AUTHOR         = {S. Vedantam},
@@ -2003,6 +2055,8 @@
 }
 
 % (APA 10.13 Example 94)
+% ENTRYSUBTYPE is a localisation string as it expands to the localisable
+% "Audio podcast episode" for some reason best known to the APA
 @AUDIO{10.13:94,
   ENTRYSUBTYPE   = {podcastepisode},
   AUTHOR         = {I. Glass},
@@ -2016,6 +2070,7 @@
 }
 
 % (APA 10.13 Example 95)
+% ENTRYSUBTYPE is a localisation string
 @AUDIO{10.13:95,
   ENTRYSUBTYPE   = {interview},
   AUTHOR         = {de Beauvoir, S.},
@@ -2026,6 +2081,7 @@
 }
 
 % (APA 10.13 Example 96)
+% ENTRYSUBTYPE is a localisation string
 @AUDIO{10.13:96,
   ENTRYSUBTYPE   = {speech},
   AUTHOR         = {King, Jr., M. L.},
@@ -2036,6 +2092,7 @@
 }
 
 % (APA 10.14 Example 97)
+% ENTRYSUBTYPE is a localisation string
 @IMAGE{10.14:97a,
   ENTRYSUBTYPE   = {lithograph},
   AUTHOR         = {E. Delacroix},
@@ -2044,6 +2101,7 @@
   DATE           = {1826/1827}
 }
 
+% ENTRYSUBTYPE is a localisation string
 @IMAGE{10.14:97b,
   ENTRYSUBTYPE   = {painting},
   AUTHOR         = {G. Wood},
@@ -2078,6 +2136,7 @@
 }
 
 % (APA 10.14 Example 100)
+% ENTRYSUBTYPE is a localisation string
 @IMAGE{10.14:100a,
   ENTRYSUBTYPE   = {map},
   AUTHOR         = {D. Cable},
@@ -2099,6 +2158,7 @@
 }
 
 % (APA 10.14 Example 101)
+% ENTRYSUBTYPE is a localisation string
 @IMAGE{10.14:101a,
   ENTRYSUBTYPE   = {photograph},
   AUTHOR         = {S. McCurry},
@@ -2127,6 +2187,7 @@
   URL            = {https://uchilefau.academia.edu/ElseZCanan}
 }
 
+% ENTRYSUBTYPE is a localisation string as it expands to "Powerpoint Slides"
 @IMAGE{10.14:102b,
   ENTRYSUBTYPE   = {powerpoint},
   AUTHOR         = {Brian Housand},
@@ -2136,6 +2197,7 @@
   URL            = {https://www.slideshare.net/brianhousand/game-on-iagc-2016/}
 }
 
+% ENTRYSUBTYPE is a localisation string as it expands to "Powerpoint Slides"
 @IMAGE{10.14:102c,
   ENTRYSUBTYPE   = {powerpoint},
   AUTHOR         = {R. Mack and G. Spake},
@@ -2147,7 +2209,7 @@
 }
 
 % (APA 10.15 Example 103)
-% No localisation string for such, unfortunately, universal neologisms
+% ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:103a,
   ENTRYSUBTYPE            = {Tweet},
   GROUPAUTHOR             = {{APA Education}},
@@ -2160,6 +2222,7 @@
   URL                     = {https://twitter.com/apaeducation/status/1012810490530140161}
 }
 
+% ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:103b,
   ENTRYSUBTYPE            = {Tweet},
   GROUPAUTHOR             = {{Badlands National Park}},
@@ -2172,6 +2235,7 @@
   URL                     = {https://twitter.com/BadlandsNPS/status/968196500412133379}
 }
 
+% ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:103c,
   ENTRYSUBTYPE       = {Tweet},
   AUTHOR             = {B. White},
@@ -2184,7 +2248,7 @@
 }
 
 % (APA 10.15 Example 104)
-% No localisation string for such, unfortunately, universal neologisms
+% ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:104,
   ENTRYSUBTYPE            = {Twitter profile},
   GROUPAUTHOR             = {{APA Style}},
@@ -2196,7 +2260,7 @@
 }
 
 % (APA 10.15 Example 105)
-% No localisation string for such, unfortunately, universal neologisms
+% ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:105a,
   ENTRYSUBTYPE            = {Status update},
   AUTHOR                  = {N. Gaiman},
@@ -2210,7 +2274,7 @@
   DATE                    = {2018-03-22}
 }
 
-% No localisation string for such, unfortunately, universal neologisms
+% ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:105b,
   ENTRYSUBTYPE            = {Infographic},
   GROUPAUTHOR             = {{National Institute of Mental Health}},
@@ -2235,7 +2299,7 @@
 }
 
 % (APA 10.15 Example 106)
-% No localisation string for such, unfortunately, universal neologisms
+% ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:106,
   ENTRYSUBTYPE            = {Facebook page},
   GROUPAUTHOR             = {{Smithsonian's National Zoo and Conservation
@@ -2247,6 +2311,7 @@
 }
 
 % (APA 10.15 Example 107)
+% ENTRYSUBTYPE is a localisation string
 @ONLINE{10.15:107,
   ENTRYSUBTYPE            = {photographs},
   GROUPAUTHOR             = {{Zeitz MOCAA}},
@@ -2260,7 +2325,7 @@
 }
 
 % (APA 10.15 Example 108)
-% No localisation string for such, unfortunately, universal neologisms
+% ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:108,
   ENTRYSUBTYPE            = {Highlight},
   GROUPAUTHOR             = {{The New York Public Library}},
@@ -2272,7 +2337,7 @@
 }
 
 % (APA 10.15 Example 109)
-% No localisation string for such, unfortunately, universal neologisms
+% ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:109,
   ENTRYSUBTYPE            = {Online forum post},
   GROUPAUTHOR             = {{National Aeronautics Space Administration}},

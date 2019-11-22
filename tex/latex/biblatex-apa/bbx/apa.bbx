@@ -799,6 +799,10 @@
        {\bibstring{host}%
          \setunit{\addspace\&\addspace}}
        {}%
+     \ifitemannotation[\currentname][role]{chair}
+       {\bibstring{chair}%
+         \setunit{\addspace\&\addspace}}
+       {}%
      \ifitemannotation[\currentname][role]{guestexpert}
        {\bibstring{guestexpert}%
          \setunit{\addspace\&\addspace}}
@@ -829,6 +833,10 @@
        {\bibstring{hosts}%
          \setunit{\addspace\&\addspace}}
        {}%
+     \iffieldannotation[\currentname][role]{chairs}
+       {\bibstring{chairs}%
+         \setunit{\addspace\&\addspace}}
+       {}%
      \iffieldannotation[\currentname][role]{guestexperts}
        {\bibstring{guestexperts}%
          \setunit{\addspace\&\addspace}}
@@ -839,7 +847,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%REF (APA 9.) Name format. Don't capitalise prefices
+% Name format
 
 % #1 = family name
 % #2 = given name
@@ -907,13 +915,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%REF (APA 6.27) Editor string in parens after author list
-%REF (APA 7.02 Example 21) Collapse editor and trans if same
+% (APA 9.10) Role strings in parens after author list
+%            Collapse roles if same person
 % (APA 10.1 Example 10) Translator
 % (APA 10.2 Example 22) Narrator
-
-% Separated out into book and in* macros because otherwise
-% this makes one ugly, huge, unreadable beast.
 
 \newbibmacro*{editor+trans+narr}{%
   \ifthenelse{\ifnameundef{editor}\AND%

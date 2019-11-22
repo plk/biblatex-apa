@@ -2,11 +2,11 @@
 * DONE 8.20e - p268 - uniquename=inits doesn't do this
 * DONE 8.20f--8.20j - only primary author with inits
 * DONE Remove \usebibmacro{apa:finpunct}, \usebibmacro{apa:pageref}?
-* TODO Document groupauthor as preferable
-* TODO Document KEYWORDS=nonacademic
-* TODO Document name roles via annotations for less common and mixed author roles, mandatory annotation names
+* DONE Document groupauthor as preferable
+* DONE Document KEYWORDS=nonacademic
+* DONE Document name roles via annotations for less common and mixed author roles, mandatory annotation names
 * DONE Combine all roles (9.10)
-* TODO 10.1.18 -> related comment on in line with reviews
+* DONE 10.1.18 -> related comment on in line with reviews
 * DONE lbx have reference to old APA numbers
-* TODO %REF
+* DONE %REF
 

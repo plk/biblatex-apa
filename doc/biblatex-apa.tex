@@ -29,7 +29,7 @@
 
 \hypersetup{%
   pdftitle={APA Bib\LaTeX\ style},
-  pdfsubject={APA 6 Conformant Style for Bib\LaTeX},
+  pdfsubject={APA 7th Edition Conformant Style for Bib\LaTeX},
   pdfauthor={Philip Kime},
   pdfkeywords={latex, biblatex, APA, style}}
 
@@ -45,89 +45,22 @@ version. This section is just for important things like incompatible
 changes which users should be aware of.
 
 \minisec{9.0}
-Completely overhauled for APA 7th edition.
+Completely overhauled for APA 7th edition. APA 7th edition is a lot more
+consistent in terms of its formatting blocks and elements, resulting in
+much less dependence on ad-hoc entry types and fields. In general, your
+\file{.bib} should be updated in accordance with this documentation for APA
+7th edition compatibility. 
 
-\minisec{7.8}
-|ARTICLE| entries now correctly do not print month/day in the bibliography
-as per APA 6.28. For non-academic articles (APA 7.01, examples 7, 8 and 9),
-use the new:
+\noindent |biber| 2.14+ and and |biblatex| 3.14 + are \emph{required}.
 
-\begin{verbatim}
-  ENTRYSUBTYPE = {nonacademic}
-\end{verbatim}
-
-This will allow month/day data in the bibliography. In the future, there
-may be other differences for |ARTICLE| subtypes and it is better to keep
-these semantically distinct from standard academic journal articles.
-
-\minisec{7.5}
-This version requires |biblatex| $>=$3.8 and |biber| $>=$2.8.
-
-\minisec{7.1}
-This version requires |biblatex| $>=$3.6 and |biber| $>=$2.6.
-
-\minisec{7.0}
-This version requires |biblatex| $>=$3.5 and |biber| $>=$2.6. Uncertain,
-approximate and era-marked dates are now supported in the |biblatex| core
-and therefore special fields are no longer needed in the style. See example
-files, in particular \texttt{7.10:67} entry in the references test
-\file{.bib} and the \texttt{plato} entry in the citation test \file{.bib}.
-
-\minisec{7.0}
-This version requires |biblatex| $>=$3.5 and |biber| $>=$2.6.
-
-\minisec{6.9}
-This version requires |biblatex| $>=$3.4 and |biber| $>=$2.5.
-
-\minisec{6.8}
-This version requires |biblatex| $>=$3.3 and |biber| $>=$2.4.
-
-\minisec{5.0}
-The style now uses the customisable data model functionality of |biblatex|
-2.0 and |biber| 1.0 and so these are now required. Several cases
-which previously were forced to use custom fields like |USERA|,
-|USERB| etc. can now be more naturally implemented with semantically
-appropriate fields. See \file{biblatex-apa-references.bib} for
-examples. This particularly aids the use of |VIDEO| entries, for
-example which now support fields |DIRECTOR|, |PRODUCER|,
-|WRITER| and |EXECPRODUCER|.
-
-Entries which relate to other entries like reviews and reprints are
-now implemented more naturally using the |biblatex| 2 «related
-entries» functionality. See entries with the |RELATED| field in
-\file{biblatex-apa-references.bib} and the |biblatex| manual for
-details and examples.
-
-Entries where authors are listed as «with» are now supported using the
-name field |WITH|. See examples file.
-
-\minisec{4.5}
-|biber| is now \emph{required}. This is because APA style needs a custom
-sorting scheme and only |biber| supports this. |bibtex| support is going
-away in |biblatex| eventually anyway so it's best to switch.
-
-\minisec{4.4}
-The |\maxprtauth| command is now a package option called
-«apamaxprtauth», see section \ref{opts}.
-
-\minisec{4.3}
-Specifying entries as «in press» should now be done using the official |biblatex|
-mechanism for this. Instead of, for example:
-
-\begin{verbatim}
-  YEAR = {in press}
-\end{verbatim}
-
-\noindent you should use:
-
-\begin{verbatim}
-  PUBSTATE = {inpress}
-\end{verbatim}
-
-\noindent as «|inpress|» is a |biblatex| localisation string which will
-render correctly in supported languages. If you still use the older method,
-it will still work but the string will always appear as the English «in
-press».
+One effect of the normalisation of reference entries in the 7th edition is
+that standard entrytypes can be used to cover many more cases. However,
+differentiation between different entry subtypes (for example, songs,
+albums or podcasts within the |AUDIO| entry type) is handled by localised
+strings held in the |ENTRYSUBTYPE| field. As a result, many more
+localisation strings have been added to the |.lbx| files. Please let me
+know if you are able to translation the new strings in the |.lbx| file for
+your language, they are generally marked with ``\texttt{\%FIXME}``.
 
 \section{Introduction}\label{int}
 
@@ -137,13 +70,14 @@ This package is a Bib\LaTeX\ style for APA (American Psychological
 Association) style compliant documents typeset in \latex. It implements a
 citation style (\file{apa.cbx}), a references section style
 (\file{apa.bbx}), some data model enhancements (\file{apa.dbx}) and string
-localisation files (\path{<language>-apa.lbx}). Currently there are only
-string localisations for a few languages---if you can help with any other
-languages, please mail me; the localisation |.lbx| files are very small and
-simple and it would be a small translation task for the few APA-specific
-strings needed. The styles are loaded just like any other Bib\LaTeX\ styles
-but I wouldn't try to use the citation and references styles separately as
-they rely on each other, macro-wise, in places.
+localisation files (\path{<language>-apa.lbx}). The style is loaded just
+like any other Bib\LaTeX\ styles but don't try to use the citation and
+references styles separately as they rely on each other, macro-wise, in
+places.
+
+In general, there is no attempt to generalise this style for non-APA
+requirements--it is written for APA compliance only. Having said that,
+there are a few options which allow users to change the APA defaults.
 
 In this document and in the code, the specific APA requirements are
 referred to by the section and (if appropriate) the example number of the
@@ -152,7 +86,7 @@ APA Style Guide (7th Edition).
 \subsection{Requirements}\label{ref:req}
 
 You will need to be using \sty{csquotes} ($\geq$ 4.3), Bib\LaTeX\ ($\geq$
-3.4) and Biber ($\geq$ 2.5). If you want to take advantage of the
+3.14) and Biber ($\geq$ 2.14). If you want to take advantage of the
 Bib\LaTeX\ |\DeclareQuotePunctuation| facility to enforce the APA required
 «American» punctuation, you should normally use the \sty{babel} package
 with the «american» option (see Bib\LaTeX\ manual section |3.9.1|). You can
@@ -161,29 +95,27 @@ of course use other languages but in such cases, to adhere to APA
 etc.), then you should set up |\DeclareQuotePunctuation| yourself as per
 section |4.7.5| of the Bib\LaTeX\ manual.
 
-If you are using the |apa.cls| \latex class, you need be using version
-$\geq$ 1.3.4. The class should be invoked with the |noapacite| class option
-as per the |apa.cls| documentation. Without this class option, the
-|apa.cls| class will automatically try to use plain Bib\TeX\ with the
-|apacite| style which is completely incompatible with Bib\LaTeX.
+If you are using an APA document \latex class, the class should be invoked
+with the |noapacite| class option as per the documentation. Without this
+class option, the APA class will automatically try to use plain Bib\TeX\
+with the |apacite| style which is completely incompatible with Bib\LaTeX.
 
 \subsection{License}
 
 Permission is granted to copy, distribute and/or modify this software under
 the terms of the \latex Project Public License, version
 1.3c\footnote{\url{http://www.latex-project.org/lppl.txt}}. The current
-maintainer is Philip Kime (\textcopyright\ 2015).
+maintainer is Philip Kime.
 
 \subsection{History}
 
-When I started using Bib\LaTeX, I assumed there would be an APA style
-when I went looking. I was wrong. I started to try to make one and realised
-why there was none. The APA style manual is enormous; the citation and
-references specifications run to about 60 pages and are very specific in
-terms of formatting. They are also not entirely consistent but then again,
-it is rare to have such a thorough specification to work from.
-Inconsistencies in the manual and workarounds are noted in the examples
-document.
+When I started using Bib\LaTeX, I assumed there would be an APA style. I
+was wrong. I started to try to make one and realised why there was none.
+The APA style manual is enormous; the citation and references
+specifications run over many chapters and are very specific in terms of
+formatting. They are also not entirely consistent but then again, it is
+rare to have such a thorough specification to work from. Inconsistencies in
+the manual and workarounds are noted in the examples document.
 
 \subsection{Acknowledgments}
 
@@ -239,7 +171,7 @@ or \sty{polyglossia}:
 units, with the exception of names and material from languages which do not
 follow English capitalisation. As of version 0.8a, Bib\LaTeX\ has a
 |\MakeSentenceCase| macro which deals with this. So, in the traditional
-Bib\TeX\ way, capitalise correctly in the |.bib| file, protecting names etc.
+Bib\TeX\ way, capitalise normally in the |.bib| file, protecting names etc.
 with the usual brace pairs and the style will take care of forcing the
 APA-style sentence case in the References section. Unlike the References
 section, titles in citations in the APA style appear in normal case and the
@@ -252,8 +184,7 @@ The following options are set as usual in the options passed to
 
 \begin{ltxcode}
 apabackref=true|false
-\end{ltxcode}% | stupid comment to stop emacs highlighting as verb due
-             % to single pipe
+\end{ltxcode}%|
 
 \noindent It is not APA style to include backreferences in the References to
 pages where citations of the entry occur. However, this is very
@@ -265,15 +196,9 @@ apamaxprtauth=<num>
 \end{ltxcode}
 
 \noindent This option controls the number of author/editor names which are
-printed in the References. APA style defaults to 7. You can change this if
+printed in the References. APA style defaults to 20. You can change this if
 you really want to fully print all author list references in certain
-contexts (for example in a CV where you are an author in position 8 \ldots)
-
-Setting Bib\LaTeX package options which change name processing
-like \opt{uniquename} and \opt{uniquelist} is not supported as this style
-does tricky things internally to match the peculiar APA standard. You
-should not need to change them anyway as then you wouldn't be using APA
-style anyway.
+contexts (for example in a CV where you are an author in position 21 \ldots)
 
 \subsection{Localisation}
 
@@ -306,7 +231,7 @@ roughly APA formatting standards (German journals tend to have a different
 long date format, for example). The «american» babel option will give you
 APA compliant US date formats. Default sensible date formats are included
 for german, ngerman and french. You should redefine the |\mkbibdatelong|
-macro in the relevant language |*-apa.lbx| file to change this if needed.
+macro in the relevant language |.lbx| file to change this if needed.
 
 A customisable macro \cmd{urldatecomma} determines what comes between the
 date of a URL and the URL itself. This defaults to the standard comma and
@@ -331,21 +256,21 @@ accompanying \path{.bib} files:
 \item[\path{biblatex-apa.tex}] This document.
 \item[\path{biblatex-apa-test.tex}]\footnote{\path{biblatex-apa-test.pdf}
     is also provided and is the typeset version of this \latex source
-    file.} This document typesets just about every useful example from
-  \apa{6.11}--\apa{6.21} and \apa{7.01}--\apa{7.11}. The examples in it
-  aim to look as much like the APA manual examples as possible. All
-  citation examples in the document are real examples using a \path{.bib}
-  file.
+    file.} This document typesets every useful example from
+  \apa{8}--\apa{10}. The examples in it aim to look as much like the APA
+  manual examples as possible. All citation examples in the document are
+  real examples using a \path{.bib} file.
 \item[\path{biblatex-apa-test-citations.bib}] This contains the \path{.bib}
   entries for the citations examples. You won't find anything of interest
   in this file---it's just used to provide real data for the citation
   examples.
 \item[\path{biblatex-apa-test-references.bib}] This contains the
-  \path{.bib} entries for all of the examples in \apa{7.x}. This file is
-  the main documentation for the |biblatex-apa| implementation of the APA
-  References section style. To see how the style deals with a particular
-  example from \apa{7.x}, look it up in here. Every example is marked with
-  the APA example number and has explanatory notes.
+  \path{.bib} entries for all of the examples in \apa{9} and \apa{10}. This
+  file is the main documentation for the |biblatex-apa| implementation of
+  the APA References section style. To see how the style deals with a
+  particular example from \apa{9} or \apa{10}, look it up in here. Every
+  example is marked with the APA example number and has explanatory notes
+  where necessary.
 \item[\path{apa.cbx}] The |biblatex-apa| citations style. It is
   decently structured with comments but shouldn't need to be read for
   normal use.
@@ -361,12 +286,7 @@ accompanying \path{.bib} files:
 
 \subsection{Citations}
 
-To specify something as «in press», use the |biblatex| |PUBSTATE| field
-with the special key value of «|inpress|» (see |biblatex| manual, section
-4.9.2.11). See the notes on the |PUBSTATE| field in section \ref{refs}
-below.
-
-\apa{6.13} requires that there should be no parentheses around the year of
+\apa{8.11} requires that there should be no parentheses around the year of
 the citation when the citation itself occurs within parenthesis. This is
 tricky to completely automate within the remit of a citation style since it
 requires knowledge of the current typesetting state. So, the new citation
@@ -397,482 +317,84 @@ the examples by picking something close to what you need from the APA
 examples and then looking in this file to see how it was implemented. Some
 general notes:
 
-\begin{itemize}
-\setlength{\itemsep}{0pt}
-\item The |PUBSTATE| field takes priority over any date field. If you specify
-  something with a |PUBSTATE| field like «inpress», then the year label in
-  citations and the references will be the localisation of the |PUBSTATE|
-  value key (|PUBSTATE| takes a pre-defined set of localisation keys as
-  values, see |biblatex| manual).
-\item APA style sometimes refers to the «series» of a multi-volume work.
-  This corresponds to the |MAINTITLE| field in the \file{.bib} and
-  \emph{not} the |SERIES| field.
-\item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
-  they are given as roman numerals, as required by \apa{6.22}.
-\end{itemize}
+\subsubsection{Publication Status}
+In addition to the standard |PUBSTATE| field publication state localisation
+string ``in press'', the |HOWPUBLISHED| field offers also the following
+localisation strings \apa{10.8}. There is no better way to do this as such
+states are language dependent and need localisation strings:
 
-\subsubsection{Journal number for journals with per-issue pagination}
-As per APA 7th edition section 6.30 and 7.01, journals which paginate by
-issue need the volume number including in the reference section. Since
-there is no way to automatically determine when this is the case, use the
-|biber| sourcemap feature to implement this, removing the |NUMBER| field
-from journals known to implement continuous pagination across volumes. For
-example, with this in your preamble:
+\begin{description}
+  \item[manunpub] Unpublished Manuscript
+  \item[maninprep] Manuscript in preparation
+  \item[mansub] Manuscript submitted for publication
+\end{description}
 
-\begin{lstlisting}[style=latex]{}
-\DeclareSourcemap{
-  \maps[datatype=bibtex]{
-    \map{
-       \step[fieldsource=journaltitle,
-             match=\regexp{(?:journal\stitle\sone|journal\stitle\stwo)}]
-       \step[fieldset=number, null]
-    }
-  }
-}
-\end{lstlisting}
+\subsubsection{Authors and Group Authors}
+APA 7th edition has a concept of a ``Group'' author \apa{9.11}. The style
+provides the |GROUPAUTHOR| entry field in all entry types. It is
+recommended to use |GROUPAUTHOR| when the author is an organisation or
+group as there are rules for name lists which are different for group
+authors (for example \apa{9.8}). |AUTHOR| is used much more extensively as
+the main agent of a work and the specific roles for particular agents is
+handled using |biber'|'s data annotation feature, see below.
+
+\subsubsection{Roles}
+The main role \apa{9.10} is of course specified by the |AUTHOR| entry
+field. You can attach specialised roles to any name in the |AUTHOR| field as
+required by many examples in \apa{10}, using |biber|'s data annotation
+feature. This is heavily used in the style and allows easy automation of
+complex examples like those in \apa{10.12}. See the
+|biblatex-apa-test-references.bib| example file used to generate the main
+test document. Data annotations can be named and the style requires that
+you name data annotations for various tasks correctly:
+
+\begin{description}
+  \item[role] Data annotation to denote a specialised role for a particular
+    name in the |AUTHOR| name list or a specialised role for the entire
+    name list. Multiple roles may be specified for a name/name list.
+  \item[username] Literal data annotation to denote a username for an
+    online service associated with a name in the |AUTHOR| name list.
+\end{description}    
 %
-Simply include |NUMBER| fields for all journals and entries with
-|JOURNALTITLE| of «journal title one» or «journal title two» (which
-are known to paginate across all numbers of a volume) will have
-their |NUMBER| field dynamically removed at document compile time, as
-required.
+Examples of these data annotations can be found in example documentation
+and |.bib| file. Data annotations are generally used when particular names
+in a name list require annotating with a specialized role.
 
-\subsubsection{Retrieval dates for online items}
+Some roles:
 
-APA 6th edition section 6.32 says «Do not include retrieval dates unless
-the source material may change over time (e.g., Wikis)». This is open to
-interpretation of what constitutes a Wiki and what counts as «changing over
-time». The style does not implement anything for this requirement by
-default but you can automate your own interpretation by putting this in
-your preamble:
+\begin{itemize}
+  \item Editor(s)
+  \item Translator(s)
+  \item Narrator(s)
+\end{itemize}
+%
+are very common and often occur in addition to the |AUTHOR| name list and
+so are usually specified by their own entry field. When the specialized
+role attaches to a complete name list \apa{10.2:26} rather than
+an individual name in a list \apa{10.12:84}, you have the choice
+to use data annotations or a dedicated name list. The latter is preferable
+if an appropriate name list exists (it does for all examples in \apa{10}).
 
-\begin{lstlisting}[style=latex]{}
-\DeclareSourcemap{
-  \maps[datatype=bibtex]{
-    \map{
-       \step[fieldsource=url,
-             notmatch=\regexp{wiki},
-             final=1]
-       \step[fieldset=urldate, null]
-    }
-  }
-}
-\end{lstlisting}
+There are some special cases for secondary name lists with uncommon roles
+which are handled with the standard |biblatex| |EDITORX| fields and
+associated |EDITORTYPE| fields \apa{10.5:63}.
 
-\noindent This will dynamically remove the |URLDATE| field from any entry
-where the |URL| field doesn't match the regular expression «wiki». Modify this
-regular expression according to taste. This modification is dynamically
-applied to the data stream by |biber| and does not change your \file{.bib}.
+\subsubsection{Article types}
+
+Since |ARTICLE| entry types are used extensively for academic journals and
+also newspaper articles, the |KEYWORD| ``nonacademic'' should be specified
+for articles that are not academic articles in an academic journal. This is
+because date formatting differs in the style between academic and
+non-academic articles. This is a more general solution than introducing new
+entry types which are not supported by other software.
 
 \section{Revision history}\label{rev}
 
 \begin{changelog}
 
-\begin{release}{8.0}{2019-09-07}
-\item Removed unused and unneeded use of NUMBER and SERIES fields
+\begin{release}{9.0}{2019-}
+\item First release (of APA 7th edition style)
 \end{release}
-
-\begin{release}{7.9}{2019-09-03}
-\item Bugfix release
-\end{release}
-
-\begin{release}{7.8}{2019-08-30}
-\item Fixed date rules for |ARTICLE|s
-\end{release}
-
-\begin{release}{7.7}{2018-04-02}
-\item Bug fixes and example alignments
-\end{release}
-
-\begin{release}{7.6}{2018-03-05}
-\item Internal cleanup and bugfixes
-\end{release}
-
-\begin{release}{7.5}{2017-11-05}
-\item Compat for bibaltex 3.8
-\item |\DeclareLanguageMapping| is now no longer necessary due to the new
-  |\DeclareLanguageMappingSuffix| macro.
-\end{release}
-
-\begin{release}{7.4}{2017-01-06}
-\item Minor bugfix release
-\end{release}
-
-\begin{release}{7.3}{2016-12-21}
-\item Minor bugfix release
-\end{release}
-
-\begin{release}{7.2}{2016-10-24}
-\item Minor bugfix release for date fields
-\end{release}
-
-\begin{release}{7.1}{2016-09-15}
-\item Minor bugfix release for legacy YEAR fields and |inpress| strings
-\item Requires |biblatex| 3.6+ and biber 2.6+
-\end{release}
-
-\begin{release}{7.0}{2016-09-14}
-\item Added \cmd{urldatacomma}
-\item Now following DGPs guidelines for some formatting in Germanic
-  locales.
-\item Requires |biblatex| 3.5+ and biber 2.6+
-\end{release}
-
-\begin{release}{6.9}{2016-05-13}
-\item Bug fixes
-\item Requires |biblatex| 3.4+ and biber 2.5+
-\end{release}
-
-\begin{release}{6.8}{2016-03-01}
-\item Bug fixes
-\item Updated to use new \cmd{DeclareNameFormat} structure for |biblatex|
-  3.3+ (which is now required)
-\end{release}
-
-\begin{release}{6.7}{2015-01-23}
-\item Bug fixes
-\end{release}
-
-\begin{release}{6.6}{2014-10-23}
-\item Bug fixes
-\end{release}
-
-\begin{release}{6.5}{2014-04-16}
-\item Bug fixes
-\item Slovenian localisation
-\end{release}
-
-\begin{release}{6.4}{2013-10-30}
-\item Fixed explicit «and others» problem
-\item Improved french localisation
-\end{release}
-
-\begin{release}{6.3}{2013-10-28}
-\item Fixed issue where |SHORTAUTHOR| was only being used for exact same citations.
-\end{release}
-
-\begin{release}{6.2}{2013-10-19}
-\item Corrected Dutch translations
-\item Fixed Norwegian lbx corruption
-\item Misc bugfixes
-\end{release}
-
-\begin{release}{6.1}{2013-07-19}
-\item Corrected APA 6.12 error and switched to uniquelist=minyear
-\item Documented way of automating some APA 6.32 requirements
-\end{release}
-
-\begin{release}{6.0}{2013-07-10}
-\item Added Swedish localisation
-\item Fixed useprefix=false issue
-\end{release}
-
-\begin{release}{5.9}{2013-05-08}
-\item Compatibility with |biblatex| 2.6--«nodate» is now part of core
-\item autocite is set to inline
-\end{release}
-
-\begin{release}{5.8}{2013-03-07}
-\item Made BOOK like INBOOK for order of online/reprint information
-\item Fixes for recursive RELATED fields
-\end{release}
-
-\begin{release}{5.7}{2012-12-28}
-\item New name code to allow full name disambiguation as per APA 6.27
-\item Fixes to IN* types
-\end{release}
-
-\begin{release}{5.6}{2012-12-19}
-\item Fixed problems with EVENTDATE format
-\end{release}
-
-\begin{release}{5.5}{2012-12-17}
-\item Fixed serial comma requirement (APA 4.03)
-\end{release}
-
-\begin{release}{5.4}{2012-11-28}
-\item Updated for |biblatex| 2.4
-\end{release}
-
-\begin{release}{5.3}{2012-11-21}
-\item Updated for some |biblatex| changes.
-\end{release}
-
-\begin{release}{5.2}{2012-09-30}
-\item Entries with no YEAR no longer fall back on other date fields
-  and use «nodate» bibstring.
-\item «nodate» bibstring no longer lowercased and supports extrayear
-\end{release}
-
-\begin{release}{5.1}{2012-08-01}
-\item Added Norwegian localisation (thanks to Håkon Malmedal)
-\item Fixed some documentation issues
-\end{release}
-
-\begin{release}{5.0}{2012-07-01}
-\item Using |biblatex| 2.0/|biber 1.0| data model facility.
-\end{release}
-
-\begin{release}{4.8}{2012-06-02}
-\item Put in proper package version strings
-\item Fixed a problem with \cmd{textcites} (thanks to Florian Sesser and
-  Cornielia Entner for reporting)
-\end{release}
-
-\begin{release}{4.7}{2012-04-19}
-\item Made |firstinits=false| possible
-\item Fixed a problem with explicit «and others» with names (thanks to
-  George Pigman)
-\end{release}
-
-\begin{release}{4.6}{2012-02-08}
-\item Reduced the Biber requirement to a warning due to bug in |biblatex| 1.7
-\item Added Italian localisation (thanks to Luca Montanelli)
-\end{release}
-
-\begin{release}{4.5}{2012-01-31}
-\item Noted in manual that |biber| is now required due to custom sorting.
-\item Added |INSTITUTION| field to |REPORT| entries
-\end{release}
-
-\begin{release}{4.4}{2012-01-25}
-\item |\maxprtauth| command is now a package option «apamaxprtauth»
-\item New package option «apabackref» controlling whether
-  backreferences and links to citations appear in the References.
-\end{release}
-
-\begin{release}{4.3}{2012-01-22}
-\item «et al» now only replaces two or more names since it's plural
-\item «in press» items now should use the |biblatex| |PUBSTATE| field
-\item Fixed «in press» hyphenation issue for disambiguation in references
-\item URLs are now by default in roman font as per APA style.
-\end{release}
-
-\begin{release}{4.2}{2011-11-12}
-\item Fixed macro name typo
-\end{release}
-
-\begin{release}{4.1}{2011-11-02}
-\item |subtitlepunct| now skips if following terminating punctuation
-\end{release}
-
-\begin{release}{4.0}{2011-10-05}
-\item Disabled «smart and» for spanish localisation as it breaks ampersands
-\end{release}
-
-\begin{release}{3.9}{2011-10-03}
-\item Fixed data format issue in localisations
-\end{release}
-
-\begin{release}{3.8}{2011-09-25}
-\item Fixed slanted/italic confusion in bibliography
-\end{release}
-
-\begin{release}{3.7}{2011-09-23}
-\item Fixed issue no dates when labelyear defined
-\end{release}
-
-\begin{release}{3.6}{2011-09-20}
-\item Fixed issue with American format long dates
-\end{release}
-
-\begin{release}{3.5}{2011-09-05}
-\item Fixed issue Editor name part order when in Author position (thanks to
-  Johann Bauer)
-\end{release}
-
-\begin{release}{3.4}{2011-09-01}
-\item Fixed issue with |\fullcite| not resetting |bbx| globals
-\end{release}
-
-\begin{release}{3.3}{2011-08-23}
-\item Spanish localisation
-\end{release}
-
-\begin{release}{3.2}{2011-08-12}
-\item Minor fix in |inbook| format
-\item Doc clean up
-\end{release}
-
-\begin{release}{3.1}{2011-07-31}
-\item Made compatible with Bib\LaTeX\ 1.6
-\end{release}
-
-\begin{release}{3.0}{2011-05-06}
-\item |maxnames| and |minnames| are now set to sensible things and actually
-  used. Biber $\geq$ 0.9.3 is now required as this implements a fix for
-  |uniquelist| in Bib\LaTeX\ which needs |maxnames| and |minnames| set to
-  real values.
-\item Fixed bug with commas before «et al» not appearing in some cases.
-\end{release}
-
-\begin{release}{2.9}{2011-05-03}
-\item APA wants no space between volume and number for articles, even though it's
-  horribly ugly\ldots
-\item Made urls not optional with Bib\LaTeX\ url toggle in |ONLINE| entrytype (thanks to Mattias Erll)
-\end{release}
-
-\begin{release}{2.8}{2011-04-23}
-\item Added a Greek localisation strings file.
-\end{release}
-
-\begin{release}{2.7}{2011-04-1}
-\item Biber is now a strongly recommended requirement due to APA name and
-  name list disambiguation requirements.
-\item Updated for Bib\LaTeX\ 1.4/Biber 0.9 with automatic list
-  disambiguation. Package now deals with all APA 6th Edition citation examples.
-\end{release}
-
-\begin{release}{2.6}{2011-03-15}
-\item Made fullcite use ampersand
-\item Added fullcitebib macro to allow fake bib citations
-\end{release}
-
-\begin{release}{2.5}{2010-11-24}
-\item Refactored hyperref to only link from years to make it
-  consistent across cite commands
-\item Added hyperref target references section for citation examples
-\item Fixed textcite multicite issue
-\end{release}
-
-\begin{release}{2.4}{2010-11-14}
-\item Fixed postnotes/hyperref for textcite
-\end{release}
-
-\begin{release}{2.3}{2010-11-04}
-\item Overhauled hyperref functionality and made more robust
-\end{release}
-
-\begin{release}{2.2}{2010-10-15}
-\item Parameterised max author/editor list (thanks to Paul Thompson)
-\item Better rudimentary regression script
-\item Completely reconfigured EPRINT/EPRINTTYPE
-\end{release}
-
-\begin{release}{2.1}{2010-10-17}
-\item New Dutch localisation (thanks to Alexander van Loon)
-\end{release}
-
-\begin{release}{2.0}{2010-09-30}
-\item Moved to new date format code internally
-\end{release}
-
-\begin{release}{1.9}{2010-09-27}
-\item Moved docs to LuaLaTeX compat
-\item Fixed german/ngerman date formats
-\item Cleaned up date format code
-\end{release}
-
-\begin{release}{1.8}{2010-08-06}
-\item Fixed seven author ellipsis bug
-\end{release}
-
-\begin{release}{1.7}{2010-08-05}
-\item Corrected dateless entry format, added examples to test doc
-\item Corrected multi delim for |\citeyear|
-\item Updated test doc for Bib\LaTeX\ 0.9b compat
-\end{release}
-
-\begin{release}{1.6}{2010-07-19}
-\item Added correct |\citeyear| definition
-\end{release}
-
-\begin{release}{1.5}{2010-07-12}
-\item Corrected |NOTE/ADDENDUM| examples
-\item Made |\nptextcite| behave more consistently like |\textcite| for multi-cites.
-\end{release}
-
-\begin{release}{1.4}{2010-07-07}
-\item Removed extra space after DOI
-\end{release}
-
-\begin{release}{1.3}{2010-07-05}
-\item Fixed Oxford comma bug
-\end{release}
-
-\begin{release}{1.2}{2010-06-18}
-\item Made style arguments more explicit in |.bbx|
-\item Fixed bad documentation due to beta Bib\LaTeX\ version.
-\item Updated docs - minimum Bib\LaTeX\ version
-\end{release}
-
-\begin{release}{1.1}{2010-05-28}
-\item Fixed |INBOOK| |citetitle| format to match |BOOK|.
-\item Fixed |extrayear| in entries with full date specifications.
-\end{release}
-
-\begin{release}{1.0}{2010-05-12}
-\item Fixed |TYPE| and |NUMBER| fields in |REPORT| entries. Now more
-  flexible.
-\item |PUBSTATE| is now valid for articles.
-\item |DOI|, if present, suppresses any |URL| field.
-\item Abstract retrieval string is now conditional on |USERB| field, not on
-  the existence of an abstract.
-\item Default strings for |PHDTHESIS| and |MASTERSTHESIS| entries corrected.
-\item |LOCATION| is now valid for thesis entries and comes after |INSTITUTION|.
-\end{release}
-
-\begin{release}{0.9}{2010-03-08}
-\item Update for APA manual 6th edition and Bib\LaTeX\ 0.9
-\end{release}
-
-\begin{release}{0.8}{2010-02-15}
-\item Fixed bug with spaces after nptextcite
-\item Updated for Bib\LaTeX\ 0.9
-\end{release}
-
-\begin{release}{0.7}{2010-01-20}
-\item Made hyperref links more consistent, using the whole citation and not
-  just the year.
-\end{release}
-
-\begin{release}{0.6}{2009-11-20}
-\item Corrected two bugs in |cite| macro which left a trailing space after
-  multiple cites and actually cited the year twice for multiple cite
-  commands in some circumstances.
-\item Corrected bug where |\textcite| would leave a stray open bracket on
-  the stack when year was suppressed within a paragraph.
-\end{release}
-
-\begin{release}{0.5}{2009-09-19}
-\item Replaced literal string with localised form in url macro.
-\item Moved localisation strings into \sty{.lbx} files.
-\item |\DeclareLanguageMapping| is now needed in preamble.
-\item Moved |\DeclareBibliographyExtras| into \sty{.lbx} files.
-\item Some support for alternative localised date formats.
-\item Fixed slant/italic font problem since the |\mkbibemph| macro had
-  changed in Bib\LaTeX\ 0.8e.
-\item Fixed |liststop| error which was preventing name lists with two
-  entries from having the comma before the ampersand.
-\end{release}
-
-\begin{release}{0.4}{2009-07-24}
-\item Fixed bug where multiple year ranges were not displayed properly.
-\item Updated to remove pre-Bib\LaTeX\ 0.8e macros error.
-\end{release}
-
-\begin{release}{0.3}{2008-12-21}
-\item Updated to use new fields (|EVENTTITLE|) and new options
-  (|usetranslator|) from Bib\LaTeX\ 0.8b.
-\end{release}
-
-\begin{release}{0.2}{2008-12-06}
-\item Added |noremoteinfo| option).
-\item Fixed bbx bug with more than 7 authors still printing names after «et al». Was
-  due to resetting maxnames to 999.
-\item Removed the customised (hacked) |apa-biblatex.cls| class from the package as
-  |apa.cls| version 1.3.4 is compatible with Bib\LaTeX\.
-\item Altered documentation about requiring the «american» babel option.
-  This is not required if you set up |\DeclareQuotePunctuation| yourself.
-\item Added minimum required version of \sty{csquotes}.
-\item Minor doc tweaks.
-\end{release}
-
-\begin{release}{0.1}{2008-12-01}
-\item Initial release
-\end{release}
-
-
 
 \end{changelog}
 \end{document}
