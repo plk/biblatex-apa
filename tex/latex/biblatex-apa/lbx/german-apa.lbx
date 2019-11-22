@@ -65,9 +65,11 @@
 \NewBibliographyString{photographs}
 \NewBibliographyString{present}
 \NewBibliographyString{painting}
+\NewBibliographyString{article}
 
 \DeclareBibliographyStrings{%
   inherit          = {german},
+  article          = {{article}{article}},%FIXME
   painting         = {{painting}{painting}},%FIXME
   present          = {{present}{present}},%FIXME
   song             = {{song}{song}},%FIXME
@@ -151,7 +153,7 @@
   \protected\def\mkbibdateapalong#1#2#3{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
-                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+                 and not test {\ifkeyword{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
       {}%
@@ -173,7 +175,7 @@
   \protected\def\mkbibdateapalongextra#1#2#3{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
-                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+                 and not test {\ifkeyword{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
       {}%
@@ -196,7 +198,7 @@
   \protected\def\mkbibdateapalongmdy#1#2#3{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
-                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+                 and not test {\ifkeyword{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
       {}%

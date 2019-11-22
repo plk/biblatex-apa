@@ -19,6 +19,7 @@
 % (APA 8.19) labelyear postfix is not emphasised or italic
 %            Dashes between labelyear and non-numeric year (or pseudo-year)
 
+\newcommand{\apashortdash}{-}
 \DeclareFieldFormat{extradate}{\iffieldnums{labelyear}{\mknumalph{#1}}{\apashortdash\mknumalph{#1}}}
 
 %

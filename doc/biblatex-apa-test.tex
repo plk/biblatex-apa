@@ -66,6 +66,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% END PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%
 
+\addglobalbib{../bibtex/bib/biblatex-apa-test-references.bib}
+
 \begin{document}
 \section{APA style examples}
 This file typesets just about all useful examples from \apa{8}--\apa{10}.
@@ -81,7 +83,7 @@ typeset examples with the commented |.bib| file.
 \tableofcontents
 \newpage
 \section{APA 8--Citations}
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-citations]
+\begin{refsection}[../bibtex/bib/biblatex-apa-test-citations.bib]
 \noindent Please see accompanying file |biblatex-apa-test-citations.bib|
 for the bibliographic entries which these examples use.
 
@@ -166,9 +168,14 @@ Citations with reprint/reissue dates:\\
 \apaex{\textcite{8.15a}}\\
 \apaex{\parencite{8.15b}}
 
+\noindent\apa{8.16}\\
+This is not a strict rule and so simply use the lower-level citation
+commands:\\
+\apaex{\citeauthor{8.11a}}
+
 \noindent\apa{8.17}\\
 Basic in-text citation styles:\\
-\begin{center}
+\begin{table}
 \begin{tabular}{p{0.33\textwidth}p{0.33\textwidth}p{0.33\textwidth}}
   \textbf{Author type} & \textbf{Parenthetical citation} & \textbf{Narrative citation}\\\\
   \hline
@@ -182,7 +189,9 @@ Basic in-text citation styles:\\
   Group author without abbreviation & \apaexs{\parencite{8.17e}} & \apaexs{\textcite{8.17e}}\\\\
   \hline
 \end{tabular}
-\end{center}
+\caption{APA Table 8.1}
+\label{tab:8.1}
+\end{table}
 
 \noindent Authors in narrative citations are separated by «and».
 However, in parenthetical cites, authors are separated by «\&»:\\
@@ -277,8 +286,9 @@ the author:\\
 \section{APA 9--General Reference List}
 
 % (APA 9.8)
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
+\noindent\apa{9.8}\\
 \apaex{\parencite{9.8:1}}\\
 \apaex{\parencite{9.8:2}}\\
 \apaex{\parencite{9.8:3}}\\
@@ -313,8 +323,8 @@ list member.
 \newpage
 
 % (APA 9.44)
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
-
+\begin{refsection}
+  
 \nocite{9.44:1a,9.44:1b,9.44:2a,9.44:2b,9.44:2c,9.44:3a,9.44:3b,9.44:4a,9.44:4b,%
         9.44:5a,9.44:5b,9.44:6a,9.44:6b,9.44:7a,9.44:7b,9.44:7c,9.44:8a,9.44:8b,9.44:8c,%
         9.44:9a,9.44:9b,9.44:10a,9.44:10b,9.44:10c,9.44:11a,9.44:11b,9.44:12a,9.44:12b}
@@ -327,7 +337,7 @@ done via |SORTNAME|.
 \end{refsection}
 \newpage
 % (APA 9.46)
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
   
 \nocite{9.46:1,9.46:2,9.46:3,9.46:4,9.46:5,9.46:6,9.46:7,9.46:8,9.46:9,9.46:10,%
         9.46:11,9.46:12,9.46:13}
@@ -337,7 +347,7 @@ done via |SORTNAME|.
 \end{refsection}
 \newpage
 % (APA 9.47)
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \nocite{9.47:1,9.47:2,9.47:3,9.47:4,9.47:5,9.47:6,9.47:7,9.47:8,9.47:9,9.47:10,%
         9.47:11,9.47:12,9.47:13}
@@ -346,12 +356,12 @@ done via |SORTNAME|.
 Same Date}]
 
 \noindent\textbf{Note:} Examples added for no dates, «in press» requirements and
-also ignoring of «The», «An» and «A» in titles.
+also ignoring of «The», «An» and «A» in titles for sorting purposes.
 
 \end{refsection}
 \newpage
 % (APA 9.48)
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \nocite{9.48:1,9.48:2}
 
@@ -361,7 +371,7 @@ also ignoring of «The», «An» and «A» in titles.
 \end{refsection}
 \newpage
 % (APA 9.49)
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \nocite{9.49:1,9.49:2,9.49:3,9.49:4,9.49:5,9.49:6}
 
@@ -374,7 +384,7 @@ expansion/series sorting using |SORTTITLE|.
 \end{refsection}
 \newpage
 % (APA 9.51)
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \nocite{9.51:1,9.51:2}
 
@@ -383,7 +393,7 @@ expansion/series sorting using |SORTTITLE|.
 \end{refsection}
 \newpage
 % (APA 9.52)
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \nocite{9.52:1,9.52:2,9.52:3,9.52:4}
 
@@ -397,7 +407,7 @@ indicate works included in a Meta-Analysis.
 \section{APA 10--References Examples}
 \subsection{APA 10.1--Periodicals}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.1 Example 1}\\
 \apaex{\parencite{10.1:1}}\\
@@ -481,7 +491,7 @@ indicate works included in a Meta-Analysis.
 \newpage
 \subsection{APA 10.2--Books and Reference Works}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.2 Example 20}\\
 \apaex{\parencite{10.2:20}}\\
@@ -575,7 +585,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.3--Edited Book Chapters and Entries in Reference Works}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.3 Example 38}\\
 \apaex{\parencite{10.3:38}}\\
@@ -631,7 +641,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.4--Reports and Gray Literature}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.4 Example 50}\\
 \apaex{\parencite{10.4:50a,10.4:50b,10.4:50c}}\\
@@ -678,7 +688,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.5--Conference Sessions and Presentations}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.5 Example 60}\\
 \apaex{\parencite{10.5:60}}\\
@@ -701,7 +711,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.6--Dissertations and Theses}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.6 Example 64}\\
 \apaex{\parencite{10.6:64}}\\
@@ -720,7 +730,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.7--Reviews}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.7 Example 67}\\
 \apaex{\parencite{10.7:67}}\\
@@ -739,7 +749,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.8--Unpublished Works and Informally Published Works}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.8 Example 70}\\
 \apaex{\parencite{10.8:70}}\\
@@ -766,7 +776,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.9--Data Sets}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.9 Example 75}\\
 \apaex{\parencite{10.9:75a,10.9:75b,10.9:75c}}\\
@@ -781,7 +791,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.10--Computer Software, Mobile Apps, Apparatuses, and Equipment}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.10 Example 77}\\
 \apaex{\parencite{10.10:77}}\\
@@ -804,7 +814,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.11--Tests, Scales, and Inventories}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.11 Example 81}\\
 \apaex{\parencite{10.11:81}}\\
@@ -823,7 +833,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.12--Audiovisual Works}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.12 Example 84}\\
 \apaex{\parencite{10.12:84a,10.12:84b,10.12:84c}}\\
@@ -858,7 +868,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.13--Audio Works}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.13 Example 91}\\
 \apaex{\parencite{10.13:91a,10.13:91b}}\\
@@ -890,7 +900,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.14--Visual Works}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.14 Example 97}\\
 \apaex{\parencite{10.14:97a,10.14:97b}}\\
@@ -921,7 +931,7 @@ the help of lower-level commands:\\\\
 \newpage
 \subsection{APA 10.15--Social Media}
 
-\begin{refsection}[../bibtex/bib/biblatex-apa-test-references]
+\begin{refsection}
 
 \noindent\apa{10.15 Example 103}\\
 \apaex{\parencite{10.15:103a,10.15:103b,10.15:103c}}\\
@@ -951,8 +961,34 @@ the help of lower-level commands:\\\\
 \apaex{\parencite{10.15:109}}\\
 \apaex{\textcite{10.15:109}}
 
-
 \printbibliography[title={APA 10.15 References}]
+\end{refsection}
+\newpage
+\subsection{APA 10.16--Webpages and Websites}
+
+\begin{refsection}
+
+\noindent\apa{10.16 Example 110}\\
+\apaex{\parencite{10.16:110a,10.16:110b}}\\
+\apaex{\textcite{10.16:110a} and \textcite{10.16:110b}}
+
+\noindent\apa{10.16 Example 111}\\
+\apaex{\parencite{10.16:111a,10.16:111b}}\\
+\apaex{\textcite{10.16:111a} and \textcite{10.16:111b}}
+
+\noindent\apa{10.16 Example 112}\\
+\apaex{\parencite{10.16:112}}\\
+\apaex{\textcite{10.16:112}}
+
+\noindent\apa{10.16 Example 113}\\
+\apaex{\parencite{10.16:113a,10.16:113b}}\\
+\apaex{\textcite{10.16:113a} and \textcite{10.16:113b}}
+
+\noindent\apa{10.16 Example 114}\\
+\apaex{\parencite{10.16:114}}\\
+\apaex{\textcite{10.16:114}}
+
+\printbibliography[title={APA 10.16 References}]
 \end{refsection}
 
 \end{document}

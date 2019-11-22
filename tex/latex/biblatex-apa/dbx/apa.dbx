@@ -16,7 +16,7 @@
 \RequireBiber[3]
 
 \DeclareDatamodelEntrytypes{
-  letters}
+  nameonly}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
   groupauthor,
