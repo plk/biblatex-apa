@@ -325,7 +325,8 @@
 \DeclareDelimFormat[nptextcite]{finalnamedelim}
   {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
 
-\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\multicitedelim}
+\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\setunit{\multicitedelim}}
+
 \DeclareCiteCommand{\nptextcite}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
@@ -462,7 +463,16 @@
   {}
   {\usebibmacro{postnote}}
 
-\DeclareMultiCiteCommand{\textcites}{\textcite}{\compcitedelim}
+\DeclareMultiCiteCommand{\textcites}{\textcite}{\setunit{\compcitedelim}}
+\DeclareMultiCiteCommand{\cites}{\cite}{\setunit{\multicitedelim}}
+\DeclareMultiCiteCommand{\parencites}[\mkbibparens]{\parencite}
+  {\setunit{\multicitedelim}}
+\DeclareMultiCiteCommand{\footcites}[\mkbibfootnote]{\footcite}
+  {\setunit{\multicitedelim}}
+\DeclareMultiCiteCommand{\footcitetexts}[\mkbibfootnotetext]
+  {\footcitetext}{\setunit{\multicitedelim}}
+\DeclareMultiCiteCommand{\smartcites}[\iffootnote\mkbibparens\mkbibfootnote]
+{\smartcite}{\setunit{\multicitedelim}}
 
 \DeclareCiteCommand{\textcite}
   {\usebibmacro{cite:init}%

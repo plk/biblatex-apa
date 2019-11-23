@@ -262,7 +262,7 @@
 \ExecuteBibliographyOptions{%
                             abbreviate=true,%
                             autocite=inline,%
-                            backref=true,%
+                            backref=false,%
                             citetracker=true,%
                             date=apalong,%
                             dateabbrev=false,%
@@ -316,19 +316,6 @@
    }
  }
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% It is not APA standard to have backrefs in the bib
-% Some users might like it though.
-
-\newbool{apa:backref}
-\DeclareBibliographyOption{apabackref}{%
-  \ifstrequal{#1}{true}
-    {\global\booltrue{apa:backref}}
-    {\global\boolfalse{apa:backref}}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Flag to say whether the "in" has
@@ -1326,7 +1313,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1351,7 +1338,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1374,7 +1361,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1403,7 +1390,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1424,7 +1411,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1453,7 +1440,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1482,7 +1469,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1518,7 +1505,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1547,7 +1534,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1568,7 +1555,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1590,7 +1577,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1613,7 +1600,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{periodical}{%
@@ -1641,7 +1628,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1674,7 +1661,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1699,7 +1686,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1721,7 +1708,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1746,7 +1733,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1773,7 +1760,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1796,7 +1783,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{apa:pageref}%
+  \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
@@ -1873,15 +1860,6 @@
   \printlist{location}%
   \setunit*{\addcomma\space}%
   \printlist{publisher}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Wrapper for backrefs
-
-\newbibmacro{apa:pageref}{%
-  \ifbool{apa:backref}{\usebibmacro{pageref}}{}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
