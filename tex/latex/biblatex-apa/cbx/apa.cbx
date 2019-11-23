@@ -155,7 +155,7 @@
    {\setunit{\compcitedelim}%
     \usebibmacro{cite:plabelyear+extradate}}%
 % Single cite
-   {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
+   {\ifnameundef{labelname}
 % No author/editor
      {\usebibmacro{cite:noname}%
        \savefield{fullhash}{\cbx@lasthash}}
@@ -186,7 +186,7 @@
    {\setunit{\compcitedelim}%
     \usebibmacro{cite:plabelyear+extradate}}%
 % Single cite
-   {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
+   {\ifnameundef{labelname}
 % No author/editor
      {\usebibmacro{cite:noname}%
        \setunit{\printdelim{nameyeardelim}}%
@@ -217,8 +217,8 @@
       {\bibcloseparen\global\boolfalse{cbx:parens}}
       {}%
       \setunit{\compcitedelim}%
-      \ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
-  % No author/editor or patent
+      \ifnameundef{labelname}
+  % No author/editor
        {\iffieldundef{shorthand}%
     % Cite using title
          {\usebibmacro{cite:noname}%
@@ -296,7 +296,6 @@
 \DeclareFieldFormat[manual]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[report]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[periodical]{citetitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[patent]{citetitle}{#1}
 
 \newbibmacro*{cite:noname}{%
     \printfield[citetitle]{labeltitle}}

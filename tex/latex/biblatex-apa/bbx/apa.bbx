@@ -360,6 +360,7 @@
 \DeclareFieldFormat[proceedings]{title}{\mkbibemph{#1}\isdot}
 \DeclareFieldFormat[periodical]{title}{#1\isdot}
 \DeclareFieldFormat[thesis]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[patent]{title}{\mkbibemph{#1}}
 \DeclareFieldFormat[unpublished]{title}{\mkbibemph{#1}}
 \DeclareFieldFormat[image]{title}{\mkbibemph{#1}}
 \DeclareFieldFormat[misc]{title}{#1\isdot}
@@ -677,6 +678,7 @@
                   \ifentrytype{dataset}\OR%
                   \ifentrytype{software}\OR%
                   \ifentrytype{audio}\OR%
+                  \ifentrytype{patent}\OR%
                   \ifentrytype{image}}{\usebibmacro{addinfo3}}{}%
       \setunit*{\addcomma\addspace}%
       \ifentrytype{inbook}{\printfield{pages}}{}%
@@ -1590,6 +1592,28 @@
     {}%
   \usebibmacro{apa:pageref}%
   \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{patent}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{apa:pageref}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{periodical}{%
