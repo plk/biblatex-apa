@@ -1,5 +1,5 @@
-\ProvidesFile{portuguese-apa.lbx}[2019/09/07\space v8.0\space APA biblatex localisation]
-\InheritBibliographyExtras{portuguese}
+\ProvidesFile{swedish-apa6.lbx}[2019/09/07\space v8.0\space APA 6th ed. biblatex localisation]
+\InheritBibliographyExtras{swedish}
 
 % (APA 6.22) The example abbreviations
 
@@ -16,6 +16,7 @@
 \NewBibliographyString{retrieved}
 \NewBibliographyString{available}
 \NewBibliographyString{from}
+\NewBibliographyString{nodate}
 \NewBibliographyString{archivedat}
 \NewBibliographyString{origyear}
 \NewBibliographyString{reviewof}
@@ -26,37 +27,41 @@
 \NewBibliographyString{with}
 
 \DeclareBibliographyStrings{%
-  inherit          = {portuguese},
-  revisededition   = {{Edi\c{c}\~ao\space Revista}{ed\adddotspace rev\adddot}},
-  on               = {{em}{em}},
-  retrieved        = {{obtido}{obtido}},
-  available        = {{dispon\'ivel}{disp.}},
-  from             = {{de}{de}},
-  archivedat       = {{arquivado\space em}{arquivado\space em}},
-  reviewof         = {{Revis\~ao\space de}{revis\~ao\space de}},
-  producer         = {{produtor}{produtor}},
-  execproducer     = {{produtor executivo}{produtor executivo}},
-  director         = {{diretor}{diretor}},
-  writer           = {{escritor}{escritor}},
-  with             = {{com}{com}},
-  origyear         = {{trabalho\space original\space publicado\space em}{trabalho\space original\space publicado\space em}},
-  typechair        = {{Coordenador}{Coord\adddot}},
-  typechairs       = {{Coordenadores}{Coords\adddot}},
-  typevolume       = {{Editor\space do\space Volume}{Ed\adddot\space Vol\adddot}},
-  typevolumes      = {{Editores\space do\space Volume}{Eds\adddot\space Vol\adddot}},
-  typeseries       = {{Editor\space da\space S\'erie}{Ed\adddot\space S\'erie\adddot}},
-  typeseriess      = {{Editores\space da\space S\'erie}{Eds\adddot\space S\'erie\adddot}},
-  typevolseries    = {{Editor\space da\space S\'erie\space e\space do\space Volume}{Ed\adddot\space Vol\space\&\space S\'erie}},
-  typevolseriess   = {{Editores\space da\space S\'erie\space e\space do\space Volume}{Eds\adddot\space Vol\space\&\space S\'erie}},
+  inherit          = {swedish},
+  revisededition   = {{reviderad\space utg{\aa}va}{rev\adddotspace utg\adddot}},
+  page             = {{sida}{{}s\adddot}},
+  pages            = {{sidor}{{}s\adddot}},
+  on               = {{p{\aa}}{p{\aa}}},
+  retrieved        = {{h\"amtad}{h\"amtad}},
+  available        = {{tillg\"anglig}{tillg\"anglig}},
+  from             = {{fr{\aa}n}{fr{\aa}n}},
+  archivedat       = {{arkiverat\space vid}{arkiverat\space vid}},
+  nodate           = {{utan\space {\aa}r}{u\adddot~{\aa}}},
+  reviewof         = {{granskning\space av}{granskning\space av}},
+  producer         = {{producent}{producent}},
+  execproducer     = {{exekutiv\space producent}{exekutiv\space producent}},
+  director         = {{regiss\"or}{regiss\"or}},
+  editor           = {{redakt\"or}{red\adddot}},
+  editors          = {{redakt\"or}{red\adddot}},
+  writer           = {{manus}{manus}},
+  with             = {{med}{med}},
+  paragraph        = {{\P}{\P}},
+  paragraphs       = {{\P\P}{\P\P}},
+  mathesis         = {{examensuppsats}{examensuppsats}},
+  phdthesis        = {{doktorsavhandling}{doktorsavhandling}},
+  origyear         = {{originalarbete\space publicerat}{originalarbete\space publicerat}},
+  typechair        = {{ordf\"orande}{ordf\"orande}},
+  typechairs       = {{ordf\"oranden}{ordf\"oranden}},
+  typevolume       = {{redakt\"or}{red\adddot}},
+  typevolumes      = {{redakt\"orer}{red\adddot}},
+  typeseries       = {{redakt\"or}{red\adddot}},
+  typeseriess      = {{redakt\"orer}{red\adddot}},
+  typevolseries    = {{redakt\"or}{red\adddot}},
+  typevolseriess   = {{redakt\"orer}{red\adddot}},
+  annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
+  beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
 }
 
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 7.10 Example 68) Drop end* when they are the same as *
-
-% You must use \printdate to get here otherwise it will be ignored
 
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
@@ -70,18 +75,20 @@
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
-    \iffieldundef{#2}%
-      {}%
-      {\iffieldundef{#1}%
-        {}%
-        {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#3}%
       {}%
-      {\iffieldundef{#2}%
-        {}%
-        {\addspace}%
-       \stripzeros{\thefield{#3}}}}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
     % As per 6.28, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -92,18 +99,20 @@
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
-    \iffieldundef{#2}%
-      {}%
-      {\iffieldundef{#1}%
-        {}%
-        {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#3}%
       {}%
-      {\iffieldundef{#2}%
-        {}%
-        {\addspace}%
-       \stripzeros{\thefield{#3}}}}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#3}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#2}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
     % As per 6.28, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -122,13 +131,9 @@
        \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#1}%
       {}%
-      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#3}}%
+      {\iffieldundef{#2}%
         {}%
         {\addspace}%
        \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \endinput

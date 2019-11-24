@@ -1,9 +1,9 @@
-\ProvidesFile{ngerman-apa.lbx}[2019/09/07\space v8.0\space APA biblatex localisation]
-\InheritBibliographyExtras{ngerman}
+\ProvidesFile{nswissgerman-apa6.lbx}[2019/09/07\space v8.0\space APA 6th ed. biblatex localisation]
+\InheritBibliographyExtras{nswissgerman}
 
 % (APA 6.22) The example abbreviations
 
-% Following DGPs guidlines for German/Austrian
+% Following DGPs guidlines for German/Austrian/Swiss German
 % http://homepage.univie.ac.at/harald.werneck/Richtlinien_zur_Manuskriptgestaltung.pdf
 
 \NewBibliographyString{revisededition}
@@ -29,8 +29,7 @@
 \NewBibliographyString{with}
 
 \DeclareBibliographyStrings{%
-  inherit          = {ngerman},
-  abstract         = {{Abstract}{Abstract}},
+  inherit          = {nswissgerman},
   andothers        = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
   revisededition   = {{\"uberarbeitete\space Auf\noligature lage}{\"uberarb\adddotspace Aufl\adddot}},
   producer         = {{Produzent}{Produzent}},
@@ -40,9 +39,9 @@
   with             = {{mit}{mit}},
   page             = {{Seite}{{}S\adddot}},
   pages            = {{Seiten}{{}S\adddot}},
-  on               = {{auf}{auf}},
-  retrieved        = {{verf\"ugbar}{verf\"ugbar}},
-  available        = {{Erh\"altlich}{Erh\"altlich}},
+  on               = {{am}{am}},
+  retrieved        = {{Zugriff\space am}{Zugriff\space am}},
+  available        = {{erh\"altlich}{erh\"altlich}},
   from             = {{unter}{unter}},
   archivedat       = {{archiviert\space unter}{archiviert\space unter}},
   reviewof         = {{Rezension\space des}{Rezension\space des}},
@@ -59,7 +58,6 @@
   typevolseriess   = {{Reihen- und\space Bandherausgeber}{Reihen-\space\& Bandhrsg\adddot}},
   annodomini       = {{A\adddot\addabthinspace D\adddot}{A\adddot\addabthinspace D\adddot}},
   beforechrist     = {{B\adddot\addabthinspace C\adddot}{B\adddot\addabthinspace C\adddot}},
-  nodate           = {{nicht\space datiert}{{}n\adddot\addabthinspace d\adddot}}
 }
 
 
@@ -208,6 +206,7 @@
   \restorecommand\mkdaterangeapalong
   \restorecommand\mkdaterangeapalongextra
 }
+
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

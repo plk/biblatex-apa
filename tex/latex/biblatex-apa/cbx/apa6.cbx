@@ -12,7 +12,7 @@
 %% 
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.cbx}[2019/09/07\space v8.0\space APA biblatex citation style]
+\ProvidesFile{apa6.cbx}[2019/09/07\space v8.0\space APA 6th ed. biblatex citation style]
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -72,7 +72,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.11) Suffices are not shown in citations
 % (APA 6.12) 3-5 authors have "et al." after first cite
-% (Blog http://blog.apastyle.org/apastyle/2014/01/when-to-use-author-initials-for-text-citations.html) Initials only for primary author and only when not unique across all *primary* authors
+% (Blog https://blog.apastyle.org/apastyle/2014/01/when-to-use-author-initials-for-text-citations.html) Initials only for primary author and only when not unique across all *primary* authors
 
 \newbibmacro*{labelname:doname}[8]{%
   \ifboolexpr{test {\ifnumcomp{\value{listcount}}{>}{1}}

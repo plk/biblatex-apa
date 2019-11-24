@@ -1,5 +1,5 @@
-\ProvidesFile{norsk-apa.lbx}[2019/09/07\space v8.0\space APA biblatex localisation]
-\InheritBibliographyExtras{norsk}
+\ProvidesFile{dutch-apa6.lbx}[2019/09/07\space v8.0\space APA 6th ed. biblatex localisation]
+\InheritBibliographyExtras{dutch}
 
 % (APA 6.22) The example abbreviations
 
@@ -26,34 +26,34 @@
 \NewBibliographyString{with}
 
 \DeclareBibliographyStrings{%
-  inherit          = {norsk},
-  revisededition   = {{revidert\space utgave}{rev\adddotspace utg\adddot}},
-  page             = {{side}{{}s\adddot}},
-  pages            = {{sider}{{}s\adddot}},
-  on               = {{p{\aa}}{p{\aa}}},
-  retrieved        = {{hentet}{hentet}},
-  available        = {{tilgjengelig}{tilgjengelig}},
-  from             = {{fra}{fra}},
-  archivedat       = {{arkivert\space ved}{arkivert\space ved}},
-  reviewof         = {{anmeldelse\space av}{anmeldelse\space av}},
-  producer         = {{produsent}{produsent}},
-  execproducer     = {{ut{\o}vende produsent}{ut{\o}vende produsent}},
-  director         = {{regiss{\o}r}{regiss{\o}r}},
-  writer           = {{manus}{manus}},
-  with             = {{med}{med}},
-  paragraph        = {{\P}{\P}},
-  paragraphs       = {{\P\P}{\P\P}},
-  mathesis         = {{Masteroppgave}{Masteroppgave}},
-  phdthesis        = {{Doktoravhandling}{Doktoravhandling}},
-  origyear         = {{opprinnelig\space publisert}{opprinnelig\space publisert}},
-  typechair        = {{ordstyrer}{ordstyrer}},
-  typechairs       = {{ordstyrere}{ordstyrere}},
-  typevolume       = {{bindredakt{\o}r}{bindred\adddot}},
-  typevolumes      = {{bindredakt{\o}rer}{bindred\adddot}},
-  typeseries       = {{serieredakt{\o}r}{seriered\adddot}},
-  typeseriess      = {{serieredakt{\o}rer}{seriered\adddot}},
-  typevolseries    = {{serie- og bindredakt{\o}r}{serie- og bindred\adddot}},
-  typevolseriess   = {{serie- og bindredakt{\o}rer}{serie- og bindred\adddot}},
+  inherit          = {dutch},
+  revisededition   = {{Herziene\space editie}{herz\adddotspace ed\adddot}},
+  page             = {{Pagina}{{}p\adddot}},
+  pages            = {{Pagina's}{{}pp\adddot}},
+  on               = {{op}{op}},
+  retrieved        = {{verkregen}{verkregen}},
+  available        = {{beschikbaar}{beschikbaar}},
+  from             = {{van}{van}},
+  archivedat       = {{gearchiveerd\space onder}{gearchiveerd\space onder}},
+  reviewof         = {{bespreking\space van}{bespreking\space van}},
+  producer         = {{producent}{producent}},
+  execproducer     = {{uitvoerend producent}{uitvoerend producent}},
+  director         = {{regisseur}{regisseur}},
+  writer           = {{schrijver}{schrijver}},
+  with             = {{met}{met}},% FIXME: check
+  paragraph        = {{par\adddot}{par\adddot}},
+  paragraphs       = {{par\adddot}{par\adddot}},
+  mathesis         = {{masterscriptie}{masterscriptie}},
+  phdthesis        = {{proefschrift}{proefschrift}},
+  origyear         = {{origineel\space werk\space gepubliceerd}{origineel\space werk\space gepubliceerd}},
+  typechair        = {{hoofd}{hoofd}},
+  typechairs       = {{hoofden}{hoofden}},
+  typevolume       = {{Deelredacteur}{Deelred\adddot}},
+  typevolumes      = {{Deelredacteuren}{Deelred\adddot}},
+  typeseries       = {{Reeksredacteur}{Reeksred\adddot}},
+  typeseriess      = {{Reeksredacteuren}{Reeksred\adddot}},
+  typevolseries    = {{Reeks-\space en\space deelredacteur}{Reeks-\space\& deelred\adddot}},
+  typevolseriess   = {{Reeks-\space en\space deelredacteuren}{Reeks-\space\& deelred\adddot}},
   annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
   beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
 }
@@ -78,20 +78,18 @@
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
-    \iffieldundef{#3}%
-      {}%
-      {\iffieldundef{#1}%
-        {}
-        {\addcomma\addspace}%
-       \stripzeros{\thefield{#3}}}%
     \iffieldundef{#2}%
       {}%
-      {\iffieldundef{#3}
-        {\iffieldundef{#1}
-          {}
-          {\addspace}}%
-        {\adddot\addspace}%
-       \mkbibmonth{\thefield{#2}}}}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3{%
     % As per 6.28, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -102,20 +100,18 @@
     \iffieldundef{#1}%
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
-    \iffieldundef{#3}%
-      {}%
-      {\iffieldundef{#1}%
-        {}
-        {\addcomma\addspace}%
-       \stripzeros{\thefield{#3}}}%
     \iffieldundef{#2}%
       {}%
-      {\iffieldundef{#3}
-        {\iffieldundef{#1}
-          {}
-          {\addspace}}%
-        {\adddot\addspace}%
-       \mkbibmonth{\thefield{#2}}}}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
     % As per 6.28, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -130,11 +126,11 @@
       {}%
       {\iffieldundef{#3}%
         {}%
-        {\adddot\addspace}%
+        {\addspace}%
        \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#1}%
       {}%
-      {\iffieldundef{#2}%
+      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#3}}%
         {}%
         {\addspace}%
        \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}

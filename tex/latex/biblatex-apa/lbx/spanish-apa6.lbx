@@ -1,5 +1,5 @@
-\ProvidesFile{galician-apa.lbx}[2019/09/07\space v8.0\space APA biblatex localisation]
-\InheritBibliographyExtras{galician}
+\ProvidesFile{spanish-apa6.lbx}[2019/09/07\space v8.0\space APA 6th ed. biblatex localisation]
+\InheritBibliographyExtras{spanish}
 
 \setcounter{smartand}{0} % Turn off "smart and" or ampersands will all be replaced
 
@@ -28,57 +28,56 @@
 \NewBibliographyString{with}
 
 \DeclareBibliographyStrings{%
-  inherit          = {galician},
-  inpress          = {{no prelo}{no prelo}},% remove when biblatex has it
-  january          = {{xaneiro}{xaneiro}},
-  february         = {{febreiro}{febreiro}},
+  inherit          = {spanish},
+  inpress          = {{en prensa}{en prensa}},% remove when biblatex has it
+  january          = {{enero}{enero}},
+  february         = {{febrero}{febrero}},
   march            = {{marzo}{marzo}},
   april            = {{abril}{abril}},
-  may              = {{maio}{maio}},
-  june             = {{xu\~no}{xu\~no}},
-  july             = {{xullo}{xullo}},
+  may              = {{mayo}{mayo}},
+  june             = {{junio}{junio}},
+  july             = {{julio}{julio}},
   august           = {{agosto}{agosto}},
-  september        = {{setembro}{setembro}},
-  october          = {{outubro}{outubro}},
-  november         = {{novembro}{novembro}},
-  december         = {{decembro}{decembro}},
-  nodate           = {{s\adddot d\adddot}{s\adddot d\adddot}},
-  mathesis         = {{tese\addabbrvspace de\addabbrvspace mestrado}{tese\addabbrvspace de\addabbrvspace mestrado}},
-  phdthesis        = {{tese\addabbrvspace doutoral}{tese\addabbrvspace doutoral}},
-  revisededition   = {{edici\'on\space revisada}{edici\'on\space revisada}},
-  producer         = {{produtor}{produtor}},
-  execproducer     = {{produtor executivo}{produtor executivo}},
+  september        = {{septiembre}{septiembre}},
+  october          = {{octubre}{octubre}},
+  november         = {{noviembre}{noviembre}},
+  december         = {{diciembre}{diciembre}},
+  nodate           = {{s\adddot f\adddot}{s\adddot f\adddot}},
+  mathesis         = {{Tesis\addabbrvspace de\addabbrvspace maestr\'ia}{Tesis\addabbrvspace de\addabbrvspace maestr\'ia}},
+  phdthesis        = {{Tesis\addabbrvspace doctoral}{Tesis\addabbrvspace doctoral}},
+  revisededition   = {{Edici\'on\space revisada}{Edici\'on\space revisada}},
+  producer         = {{productor}{productor}},
+  execproducer     = {{productor ejecutivo}{productor ejecutivo}},
   director         = {{director}{director}},
   writer           = {{escritor}{escritor}},
   with             = {{con}{con}},
-  page             = {{p\'axina}{{}p\adddot}},
-  pages            = {{p\'axinas}{{}pp\adddot}},
-  on               = {{o}{o}},
-  retrieved        = {{obtido}{obtido}},
-  available        = {{dispo\~nible}{dispo\~nible}},
+  page             = {{P\'agina}{{}p\adddot}},
+  pages            = {{P\'aginas}{{}pp\adddot}},
+  on               = {{el}{el}},
+  retrieved        = {{Recuperado}{Recuperado}},
+  available        = {{disponible}{disponible}},
   from             = {{desde}{desde}},
-  archivedat       = {{arquivado en}{arquivado en}},
+  archivedat       = {{archivado en}{archivado en}},
   reviewof         = {{revisi\'on\space de}{revisi\'on\space de}},
   paragraph        = {{\P}{\P}},
   paragraphs       = {{\P\P}{\P\P}},
-  origyear         = {{data\space orixinal\space de\space publicaci\'on}{data\space orixinal\space de\space publicaci\'on}},
-  typechair        = {{coordinador}{coord\adddot}},
-  typechairs       = {{coordinadores}{coords\adddot}},
-  typevolume       = {{editor\space do\space volume}{ed\adddotspace vol\adddot}},
-  typevolumes      = {{editores\space do\space volume}{eds\adddotspace vol\adddot}},
-  typeseries       = {{editor\space da\space serie}{ed\adddotspace ser\adddot}},
-  typeseriess      = {{editores\space da\space serie}{eds\adddotspace ser\adddot}},
-  typevolseries    = {{editor\space da\space serie\space e\space do\space volume}{ed\adddotspace vol\space\&\space ser\adddot}},
-  typevolseriess   = {{editores\space da\space serie\space e\space do\space volume}{eds\adddotspace vol\space\&\space ser\adddot}},
-  annodomini       = {{d\adddot\space C\adddot}{d\adddot\space C\adddot}},
-  beforechrist     = {{a\adddot\space C\adddot}{a\adddot\space C\adddot}},
+  origyear         = {{Fecha\space inicial\space de\space publicaci\'on}{Fecha\space inicial\space de\space publicaci\'on}},
+  typechair        = {{Coordinador}{Coord\adddot}},
+  typechairs       = {{Coordinadores}{Coords\adddot}},
+  typevolume       = {{Editor\space del\space volumen}{Ed\adddotspace vol\adddot}},
+  typevolumes      = {{Editores\space del\space volumen}{Eds\adddotspace vol\adddot}},
+  typeseries       = {{Editor\space de\space la\space serie}{Ed\adddotspace ser\adddot}},
+  typeseriess      = {{Editores\space de\space la\space serie}{Eds\adddotspace ser\adddot}},
+  typevolseries    = {{Editor\space de\space la\space serie\space y\space del\space volumen}{Ed\adddotspace vol\space\&\space ser\adddot}},
+  typevolseriess   = {{Editores\space de\space la\space serie\space y\space del\space volumen}{Eds\adddotspace vol\space\&\space ser\adddot}},
+  annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
+  beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.10 Example 68) Drop end* when they are the same as *
 
 % You must use \printdate to get here otherwise it will be ignored
-
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
   \protected\def\mkbibdateapalong#1#2#3{%
