@@ -362,10 +362,11 @@
 \DeclareFieldFormat[misc]{title}{#1\isdot}
 \DeclareFieldFormat[audio]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}\isdot}{#1}}
 \DeclareFieldFormat[video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}\isdot}{#1}}
-\DeclareFieldFormat{legislation}{#1\isdot}
+\DeclareFieldFormat[legislation]{title}{#1\isdot}
 
 % TITLEADDON
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
+\DeclareFieldFormat[legislation]{titleaddon}{#1}
 
 % MAINTITLEADDON
 \DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
@@ -1312,15 +1313,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 11.4) Court cases
 
-\newtoggle{apa:legaldate}
+\newtoggle{apa:courtdate}
 
 \DeclareListFormat{citation}{%
-  \global\toggletrue{apa:legaldate}%
+  \global\toggletrue{apa:courtdate}%
   \hasitemannotation[\currentlist][citeorg]%
     {#1\addspace\mkbibparens{\getitemannotation[\currentlist][citeorg]%
      \hasitemannotation[\currentlist][citedate]
        {\addspace\getitemannotation[\currentlist][citedate]%
-         \global\togglefalse{apa:legaldate}} % disable normal date printing if it's in the citation info
+         \global\togglefalse{apa:courtdate}} % disable normal date printing if it's in the citation info
        {}}}
     {\ifitemannotation[\currentlist][citeinfo]{appeal}
        {\mkbibemph{#1}}
@@ -1329,9 +1330,9 @@
     {\addcomma\addspace}
     {}}
  
-\DeclareFieldFormat{legaldate}{%
-% disable normal date printing if it's in the citation info
-  \iftoggle{apa:legaldate}
+\DeclareFieldFormat{courtdate}{%
+  % disable normal date printing if it's in the citation info
+  \iftoggle{apa:courtdate}
     {\iflistundef{organization}
       {\printtext{\mkbibparens{#1}}}
       {\printtext{\mkbibparens{%
@@ -1340,8 +1341,20 @@
 
 % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 11.5) Statutes
+
+\newbibmacro*{statdate}{%
+  \iffieldundef{origyear}
+    {\printtext[parens]{\printlabeldate}}
+    {\printtext[parens]{\printorigdate%
+                        \addspace\&\addspace rev\adddot\addspace\printlabeldate}}}
+  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % (APA 10.x) General entrytype drivers
 
 % Custom driver to make a cleaner example for 9.44
@@ -1586,7 +1599,7 @@
   \setunit{\addcomma\addspace}\newblock
   \printlist{citation}%
   \setunit{\addspace}\newblock
-  \printtext[legaldate]{\printlabeldate}
+  \printtext[courtdate]{\printlabeldate}%
   \newunit\newblock
   \usebibmacro{doi+url}%
   \usebibmacro{pageref}%
@@ -1596,11 +1609,13 @@
 \DeclareBibliographyDriver{legislation}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{title}%
+  \printfield{title}%
+  \setunit{\addspace}%
+  \printfield{titleaddon}%
   \setunit{\addcomma\addspace}\newblock
   \printlist{location}%
   \setunit{\addspace}\newblock
-  \printtext[legaldate]{\printlabeldate}
+  \usebibmacro{statdate}%
   \newunit\newblock
   \usebibmacro{doi+url}%
   \usebibmacro{pageref}%

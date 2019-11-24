@@ -289,7 +289,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.14) Fall back to title for citations without authors
 
-\DeclareFieldFormat{citetitle}{\mkbibquote{#1}}
+\DeclareFieldFormat{citetitle}{\ifentrytype{legislation}{#1}{\mkbibquote{#1}}}
 \DeclareFieldFormat[online]{citetitle}{\mkbibquote{#1}}
 \DeclareFieldFormat[inbook]{citetitle}{\mkbibquote{#1}}
 \DeclareFieldFormat[book]{citetitle}{\mkbibemph{#1}}

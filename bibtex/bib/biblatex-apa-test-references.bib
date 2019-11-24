@@ -2437,6 +2437,8 @@
 }
 
 % (APA 11.4 Example 3)
+% court/date which applies to the entire CITATION list can be given in the
+% ORGANIZATION and DATE fields
 @JURISDICTION{11.4:3,
   AUTHOR        = {{Daubert v. Merrell Dow Pharmaceuticals, Inc.}},
   CITATION      = {951 F.2d 1128},
@@ -2455,6 +2457,11 @@
 }
 
 % (APA 11.4 Example 5)
+% For courts and year attached to specific elements of the citation list,
+% don't use ORGANIZATION/DATE, use literal citeorg/citedate annotations
+% use the citeinfo annotation with the special annotation value "appeal" for
+% any affirmed/repealed status in the citatation list
+% DATA/ORIGDATE are also included to make citations work
 @JURISDICTION{11.4:5,
   AUTHOR               = {{Durflinger v. Artiles}},
   CITATION             = {563 F.Supp. 332 and aff'd and 727 F.2d 888},
@@ -2485,11 +2492,59 @@
 }
 
 % (APA 11.5 Example 8)
+% Notice the use of TITLEADDON here as this shouldn't appear in the
+% citation and so can't be in TITLE - the 11.5 APA section is inconsistent here
 @LEGISLATION{11.5:8,
-  TITLE                = {American With Disabilities Act of 1990},
+  TITLE                = {American With Disabilities Act},
+  TITLEADDON           = {of 1990},
   LOCATION             = {42 U.S.C § 12101 \emph{et seq.}},
   URL                  = {https://www.ada.gov/pubs/adastatute08.htm},
   DATE                 = {1990}
+}
+
+% (APA 11.5 Example 9)
+% Notice the use of TITLEADDON here as this shouldn't appear in the
+% citation and so can't be in TITLE - the 11.5 APA section is inconsistent here
+@LEGISLATION{11.5:9,
+  TITLE                = {Civil Rights Act},
+  TITLEADDON           = {of 1964},
+  LOCATION             = {Pub. L. No. 88--352, 78 Stat. 241},
+  URL                  = {https://www.govinfo.gov/content/pkg/STATUE-78/pdf/STATUTE-78-Pg241.pdf},
+  DATE                 = {1964}
+}
+
+% (APA 11.5 Example 10)
+@LEGISLATION{11.5:10,
+  TITLE                = {Every Student Succeeds Act},
+  LOCATION             = {20 U.S.C § 6301},
+  URL                  = {https://www.congress.gov/114/plaws/publ95/PLAW-114publ95.pdf},
+  DATE                 = {2015}
+}
+
+% (APA 11.5 Example 11)
+@LEGISLATION{11.5:11,
+  TITLE                = {Lilly Leadbetter Fair Play Act},
+  TITLEADDON           = {of 2009},
+  LOCATION             = {Pub. L. No. 111-2, 123 Stat. 5},
+  URL                  = {https://www.govinfo.gov/content/pkg/PLAW-111publ2/pdf/PLAW-111publ2.pdf},
+  DATE                 = {2009}
+}
+
+% (APA 11.5 Example 12)
+@LEGISLATION{11.5:12,
+  TITLE                = {Patsy Mink Equal Opportunity in Education Act},
+  LOCATION             = {20 U.S.C § 1681 \emph{et seq.}},
+  URL                  = {https://www.justice.org/crt/title-ix-education-amendments-1972},
+  DATE                 = {1972}
+}
+
+% (APA 11.5 Example 13)
+@LEGISLATION{11.5:13,
+  TITLE                = {Florida Mental Health Act},
+  LOCATION             = {Fla. Stat. § 394},
+  URL                  = {http://www.leg.state.fl.us/statues/index.cfm?App_mode=Display_Statute&URL=0300-0399/0394/0394.html},
+  DATE                 = {2009},
+  ORIGDATE             = {1971}
 }
 
 
