@@ -32,10 +32,8 @@
   citation}
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
-  party,
   act,
   source,
-  appeal,
   article,
   section,
   ammendment,
@@ -50,8 +48,7 @@
 
 % APA Court cases
 \DeclareDatamodelEntryfields[jurisdiction]{
-  party,
-  appeal,
+  organization
   citation}
 
 % APA Statues

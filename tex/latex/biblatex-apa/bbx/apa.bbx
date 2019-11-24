@@ -1224,21 +1224,6 @@
 
 % Some APA related entries are just after title, some are at the end of
 % the entry. This is for those after the title
-% \newbibmacro*{apa:related}{%
-%   \iffieldundef{related}
-%     {}
-%     {\ifthenelse{\iffieldequalstr{relatedtype}{reviewofbook}\OR%
-%                  \iffieldequalstr{relatedtype}{reviewofbooks}\OR%
-%                  \iffieldequalstr{relatedtype}{reviewoffilm}\OR%
-%                  \iffieldequalstr{relatedtype}{reviewoffilms}\OR%
-%                  \iffieldequalstr{relatedtype}{reviewoftv}\OR%
-%                  \iffieldequalstr{relatedtype}{reviewof}\OR%
-%                  \iffieldequalstr{relatedtype}{commentonarticle}}
-%        {\usebibmacro{related:init}%
-%         \usebibmacro{related}%
-%         \togglefalse{bbx:related}}% disable default related expansion later on
-%        {}}}
-
 \newbibmacro*{apa:related}{%
   \iffieldundef{related}
     {}
@@ -1326,18 +1311,33 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 11.4) Court cases
 
+\newtoggle{apa:legaldate}
+
 \DeclareListFormat{citation}{%
-  \hasitemannotation[\currentlist][citeinfo]%
-    {#1\addspace\printtext[\mkbibparens]{\getitemannotation[\currentlist][citeinfo]}}
-    {#1}}
+  \global\toggletrue{apa:legaldate}%
+  \hasitemannotation[\currentlist][citeorg]%
+    {#1\addspace\mkbibparens{\getitemannotation[\currentlist][citeorg]%
+     \hasitemannotation[\currentlist][citedate]
+       {\addspace\getitemannotation[\currentlist][citedate]%
+         \global\togglefalse{apa:legaldate}} % disable normal date printing if it's in the citation info
+       {}}}
+    {\ifitemannotation[\currentlist][citeinfo]{appeal}
+       {\mkbibemph{#1}}
+       {#1}}%
+  \ifthenelse{\value{listcount}<\value{liststop}}
+    {\addcomma\addspace}
+    {}}
  
 \DeclareFieldFormat{legaldate}{%
-  \iffieldundef{organization}
-    {\printtext{\mkbibparens{#1}}}
-    {\printtext{\mkbibparens{%
-        \printfield{organization}\space #1}}}}
+% disable normal date printing if it's in the citation info
+  \iftoggle{apa:legaldate}
+    {\iflistundef{organization}
+      {\printtext{\mkbibparens{#1}}}
+      {\printtext{\mkbibparens{%
+          \printlist{organization}\space #1}}}}
+    {}}
 
-%
+% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1581,7 +1581,7 @@
 \DeclareBibliographyDriver{jurisdiction}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \printfield{party}%
+  \usebibmacro{author}%
   \setunit{\addcomma\addspace}\newblock
   \printlist{citation}%
   \setunit{\addspace}\newblock
