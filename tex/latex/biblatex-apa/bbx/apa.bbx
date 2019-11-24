@@ -362,6 +362,7 @@
 \DeclareFieldFormat[misc]{title}{#1\isdot}
 \DeclareFieldFormat[audio]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}\isdot}{#1}}
 \DeclareFieldFormat[video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}\isdot}{#1}}
+\DeclareFieldFormat{legislation}{#1\isdot}
 
 % TITLEADDON
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
@@ -1584,6 +1585,20 @@
   \usebibmacro{author}%
   \setunit{\addcomma\addspace}\newblock
   \printlist{citation}%
+  \setunit{\addspace}\newblock
+  \printtext[legaldate]{\printlabeldate}
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \usebibmacro{pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{legislation}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{title}%
+  \setunit{\addcomma\addspace}\newblock
+  \printlist{location}%
   \setunit{\addspace}\newblock
   \printtext[legaldate]{\printlabeldate}
   \newunit\newblock
