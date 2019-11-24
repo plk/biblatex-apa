@@ -1143,10 +1143,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.1 Example 18) Comment on article
 
-\newcommand*{\begrelateddelimcommentonarticle}{\addspace}
-\DeclareFieldFormat{related:commentonarticle}{\def\bibstring{\blx@imc@bibcpstring}\mkbibbrackets{#1}}
+\newcommand*{\begrelateddelimcommenton}{\addspace}
+\DeclareFieldFormat{related:commenton}{\def\bibstring{\blx@imc@bibcpstring}\mkbibbrackets{#1}}
 
-\renewbibmacro*{related:commentonarticle}[1]{%
+\renewbibmacro*{related:commenton}[1]{%
   \entrydata*{#1}{%
     \printtext{\mkbibquote{\printfield[apacase]{title}}}}}
 
@@ -1157,32 +1157,15 @@
 % (APA 10.7) Reviews - role strings need to be the
 %                      short versions in reviews
 
-\newcommand*{\begrelateddelimreviewofbook}{\addspace}
-\DeclareFieldFormat{related:reviewofbook}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
-\newbibmacro*{related:reviewofbook}[1]{\usebibmacro{related:reviewofx}{#1}}
-
-\newcommand*{\begrelateddelimreviewofbooks}{\addspace}
-\DeclareFieldFormat{related:reviewofbooks}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
-\newbibmacro*{related:reviewofbooks}[1]{\usebibmacro{related:reviewofx}{#1}}
-
-\newcommand*{\begrelateddelimreviewoffilm}{\addspace}
-\DeclareFieldFormat{related:reviewoffilm}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
-\newbibmacro*{related:reviewoffilm}[1]{\usebibmacro{related:reviewofx}{#1}}
-
-\newcommand*{\begrelateddelimreviewoffilms}{\addspace}
-\DeclareFieldFormat{related:reviewoffilms}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
-\newbibmacro*{related:reviewoffilms}[1]{\usebibmacro{related:reviewofx}{#1}}
-
-\newcommand*{\begrelateddelimreviewoftv}{\addspace}
-\DeclareFieldFormat{related:reviewoftv}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
-\newbibmacro*{related:reviewoftv}[1]{\usebibmacro{related:reviewofx}{#1}}
-
 \DeclareFieldFormat{reviewtitle}{%
   \iffieldequalstr{entrysubtype}{tvepisode}
     {\mkbibquote{\bbx@colon@search\MakeSentenceCase*{#1}}}
     {\bbx@colon@search\MakeSentenceCase*{#1}}}
 
-\newbibmacro*{related:reviewofx}[1]{%
+\newcommand*{\begrelateddelimreviewof}{\addspace}
+\DeclareFieldFormat{related:reviewof}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
+
+\newbibmacro*{related:reviewof}[1]{%
   \entrydata*{#1}{%
     \printtext{\mkbibemph{%
                  \printfield[reviewtitle]{title}%
@@ -1238,8 +1221,35 @@
     {}}
   
 \newcommand*{\begrelateddelimreprintfrom}{\addperiod\addspace}
+
+% Some APA related entries are just after title, some are at the end of
+% the entry. This is for those after the title
+% \newbibmacro*{apa:related}{%
+%   \iffieldundef{related}
+%     {}
+%     {\ifthenelse{\iffieldequalstr{relatedtype}{reviewofbook}\OR%
+%                  \iffieldequalstr{relatedtype}{reviewofbooks}\OR%
+%                  \iffieldequalstr{relatedtype}{reviewoffilm}\OR%
+%                  \iffieldequalstr{relatedtype}{reviewoffilms}\OR%
+%                  \iffieldequalstr{relatedtype}{reviewoftv}\OR%
+%                  \iffieldequalstr{relatedtype}{reviewof}\OR%
+%                  \iffieldequalstr{relatedtype}{commentonarticle}}
+%        {\usebibmacro{related:init}%
+%         \usebibmacro{related}%
+%         \togglefalse{bbx:related}}% disable default related expansion later on
+%        {}}}
+
+\newbibmacro*{apa:related}{%
+  \iffieldundef{related}
+    {}
+    {\ifthenelse{\iffieldequalstr{relatedtype}{reviewof}\OR%
+                 \iffieldequalstr{relatedtype}{commenton}}
+       {\usebibmacro{related:init}%
+        \usebibmacro{related}%
+        \togglefalse{bbx:related}}% disable default related expansion later on
+       {}}}
+
 \DeclareFieldFormat{related:reprintfrom}{\let\bibstring\bibcpstring\mkbibparens{#1}}
-\DeclareFieldFormat{related:reviewof}{\mkbibbrackets{#1}}
 
 \renewbibmacro*{related:reprintfrom}[1]{%
   \entrydata*{#1}{%
@@ -1312,20 +1322,6 @@
  
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newbibmacro*{apa:related}{%
-  \iffieldundef{related}
-    {}
-    {\ifthenelse{\iffieldequalstr{relatedtype}{reviewofbook}\OR%
-                 \iffieldequalstr{relatedtype}{reviewofbooks}\OR%
-                 \iffieldequalstr{relatedtype}{reviewoffilm}\OR%
-                 \iffieldequalstr{relatedtype}{reviewoffilms}\OR%
-                 \iffieldequalstr{relatedtype}{reviewoftv}\OR%
-                 \iffieldequalstr{relatedtype}{commentonarticle}}
-       {\usebibmacro{related:init}%
-        \usebibmacro{related}%
-        \togglefalse{bbx:related}}% disable default related expansion later on
-       {}}}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.x) General entrytype drivers
