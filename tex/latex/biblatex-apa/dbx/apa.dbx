@@ -22,7 +22,6 @@
   nameonly}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
-  party,
   groupauthor,
   narrator,
   execproducer,
@@ -33,6 +32,7 @@
   citation}
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
+  party,
   act,
   source,
   appeal,
@@ -67,12 +67,12 @@
   ammendment}
 
 % Legal material
-\DeclareDatamodelEntryfields[legalmaterial]{
-  }
+% \DeclareDatamodelEntryfields[legalmaterial]{
+%   }
 
-% Admin material
-\DeclareDatamodelEntryfields[adminmaterial]{
-  }
+% % Admin material
+% \DeclareDatamodelEntryfields[adminmaterial]{
+%   }
 
 % Treaties
 \DeclareDatamodelEntryfields[legal]{

@@ -1322,6 +1322,23 @@
  
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 11.4) Court cases
+
+\DeclareListFormat{citation}{%
+  \hasitemannotation[\currentlist][citeinfo]%
+    {#1\addspace\printtext[\mkbibparens]{\getitemannotation[\currentlist][citeinfo]}}
+    {#1}}
+ 
+\DeclareFieldFormat{legaldate}{%
+  \iffieldundef{organization}
+    {\printtext{\mkbibparens{#1}}}
+    {\printtext{\mkbibparens{%
+        \printfield{organization}\space #1}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.x) General entrytype drivers
@@ -1557,6 +1574,20 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
+  \usebibmacro{pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{jurisdiction}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \printfield{party}%
+  \setunit{\addcomma\addspace}\newblock
+  \printlist{citation}%
+  \setunit{\addspace}\newblock
+  \printtext[legaldate]{\printlabeldate}
+  \newunit\newblock
+  \usebibmacro{doi+url}%
   \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
