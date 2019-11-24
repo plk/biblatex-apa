@@ -98,7 +98,16 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Multiple related entries, even though there are no
+% examples in APA 7th, should probably be this  
+
+\renewcommand*{\relateddelim}{\addcomma\addspace}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % Force roman numerals into arabic using
 % etoolbox macros
 
@@ -516,8 +525,28 @@
   \newunit\newblock%
   \usebibmacro{labelyear+extradate}}
 
+\renewbibmacro*{author/editor:related}{%
+  \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
+    {\ifnameundef{editor}
+      {\usebibmacro{title}%
+        % need to clear all title fields so we don't get them again later
+        \clearfield{title}%
+       \clearfield{subtitle}%
+       \clearfield{titleaddon}}
+      {\usebibmacro{editorinauthpos:related}}}
+    {\usebibmacro{author:related}}}
+
 \newbibmacro*{editorinauthpos}{%
   \printnames[apaauthor][-\value{listtotal}]{editor}%
+  \setunit{\addspace}%
+  \ifnameundef{editor}
+    {}
+    {\printtext[parens]{\usebibmacro{apaeditorstrg}{editor}}%
+     % need to clear editor so we don't get an "In" clause later
+     \clearname{editor}}}
+
+\newbibmacro*{editorinauthpos:related}{%
+  \printnames[apanames][-\value{listtotal}]{editor}%
   \setunit{\addspace}%
   \ifnameundef{editor}
     {}
@@ -536,6 +565,12 @@
     {\setunit{}\addspace\mkbibparens{\printtext{\bibstring{with}\addspace}%
      \printnames[apaauthor][-\value{listtotal}]{with}}
      \setunit*{\addspace}}}
+
+\renewbibmacro*{author:related}{%
+  \ifnameundef{author}
+    {\printnames[apanames][-\value{listtotal}]{groupauthor}}
+    {\printnames[apanames][-\value{listtotal}]{author}}%
+  \setunit*{\addspace}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -636,17 +671,6 @@
         \printfield[apacase]{subtitle}}}%
      \setunit{\addspace}%
      \ifentrytype{inbook}{}{\usebibmacro{addinfo1}}% additional info in parens
-     \setunit{\addspace}%
-     \iffieldundef{related}
-       {}
-       {\ifthenelse{\iffieldequalstr{relatedtype}{reviewofbook}\OR%
-                    \iffieldequalstr{relatedtype}{reviewoffilm}\OR%
-                    \iffieldequalstr{relatedtype}{reviewoftv}\OR%
-                    \iffieldequalstr{relatedtype}{commentonarticle}}
-         {\usebibmacro{related:init}%
-          \usebibmacro{related}%
-          \togglefalse{bbx:related}}% disable default related expansion later on
-         {}}%
      \setunit{\addspace}%
      \printfield{titleaddon}%
      \setunit{\addspace}%
@@ -1137,9 +1161,17 @@
 \DeclareFieldFormat{related:reviewofbook}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
 \newbibmacro*{related:reviewofbook}[1]{\usebibmacro{related:reviewofx}{#1}}
 
+\newcommand*{\begrelateddelimreviewofbooks}{\addspace}
+\DeclareFieldFormat{related:reviewofbooks}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
+\newbibmacro*{related:reviewofbooks}[1]{\usebibmacro{related:reviewofx}{#1}}
+
 \newcommand*{\begrelateddelimreviewoffilm}{\addspace}
 \DeclareFieldFormat{related:reviewoffilm}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
 \newbibmacro*{related:reviewoffilm}[1]{\usebibmacro{related:reviewofx}{#1}}
+
+\newcommand*{\begrelateddelimreviewoffilms}{\addspace}
+\DeclareFieldFormat{related:reviewoffilms}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
+\newbibmacro*{related:reviewoffilms}[1]{\usebibmacro{related:reviewofx}{#1}}
 
 \newcommand*{\begrelateddelimreviewoftv}{\addspace}
 \DeclareFieldFormat{related:reviewoftv}{\def\bibstring{\blx@imc@bibcpsstring}\mkbibbrackets{#1}}
@@ -1161,7 +1193,7 @@
                \setunit{\addcomma\addspace}%
                \biblstring{byauthor}%
                \setunit{\addspace}%
-               \printnames[apanames][-\value{listtotal}]{author}}}}
+               \usebibmacro{author/editor:related}}}}
          
 %         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1281,6 +1313,20 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newbibmacro*{apa:related}{%
+  \iffieldundef{related}
+    {}
+    {\ifthenelse{\iffieldequalstr{relatedtype}{reviewofbook}\OR%
+                 \iffieldequalstr{relatedtype}{reviewofbooks}\OR%
+                 \iffieldequalstr{relatedtype}{reviewoffilm}\OR%
+                 \iffieldequalstr{relatedtype}{reviewoffilms}\OR%
+                 \iffieldequalstr{relatedtype}{reviewoftv}\OR%
+                 \iffieldequalstr{relatedtype}{commentonarticle}}
+       {\usebibmacro{related:init}%
+        \usebibmacro{related}%
+        \togglefalse{bbx:related}}% disable default related expansion later on
+       {}}}
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.x) General entrytype drivers
 
@@ -1296,6 +1342,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
   \setunit{\bibpagespunct}%
@@ -1323,6 +1371,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{mainaudio}%
   \newunit\newblock
@@ -1421,6 +1471,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{editor+trans}%
   \newblock
@@ -1450,6 +1502,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
@@ -1479,6 +1533,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
@@ -1544,6 +1600,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
@@ -1565,6 +1623,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \printlist{organization}%
   \addperiod\addspace
@@ -1587,6 +1647,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
@@ -1638,6 +1700,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{eventinfo}%
   \setunit{\addcomma\addspace}%
@@ -1671,6 +1735,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \printlist{institution}%
   \newunit\newblock
@@ -1743,6 +1809,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \setunit{\addspace}%
   \printfield{howpublished}%
   \newunit\newblock
@@ -1770,6 +1838,8 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{mainvideo}%
   \newunit\newblock

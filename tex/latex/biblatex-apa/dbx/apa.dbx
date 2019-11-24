@@ -16,32 +16,70 @@
 \RequireBiber[3]
 
 \DeclareDatamodelEntrytypes{
+  constitution,
+  legalmaterial,
+  adminmaterial,
   nameonly}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
+  party,
   groupauthor,
   narrator,
   execproducer,
   execdirector,
   with}
 
-\DeclareDatamodelFields[type=field, datatype=literal]{
-  abstractloc,
-  appentry,
-  urldescription}
+\DeclareDatamodelFields[type=list, datatype=literal]{
+  citation}
 
-\DeclareDatamodelFields[type=field, datatype=verbatim]{
-  abstracturl}
+\DeclareDatamodelFields[type=field, datatype=literal]{
+  act,
+  source,
+  appeal,
+  article,
+  section,
+  ammendment,
+  appentry}
 
 \DeclareDatamodelEntryfields{
   with,
   groupauthor,
   narrator,
   execproducer,
-  execdirector,
-  abstractloc,
-  abstracturl,
-  urldescription}
+  execdirector}
+
+% APA Court cases
+\DeclareDatamodelEntryfields[jurisdiction]{
+  party,
+  appeal,
+  citation}
+
+% APA Statues
+\DeclareDatamodelEntryfields[legislation]{
+  act,
+  source,
+  number}
+
+% Constitution/charters
+\DeclareDatamodelEntryfields[constitution]{
+  article,
+  section,
+  ammendment}
+
+% Legal material
+\DeclareDatamodelEntryfields[legalmaterial]{
+  }
+
+% Admin material
+\DeclareDatamodelEntryfields[adminmaterial]{
+  }
+
+% Treaties
+\DeclareDatamodelEntryfields[legal]{
+  act,
+  source,
+  number}
+
 
 \DeclareDatamodelEntryfields[software]{
   appentry}
