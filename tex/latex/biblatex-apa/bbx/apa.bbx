@@ -132,7 +132,9 @@
     \blx@metadateinfo{#1}%
     \iffieldundef{#1year}{}
       {\datecircaprint
-       \ifstrequal{#1}{url}% URL dates are unlikely to be BCE ...
+       \ifboolexpr{ test {\ifstrequal{#1}{url}}
+                    or ( test {\ifentrytype{legadminmaterial}} and
+                         test {\ifkeyword{proposed}} ) }
          {\printtext{%
              \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
              \iffieldundef{#1endyear}%
@@ -348,21 +350,12 @@
   \ifbibstring{#1}{\bibcpstring{#1}}{#1}}}
 
 % TITLE
-\DeclareFieldFormat{title}{\mkbibemph{#1}\isdot}
-\DeclareFieldFormat[article]{title}{#1\isdot}
-\DeclareFieldFormat[inbook]{title}{#1\isdot}
-\DeclareFieldFormat[incollection]{title}{#1\isdot}
-\DeclareFieldFormat[inproceedings]{title}{\mkbibemph{#1}\isdot}
-\DeclareFieldFormat[proceedings]{title}{\mkbibemph{#1}\isdot}
-\DeclareFieldFormat[periodical]{title}{#1\isdot}
-\DeclareFieldFormat[thesis]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat[patent]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat[unpublished]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat[image]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat[misc]{title}{#1\isdot}
-\DeclareFieldFormat[audio]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}\isdot}{#1}}
-\DeclareFieldFormat[video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}\isdot}{#1}}
-\DeclareFieldFormat[legislation]{title}{#1\isdot}
+\DeclareFieldFormat*{title}{\mkbibemph{#1}\isdot}
+\DeclareFieldFormat[article,inbook,incollection,periodical,misc,legislation,legadminmaterial,jurisdiction]{title}{#1\isdot}
+\DeclareFieldFormat[audio,video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}\isdot}{#1}}
+
+% SUBTITLE
+\DeclareFieldFormat[legmaterial]{subtitle}{\mkbibemph{#1}}
 
 % TITLEADDON
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
@@ -370,6 +363,9 @@
 
 % MAINTITLEADDON
 \DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
+
+% NOTE
+\DeclareFieldFormat[legmaterial,legadminmaterial]{note}{\mkbibparens{#1}}
 
 % BOOKTITLEADDON
 \DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
@@ -380,11 +376,8 @@
 
 % ORIGTITLE
 \DeclareFieldFormat{origtitle}{\mkbibemph{\bbx@colon@search\MakeSentenceCase*{#1}}\isdot}
-\DeclareFieldFormat[article]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
-\DeclareFieldFormat[inbook]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
-\DeclareFieldFormat[incollection]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
-\DeclareFieldFormat[inproceedings]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
-\DeclareFieldFormat[proceedings]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
+
+\DeclareFieldFormat[article,inbook,incollection,inproceedings,proceedings]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
 
 % VOLUME
 \DeclareFieldFormat{volume}{\iffieldundef{maintitle}
@@ -407,25 +400,32 @@
                                {\apanum{#1}}}
                              {\mkbibemph{\apanum{#1}}}}
 \DeclareFieldFormat[report]{number}{\apanum{#1}}
-\DeclareFieldFormat[article]{number}{\mkbibparens{\apanum{#1}}}
+\DeclareFieldFormat[article,periodical]{number}{\mkbibparens{\apanum{#1}}}
 \DeclareFieldFormat[reprint]{number}{\mkbibbrackets{\apanum{#1}}}
-\DeclareFieldFormat[periodical]{number}{\mkbibparens{\apanum{#1}}}
+\DeclareFieldFormat{legmaterialnum}{%
+  \ifthenelse{%
+    \iffieldequalstr{type}{report}\OR%
+    \iffieldequalstr{type}{execorder}}{\bibcpstring{number}~\apanum{#1}}{\apanum{#1}}}
+
 
 % PAGES
-\DeclareFieldFormat[inbook]{pages}{\mkpageprefix[bookpagination]{#1}}
-\DeclareFieldFormat[incollection]{pages}{\mkpageprefix[bookpagination]{#1}}
+\DeclareFieldFormat[inbook,incollection]{pages}{\mkpageprefix[bookpagination]{#1}}
 \DeclareFieldFormat[periodical]{pages}{#1}
 
 % LOCATION
-\DeclareListFormat[misc]{location}{\mkbibemph{#1}}
-\DeclareListFormat[periodical]{location}{\mkbibemph{#1}}
+\DeclareListFormat[misc,periodical]{location}{\mkbibemph{#1}}
+\DeclareListFormat{publisher}{%
+  \usebibmacro{publisher:delim}{#1}%
+  #1\isdot}
+\DeclareListFormat{location}{%
+  \usebibmacro{location:delim}{#1}%
+  #1\isdot}
 
 % NAMEADDON
 \DeclareFieldFormat[misc]{nameaddon}{\mkbibparens{#1}}
 
 % VERSION
-\DeclareFieldFormat[dataset]{version}{\bibcpstring{version}~#1}
-\DeclareFieldFormat[software]{version}{\bibcpstring{version}~#1}
+\DeclareFieldFormat[dataset,software]{version}{\bibcpstring{version}~#1}
 
 % URL
 \DeclareFieldFormat{url}{\url{#1}}
@@ -527,7 +527,7 @@
   \newunit\newblock%
   \usebibmacro{labelyear+extradate}}
 
-\renewbibmacro*{author/editor:related}{%
+\newbibmacro*{author/editor:related}{%
   \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
     {\ifnameundef{editor}
       {\usebibmacro{title}%
@@ -568,7 +568,7 @@
      \printnames[apaauthor][-\value{listtotal}]{with}}
      \setunit*{\addspace}}}
 
-\renewbibmacro*{author:related}{%
+\newbibmacro*{author:related}{%
   \ifnameundef{author}
     {\printnames[apanames][-\value{listtotal}]{groupauthor}}
     {\printnames[apanames][-\value{listtotal}]{author}}%
@@ -738,7 +738,7 @@
   \iffieldundef{eprinttype}
     {}
     {\printtext{%
-       \iffieldbibstring{eprinttype}{\bibcpstring{\strfield{eprinttype}}}{\strfield{eprinttype}}%
+       \iffieldbibstring{eprinttype}{\bibcplstring{\strfield{eprinttype}}}{\strfield{eprinttype}}%
        \setunit{\addspace}}}%
   \printfield{eprint}}
 
@@ -1113,10 +1113,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.2.24) Multiple publishers, semi-colon sep
 
-\DeclareListFormat{publisher}{%
-  \usebibmacro{publisher:delim}{#1}%
-  #1\isdot}
-
 \newbibmacro*{publisher:delim}[1]{%
   \ifnumgreater{\value{listcount}}{\value{liststart}}
     {\printdelim[publisher]{multilistdelim}}
@@ -1148,7 +1144,7 @@
 \newcommand*{\begrelateddelimcommenton}{\addspace}
 \DeclareFieldFormat{related:commenton}{\def\bibstring{\blx@imc@bibcpstring}\mkbibbrackets{#1}}
 
-\renewbibmacro*{related:commenton}[1]{%
+\newbibmacro*{related:commenton}[1]{%
   \entrydata*{#1}{%
     \printtext{\mkbibquote{\printfield[apacase]{title}}}}}
 
@@ -1344,7 +1340,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 11.5) Statutes
-
+  
 \newbibmacro*{statdate}{%
   \iffieldundef{origyear}
     {\printtext[parens]{\printlabeldate}}
@@ -1354,6 +1350,31 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 11.6) Legislative Material and Admin Material
+
+\newbibmacro*{location:delim}[1]{%
+  \ifnumgreater{\value{listcount}}{\value{liststart}}
+    {\printdelim[location]{multilistdelim}}
+    {}}
+
+\DeclareDelimFormat[location]{multilistdelim}{\addcomma\space}
+\DeclareDelimFormat[location]{finallistdelim}{\addcomma\space}
+                  
+\newbibmacro*{legmattitle}{%
+  \iffieldundef{title}
+    {\printtext{\bibcpsstring{\thefield{source}}}%
+     \setunit*{\addspace}%
+     \printtext{\bibcpsstring{\thefield{type}}}%
+     \setunit*{\addspace}%
+     \printfield[legmaterialnum]{number}}
+    {\printfield{title}%
+     \setunit*{\addcolon\addspace}\newblock
+     \printfield{subtitle}}}
+
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % (APA 10.x) General entrytype drivers
 
@@ -1595,7 +1616,7 @@
 \DeclareBibliographyDriver{jurisdiction}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \usebibmacro{author}%
+  \printfield{title}%
   \setunit{\addcomma\addspace}\newblock
   \printlist{citation}%
   \setunit{\addspace}\newblock
@@ -1617,6 +1638,38 @@
   \setunit{\addspace}\newblock
   \usebibmacro{statdate}%
   \newunit\newblock
+  \usebibmacro{doi+url}%
+  \usebibmacro{pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{legadminmaterial}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{legmattitle}%
+  \setunit{\addcomma\addspace}\newblock
+  \printlist{citation}%
+  \setunit{\addspace}\newblock
+  \printtext[parens]{\ifkeyword{proposed}{\bibstring{proposed}\space}{}\printlabeldate}%
+  \setunit{\addspace}\newblock
+  \printfield{note}%
+  \newunit\newblock  
+  \usebibmacro{doi+url}%
+  \usebibmacro{pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{legmaterial}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{legmattitle}%
+  \setunit{\addcomma\addspace}\newblock
+  \printlist{location}%
+  \setunit{\addspace}\newblock
+  \printtext[parens]{\printlabeldate}%
+  \setunit{\addspace}\newblock
+  \printfield{note}%
+  \newunit\newblock  
   \usebibmacro{doi+url}%
   \usebibmacro{pageref}%
   \usebibmacro{annotation}%

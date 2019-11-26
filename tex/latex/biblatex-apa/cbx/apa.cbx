@@ -43,27 +43,33 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % (APA 8.17) ampersand separator in parenthetical cites
+
+\newtoggle{apa:inpcite}
 
 \DeclareDelimFormat[parencite]{finalnamedelim}
   {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
 
 \DeclareCiteCommand{\parencite}[\mkbibparens]
   {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
+   \usebibmacro{prenote}%
+   \toggletrue{apa:inpcite}}
   {\usebibmacro{citeindex}%
    \usebibmacro{cite}%
    \usebibmacro{cite:post}}
   {}
-  {\usebibmacro{postnote}}
+  {\usebibmacro{postnote}%
+   \togglefalse{apa:inpcite}}
 
 \DeclareCiteCommand*{\parencite}[\mkbibparens]
   {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
+   \usebibmacro{prenote}%
+   \toggletrue{apa:inpcite}}
   {\usebibmacro{citeindex}%
    \usebibmacro{citeyear}%
-   \usebibmacro{cite:post}}
+   \usebibmacro{cite:post}%
+   \togglefalse{apa:inpcite}}
   {}
   {\usebibmacro{postnote}}
 
@@ -288,17 +294,29 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.14) Fall back to title for citations without authors
+% (APA 11) Bizarre and special rules for legal information
 
-\DeclareFieldFormat{citetitle}{\ifentrytype{legislation}{#1}{\mkbibquote{#1}}}
-\DeclareFieldFormat[online]{citetitle}{\mkbibquote{#1}}
-\DeclareFieldFormat[inbook]{citetitle}{\mkbibquote{#1}}
-\DeclareFieldFormat[book]{citetitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[manual]{citetitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[report]{citetitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[periodical]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat{citetitle}{\mkbibquote{#1}}
+\DeclareFieldFormat[book,manual,report,preiodical,legmaterial,jurisdiction]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[legislation,legadminmaterial]{citetitle}{#1}
 
 \newbibmacro*{cite:noname}{%
-    \printfield[citetitle]{labeltitle}}
+  \iffieldundef{labeltitle}
+    {\ifthenelse{\ifentrytype{legmaterial}\OR\ifentrytype{legadminmaterial}}
+      {\let\blx@tempa\bibcplstring% \textcite default
+       \let\blx@tempb\bibcplstring% \textcite default
+       \iftoggle{apa:inpcite}
+       {\iffieldequalstr{type}{execorder}{\let\blx@tempb\bibcpsstring}{}%
+        \iffieldequalstr{type}{resolution}{\let\blx@tempa\bibcpsstring}{}%
+        \iffieldequalstr{type}{report}{\let\blx@tempa\bibcpsstring\let\blx@tempb\bibcpsstring}{}}
+       {}%
+        \blx@tempa{\thefield{source}}%
+        \setunit{\addspace}%
+        \blx@tempb{\thefield{type}}%
+        \setunit{\addspace}%
+        \printfield[legmaterialnum]{number}}
+      {}}
+    {\printfield[citetitle]{labeltitle}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -474,12 +492,16 @@
 \DeclareMultiCiteCommand{\smartcites}[\iffootnote\mkbibparens\mkbibfootnote]
 {\smartcite}{\setunit{\multicitedelim}}
 
+\newtoggle{apa:intcite}
+
 \DeclareCiteCommand{\textcite}
   {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
+   \usebibmacro{prenote}%
+   \toggletrue{apa:intcite}}
   {\usebibmacro{citeindex}%
    \usebibmacro{textcite}%
-   \usebibmacro{cite:post}}
+   \usebibmacro{cite:post}%
+   \togglefalse{apa:intcite}}
   {}
   {\usebibmacro{textcite:postnote}}
 

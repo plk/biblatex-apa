@@ -9,5 +9,6 @@
 * DONE 10.1.18 -> related comment on in line with reviews
 * DONE lbx have reference to old APA numbers
 * DONE %REF
+* TODO 10.5:63 title italics
 * TODO Document mention legal formats, citeinfo/citeorg/citedate or ORGANIZATION, appeal annotation
 * TODO Document v6 package and name

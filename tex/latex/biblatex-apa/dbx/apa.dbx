@@ -17,8 +17,8 @@
 
 \DeclareDatamodelEntrytypes{
   constitution,
-  legalmaterial,
-  adminmaterial,
+  legmaterial,
+  legadminmaterial,
   nameonly}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
@@ -32,7 +32,6 @@
   citation}
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
-  act,
   source,
   article,
   section,
@@ -51,32 +50,20 @@
   organization
   citation}
 
-% APA Statues
-\DeclareDatamodelEntryfields[legislation]{
-  act,
-  source,
-  number}
+% Legislative material
+\DeclareDatamodelEntryfields[legmaterial]{
+  source}
+
+% Admin and Executive material
+\DeclareDatamodelEntryfields[legadminmaterial]{
+  citation,
+  source}
 
 % Constitution/charters
 \DeclareDatamodelEntryfields[constitution]{
   article,
   section,
   ammendment}
-
-% Legal material
-% \DeclareDatamodelEntryfields[legalmaterial]{
-%   }
-
-% % Admin material
-% \DeclareDatamodelEntryfields[adminmaterial]{
-%   }
-
-% Treaties
-\DeclareDatamodelEntryfields[legal]{
-  act,
-  source,
-  number}
-
 
 \DeclareDatamodelEntryfields[software]{
   appentry}
