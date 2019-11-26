@@ -1,7 +1,5 @@
-\ProvidesFile{spanish-apa.lbx}[2019/09/07\space v8.0\space APA biblatex localisation]
-\InheritBibliographyExtras{spanish}
-
-\setcounter{smartand}{0} % Turn off "smart and" or ampersands will all be replaced
+\ProvidesFile{french-apa6.lbx}[2019/09/07\space v8.0\space APA 6th ed. biblatex localisation]
+\InheritBibliographyExtras{french}
 
 % (APA 6.22) The example abbreviations
 
@@ -28,48 +26,33 @@
 \NewBibliographyString{with}
 
 \DeclareBibliographyStrings{%
-  inherit          = {spanish},
-  inpress          = {{en prensa}{en prensa}},% remove when biblatex has it
-  january          = {{enero}{enero}},
-  february         = {{febrero}{febrero}},
-  march            = {{marzo}{marzo}},
-  april            = {{abril}{abril}},
-  may              = {{mayo}{mayo}},
-  june             = {{junio}{junio}},
-  july             = {{julio}{julio}},
-  august           = {{agosto}{agosto}},
-  september        = {{septiembre}{septiembre}},
-  october          = {{octubre}{octubre}},
-  november         = {{noviembre}{noviembre}},
-  december         = {{diciembre}{diciembre}},
-  nodate           = {{s\adddot f\adddot}{s\adddot f\adddot}},
-  mathesis         = {{Tesis\addabbrvspace de\addabbrvspace maestr\'ia}{Tesis\addabbrvspace de\addabbrvspace maestr\'ia}},
-  phdthesis        = {{Tesis\addabbrvspace doctoral}{Tesis\addabbrvspace doctoral}},
-  revisededition   = {{Edici\'on\space revisada}{Edici\'on\space revisada}},
-  producer         = {{productor}{productor}},
-  execproducer     = {{productor ejecutivo}{productor ejecutivo}},
-  director         = {{director}{director}},
-  writer           = {{escritor}{escritor}},
-  with             = {{con}{con}},
-  page             = {{P\'agina}{{}p\adddot}},
-  pages            = {{P\'aginas}{{}pp\adddot}},
-  on               = {{el}{el}},
-  retrieved        = {{Recuperado}{Recuperado}},
+  inherit          = {french},
+  inpress          = {{sous presse}{sous presse}},% remove when biblatex has it
+  revisededition   = {{\'Edition\space R\'evis\'e}{\'Ed\adddotspace R\'ev\adddot}},
+  page             = {{Page}{{}p\adddot}},
+  pages            = {{Pages}{{}p\adddot}},
+  on               = {{le}{le}},
+  retrieved        = {{R\'ecup\'er\'ee}{R\'ecup\'er\'ee}},
+  with             = {{avec}{avec}},
+  producer         = {{producteur}{producteur}},
+  execproducer     = {{producteur ex\'ecutif}{producteur ex\'ecutif}},
+  director         = {{r\'ealisateur}{r\'ealisateur}},
+  writer           = {{\'ecrivain}{\'ecrivain}},
   available        = {{disponible}{disponible}},
-  from             = {{desde}{desde}},
-  archivedat       = {{archivado en}{archivado en}},
-  reviewof         = {{revisi\'on\space de}{revisi\'on\space de}},
+  from             = {{\`a\space partir\space de}{\`a\space partir\space de}},
+  archivedat       = {{archiv\'es\space \`a}{archiv\'es\space \`a}},
+  reviewof         = {{critique\space de}{critique\space de}},
   paragraph        = {{\P}{\P}},
-  paragraphs       = {{\P\P}{\P\P}},
-  origyear         = {{Fecha\space inicial\space de\space publicaci\'on}{Fecha\space inicial\space de\space publicaci\'on}},
-  typechair        = {{Coordinador}{Coord\adddot}},
-  typechairs       = {{Coordinadores}{Coords\adddot}},
-  typevolume       = {{Editor\space del\space volumen}{Ed\adddotspace vol\adddot}},
-  typevolumes      = {{Editores\space del\space volumen}{Eds\adddotspace vol\adddot}},
-  typeseries       = {{Editor\space de\space la\space serie}{Ed\adddotspace ser\adddot}},
-  typeseriess      = {{Editores\space de\space la\space serie}{Eds\adddotspace ser\adddot}},
-  typevolseries    = {{Editor\space de\space la\space serie\space y\space del\space volumen}{Ed\adddotspace vol\space\&\space ser\adddot}},
-  typevolseriess   = {{Editores\space de\space la\space serie\space y\space del\space volumen}{Eds\adddotspace vol\space\&\space ser\adddot}},
+  paragraphs       = {{\P}{\P}},
+  origyear         = {{Date\space de\space premi\`ere publication}{Date\space de\space premi\`ere publication}},
+  typechair        = {{Ma\^itre\space de\space Conf\'erence}{Ma\^itre\space de\space Conf\'erence}},
+  typechairs       = {{Ma\^itres\space de\space Conf\'erence}{Ma\^itres\space de\space Conf\'erence}},
+  typevolume       = {{R\'edacteur\space du\space volume}{R\'ed\adddotspace vol\adddot}},
+  typevolumes      = {{R\'edacteur\space du\space volume}{R\'eds\adddotspace vol\adddot}},
+  typeseries       = {{R\'edacteur\space de\space la\space s\'erie}{R\'ed\adddotspace ser\adddot}},
+  typeseriess      = {{R\'edacteurs\space de\space la\space s\'erie}{R\'eds\adddotspace ser\adddot}},
+  typevolseries    = {{R\'edacteur\space de\space la\space s\'erie\space et\space du volume}{Red\adddotspace vol\space\&\space ser\adddot}},
+  typevolseriess   = {{Directeurs\space de\space Publication\space et\space R\'edacteurs\space en\space chef}{Reds\adddotspace vol\space\&\space ser\adddot}},
   annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
   beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
 }
@@ -117,13 +100,13 @@
       {\iffieldundef{#1}%
         {}%
         {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
     \iffieldundef{#3}%
       {}%
       {\iffieldundef{#2}%
         {}%
-        {\stripzeros{\thefield{#3}}\addspace de\addspace}}%
-       \mkbibmonth{\thefield{#2}}%
-}}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3{%
     % As per 6.28, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -133,19 +116,21 @@
       {}%
     \iffieldundef{#3}%
       {}%
-      {el\addspace\stripzeros{\thefield{#3}}}%
+      {\stripzeros{\thefield{#3}}}%
     \iffieldundef{#2}%
-      {\addspace{en}\addspace}%
-      {\iffieldundef{#3}%
-        {en\addspace}%
-        {\addspace{de}\addspace}%
-       \mkbibmonth{\thefield{#2}}{\addspace{de}\addspace}}%
-    \iffieldundef{#1}%
       {}%
-      {\iffieldundef{#2}%
+      {\iffieldundef{#3}%
         {}%
         {\addspace}%
-       \thefield{#1}}}}
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#1}%
+      {}%
+      {\ifthenelse{\iffieldundef{#2}\OR\iffieldundef{#3}}%
+        {}%
+        {\addspace}%
+       \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

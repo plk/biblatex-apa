@@ -1,5 +1,5 @@
-\ProvidesFile{danish-apa.lbx}[2019/09/07\space v8.0\space APA biblatex localisation]
-\InheritBibliographyExtras{danish}
+\ProvidesFile{nynorsk-apa6.lbx}[2019/09/07\space v8.0\space APA 6th ed. biblatex localisation]
+\InheritBibliographyExtras{nynorsk}
 
 % (APA 6.22) The example abbreviations
 
@@ -26,46 +26,34 @@
 \NewBibliographyString{with}
 
 \DeclareBibliographyStrings{%
-  inherit          = {danish},
-  revisededition   = {{revideret\space udgave}{rev\adddotspace udg\adddot}},
+  inherit          = {nynorsk},
+  revisededition   = {{revidert\space utg{\aa}ve}{rev\adddotspace utg\adddot}},
   page             = {{side}{{}s\adddot}},
   pages            = {{sider}{{}s\adddot}},
   on               = {{p{\aa}}{p{\aa}}},
-  retrieved        = {{hentet}{hentet}},
-  available        = {{tilgængelig}{tilgængelig}},
-  from             = {{fra}{fra}},
-  archivedat       = {{arkiveret\space ved}{arkiveret\space ved}},
-  reviewof         = {{anmeldelse\space af}{anmeldelse\space af}},
-  producer         = {{producer}{producer}},
-  execproducer     = {{producent}{producent}},
-  director         = {{instrukt{\o}r}{instrukt{\o}r}},
-  writer           = {{manuskript}{manuskript}},
+  retrieved        = {{henta}{henta}},
+  available        = {{tilgjengeleg}{tilgjengeleg}},
+  from             = {{fr{\aa}}{fr{\aa}}},
+  archivedat       = {{arkivert\space ved}{arkivert\space ved}},
+  reviewof         = {{melding\space av}{melding\space av}},
+  producer         = {{produsent}{produsent}},
+  execproducer     = {{ut{\o}vande produsent}{ut{\o}vande produsent}},
+  director         = {{regiss{\o}r}{regiss{\o}r}},
+  writer           = {{manus}{manus}},
   with             = {{med}{med}},
   paragraph        = {{\P}{\P}},
   paragraphs       = {{\P\P}{\P\P}},
-  january          = {{januar}{januar}},
-  february         = {{februar}{februar}},
-  march            = {{marts}{marts}},
-  april            = {{april}{april}},
-  may              = {{maj}{maj}},
-  june             = {{juni}{juni}},
-  july             = {{juli}{juli}},
-  august           = {{august}{august}},
-  september        = {{september}{september}},
-  october          = {{oktober}{oktober}},
-  november         = {{november}{november}},
-  december         = {{december}{december}},
-  mathesis         = {{Speciale}{Speciale}},
-  phdthesis        = {{Ph.d.-afhandling}{Ph.d.-afhandling}},
-  origyear         = {{oprindeligt\space offentliggjort}{oprindeligt\space offentliggjort}},
-  typechair        = {{ordstyrer}{ordstyrer}},
-  typechairs       = {{ordstyrere}{ordstyrere}},
+  mathesis         = {{Masteroppg{\aa}ve}{Masteroppg{\aa}ve}},
+  phdthesis        = {{Doktoravhandling}{Doktoravhandling}},
+  origyear         = {{opphavleg\space publisert}{opphavleg\space publisert}},
+  typechair        = {{ordstyrar}{ordstyrar}},
+  typechairs       = {{ordstyrarar}{ordstyrarar}},
   typevolume       = {{bindredakt{\o}r}{bindred\adddot}},
-  typevolumes      = {{bindredakt{\o}rer}{bindred\adddot}},
+  typevolumes      = {{bindredakt{\o}rar}{bindred\adddot}},
   typeseries       = {{serieredakt{\o}r}{seriered\adddot}},
-  typeseriess      = {{serieredakt{\o}rer}{seriered\adddot}},
+  typeseriess      = {{serieredakt{\o}rar}{seriered\adddot}},
   typevolseries    = {{serie- og bindredakt{\o}r}{serie- og bindred\adddot}},
-  typevolseriess   = {{serie- og bindredakt{\o}rer}{serie- og bindred\adddot}},
+  typevolseriess   = {{serie- og bindredakt{\o}rar}{serie- og bindred\adddot}},
   annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
   beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
 }
@@ -89,7 +77,7 @@
       {}%
     \iffieldundef{#1}%
       {}%
-      {\thefield{#1}}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
     \iffieldundef{#3}%
       {}%
       {\iffieldundef{#1}%
@@ -113,7 +101,7 @@
       {}%
     \iffieldundef{#1}%
       {}%
-      {\thefield{#1}\printfield{extradate}}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
     \iffieldundef{#3}%
       {}%
       {\iffieldundef{#1}%
@@ -149,7 +137,10 @@
       {\iffieldundef{#2}%
         {}%
         {\addspace}%
-       \thefield{#1}}}}
+       \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
