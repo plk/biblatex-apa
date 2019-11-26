@@ -298,26 +298,79 @@
 
 \DeclareFieldFormat{citetitle}{\mkbibquote{#1}}
 \DeclareFieldFormat[book,manual,report,preiodical,legmaterial,jurisdiction]{citetitle}{\mkbibemph{#1}}
-\DeclareFieldFormat[legislation,legadminmaterial]{citetitle}{#1}
+\DeclareFieldFormat[legislation,legadminmaterial,legal]{citetitle}{#1}
 
 \newbibmacro*{cite:noname}{%
   \iffieldundef{labeltitle}
-    {\ifthenelse{\ifentrytype{legmaterial}\OR\ifentrytype{legadminmaterial}}
+    {\ifthenelse{\ifentrytype{legmaterial}\OR%
+                 \ifentrytype{legadminmaterial}}
       {\let\blx@tempa\bibcplstring% \textcite default
        \let\blx@tempb\bibcplstring% \textcite default
        \iftoggle{apa:inpcite}
-       {\iffieldequalstr{type}{execorder}{\let\blx@tempb\bibcpsstring}{}%
-        \iffieldequalstr{type}{resolution}{\let\blx@tempa\bibcpsstring}{}%
-        \iffieldequalstr{type}{report}{\let\blx@tempa\bibcpsstring\let\blx@tempb\bibcpsstring}{}}
-       {}%
-        \blx@tempa{\thefield{source}}%
-        \setunit{\addspace}%
-        \blx@tempb{\thefield{type}}%
-        \setunit{\addspace}%
-        \printfield[legmaterialnum]{number}}
-      {}}
+         {\iffieldequalstr{type}{execorder}{\let\blx@tempb\bibcpsstring}{}%
+          \iffieldequalstr{type}{resolution}{\let\blx@tempa\bibcpsstring}{}%
+          \iffieldequalstr{type}{report}{\let\blx@tempa\bibcpsstring\let\blx@tempb\bibcpsstring}{}}
+         {}%
+       \iffieldundef{source}{}{\blx@tempa{\thefield{source}}}%
+       \setunit{\addspace}%
+       \iffieldundef{type}{}{\blx@tempb{\thefield{type}}}%
+       \setunit{\addspace}%
+       \printfield[legmaterialnum]{number}}
+      {\ifentrytype{constitution}{\usebibmacro{cite:noname:const}}{}}}
     {\printfield[citetitle]{labeltitle}}}
 
+% CONSTITUTION entrytypes are messier
+\newbibmacro*{cite:noname:const}{%
+  \iftoggle{apa:inpcite}
+    {\bibcpsstring{\thefield{source}}%
+     \setunit{\addspace}%
+     \bibcpsstring{\thefield{type}}%
+     \setunit{\addspace}%
+     \iffieldundef{amendment}{}{\bibsstring{amendment}%
+                                \setunit{\addspace}%
+                                \printfield{amendment}%
+                                \setunit{\addcomma\addspace}%
+                                \ifkeyword{repealed}
+                                  {\biblcsstring{repealed}%
+                                   \setunit{\addspace}%
+                                   \printeventdate}
+                                  {}}%
+     \setunit{\addspace}%
+     \iffieldundef{article}{}{\bibsstring{article}\setunit{\addspace}\printfield{article}}%
+     \setunit{\addcomma\addspace}\newblock
+     \iffieldundef{section}{}{\bibsstring{section}\setunit{\addspace}\printfield{section}}%
+     \setunit{\addcomma\addspace}\newblock
+     \iffieldundef{part}{}{\bibsstring{paragraph}\setunit{\addspace}\printfield{part}}}
+    {}%
+  \iftoggle{apa:intcite}
+    {\iffieldundef{amendment}{}{\bibcplstring{amendment}%
+                                \setunit{\addspace}%
+                                \printfield{amendment}%
+                                \setunit{\addspace}%
+                                \biblcsstring{tothe}}%
+     \iffieldundef{article}{}{\bibcplstring{article}\setunit{\addspace}\printfield{article}}%
+     \setunit{\addcomma\addspace}%
+     \iffieldundef{part}{}{\biblstring{paragraph}%
+                           \setunit{\addspace}%
+                           \printfield{part}%
+                           \setunit{\addcomma\addspace}%
+                           \biblcsstring{ofthe}}%
+     \setunit{\addcomma\addspace}%
+     \iffieldundef{section}{}{\bibcplstring{section}%
+                              \setunit{\addspace}%
+                              \printfield{section}%
+                              \setunit{\addcomma\addspace}%
+                              \biblcsstring{ofthe}}
+     \setunit{\addspace}%
+     \bibcplstring{\thefield{source}}%
+     \setunit{\addspace}%
+     \bibcplstring{\thefield{type}}%
+     \setunit{\addspace}%
+     \ifkeyword{repealed}
+       {\biblclstring{repealed}\setunit{\addspace}\printeventdate}
+       {}}
+    {}}
+       
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

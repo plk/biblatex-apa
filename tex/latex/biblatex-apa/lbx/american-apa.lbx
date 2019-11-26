@@ -63,20 +63,84 @@
 \NewBibliographyString{resolution}
 \NewBibliographyString{houseofrepresentatives}
 \NewBibliographyString{report}
-\NewBibliographyString{usconstitution}
+\NewBibliographyString{us}
+\NewBibliographyString{southcarolina}
+\NewBibliographyString{constitution}
 \NewBibliographyString{section}
 \NewBibliographyString{amendment}
 \NewBibliographyString{proposed}
+\NewBibliographyString{repealed}
+\NewBibliographyString{unitednations}
+\NewBibliographyString{charter}
+\NewBibliographyString{ofthe}
+\NewBibliographyString{tothe}
+\NewBibliographyString{alabama}
+\NewBibliographyString{alaska}
+\NewBibliographyString{arizona}
+\NewBibliographyString{arkansas}
+\NewBibliographyString{california}
+\NewBibliographyString{colorado}
+\NewBibliographyString{connecticut}
+\NewBibliographyString{delaware}
+\NewBibliographyString{florida}
+\NewBibliographyString{georgia}
+\NewBibliographyString{hawaii}
+\NewBibliographyString{idaho}
+\NewBibliographyString{illinois}
+\NewBibliographyString{indiana}
+\NewBibliographyString{iowa}
+\NewBibliographyString{kansas}
+\NewBibliographyString{kentucky}
+\NewBibliographyString{louisiana}
+\NewBibliographyString{maine}
+\NewBibliographyString{maryland}
+\NewBibliographyString{massachusetts}
+\NewBibliographyString{michigan}
+\NewBibliographyString{minnesota}
+\NewBibliographyString{mississippi}
+\NewBibliographyString{missouri}
+\NewBibliographyString{montana}
+\NewBibliographyString{nebraska}
+\NewBibliographyString{nevada}
+\NewBibliographyString{newhampshire}
+\NewBibliographyString{newjersey}
+\NewBibliographyString{newmexico}
+\NewBibliographyString{newyork}
+\NewBibliographyString{northcarolina}
+\NewBibliographyString{northdakota}
+\NewBibliographyString{ohio}
+\NewBibliographyString{oklahoma}
+\NewBibliographyString{oregon}
+\NewBibliographyString{pennsylvania}
+\NewBibliographyString{rhodeisland}
+\NewBibliographyString{southcarolina}
+\NewBibliographyString{southdakota}
+\NewBibliographyString{tennessee}
+\NewBibliographyString{texas}
+\NewBibliographyString{utah}
+\NewBibliographyString{vermont}
+\NewBibliographyString{virginia}
+\NewBibliographyString{washington}
+\NewBibliographyString{westvirginia}
+\NewBibliographyString{wisconsin}
+\NewBibliographyString{wyoming}
 
 \DeclareBibliographyStrings{%
   inherit          = {american},
+  ofthe            = {{of\space the}{of\space the}},
+  tothe            = {{to\space the}{to\space the}},
+  unitednations    = {{United\space Nations}{U\adddot N\adddot}},
+  charter          = {{charter}{charter}},
   proposed         = {{proposed}{proposed}},
+  repealed         = {{was repealed in}{repealed}},
   execorder        = {{Executive\space Order}{Exec\adddot\space Order}},
   senate           = {{Senate}{S\adddot}},
   resolution       = {{Resolution}{Res\adddot}},
   houseofrepresentatives = {{House\space of\space Representatives}{H\adddot R\adddot}},
   report           = {{Report}{Rep\adddot}},
-  usconstitution   = {{U\adddot S\adddot\space Constitution}{U\adddot S\adddot\space Const\adddot}},
+  us               = {{U\adddot S\adddot}{U\adddot S\adddot}},
+  southcarolina    = {{South\space Carolina}{S\adddot C\adddot}},
+  constitution     = {{Constitution}{Const\adddot}},
   section          = {{Section}{§}},
   amendment        = {{amendment}{amend\adddot}},
   article          = {{article}{art\adddot}},
@@ -148,7 +212,57 @@
   annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
   beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
   commonera        = {{C\adddot E\adddot}{C\adddot E\adddot}},
-  beforecommonera  = {{B\adddot C\adddot E\adddot}{B\adddot C\adddot E\adddot}}
+  beforecommonera  = {{B\adddot C\adddot E\adddot}{B\adddot C\adddot E\adddot}},
+  alabama       = {{Alabama}{{A\adddot L\adddot}}},
+  alaska        = {{Alaska}{{A\adddot K\adddot}}},
+  arizona       = {{Arizona}{{A\adddot Z\adddot}}},
+  arkansas      = {{Arkansas}{{A\adddot R\adddot}}},
+  california    = {{California}{{C\adddot A\adddot}}},
+  colorado      = {{Colorado}{{C\adddot O\adddot}}},
+  connecticut   = {{Connecticut}{{C\adddot T\adddot}}},
+  delaware      = {{Delaware}{{D\adddot E\adddot}}},
+  florida       = {{Florida}{{F\adddot L\adddot}}},
+  georgia       = {{Georgia}{{G\adddot A\adddot}}},
+  hawaii        = {{Hawaii}{{H\adddot I\adddot}}},
+  idaho         = {{Idaho}{{I\adddot D\adddot}}},
+  illinois      = {{Illinois}{{I\adddot L\adddot}}},
+  indiana       = {{Indiana}{{I\adddot N\adddot}}},
+  iowa          = {{Iowa}{{I\adddot A\adddot}}},
+  kansas        = {{Kansas}{{K\adddot S\adddot}}},
+  kentucky      = {{Kentucky}{{K\adddot Y\adddot}}},
+  louisiana     = {{Louisiana}{{L\adddot A\adddot}}},
+  maine         = {{Maine}{{M\adddot E\adddot}}},
+  maryland      = {{Maryland}{{M\adddot D\adddot}}},
+  massachusetts = {{Massachusetts}{{M\adddot A\adddot}}},
+  michigan      = {{Michigan}{{M\adddot I\adddot}}},
+  minnesota     = {{Minnesota}{{M\adddot N\adddot}}},
+  mississippi   = {{Mississippi}{{M\adddot S\adddot}}},
+  missouri      = {{Missouri}{{M\adddot O\adddot}}},
+  montana       = {{Montana}{{M\adddot T\adddot}}},
+  nebraska      = {{Nebraska}{{N\adddot E\adddot}}},
+  nevada        = {{Nevada}{{N\adddot V\adddot}}},
+  newhampshire  = {{New Hampshire}{{N\adddot H\adddot}}},
+  newjersey     = {{New Jersey}{{N\adddot J\adddot}}},
+  newmexico     = {{New Mexico}{{N\adddot M\adddot}}},
+  newyork       = {{New York}{{N\adddot Y\adddot}}},
+  northcarolina = {{North Carolina}{{N\adddot C\adddot}}},
+  northdakota   = {{North Dakota}{{N\adddot D\adddot}}},
+  ohio          = {{Ohio}{{O\adddot H\adddot}}},
+  oklahoma      = {{Oklahoma}{{O\adddot K\adddot}}},
+  oregon        = {{Oregon}{{O\adddot R\adddot}}},
+  pennsylvania  = {{Pennsylvania}{{P\adddot A\adddot}}},
+  rhodeisland   = {{Rhode Island}{{R\adddot I\adddot}}},
+  southcarolina = {{South Carolina}{{S\adddot C\adddot}}},
+  southdakota   = {{South Dakota}{{S\adddot D\adddot}}},
+  tennessee     = {{Tennessee}{{T\adddot N\adddot}}},
+  texas         = {{Texas}{{T\adddot X\adddot}}},
+  utah          = {{Utah}{{U\adddot T\adddot}}},
+  vermont       = {{Vermont}{{V\adddot T\adddot}}},
+  virginia      = {{Virginia}{{V\adddot A\adddot}}},
+  washington    = {{Washington}{{W\adddot A\adddot}}},
+  westvirginia  = {{West Virginia}{{W\adddot V\adddot}}},
+  wisconsin     = {{Wisconsin}{{W\adddot I\adddot}}},
+  wyoming       = {{Wyoming}{{W\adddot Y\adddot}}}
 }
 
 %

@@ -132,9 +132,10 @@
     \blx@metadateinfo{#1}%
     \iffieldundef{#1year}{}
       {\datecircaprint
-       \ifboolexpr{ test {\ifstrequal{#1}{url}}
-                    or ( test {\ifentrytype{legadminmaterial}} and
-                         test {\ifkeyword{proposed}} ) }
+        \ifboolexpr{ test {\ifstrequal{#1}{url}}
+                     or test {\ifentrytype{legal}}          
+                     or ( test {\ifentrytype{legadminmaterial}} and
+                          test {\ifkeyword{proposed}} ) }
          {\printtext{%
              \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
              \iffieldundef{#1endyear}%
@@ -270,6 +271,9 @@
   \literal{nodate}
 }
 
+% CONSTITUTION entrytypes have no dates at all so no fall back to nodate literal either
+\DeclareLabeldate[constitution]{\field{date}}
+
 \ExecuteBibliographyOptions{%
                             abbreviate=true,%
                             autocite=inline,%
@@ -351,7 +355,7 @@
 
 % TITLE
 \DeclareFieldFormat*{title}{\mkbibemph{#1}\isdot}
-\DeclareFieldFormat[article,inbook,incollection,periodical,misc,legislation,legadminmaterial,jurisdiction]{title}{#1\isdot}
+\DeclareFieldFormat[article,inbook,incollection,periodical,misc,legislation,legadminmaterial,jurisdiction,inproceedings,legal]{title}{#1\isdot}
 \DeclareFieldFormat[audio,video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}\isdot}{#1}}
 
 % SUBTITLE
@@ -411,6 +415,9 @@
 % PAGES
 \DeclareFieldFormat[inbook,incollection]{pages}{\mkpageprefix[bookpagination]{#1}}
 \DeclareFieldFormat[periodical]{pages}{#1}
+
+% PART
+\DeclareFieldFormat*{part}{#1}
 
 % LOCATION
 \DeclareListFormat[misc,periodical]{location}{\mkbibemph{#1}}
@@ -1363,9 +1370,9 @@
                   
 \newbibmacro*{legmattitle}{%
   \iffieldundef{title}
-    {\printtext{\bibcpsstring{\thefield{source}}}%
+    {\bibcpsstring{\thefield{source}}%
      \setunit*{\addspace}%
-     \printtext{\bibcpsstring{\thefield{type}}}%
+     \bibcpsstring{\thefield{type}}%
      \setunit*{\addspace}%
      \printfield[legmaterialnum]{number}}
     {\printfield{title}%
@@ -1459,6 +1466,27 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
+  \usebibmacro{pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{constitution}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \bibcpsstring{\thefield{source}}%
+  \setunit{\addspace}\newblock
+  \bibcpsstring{\thefield{type}}%
+  \setunit{\addspace}\newblock
+  \iffieldundef{amendment}{}{\bibsstring{amendment}\setunit{\addspace}\printfield{amendment}}%
+  \setunit{\addcomma\addspace}\newblock
+  \iffieldundef{article}{}{\bibsstring{article}\setunit{\addspace}\printfield{article}}%
+  \setunit{\addcomma\addspace}\newblock
+  \iffieldundef{section}{}{\bibsstring{section}\setunit{\addspace}\printfield{section}}%
+  \setunit{\addcomma\addspace}\newblock
+  \iffieldundef{part}{}{\bibsstring{paragraph}\setunit{\addspace}\printfield{part}}%
+  \setunit{\addspace}\newblock
+  \ifkeyword{repealed}{\printtext[parens]{\biblcsstring{repealed}\setunit{\addspace}\printeventdate}}{}%
+  \usebibmacro{doi+url}%
   \usebibmacro{pageref}%
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
@@ -1622,6 +1650,20 @@
   \setunit{\addspace}\newblock
   \printtext[courtdate]{\printlabeldate}%
   \newunit\newblock
+  \usebibmacro{doi+url}%
+  \usebibmacro{pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{legal}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \printfield{title}%
+  \setunit{\addspace}%
+  \printfield{titleaddon}%
+  \setunit{\addcomma\addspace}\newblock
+  \printlabeldate%
+  \setunit{\addcomma\addspace}\newblock
   \usebibmacro{doi+url}%
   \usebibmacro{pageref}%
   \usebibmacro{annotation}%

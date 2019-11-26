@@ -24,7 +24,7 @@
   url={http://mirror.ctan.org/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={9.0},
+  revision={9.1},
   date={\today}}
 
 \hypersetup{%
@@ -67,13 +67,16 @@ your language, they are generally marked with ``\texttt{\%FIXME}``.
 \subsection{About}
 
 This package is a Bib\LaTeX\ style for APA (American Psychological
-Association) style compliant documents typeset in \latex. It implements a
-citation style (\file{apa.cbx}), a references section style
+Association) 7th Edition style compliant documents typeset in \latex. It
+implements a citation style (\file{apa.cbx}), a references section style
 (\file{apa.bbx}), some data model enhancements (\file{apa.dbx}) and string
 localisation files (\path{<language>-apa.lbx}). The style is loaded just
 like any other Bib\LaTeX\ styles but don't try to use the citation and
 references styles separately as they rely on each other, macro-wise, in
 places.
+
+Please see the package |biblatex-apa6| on CTAN for the APA 6th edition
+conformant version of this style.
 
 In general, there is no attempt to generalise this style for non-APA
 requirements--it is written for APA compliance only. Having said that,
@@ -186,7 +189,7 @@ apamaxprtauth=<num>
 \noindent This option controls the number of author/editor names which are
 printed in the References. APA style defaults to 20. You can change this if
 you really want to fully print all author list references in certain
-contexts (for example in a CV where you are an author in position 21 \ldots)
+contexts (for example in a CV where you are an author in position 21 \ldots).
 
 \subsection{Localisation}
 
@@ -225,17 +228,6 @@ A customisable macro \cmd{urldatecomma} determines what comes between the
 date of a URL and the URL itself. This defaults to the standard comma and
 space as per APA style but just a space in germanic localisations.
 
-\subsection{Limitations}
-\label{use:limit}
-There are certain limitations you need to bear in mind when using these
-styles. The APA manual is written without much regard for automation of
-citation and references processing---it just tells you how it wants things to
-look and the implicit assumption is that you would type out everything by
-hand if necessary. Having said that, the majority of the APA citation
-and references style is implemented, there are just a few exceptions which
-are hardly worth the coding pain since they are ambiguous and easily worked
-around.
-
 \section{Details}
 
 The detailed information for this style is contained in the example document and
@@ -245,7 +237,7 @@ accompanying \path{.bib} files:
 \item[\path{biblatex-apa-test.tex}]\footnote{\path{biblatex-apa-test.pdf}
     is also provided and is the typeset version of this \latex source
     file.} This document typesets every useful example from
-  \apa{8}--\apa{10}. The examples in it aim to look as much like the APA
+  \apa{8--10}. The examples in it aim to look as much like the APA
   manual examples as possible. All citation examples in the document are
   real examples using a \path{.bib} file.
 \item[\path{biblatex-apa-test-citations.bib}] This contains the \path{.bib}
@@ -253,10 +245,10 @@ accompanying \path{.bib} files:
   in this file---it's just used to provide real data for the citation
   examples.
 \item[\path{biblatex-apa-test-references.bib}] This contains the
-  \path{.bib} entries for all of the examples in \apa{9} and \apa{10}. This
+  \path{.bib} entries for all of the examples in \apa{9--11}. This
   file is the main documentation for the |biblatex-apa| implementation of
   the APA References section style. To see how the style deals with a
-  particular example from \apa{9} or \apa{10}, look it up in here. Every
+  particular example from \apa{9--11}, look it up in here. Every
   example is marked with the APA example number and has explanatory notes
   where necessary.
 \item[\path{apa.cbx}] The |biblatex-apa| citations style. It is
@@ -376,11 +368,37 @@ because date formatting differs in the style between academic and
 non-academic articles. This is a more general solution than introducing new
 entry types which are not supported by other software.
 
+\subsubsection{Legal Entry Types}
+
+\apa{11} contains the format guidelines for legal references. This is fully
+implemented and the |biblatex-apa-test-references.bib| demonstrates which
+entry types and fields are used to produce the \apa{11} examples. There are
+some custom entry types and fields used to manage this, as you will see in
+the |.bib| file. Considerable use is made of localisation strings in legal
+entries due to the requirements that certain strings change their
+abbreviation status between citations and references (and even between
+parenthetical and narrative citations).
+
+The localisation strings for the U.S. specific elements of this section
+(most of it) are not provided in other languages as there is not much
+point. Feel free to copy them from |american-apa.lbx| if you really need
+to. Localisation strings for all 50 U.S. States are provided to support
+state constitution references.
+
+Pay attention to the |JURISDICTION| entries in the example |.bib| which use
+|biber|'s data annotation feature in order to match the required style
+elements. The names of the data annotations are not optional and must match
+the examples.
+
 \section{Revision history}\label{rev}
 
 \begin{changelog}
 
-\begin{release}{9.0}{2019-}
+\begin{release}{9.1}{2019-11-27}
+\item Bug fixes, internal improvements and implementation of \apa{11}.
+\end{release}
+
+\begin{release}{9.0}{2019-11-23}
 \item First release (of APA 7th edition style)
 \end{release}
 

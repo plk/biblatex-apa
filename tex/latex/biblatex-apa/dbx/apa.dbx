@@ -35,7 +35,7 @@
   source,
   article,
   section,
-  ammendment,
+  amendment,
   appentry}
 
 \DeclareDatamodelEntryfields{
@@ -63,7 +63,7 @@
 \DeclareDatamodelEntryfields[constitution]{
   article,
   section,
-  ammendment}
+  amendment}
 
 \DeclareDatamodelEntryfields[software]{
   appentry}
