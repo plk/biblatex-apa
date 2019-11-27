@@ -212,9 +212,9 @@ version which has not yet been published to the \TeX Live updaters, for
 example), you can download it from CTAN and then, put the \path{.cbx},
 \path{.bbx} and \path{.lbx} files in your texmf tree, usually:\\ 
 
-\noindent\path{<texmf>/tex/latex/biblatex/cbx/apa.cbx}\\
-\path{<texmf>/tex/latex/biblatex/bbx/apa.bbx}\\
-\path{<texmf>/tex/latex/biblatex/lbx/<language>-apa.lbx}\\
+\noindent\path{<texmf>/tex/latex/biblatex/cbx/apa6.cbx}\\
+\path{<texmf>/tex/latex/biblatex/bbx/apa6.bbx}\\
+\path{<texmf>/tex/latex/biblatex/lbx/<language>-apa6.lbx}\\
 
 \noindent Specify the style in the usual way when loading Bib\LaTeX. If you
 are using \sty{babel}:
@@ -222,7 +222,7 @@ are using \sty{babel}:
 \begin{ltxcode}
 \usepackage[american]{babel}
 \usepackage{csquotes}
-\usepackage[style=apa]{biblatex}
+\usepackage[style=apa6]{biblatex}
 \end{ltxcode}
 
 or \sty{polyglossia}:
@@ -231,7 +231,7 @@ or \sty{polyglossia}:
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=american]{english}
 \usepackage{csquotes}
-\usepackage[style=apa]{biblatex}
+\usepackage[style=apa6]{biblatex}
 \end{ltxcode}
 
 \noindent Note that the APA manual requires the forcing of titles into
@@ -283,7 +283,7 @@ Localisation is provided for APA-specific strings in the accompanying
 Normal use will invoke \sty{babel} with the «american» language or
 \sty{polyglossia} with «american» variant of «english».
 
-The \file{english-apa.lbx} is a copy of the \file{american-apa.lbx} since
+The \file{english-apa.lbx} is a copy of the \file{american-apa6.lbx} since
 the default is «American» English.
 
 The APA manual does not mention nor sanction any non «American» English
@@ -306,7 +306,7 @@ roughly APA formatting standards (German journals tend to have a different
 long date format, for example). The «american» babel option will give you
 APA compliant US date formats. Default sensible date formats are included
 for german, ngerman and french. You should redefine the |\mkbibdatelong|
-macro in the relevant language |*-apa.lbx| file to change this if needed.
+macro in the relevant language |*-apa6.lbx| file to change this if needed.
 
 A customisable macro \cmd{urldatecomma} determines what comes between the
 date of a URL and the URL itself. This defaults to the standard comma and
@@ -328,34 +328,34 @@ around.
 The detailed information for this style is contained in the example document and
 accompanying \path{.bib} files:
 \begin{description}
-\item[\path{biblatex-apa.tex}] This document.
-\item[\path{biblatex-apa-test.tex}]\footnote{\path{biblatex-apa-test.pdf}
+\item[\path{biblatex-apa6.tex}] This document.
+\item[\path{biblatex-apa6-test.tex}]\footnote{\path{biblatex-apa6-test.pdf}
     is also provided and is the typeset version of this \latex source
     file.} This document typesets just about every useful example from
   \apa{6.11}--\apa{6.21} and \apa{7.01}--\apa{7.11}. The examples in it
   aim to look as much like the APA manual examples as possible. All
   citation examples in the document are real examples using a \path{.bib}
   file.
-\item[\path{biblatex-apa-test-citations.bib}] This contains the \path{.bib}
+\item[\path{biblatex-apa6-test-citations.bib}] This contains the \path{.bib}
   entries for the citations examples. You won't find anything of interest
   in this file---it's just used to provide real data for the citation
   examples.
-\item[\path{biblatex-apa-test-references.bib}] This contains the
+\item[\path{biblatex-apa6-test-references.bib}] This contains the
   \path{.bib} entries for all of the examples in \apa{7.x}. This file is
   the main documentation for the |biblatex-apa| implementation of the APA
   References section style. To see how the style deals with a particular
   example from \apa{7.x}, look it up in here. Every example is marked with
   the APA example number and has explanatory notes.
-\item[\path{apa.cbx}] The |biblatex-apa| citations style. It is
+\item[\path{apa6.cbx}] The |biblatex-apa| citations style. It is
   decently structured with comments but shouldn't need to be read for
   normal use.
-\item[\path{apa.bbx}] The |biblatex-apa| references style. It is
+\item[\path{apa6.bbx}] The |biblatex-apa| references style. It is
   decently structured with comments but shouldn't need to be read for
   normal use.
-\item[\path{apa.dbx}] The |biblatex-apa| data model additions. This allows
+\item[\path{apa6.dbx}] The |biblatex-apa| data model additions. This allows
   users to utilise more natural entry type and field names for certain
-  entries. See comments in the \path{biblatex-apa-test-references.bib}.
-\item[\path{*.lbx}] The |biblatex-apa| localisation files. These files
+  entries. See comments in the \path{biblatex-apa6-test-references.bib}.
+\item[\path{*-apa6.lbx}] The |biblatex-apa| localisation files. These files
   override some language-specific macros for some fixed strings.
 \end{description}
 
@@ -378,7 +378,7 @@ command
 
 \noindent is provided for such situations. It is identical to |\textcite|
 but does not put parentheses around the year and separates items with
-commas. See examples using this command in \path{biblatex-apa-test.tex}.
+commas. See examples using this command in \path{biblatex-apa6-test.tex}.
 There is also a multi-cite version |\nptextcites| that works in the same
 way as |\textcites|.
 
@@ -468,6 +468,10 @@ applied to the data stream by |biber| and does not change your \file{.bib}.
 
 \begin{changelog}
 
+\begin{release}{8.1}{2019-11-27}
+\item Corrected documentation for legacy 6th edition style
+\end{release}
+  
 \begin{release}{8.0}{2019-09-07}
 \item Removed unused and unneeded use of NUMBER and SERIES fields
 \end{release}
