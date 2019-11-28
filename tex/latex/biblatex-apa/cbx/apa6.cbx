@@ -9,7 +9,7 @@
 %% version 2005/12/01 or later.
 %%
 %% This work has the LPPL maintenance status `maintained'.
-%% 
+%%
 %% The Current Maintainer of this work is Philip Kime.
 
 \ProvidesFile{apa6.cbx}[2019/11/27\space v8.1\space APA 6th ed. biblatex citation style]
@@ -242,7 +242,7 @@
 % X and Y and Z (2009)
 % X and W and V (2010)
 %
-% which have the same namehash due to minnames visibility truncation to 1 
+% which have the same namehash due to minnames visibility truncation to 1
 % would be printed incorrectly as
 % \cite{one, two} -> X, Y & Z 2009, 2010
 \newbibmacro*{cite}{%
@@ -370,7 +370,6 @@
 \DeclareDelimFormat[nptextcite]{finalnamedelim}
   {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
 
-\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\multicitedelim}
 \DeclareCiteCommand{\nptextcite}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
@@ -390,7 +389,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % No shorthand
-% 
+%
 \newbibmacro*{citeyear}{%
   \iffieldundef{labelyear}
     {\usebibmacro{cite:init}}
@@ -515,8 +514,6 @@
   {}
   {\usebibmacro{postnote}}
 
-\DeclareMultiCiteCommand{\textcites}{\textcite}{\compcitedelim}
-
 \DeclareCiteCommand{\textcite}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
@@ -534,5 +531,18 @@
    \usebibmacro{cite:post}}
   {}
   {\usebibmacro{postnote}}
+
+
+\DeclareMultiCiteCommand{\cites}{\cite}{\setunit{\multicitedelim}}
+\DeclareMultiCiteCommand{\textcites}{\textcite}{\setunit{\compcitedelim}}
+\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\setunit{\multicitedelim}}
+\DeclareMultiCiteCommand{\parencites}[\mkbibparens]{\parencite}
+  {\setunit{\multicitedelim}}
+\DeclareMultiCiteCommand{\footcites}[\mkbibfootnote]{\footcite}
+  {\setunit{\multicitedelim}}
+\DeclareMultiCiteCommand{\footcitetexts}[\mkbibfootnotetext]
+  {\footcitetext}{\setunit{\multicitedelim}}
+\DeclareMultiCiteCommand{\smartcites}[\iffootnote\mkbibparens\mkbibfootnote]
+  {\smartcite}{\setunit{\multicitedelim}}
 
 \endinput
