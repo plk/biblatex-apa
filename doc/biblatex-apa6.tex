@@ -251,16 +251,6 @@ The following options are set as usual in the options passed to
 |biblatex|.
 
 \begin{ltxcode}
-apabackref=true|false
-\end{ltxcode}% | stupid comment to stop emacs highlighting as verb due
-             % to single pipe
-
-\noindent It is not APA style to include backreferences in the References to
-pages where citations of the entry occur. However, this is very
-useful, especially in proofing and so if you set the |apabackref|
-option to «true», these are enabled. The default is «false».
-
-\begin{ltxcode}
 apamaxprtauth=<num>
 \end{ltxcode}
 
@@ -467,6 +457,10 @@ applied to the data stream by |biber| and does not change your \file{.bib}.
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+\begin{release}{8.2}{2019-??-??}
+\item Removed |apabackref| option, use the standard
+  |biblatex| |backref| option instead
+\end{release}
 
 \begin{release}{8.1}{2019-11-27}
 \item Corrected documentation for legacy 6th edition style
