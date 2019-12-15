@@ -11,3 +11,4 @@
 * DONE %REF
 * DONE Document mention legal formats, citeinfo/citeorg/citedate or ORGANIZATION, appeal annotation
 * DONE Document v6 package and name
+* TODO Remove annotation \togglefalse{blx@bibliography} from .bbx, line 1307 after biblatex 3.15 out
