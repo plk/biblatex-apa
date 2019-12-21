@@ -12,7 +12,7 @@
 %%
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.bbx}[2019/12/21\space v9.3\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2019/12/22\space v9.4\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -310,10 +310,16 @@
 
 % Enforce ignoring of PUBSTATE if there is a YEAR or DATE field
 % (APA 10.2:32) Remove PUBLISHER if it is the same as GROUPAUTHOR                          
-% Force @COLLECTION->@BOOK and @INCOLLECTION->@INBOOK
+% Force @COLLECTION, @REFERENCE->@BOOK and @INCOLLECTION,@INREFERENCE->@INBOOK
                           
 \DeclareStyleSourcemap{
   \maps[datatype=bibtex]{
+    \map{
+      \step[typesource=reference, typetarget=book]
+    }
+    \map{
+      \step[typesource=inreference, typetarget=inbook]
+    }
     \map{
       \step[typesource=collection, typetarget=book]
     }
