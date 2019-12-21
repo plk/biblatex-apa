@@ -413,6 +413,7 @@
 
 
 % PAGES
+\DeclareFieldFormat{pageswithprefix}{\mkpageprefix[bookpagination]{#1}}
 \DeclareFieldFormat[inbook,incollection]{pages}{\mkpageprefix[bookpagination]{#1}}
 \DeclareFieldFormat[periodical]{pages}{#1}
 
@@ -1273,13 +1274,13 @@
        \setunit{\addcomma\addspace}%
        \usebibmacro{doi+url}%
        \setunit{}}
-   {\ifentrytype{incollection}
+   {\ifentrytype{book}
       {\mkbibemph{%
          \printfield[apacase]{title}%
          \setunit{\subtitlepunct}%
          \printfield[apacase]{subtitle}}%
        \setunit{\addcomma\addspace}%
-       \printfield{pages}%
+       \printfield[pageswithprefix]{pages}%
        \setunit{\addcomma\addspace}%
        \biblstring{byauthor}\space
        \printnames[apanames][-\value{listtotal}]{editor}%
