@@ -24,7 +24,7 @@
   url={http://mirror.ctan.org/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={9.2},
+  revision={9.3},
   date={\today}}
 
 \hypersetup{%
@@ -54,13 +54,16 @@ much less dependence on ad-hoc entry types and fields. In general, your
 \noindent |biber| 2.14+ and and |biblatex| 3.14 + are \emph{required}.
 
 One effect of the normalisation of reference entries in the 7th edition is
-that standard entrytypes can be used to cover many more cases. However,
-differentiation between different entry subtypes (for example, songs,
-albums or podcasts within the |AUDIO| entry type) is handled by localised
-strings held in the |ENTRYSUBTYPE| field. As a result, many more
-localisation strings have been added to the |.lbx| files. Please let me
-know if you are able to translation the new strings in the |.lbx| file for
-your language, they are generally marked with ``\texttt{\%FIXME}``.
+that standard entrytypes can be used to cover many more cases. Indeed, the
+set of standard entrytypes required is also smaller, for example,
+|@COLLECTION| and |@INCOLLECTION| are not required at all (and are
+internally remapped to |@BOOK| and |@INBOOK| respectively). Differentiation
+between different entry subtypes (for example, songs, albums or podcasts
+within the |AUDIO| entry type) is handled by localised strings held in the
+|ENTRYSUBTYPE| field. As a result, many more localisation strings have been
+added to the |.lbx| files. Please let me know if you are able to
+translation the new strings in the |.lbx| file for your language, they are
+generally marked with ``\texttt{\%FIXME}``.
 
 \section{Introduction}\label{int}
 
@@ -393,6 +396,10 @@ the examples.
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{9.3}{2019-12-21}
+\item Rationalised some entrytype usage
+\end{release}
 
 \begin{release}{9.2}{2019-11-29}
 \item Bug fixes

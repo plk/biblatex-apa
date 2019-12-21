@@ -12,7 +12,7 @@
 %%
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.bbx}[2019/11/29\space v9.2\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2019/12/21\space v9.3\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -310,9 +310,19 @@
 
 % Enforce ignoring of PUBSTATE if there is a YEAR or DATE field
 % (APA 10.2:32) Remove PUBLISHER if it is the same as GROUPAUTHOR                          
-
+% Force @COLLECTION->@BOOK and @INCOLLECTION->@INBOOK
+                          
 \DeclareStyleSourcemap{
   \maps[datatype=bibtex]{
+    \map{
+      \step[typesource=collection, typetarget=book]
+    }
+    \map{
+      \step[typesource=incollection, typetarget=inbook]
+    }
+    \map{
+      \step[typesource=hardware, typetarget=software]
+    }
     \map{
       \step[fieldsource=year, final]
       \step[fieldset=pubstate, null]
@@ -320,9 +330,6 @@
     \map{
       \step[fieldsource=date, final]
       \step[fieldset=pubstate, null]
-    }
-    \map{
-      \step[typesource=hardware, typetarget=software, final]
     }
     \map{
       \step[fieldsource=groupauthor, match=\regexp{([^{}]+)}, final]
@@ -1563,37 +1570,6 @@
   \newblock
   \usebibmacro{origyear}%
   \newunit\newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{pageref}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{incollection}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \setunit{\addspace}\newblock
-  \usebibmacro{apa:related}%
-  \newunit\newblock
-  \usebibmacro{editor+trans}%
-  \setunit*{\addcomma\addspace}\newblock
-  \usebibmacro{maintitle+booktitle}%
-  \newunit\newblock
-  \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
-  \usebibmacro{origyear}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newblock
   \printfield{addendum}%
   \newunit\newblock
   \iftoggle{bbx:related}
