@@ -1384,7 +1384,7 @@
                   
 \newbibmacro*{legmattitle}{%
   \iffieldundef{title}
-    {\bibcpsstring{\thefield{source}}%
+    {\ifbibxstring{\thefield{source}}{\bibcpsstring{\thefield{source}}}{}%
      \setunit*{\addspace}%
      \bibcpsstring{\thefield{type}}%
      \setunit*{\addspace}%
