@@ -500,16 +500,18 @@
        \let\bibstring\bibcplstring
        \setunit{\addspace}%
        \printtext{\mkbibparense{\usebibmacro{role}}}%
-       \hasitemannotation[\currentname][username]{\addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}{}}}%
-    \ifthenelse{\value{listcount}=\value{listtotal}}%
-      {\ifmorenames
-         {\printdelim{andothersdelim}
-           \bibstring{andothers}}
-         {}%
-       \let\bibstring\bibcplstring
-       \setunit{\addspace}%
-       \printtext{\mkbibparense{\usebibmacro{roles}}}}
-      {}}
+       \hasitemannotation[\currentname][username]
+         {\addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}
+         {}}}%
+  \ifthenelse{\value{listcount}=\value{listtotal}}%
+    {\ifmorenames
+       {\printdelim{andothersdelim}%
+        \bibstring{andothers}}
+       {}%
+     \let\bibstring\bibcplstring
+     \setunit{\addspace}%
+     \printtext{\mkbibparense{\usebibmacro{roles}}}}
+    {}}
 
 \DeclareNameFormat{apanames}{%
   \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
