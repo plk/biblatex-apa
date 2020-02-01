@@ -516,12 +516,12 @@
     {\addcomma\space\ldots\space}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
-      {\printtext{\usebibmacro{name:apa:given-family}%
+      {\usebibmacro{name:apa:given-family}%
          {\namepartfamily}%
          {\namepartgiven}%
          {\namepartgiveni}%
          {\namepartprefix}%
-         {\namepartsuffix}}%       
+         {\namepartsuffix}%       
        \let\bibstring\bibcpsstring
        \usebibmacro{role}{\addcomma\space}{\@firstofone}}}%
   \ifthenelse{\value{listcount}=\value{listtotal}}%
@@ -583,9 +583,12 @@
   \printfield{nameaddon}%
   \ifnameundef{with}
     {}
-    {\setunit{}\addspace\mkbibparens{\printtext{\bibstring{with}\addspace}%
-     \printnames[apaauthor][-\value{listtotal}]{with}}
-     \setunit*{\addspace}}}
+    {\setunit{\addspace}%
+     \printtext[parens]{%
+       \bibstring{with}%
+       \setunit{\addspace}%
+       \printnames[apaauthor][-\value{listtotal}]{with}}%
+     \setunit{\addspace}}}
 
 \newbibmacro*{author:related}{%
   \ifnameundef{author}
@@ -637,8 +640,8 @@
 
 \DeclareFieldFormat{apadate}{%
   \ifboolexpr{ test {\ifdatecirca} or test {\ifdateuncertain} }
-    {\printtext{\mkbibbrackets{#1}}}
-    {\printtext{\mkbibparens{#1}}}}
+    {\mkbibbrackets{#1}}
+    {\mkbibparens{#1}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -756,9 +759,10 @@
 \renewbibmacro*{eprint}{%
   \iffieldundef{eprinttype}
     {}
-    {\printtext{%
-       \iffieldbibstring{eprinttype}{\bibcplstring{\strfield{eprinttype}}}{\strfield{eprinttype}}%
-       \setunit{\addspace}}}%
+    {\iffieldbibstring{eprinttype}
+       {\bibcplstring{\strfield{eprinttype}}}
+       {\strfield{eprinttype}}%
+     \setunit{\addspace}}%
   \printfield{eprint}}
 
 \DeclareFieldFormat{eprint}{#1}
@@ -973,7 +977,7 @@
         \setunit*{\addcomma\addspace}%
         \usebibmacro{apaeditorstrg}{editor}%
         \setunit*{\addspace\&\space}%
-        \printtext{\bibcpstring{translator}}}
+        \bibcpstring{translator}}
        {\ifnameundef{editor}%
           {}%
           {\printnames[apanames][-\value{listtotal}]{editor}%
@@ -985,13 +989,13 @@
           {\setunit{}}%
           {\printnames[apanames][-\value{listtotal}]{translator}%
            \setunit{\addcomma\addspace}%
-           \printtext{\bibcpstring{translator}}%
+           \bibcpstring{translator}%
            \clearname{translator}}%
         \ifnameundef{narrator}%
           {\setunit{}}%
           {\printnames[apanames][-\value{listtotal}]{narrator}%
            \setunit{\addcomma\addspace}%
-           \printtext{\bibcpstring{narrator}}%
+           \bibcpstring{narrator}%
            \clearname{narrator}}}}}
 
 \newbibmacro*{editor+trans}{%
@@ -1059,7 +1063,10 @@
     not test {\iffieldundef{origyear}}
     not test {\iffieldundef{labelyear}}
     and not test {\iffieldsequal{labelyear}{origyear}}}
-    {\printtext{\mkbibparens{\bibcpstring{origyear}~\printorigdate}}%
+    {\printtext[parens]{%
+       \bibcpstring{origyear}
+       \setunit{\addnbspace}%
+       \printorigdate}%
      \renewcommand*{\finentrypunct}{\relax}}
     {}}
 
@@ -1220,11 +1227,12 @@
 % (APA 10.12) Audiovisual
 
 \newbibmacro*{mainvideo}{%
-  \iffieldundef{maintitle}{}
+  \iffieldundef{maintitle}
+    {}
     {\usebibmacro{in}%
      \printnames[apanames][-\value{listtotal}]{execproducer}%
      \setunit{\addspace}%
-     \printtext{\mkbibparens{\bibcplstring{execproducers}}}%
+     \bibcplstring[\mkbibparens]{execproducers}%
      \setunit{\addcomma\addspace}%
      \printfield{maintitle}}}
 
@@ -1355,9 +1363,9 @@
   % disable normal date printing if it's in the citation info
   \iftoggle{apa:courtdate}
     {\iflistundef{organization}
-      {\printtext{\mkbibparens{#1}}}
-      {\printtext{\mkbibparens{%
-          \printlist{organization}\space #1}}}}
+      {\mkbibparens{#1}}
+      {\mkbibparens{%
+         \printlist{organization}\space #1}}}
     {}}
 
 % 
@@ -2052,8 +2060,8 @@
     {}
     {\iffieldundef{urlyear}
       {}
-      {\printtext{\bibstring{retrieved}}%
-       \addspace
+      {\bibstring{retrieved}%
+       \setunit{\addspace}%
        \printurldate
        \setunit{\urldatecomma}%
        \bibstring{from}%
