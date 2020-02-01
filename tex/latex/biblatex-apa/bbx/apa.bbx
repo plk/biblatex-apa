@@ -491,15 +491,14 @@
     {\addcomma\space\ldots\space}
     {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
       {}
-      {\printtext{\usebibmacro{name:apa:family-given}%
+      {\usebibmacro{name:apa:family-given}%
          {\namepartfamily}%
          {\namepartgiven}%
          {\namepartgiveni}%
          {\namepartprefix}%
-         {\namepartsuffix}}%
+         {\namepartsuffix}%
        \let\bibstring\bibcplstring
-       \setunit{\addspace}%
-       \printtext{\mkbibparense{\usebibmacro{role}}}%
+       \usebibmacro{role}{\addspace}{\mkbibparens}%
        \hasitemannotation[\currentname][username]
          {\addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}
          {}}}%
@@ -509,8 +508,7 @@
         \bibstring{andothers}}
        {}%
      \let\bibstring\bibcplstring
-     \setunit{\addspace}%
-     \printtext{\mkbibparense{\usebibmacro{roles}}}}
+     \usebibmacro{roles}{\addspace}{\mkbibparens}}
     {}}
 
 \DeclareNameFormat{apanames}{%
@@ -525,16 +523,14 @@
          {\namepartprefix}%
          {\namepartsuffix}}%       
        \let\bibstring\bibcpsstring
-       \setunit{\addcomma\addspace}%
-       \usebibmacro{role}}}%
+       \usebibmacro{role}{\addcomma\space}{\@firstofone}}}%
   \ifthenelse{\value{listcount}=\value{listtotal}}%
     {\ifmorenames
        {\printdelim{andothersdelim}%
         \bibstring{andothers}}
        {}%
      \let\bibstring\bibcplstring
-     \setunit{\addspace}%
-     \usebibmacro{roles}}
+     \usebibmacro{roles}{\addspace}{\@firstofone}}
     {}}
 
 \renewbibmacro*{author/editor}{%
@@ -813,73 +809,79 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Names
 
+\newcommand*{\apabbx@ifrole@item}{%
+  \xifinlist{item@\currentname @role@\the\value{listcount}}%
+            \abx@annotation@defined}
+
+\newtoggle{apabbx:role:item:punct}
+
+\newcommand*{\apabbx@rolelist@item}{}
+\forcsvlist{\listadd\apabbx@rolelist@item}{%
+  writer,director,execproducer,producer,host,chair,guestexpert}
+
+\newcommand*{\apabbx@printrole@item@i}[1]{%
+  \ifitemannotation[\currentname][role]{#1}
+    {\iftoggle{apabbx:role:item:punct}
+       {\addspace\&\space}
+       {}%
+     \bibstring{#1}%
+     \toggletrue{apabbx:role:item:punct}}
+    {}%
+}
+
+\newcommand*{\apabbx@printrole@item}{%
+  \forlistloop{\apabbx@printrole@item@i}{\apabbx@rolelist@item}}
+
 % Individual name roles
-\newbibmacro*{role}{%
-  \hasitemannotation[\currentname][role]%
-    {\getitemannotation[\currentname][role]}
-    {\ifitemannotation[\currentname][role]{writer}
-       {\bibstring{writer}%
-        \setunit{\addspace\&\addspace}}
+% takes two arguments
+% {<pre punct>}{<wrapper>}
+\newbibmacro*{role}[2]{%
+  \apabbx@ifrole@item
+    {#1%
+     #2{%
+       \togglefalse{apabbx:role:item:punct}%
+       \hasitemannotation[\currentname][role]%
+         {\getitemannotation[\currentname][role]}
+         {\apabbx@printrole@item}}}
+    {}%
+}
+
+\newcommand*{\apabbx@ifrole@field}{%
+  \xifinlist{field@\currentname @role@}%
+            \abx@annotation@defined}
+            
+\newtoggle{apabbx:role:field:punct}
+
+\newcommand*{\apabbx@rolelist@field}{}
+\forcsvlist{\listadd\apabbx@rolelist@field}{%
+  writers,directors,execproducers,producers,hosts,chairs,guestexperts}
+
+\newcommand*{\apabbx@printrole@field@i}[1]{%
+  \iffieldannotation[\currentname][role]{#1}
+    {\iftoggle{apabbx:role:field:punct}
+       {\addspace\&\space}
        {}%
-     \ifitemannotation[\currentname][role]{director}
-       {\bibstring{director}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \ifitemannotation[\currentname][role]{execproducer}
-       {\bibstring{execproducer}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \ifitemannotation[\currentname][role]{producer}
-       {\bibstring{producer}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \ifitemannotation[\currentname][role]{host}
-       {\bibstring{host}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \ifitemannotation[\currentname][role]{chair}
-       {\bibstring{chair}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \ifitemannotation[\currentname][role]{guestexpert}
-       {\bibstring{guestexpert}%
-         \setunit{\addspace\&\addspace}}
-       {}}%
-  \setunit{}}
+     \bibstring{#1}%
+     \toggletrue{apabbx:role:field:punct}}
+    {}%
+}
+
+\newcommand*{\apabbx@printrole@field}{%
+  \forlistloop{\apabbx@printrole@field@i}{\apabbx@rolelist@field}}
 
 % roles for complete name lists
-\newbibmacro*{roles}{%
-  \hasfieldannotation[\currentname][role]%
-    {\getfieldannotation[\currentname][role]}
-    {\iffieldannotation[\currentname][role]{writers}
-       {\bibstring{writers}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \iffieldannotation[\currentname][role]{directors}
-       {\bibstring{directors}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \iffieldannotation[\currentname][role]{execproducers}
-       {\bibstring{execproducers}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \iffieldannotation[\currentname][role]{producers}
-       {\bibstring{producers}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \iffieldannotation[\currentname][role]{hosts}
-       {\bibstring{hosts}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \iffieldannotation[\currentname][role]{chairs}
-       {\bibstring{chairs}%
-         \setunit{\addspace\&\addspace}}
-       {}%
-     \iffieldannotation[\currentname][role]{guestexperts}
-       {\bibstring{guestexperts}%
-         \setunit{\addspace\&\addspace}}
-       {}}%
-  \setunit{}}
+% takes two arguments
+% {<pre punct>}{<wrapper>}
+\newbibmacro*{roles}[2]{%
+  \apabbx@ifrole@field
+    {#1%
+     #2{%
+       \togglefalse{apabbx:role:field:punct}%
+       \hasfieldannotation[\currentname][role]%
+         {\getfieldannotation[\currentname][role]}
+         {\apabbx@printrole@field}}}
+    {}%
+}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
