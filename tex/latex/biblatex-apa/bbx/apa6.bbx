@@ -82,18 +82,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 4.16 Example 29) Some DSM macros
-
-\gdef\DSMIII{\emph{DSM-III}}
-\gdef\DSMIIIR{\emph{DSM-III-R}}
-\gdef\DSMIV{\emph{DSM-IV}}
-\gdef\DSMIVTR{\emph{DSM-IV-TR}}
-\gdef\PsycSCAN{\emph{PsycSCAN}}
-\gdef\PsycARTICLES{\emph{PsycARTICLES}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -177,9 +165,9 @@
 % eprint references
 
 \DeclareFieldFormat{eprint:eric}{%
-  \printtext{\bibcpstring{retrieved}}%
-  \setunit{\addspace}%
-  \printtext{\bibstring{from}}\addspace%
+  \bibcpstring{retrieved}%
+  \addspace
+  \bibstring{from}\addspace%
   ERIC\addspace database\adddot\addspace%
   \mkbibparens{#1}}
 
@@ -298,10 +286,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.29) Additional material sometimes goes in parens
-%            after title. This bool tracks the parens.
+%            after title. This bool used to track the
+%            parens. It is no longer needed and just kept
+%            for backwarwds compatibility.
 
 \newbool{bbx:parens}
-\AtEveryBibitem{\global\boolfalse{bbx:parens}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -428,9 +417,12 @@
      \printfield{nameaddon}%
      \ifnameundef{with}
        {}
-       {\setunit{}\addspace\mkbibparens{\printtext{\bibstring{with}\addspace}%
-        \printnames[apaauthor][-\value{listtotal}]{with}}
-        \setunit*{\addspace}}}%
+       {\setunit{\addspace}%
+        \printtext[parens]{%
+          \bibstring{with}%
+          \setunit{\addspace}%
+          \printnames[apaauthor][-\value{listtotal}]{with}}%
+        \setunit{\addspace}}}%
   \newunit\newblock%
   \usebibmacro{labelyear+extradate}}
 
@@ -484,8 +476,8 @@
 
 \DeclareFieldFormat{apadate}{%
   \ifboolexpr{ test {\ifdatecirca} or test {\ifdateuncertain} }
-    {\printtext{\mkbibbrackets{#1}}}
-    {\printtext{\mkbibparens{#1}}}}
+    {\mkbibbrackets{#1}}
+    {\mkbibparens{#1}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -544,13 +536,10 @@
 \newbibmacro*{bookaddinfo}{%
   \ifthenelse{\iffieldundef{edition}\AND\iffieldundef{volumes}}
     {}
-    {\printtext{\bibopenparen}%
-     \printfield{edition}%
-     \setunit*{\addcomma\addspace}%
-     \printfield{volumes}%
-     \setunit{}%
-     \printtext{\bibcloseparen}}%
-}
+    {\printtext[parens]{%
+       \printfield{edition}%
+       \setunit*{\addcomma\addspace}%
+       \printfield{volumes}}}}
 
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
@@ -641,21 +630,24 @@
               \iffieldundef{number}\AND%
               \(\iffieldundef{volume}\OR\boolean{bbx:volseen}\)}
   {}
-  {\printtext{\bibopenparen}%
-   \printfield{edition}%
-   \setunit*{\addcomma\addspace}%
-   \printfield{chapter}%
-   \setunit*{\addcomma\addspace}%
-   \notbool{bbx:volseen}%
-     {\iffieldundef{volume}{}{\global\booltrue{bbx:volseen}}%
-      \printfield{volume}%
-      \iffieldundef{part}{}{\printfield{part}}}{}%
-   \setunit*{\addcomma\addspace}%
-   \printfield{volumes}%
-   \setunit*{\addcomma\addspace}%
-   \printfield{pages}%
-   \setunit{}%
-   \printtext{\bibcloseparen}}}
+  {\printtext[parens]{%
+     \printfield{edition}%
+     \setunit*{\addcomma\addspace}%
+     \printfield{chapter}%
+     \setunit*{\addcomma\addspace}%
+     \notbool{bbx:volseen}%
+       {\iffieldundef{volume}
+          {}
+          {\global\booltrue{bbx:volseen}}%
+        \printfield{volume}%
+        \iffieldundef{part}
+          {}
+          {\printfield{part}}}
+       {}%
+     \setunit*{\addcomma\addspace}%
+     \printfield{volumes}%
+     \setunit*{\addcomma\addspace}%
+     \printfield{pages}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -803,30 +795,28 @@
               \ifnameundef{translator}}%
     {}%
     {\ifnamesequal{editor}{translator}%
-       {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
-        \printnames[apanames][-\value{listtotal}]{editor}%
-        \setunit*{\addcomma\addspace}%
-        \usebibmacro{apaeditorstrg}{editor}%
-        \setunit*{\addspace\&\space}%
-        \printtext{\bibcpstring{translator}}%
-        \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}
-       {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
-        \ifnameundef{editor}%
-          {}%
-          {\printnames[apanames][-\value{listtotal}]{editor}%
-           \setunit{\addcomma\addspace}%
-           \usebibmacro{apaeditorstrg}{editor}%
-           \clearname{editor}%
-           \setunit{\adddot}%
-           \setunit*{\addspace\&\space}}%
-        \ifnameundef{translator}%
-          {\setunit{}}%
-          {\printnames[apanames][-\value{listtotal}]{translator}%
-           \setunit{\addcomma\addspace}%
-           \printtext{\bibcpstring{translator}}%
-           \clearname{translator}%
-           \setunit{\adddot}}%
-        \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}}}
+       {\printtext[parens]{%
+          \printnames[apanames][-\value{listtotal}]{editor}%
+          \setunit*{\addcomma\addspace}%
+          \usebibmacro{apaeditorstrg}{editor}%
+          \setunit*{\addspace\&\space}%
+          \bibcpstring{translator}}}
+       {\printtext[parens]{%
+          \ifnameundef{editor}%
+            {}%
+            {\printnames[apanames][-\value{listtotal}]{editor}%
+             \setunit{\addcomma\addspace}%
+             \usebibmacro{apaeditorstrg}{editor}%
+             \clearname{editor}%
+             \setunit{\adddot}%
+             \setunit*{\addspace\&\space}}%
+          \ifnameundef{translator}%
+            {\setunit{}}%
+            {\printnames[apanames][-\value{listtotal}]{translator}%
+             \setunit{\addcomma\addspace}%
+             \bibcpstring{translator}%
+             \clearname{translator}%
+             \setunit{\adddot}}}}}}
 
 \newbibmacro*{editor+trans}{%
   \ifthenelse{\ifnameundef{editor}\AND%
@@ -838,17 +828,17 @@
     {\ifnamesequal{editor}{translator}%
       {\usebibmacro{in}%
        \printnames[apanames][-\value{listtotal}]{editor}%
-       \setunit{\addspace\bibopenparen\global\booltrue{bbx:parens}}%
-       \usebibmacro{apaeditorstrg}{editor}%
-       \setunit*{\addspace\&\space}%
-       \printtext{\bibcpstring{translator}}%
-       \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}
+       \setunit{\addspace}
+       \printtext[parens]{%
+         \usebibmacro{apaeditorstrg}{editor}%
+         \setunit*{\addspace\&\space}%
+         \bibcpstring{translator}}}
       {\ifnameundef{translator}%
         {}%
         {\setunit{\addspace}%
          \printtext[parens]{\printnames[apanames][-\value{listtotal}]{translator}%
          \setunit{\addcomma\addspace}%
-         \printtext{\bibcpstring{translator}}}%
+         \bibcpstring{translator}}%
          \clearname{translator}%
          \setunit{\adddot\addspace}}%
        \usebibmacro{in}%
@@ -904,8 +894,11 @@
     not test {\iffieldundef{origyear}}
     not test {\iffieldundef{labelyear}}
     and not test {\iffieldsequal{labelyear}{origyear}}}
-      {\printtext{\mkbibparens{\bibcpstring{origyear}~\printorigdate}}}
-      {}}
+    {\printtext[parens]{%
+       \bibcpstring{origyear}
+       \setunit{\addnbspace}%
+       \printorigdate}}
+    {}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1051,9 +1044,9 @@
 \newcommand*{\begrelateddelimreviewof}{\addspace}
 \DeclareFieldFormat[review]{title}{%
   \entrydata*{\thefield{related}}{%
-    \ifentrytype{article}
-      {\mkbibemph{\printtext[apacase]{\thefield{savedtitle}}}}
-      {\printtext[apacase]{\thefield{savedtitle}}}}}
+    \printtext[title]{%
+      \printtext[apacase]{%
+        \thefield{savedtitle}}}}}
 
 \DeclareFieldFormat[review]{pages}{#1}
 \DeclareFieldFormat[review]{volume}{\mkbibemph{\apanum{#1}}}
@@ -1185,26 +1178,27 @@
 \DeclareFieldFormat{urldate}{#1}
 
 \renewbibmacro*{url+urldate}{%
-     \ifthenelse{\(\iffieldundef{url}\AND\iffieldundef{abstracturl}\AND\iffieldundef{abstractloc}\)\OR\NOT\iffieldundef{doi}}
+  \ifthenelse{\(\iffieldundef{url}\AND\iffieldundef{abstracturl}\AND\iffieldundef{abstractloc}\)\OR\NOT\iffieldundef{doi}}
+    {}
+    {\ifthenelse{\iffieldundef{abstracturl}\AND\iffieldundef{abstractloc}}
        {}
-       {\ifthenelse{\iffieldundef{abstracturl}\AND\iffieldundef{abstractloc}}
-         {}
-         {\printtext{\bibcpstring{abstract}}\addspace}%
-         \iffieldequalstr{entrysubtype}{{DVD}}
-           {\printtext{\bibstring{available}}}
-           {\printtext{\bibstring{retrieved}}}%
-          \setunit{\addspace}%
-          \iffieldundef{urlyear}
-            {}
-            {\printtext{\printurldate}%
-             \setunit*{\urldatecomma}}%
-          \printtext{\bibstring{from}}%
-          \setunit*{\addspace}%
-          \printfield{urldescription}%
-          \setunit*{\addcolon\addspace}%
-          \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}%
-          \iffieldundef{abstractloc}{}{\printfield{abstractloc}\renewcommand*{\finentrypunct}{\relax}}%
-          \iffieldundef{abstracturl}{}{\printfield{abstracturl}\renewcommand*{\finentrypunct}{\relax}}}}
+       {\bibcpstring{abstract}%
+        \setunit{\addspace}}%
+     \iffieldequalstr{entrysubtype}{{DVD}}
+       {\bibstring{available}}
+       {\bibstring{retrieved}}%
+     \setunit{\addspace}%
+     \iffieldundef{urlyear}
+       {}
+       {\printurldate
+        \setunit{\urldatecomma}}%
+     \bibstring{from}%
+     \setunit{\addspace}%
+     \printfield{urldescription}%
+     \setunit*{\addcolon\addspace}%
+     \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}%
+     \iffieldundef{abstractloc}{}{\printfield{abstractloc}\renewcommand*{\finentrypunct}{\relax}}%
+     \iffieldundef{abstracturl}{}{\printfield{abstracturl}\renewcommand*{\finentrypunct}{\relax}}}}
 
 %
 %%%%%%%%%%%%%%%%%
@@ -1273,7 +1267,7 @@
 
 \renewbibmacro*{related:reprintfrom}[1]{%
   \entrydata*{#1}{%
-    \printtext{\mkbibemph{\printfield[apacase]{title}}}%
+    \printtext[title]{\printfield[apacase]{title}}%
     \setunit{\bibpagespunct}%
     \printfield{pages}%
     \setunit{\addcomma\addspace}%
@@ -1295,9 +1289,7 @@
 \newbibmacro*{related:reviewof}[1]{%
   \setunit{}% Sanitise this in case no author
   \entrydata*{#1}{%
-    \ifentrytype{article}
-      {\printtext{\printfield[apacase]{title}}}
-      {\printtext{\mkbibemph{\printfield[apacase]{title}}}}%
+    \printtext[title]{\printfield[apacase]{title}}%
     \setunit{\addspace}%
     \bibstring{byauthor}\addspace
     \printnames[apanames][-\value{listtotal}]{author}%
