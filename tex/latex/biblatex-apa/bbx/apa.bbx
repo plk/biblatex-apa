@@ -98,16 +98,16 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Multiple related entries, even though there are no
-% examples in APA 7th, should probably be this  
+% examples in APA 7th, should probably be this
 
 \renewcommand*{\relateddelim}{\addcomma\addspace}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Force roman numerals into arabic using
 % etoolbox macros
 
@@ -133,7 +133,7 @@
     \iffieldundef{#1year}{}
       {\datecircaprint
         \ifboolexpr{ test {\ifstrequal{#1}{url}}
-                     or test {\ifentrytype{legal}}          
+                     or test {\ifentrytype{legal}}
                      or ( test {\ifentrytype{legadminmaterial}} and
                           test {\ifkeyword{proposed}} ) }
          {\printtext{%
@@ -309,9 +309,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Enforce ignoring of PUBSTATE if there is a YEAR or DATE field
-% (APA 10.2:32) Remove PUBLISHER if it is the same as GROUPAUTHOR                          
+% (APA 10.2:32) Remove PUBLISHER if it is the same as GROUPAUTHOR
 % Force @COLLECTION, @REFERENCE->@BOOK and @INCOLLECTION,@INREFERENCE->@INBOOK
-                          
+
 \DeclareStyleSourcemap{
   \maps[datatype=bibtex]{
     \map{
@@ -452,7 +452,7 @@
 \DeclareFieldFormat{url}{\url{#1}}
 \DeclareFieldFormat{urldate}{#1}
 
-% 
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -521,7 +521,7 @@
          {\namepartgiven}%
          {\namepartgiveni}%
          {\namepartprefix}%
-         {\namepartsuffix}%       
+         {\namepartsuffix}%
        \let\bibstring\bibcpsstring
        \usebibmacro{role}{\addcomma\space}{\@firstofone}}}%
   \ifthenelse{\value{listcount}=\value{listtotal}}%
@@ -619,7 +619,7 @@
                  \value{liststop}=2}
      {\addspace\&\space}
      {\finalandcomma\addspace\&\space}}}
-  
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -657,7 +657,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 9.25) No prefix for pages
 
 \DeclareFieldFormat{pages}{#1}
@@ -673,7 +673,7 @@
 \renewbibmacro*{begentry}{%
   \ifkeyword{meta}{\textsuperscript{*}}{}}
 
-% 
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -757,13 +757,15 @@
 % (APA 10.1 Example 6) eprints (eLocator)
 
 \renewbibmacro*{eprint}{%
-  \iffieldundef{eprinttype}
-    {}
-    {\iffieldbibstring{eprinttype}
-       {\bibcplstring{\strfield{eprinttype}}}
-       {\strfield{eprinttype}}%
-     \setunit{\addspace}}%
-  \printfield{eprint}}
+  \iftoggle{bbx:eprint}
+    {\iffieldundef{eprinttype}
+       {}
+       {\iffieldbibstring{eprinttype}
+          {\bibcplstring{\strfield{eprinttype}}}
+          {\strfield{eprinttype}}%
+        \setunit{\addspace}}%
+     \printfield{eprint}}
+    {}}
 
 \DeclareFieldFormat{eprint}{#1}
 
@@ -800,7 +802,7 @@
 % "In" precedes editor/trans list, no colon
 % Use a flag to track as it could be inserted in more
 % than one potential location
- 
+
 \newbibmacro*{in}{%
   \ifbool{bbx:in}%
     {}%
@@ -853,7 +855,7 @@
 \newcommand*{\apabbx@ifrole@field}{%
   \xifinlist{field@\currentname @role@}%
             \abx@annotation@defined}
-            
+
 \newtoggle{apabbx:role:field:punct}
 
 \newcommand*{\apabbx@rolelist@field}{}
@@ -898,7 +900,7 @@
 % #3 = given name (initials)
 % #4 = name prefix
 % #5 = name suffix
-  
+
 \newbibmacro*{name:delim:apa:family-given}[1]{%
   \ifnumgreater{\value{listcount}}{\value{liststart}}
     {\ifboolexpr{
@@ -1024,7 +1026,7 @@
        \usebibmacro{in}%
        \usebibmacro{editorx}}%
      \setunit{\addcomma\addspace}}}
-   
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1167,7 +1169,7 @@
      \usebibmacro{in}%
      \setunit{\addspace}}}
 
-% 
+%
 %%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1207,8 +1209,8 @@
                \biblstring{byauthor}%
                \setunit{\addspace}%
                \usebibmacro{author/editor:related}}}}
-         
-%         
+
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1221,9 +1223,9 @@
      \printfield{maintitle}}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.12) Audiovisual
 
 \newbibmacro*{mainvideo}{%
@@ -1237,9 +1239,9 @@
      \printfield{maintitle}}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%          
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Related entries
 %
 % Have to force capitlisation bibstring variant because the delim
@@ -1250,7 +1252,7 @@
   \iffieldequalstr{relatedtype}{reprintfrom}
     {\renewcommand*{\finentrypunct}{\relax}}
     {}}
-  
+
 \newcommand*{\begrelateddelimreprintfrom}{\addperiod\addspace}
 
 % Some APA related entries are just after title, some are at the end of
@@ -1326,8 +1328,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 9.51) Annotations
 
+\newtoggle{bbx:annotation}
+\DeclareBiblatexOption{global,type,entry}[boolean]{annotation}[true]{%
+  \settoggle{bbx:annotation}{#1}}
+\ExecuteBibliographyOptions{annotation=true}
+
 \renewbibmacro*{annotation}{%
-  \iffieldundef{annotation}
+  \ifboolexpr{       test {\iffieldundef{annotation}}
+              or not togl {bbx:annotation}}
     {}
     {\begingroup
      \togglefalse{blx@bibliography}%
@@ -1335,7 +1343,7 @@
      \setunit{}%
      \printfield{annotation}%
      \endgroup}}
- 
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1358,7 +1366,7 @@
   \ifthenelse{\value{listcount}<\value{liststop}}
     {\addcomma\addspace}
     {}}
- 
+
 \DeclareFieldFormat{courtdate}{%
   % disable normal date printing if it's in the citation info
   \iftoggle{apa:courtdate}
@@ -1368,18 +1376,18 @@
          \printlist{organization}\space #1}}}
     {}}
 
-% 
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 11.5) Statutes
-  
+
 \newbibmacro*{statdate}{%
   \iffieldundef{origyear}
     {\printtext[parens]{\printlabeldate}}
     {\printtext[parens]{\printorigdate%
                         \addspace\&\addspace rev\adddot\addspace\printlabeldate}}}
-  
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1393,7 +1401,7 @@
 
 \DeclareDelimFormat[location]{multilistdelim}{\addcomma\space}
 \DeclareDelimFormat[location]{finallistdelim}{\addcomma\space}
-                  
+
 \newbibmacro*{legmattitle}{%
   \iffieldundef{title}
     {\ifbibxstring{\thefield{source}}{\bibcpsstring{\thefield{source}}}{}%
@@ -1405,10 +1413,10 @@
      \setunit*{\addcolon\addspace}\newblock
      \printfield{subtitle}}}
 
-% 
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.x) General entrytype drivers
 
 % Custom driver to make a cleaner example for 9.44
@@ -1690,7 +1698,7 @@
   \printtext[parens]{\ifkeyword{proposed}{\bibstring{proposed}\space}{}\printlabeldate}%
   \setunit{\addspace}\newblock
   \printfield{note}%
-  \newunit\newblock  
+  \newunit\newblock
   \usebibmacro{doi+url}%
   \usebibmacro{pageref}%
   \usebibmacro{annotation}%
@@ -1706,7 +1714,7 @@
   \printtext[parens]{\printlabeldate}%
   \setunit{\addspace}\newblock
   \printfield{note}%
-  \newunit\newblock  
+  \newunit\newblock
   \usebibmacro{doi+url}%
   \usebibmacro{pageref}%
   \usebibmacro{annotation}%
@@ -2049,11 +2057,22 @@
          {\bibcpstring{type\thefield{#1type}s}}
          {\bibcpstring{type\thefield{#1type}}}}}
 
+
+
 %(APA 9.35) No periods after URLS
+% we'll override a global url option for for @online entries
+\ExecuteBibliographyOptions[online]{url=true}
 \newbibmacro*{doi+url}{%
-  \iffieldundef{doi}
-    {\iffieldundef{url}{\newunit}{\usebibmacro{url+urldate}\setunit{\addspace}}}
-    {\printfield{doi}\renewcommand*{\finentrypunct}{\relax}\setunit{\addspace}}}
+  \ifboolexpr{          test {\iffieldundef{doi}}
+                 or not togl {bbx:doi}}
+    {\ifboolexpr{       test {\iffieldundef{url}}
+                 or not togl {bbx:url}}
+       {\newunit}
+       {\usebibmacro{url+urldate}%
+        \setunit{\addspace}}}
+    {\printfield{doi}%
+     \renewcommand*{\finentrypunct}{\relax}%
+     \setunit{\addspace}}}
 
 \renewbibmacro*{url+urldate}{%
   \ifthenelse{\iffieldundef{url}\OR\NOT\iffieldundef{doi}}
