@@ -62,24 +62,45 @@
   \fi
 }
 
-\newrobustcmd{\mkbibparense}[1]{%
-  \setbox0=\hbox{#1\foreverunspace}%
-  \ifdim\wd0=0pt
-  \else
-    % Since we are evaluating the argument twice and it contains \setunit,
-    % need to sanitise \setunit second time around. Can't just put in \box0
-    % as it might be long and won't linebreak
-    \mkbibparens{\setunit{}#1}%
-  \fi}
+% we need a way to save the state of the punctuation buffer
+% cf. \blx@initunit in biblatex.sty for what we need to copy
 
-\newrobustcmd{\mkbibbracketse}[1]{%
-  \setbox0=\hbox{#1\foreverunspace}%
+% this uses the internal implementation of etoolbox toggles
+% fingers crossed no one messes with it
+\newrobustcmd*{\apablx@savetoggle}[1]{%
+  \csletcs{apablx@savedtoggle@#1}{etb@tgl@#1}}
+
+\newrobustcmd*{\apablx@restoretoggle}[1]{%
+  \csletcs{etb@tgl@#1}{apablx@savedtoggle@#1}}
+
+\newrobustcmd*{\apablx@savepunctstate}{%
+  \apablx@savetoggle{blx@block}%
+  \apablx@savetoggle{blx@unit}%
+  \apablx@savetoggle{blx@insert}%
+  \apablx@savetoggle{blx@lastins}%
+  \apablx@savetoggle{blx@keepunit}%
+  \let\apablx@savd@unitpunct\blx@unitpunct
+  \let\apablx@savd@puncthook\abx@puncthook}
+
+\newrobustcmd*{\apablx@restorepunctstate}{%
+  \global\apablx@restoretoggle{blx@block}%
+  \global\apablx@restoretoggle{blx@unit}%
+  \global\apablx@restoretoggle{blx@insert}%
+  \global\apablx@restoretoggle{blx@lastins}%
+  \global\apablx@restoretoggle{blx@keepunit}%
+  \global\let\blx@unitpunct\apablx@savd@unitpunct
+  \global\let\abx@puncthook\apablx@savd@puncthook}
+
+% printtext that checks if it would print anything
+\newrobustcmd{\printtexte}[2][]{%
+  \apablx@savepunctstate
+  \setbox0=\hbox{#2\foreverunspace}%
+  \apablx@restorepunctstate
   \ifdim\wd0=0pt
   \else
-    % Since we are evaluating the argument twice and it contains \setunit,
-    % need to sanitise \setunit second time around. Can't just put in \box0
-    % as it might be long and won't linebreak
-    \mkbibbrackets{\setunit{}#1}%
+    \ifblank{#1}
+      {\printtext{#2}}
+      {\printtext[#1]{#2}}%
   \fi}
 
 %
@@ -701,36 +722,34 @@
      \usebibmacro{addinfo2}}}%
 
 \newbibmacro*{addinfo1}{%
-  \printtext{%
-    \mkbibparense{%
-      \usebibmacro{editor+trans+narr}%
-      \setunit*{\addsemicolon\addspace}%
-      \printfield{edition}%
-      \setunit*{\addcomma\addspace}%
-      \ifthenelse{\ifentrytype{report}\OR%
-                  \ifentrytype{thesis}\OR%
-                  \ifentrytype{unpublished}\OR%
-                  \ifentrytype{dataset}\OR%
-                  \ifentrytype{software}\OR%
-                  \ifentrytype{audio}\OR%
-                  \ifentrytype{patent}\OR%
-                  \ifentrytype{image}}{\usebibmacro{addinfo3}}{}%
-      \setunit*{\addcomma\addspace}%
-      \ifentrytype{inbook}{\printfield{pages}}{}%
-      \setunit*{\addcomma\addspace}%
-      \ifentrytype{book}{\printfield{volumes}}{}%
-      \setunit*{\addcomma\addspace}%
-      \ifentrytype{book}{\printfield{volume}}{}}}}
+  \printtexte[parens]{%
+    \usebibmacro{editor+trans+narr}%
+    \setunit*{\addsemicolon\addspace}%
+    \printfield{edition}%
+    \setunit*{\addcomma\addspace}%
+    \ifthenelse{\ifentrytype{report}\OR%
+                \ifentrytype{thesis}\OR%
+                \ifentrytype{unpublished}\OR%
+                \ifentrytype{dataset}\OR%
+                \ifentrytype{software}\OR%
+                \ifentrytype{audio}\OR%
+                \ifentrytype{patent}\OR%
+                \ifentrytype{image}}{\usebibmacro{addinfo3}}{}%
+    \setunit*{\addcomma\addspace}%
+    \ifentrytype{inbook}{\printfield{pages}}{}%
+    \setunit*{\addcomma\addspace}%
+    \ifentrytype{book}{\printfield{volumes}}{}%
+    \setunit*{\addcomma\addspace}%
+    \ifentrytype{book}{\printfield{volume}}{}}}
 
 % Additional post title information in brackets
 \newbibmacro*{addinfo2}{%
-  \printtext{%
-    \mkbibbracketse{%
-      \iffieldbibstring{entrysubtype}
-        {\bibcplstring{\thefield{entrysubtype}}}
-        {\printfield{entrysubtype}}%
-      \setunit*{\addsemicolon\addspace}%
-      \printfield{note}}}}
+  \printtexte[brackets]{%
+    \iffieldbibstring{entrysubtype}
+      {\bibcplstring{\thefield{entrysubtype}}}
+      {\printfield{entrysubtype}}%
+    \setunit*{\addsemicolon\addspace}%
+    \printfield{note}}}
 
 % number/issue information
 \newbibmacro*{addinfo3}{%
