@@ -454,8 +454,11 @@
 % PART
 \DeclareFieldFormat*{part}{#1}
 
+% ORGANIZATION
+\DeclareListFormat[misc]{organization}{\mkbibemph{#1}}
+
 % LOCATION
-\DeclareListFormat[misc,periodical]{location}{\mkbibemph{#1}}
+\DeclareListFormat[periodical]{location}{\mkbibemph{#1}}
 \DeclareListFormat{publisher}{%
   \usebibmacro{publisher:delim}{#1}%
   #1\isdot}
@@ -468,6 +471,7 @@
 
 % VERSION
 \DeclareFieldFormat[dataset,software]{version}{\bibcpstring{version}~#1}
+\DeclareFieldFormat[online]{version}{\mkbibparens{#1}}
 
 % URL
 \DeclareFieldFormat{url}{\url{#1}}
@@ -673,7 +677,7 @@
 \newbibmacro*{eventinfo}{%
   \printfield{eventtitle}%
   \setunit{\addcomma\addspace}%
-  \usebibmacro{location+publisher}}
+  \printfield{venue}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1637,8 +1641,6 @@
   \usebibmacro{eventinfo}%
   \newunit\newblock
   \printlist{organization}%
-  \newunit
-  \printfield{venue}%
   \iffieldundef{pages}
     {\setunit{\addcomma\addspace}}
     {\newunit}%
@@ -1769,7 +1771,7 @@
   \setunit{\addspace}\newblock
   \usebibmacro{apa:related}%
   \newunit\newblock
-  \usebibmacro{location+publisher}%
+  \printlist{organization}%
   \newunit\newblock
   \usebibmacro{doi+url}%
   \newblock
@@ -1790,9 +1792,11 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
   \setunit{\addspace}\newblock
+  \printfield{version}%
+  \setunit{\addspace}\newblock
   \usebibmacro{apa:related}%
   \newunit\newblock
-  \printlist{organization}%
+  \usebibmacro{eprint}%
   \addperiod\addspace
   \newunit\newblock
   \usebibmacro{doi+url}%
@@ -1970,7 +1974,7 @@
   \setunit{\addspace}%
   \printfield{howpublished}%
   \newunit\newblock
-  \printlist{location}%
+  \printfield{venue}%
   \setunit{\addcomma\addspace}
   \printlist{institution}%
   \newunit\newblock
