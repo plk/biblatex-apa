@@ -1009,13 +1009,14 @@
            \setunit{\addcomma\addspace}%
            \usebibmacro{apaeditorstrg}{editor}%
            \clearname{editor}%
-           \setunit*{\addspace\&\space}}%
+           \setunit{\addsemicolon\space}}%
         \ifnameundef{translator}%
           {\setunit{}}%
           {\printnames[apanames][-\value{listtotal}]{translator}%
            \setunit{\addcomma\addspace}%
            \bibcpstring{translator}%
-           \clearname{translator}}%
+           \clearname{translator}%
+           \setunit{\addsemicolon\space}}%
         \ifnameundef{narrator}%
           {\setunit{}}%
           {\printnames[apanames][-\value{listtotal}]{narrator}%
