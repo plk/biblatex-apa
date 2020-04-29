@@ -258,6 +258,10 @@
            {}
            {\printnames{shortauthor}%
             \setunit{\printdelim{nameyeardelim}}}}%
+  % Print prenote (belongs to first cite)
+        \ifnumequal{\value{citecount}}{1}
+           {\usebibmacro{prenote}}
+           {}%
   % Actual year printing
         \usebibmacro{cite:plabelyear+extradate}%
   % Save name hash for checks later
@@ -552,7 +556,6 @@
 
 \DeclareCiteCommand{\cbx@textcite}
   {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}%
    \toggletrue{apa:intcite}}
   {\usebibmacro{citeindex}%
    \usebibmacro{textcite}%
