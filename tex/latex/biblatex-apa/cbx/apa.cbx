@@ -76,6 +76,41 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 8.11) No parens round year for cites when the cite is in
+%            parentheses. Use new command \nptextcite for such cites.
+
+\DeclareDelimFormat[nptextcite]{finalnamedelim}
+  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
+
+\DeclareCiteCommand{\nptextcite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}%
+   \toggletrue{apa:inpcite}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}%
+   \togglefalse{apa:inpcite}}
+
+\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}
+  {\setunit{\multicitedelim}}
+
+\DeclareCiteCommand*{\nptextcite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}%
+   \toggletrue{apa:inpcite}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}%
+   \usebibmacro{cite:post}%
+   \togglefalse{apa:inpcite}}
+  {}
+  {\usebibmacro{postnote}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.10) Suffices are not shown in citations
 % (APA 8.17) 3+ authors have "et al."
@@ -230,9 +265,7 @@
        {\iffieldundef{shorthand}%
     % Cite using title
          {\usebibmacro{cite:noname}%
-          \setunit{\ifbool{cbx:np}%
-                   {\printdelim{nameyeardelim}}%
-                   {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
+          \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
           \usebibmacro{cite:plabelyear+extradate}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
@@ -248,9 +281,7 @@
              {\printnames[labelname]{author}}
              {\printnames[labelname]{groupauthor}}}}%
   % Year
-        \setunit{\ifbool{cbx:np}
-                  {\printdelim{nameyeardelim}}
-                  {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
+        \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
   % Put the shortauthor inside the year brackets if necessary
         \ifnameundef{shortauthor}
          {}
@@ -396,32 +427,6 @@
   
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 8.11) No parens round year for cites when the cite is in
-%            parentheses. Use new command \nptextcite for such cites.
-
-\DeclareDelimFormat[nptextcite]{finalnamedelim}
-  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
-
-\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\setunit{\multicitedelim}}
-
-\DeclareCiteCommand{\nptextcite}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \global\booltrue{cbx:np}%
-   \usebibmacro{textcite}%
-   \usebibmacro{cite:post}%
-   \global\boolfalse{cbx:np}}%
-  {}
-  {\iffieldundef{postnote}
-     {}
-     {\printdelim{nameyeardelim}%
-      \printfield{postnote}}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % No shorthand
@@ -477,7 +482,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newbool{cbx:parens} % boolean to say we're inside parens
-\newbool{cbx:np} % boolean to say we're using a non-parentheses text cite
 
 \newbibmacro*{textcite:postnote}{%
   \usebibmacro{postnote}%
