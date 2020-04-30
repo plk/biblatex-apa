@@ -42,33 +42,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.12) ampersand separator in parenthetical cites
-
-\DeclareDelimFormat[parencite]{finalnamedelim}
-  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
-
-\DeclareCiteCommand{\parencite}[\mkbibparens]
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand*{\parencite}[\mkbibparens]
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{citeyear}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.11) Suffices are not shown in citations
 % (APA 6.12) 3-5 authors have "et al." after first cite
@@ -367,32 +340,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.21) No parens round year for cites when the cite is in
-%            parentheses. Use new command \nptextcite for such cites.
 
-\DeclareDelimAlias*[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
-
-\DeclareCiteCommand{\nptextcite}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-  
-\DeclareCiteCommand*{\nptextcite}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{citeyear}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % No shorthand
@@ -484,6 +432,16 @@
     {\printfield{labelyear}%
        \printfield{extradate}}}
 
+
+\DeclareCiteCommand{\citeauthor}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:author}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
 \DeclareCiteCommand{\citeyear}
   {\boolfalse{citetracker}%
    \boolfalse{pagetracker}%
@@ -491,6 +449,7 @@
   {\usebibmacro{cite:plabelyear+extradate}}
   {\multinamedelim}
   {\usebibmacro{postnote}}
+
 
 \DeclareCiteCommand{\cite}
   {\usebibmacro{cite:init}%
@@ -501,6 +460,8 @@
   {}
   {\usebibmacro{postnote}}
 
+\DeclareMultiCiteCommand{\cites}{\cite}{\setunit{\multicitedelim}}
+
 \DeclareCiteCommand*{\cite}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
@@ -510,15 +471,102 @@
   {}
   {\usebibmacro{postnote}}
 
-\DeclareCiteCommand{\footcite}[\mkbibfootnote]
-  {\bibsentence
-   \usebibmacro{cite:init}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.12) ampersand separator in parenthetical cites
+
+\DeclareDelimFormat[parencite]{finalnamedelim}
+  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
+
+\DeclareCiteCommand{\parencite}[\mkbibparens]
+  {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
    \usebibmacro{cite}%
    \usebibmacro{cite:post}}
   {}
   {\usebibmacro{postnote}}
+
+\DeclareMultiCiteCommand{\parencites}[\mkbibparens]{\parencite}
+  {\setunit{\multicitedelim}}
+
+\DeclareCiteCommand*{\parencite}[\mkbibparens]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.21) No parens round year for cites when the cite is in
+%            parentheses. Use new command \nptextcite for such cites.
+
+\DeclareDelimAlias*[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
+
+\DeclareCiteCommand{\nptextcite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\setunit{\multicitedelim}}
+
+\DeclareCiteCommand*{\nptextcite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareCiteCommand{\footcite}[\mkbibfootnote]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+\DeclareMultiCiteCommand{\footcites}[\mkbibfootnote]{\footcite}
+  {\setunit{\multicitedelim}}
+
+\DeclareCiteCommand{\footcitetext}[\mkbibfootnotetext]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+\DeclareMultiCiteCommand{\footcitetexts}[\mkbibfootnotetext]
+  {\footcitetext}{\setunit{\multicitedelim}}
+
+
+\DeclareCiteCommand{\smartcite}[\iffootnote\mkbibparens\mkbibfootnote]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {}
+  {\usebibmacro{postnote}}
+
+\DeclareMultiCiteCommand{\smartcites}[\iffootnote\mkbibparens\mkbibfootnote]
+  {\smartcite}{\setunit{\multicitedelim}}
+
 
 \DeclareCiteCommand{\cbx@textcite}
   {\usebibmacro{cite:init}}
@@ -561,26 +609,5 @@
 
 \let\cbx@textcites@init\cbx@textcite@init
 \pretocmd{\cbx@textcites@init}{\UseNextMultiCiteHook}{}{}
-
-\DeclareCiteCommand{\citeauthor}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite:author}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-
-
-\DeclareMultiCiteCommand{\cites}{\cite}{\setunit{\multicitedelim}}
-\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\setunit{\multicitedelim}}
-\DeclareMultiCiteCommand{\parencites}[\mkbibparens]{\parencite}
-  {\setunit{\multicitedelim}}
-\DeclareMultiCiteCommand{\footcites}[\mkbibfootnote]{\footcite}
-  {\setunit{\multicitedelim}}
-\DeclareMultiCiteCommand{\footcitetexts}[\mkbibfootnotetext]
-  {\footcitetext}{\setunit{\multicitedelim}}
-\DeclareMultiCiteCommand{\smartcites}[\iffootnote\mkbibparens\mkbibfootnote]
-  {\smartcite}{\setunit{\multicitedelim}}
 
 \endinput
