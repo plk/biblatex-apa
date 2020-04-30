@@ -42,33 +42,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.12) ampersand separator in parenthetical cites
-
-\DeclareDelimFormat[parencite]{finalnamedelim}
-  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
-
-\DeclareCiteCommand{\parencite}[\mkbibparens]
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand*{\parencite}[\mkbibparens]
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{citeyear}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.11) Suffices are not shown in citations
 % (APA 6.12) 3-5 authors have "et al." after first cite
@@ -268,6 +241,9 @@
       \savefield{fullhash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
+\renewcommand*{\iffinalcitedelim}{%
+  \ifnumequal{\value{textcitecount}}{\value{textcitetotal}-1}}
+
 \newbibmacro*{textcite}{%
   \iffieldequals{fullhash}{\cbx@lasthash}
 % Compact cite - more than one thing for same author
@@ -275,18 +251,16 @@
      \usebibmacro{cite:plabelyear+extradate}}
 % New cite
     {%
-    \ifbool{cbx:parens}
-      {\bibcloseparen\global\boolfalse{cbx:parens}}
-      {}%
-      \setunit{\compcitedelim}%
+      \ifbool{cbx:parens}
+        {\bibcloseparen\global\boolfalse{cbx:parens}}
+        {}%
+      \setunit{\textcitedelim}%
       \ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
   % No author/editor or patent
        {\iffieldundef{shorthand}%
     % Cite using title
          {\usebibmacro{cite:noname}%
-          \setunit{\ifbool{cbx:np}%
-                   {\printdelim{nameyeardelim}}%
-                   {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
+          \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
           \usebibmacro{cite:plabelyear+extradate}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
@@ -300,19 +274,22 @@
            {\printnames{shortauthor}}
            {\printnames[labelname][-\value{listtotal}]{author}}}%
   % Year
-        \setunit{\ifbool{cbx:np}
-                  {\printdelim{nameyeardelim}}
-                  {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
+        \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
   % Put the shortauthor inside the year brackets if necessary
         \ifnameundef{shortauthor}
          {}
          {\cbx@apa@ifnamesaved
            {}
            {\printnames{shortauthor}\setunit{\printdelim{nameyeardelim}}}}%
+  % Print prenote (belongs to first cite)
+        \ifnumequal{\value{citecount}}{1}
+           {\usebibmacro{prenote}}
+           {}%
   % Actual year printing
         \usebibmacro{cite:plabelyear+extradate}%
   % Save name hash for checks later
-        \savefield{fullhash}{\cbx@lasthash}}}}
+        \savefield{fullhash}{\cbx@lasthash}}%
+      \stepcounter{textcitecount}}}
 
 \newbibmacro*{cite:plabelyear+extradate}{%
   \iffieldundef{labelyear}{}
@@ -363,29 +340,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.21) No parens round year for cites when the cite is in
-%            parentheses. Use new command \nptextcite for such cites.
 
-\DeclareDelimFormat[nptextcite]{finalnamedelim}
-  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
-
-\DeclareCiteCommand{\nptextcite}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \global\booltrue{cbx:np}%
-   \usebibmacro{textcite}%
-   \usebibmacro{cite:post}%
-   \global\boolfalse{cbx:np}}%
-  {}
-  {\iffieldundef{postnote}
-     {}
-     {\printdelim{nameyeardelim}%
-      \printfield{postnote}}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % No shorthand
@@ -449,7 +404,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newbool{cbx:parens} % boolean to say we're inside parens
-\newbool{cbx:np} % boolean to say we're using a non-parentheses text cite
 
 \newbibmacro*{textcite:postnote}{%
   \usebibmacro{postnote}%
@@ -478,50 +432,6 @@
     {\printfield{labelyear}%
        \printfield{extradate}}}
 
-\DeclareCiteCommand{\citeyear}
-  {\boolfalse{citetracker}%
-   \boolfalse{pagetracker}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{cite:plabelyear+extradate}}
-  {\multinamedelim}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand{\cite}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand*{\cite}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{citeyear}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand{\footcite}[\mkbibfootnote]
-  {\bibsentence
-   \usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand{\textcite}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{textcite}%
-   \usebibmacro{cite:post}}
-  {}
-  {\usebibmacro{textcite:postnote}}
 
 \DeclareCiteCommand{\citeauthor}
   {\usebibmacro{cite:init}%
@@ -532,17 +442,172 @@
   {}
   {\usebibmacro{postnote}}
 
+\DeclareCiteCommand{\citeyear}
+  {\boolfalse{citetracker}%
+   \boolfalse{pagetracker}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{cite:plabelyear+extradate}}
+  {\multinamedelim}
+  {\usebibmacro{postnote}}
+
+
+\DeclareCiteCommand{\cite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
 
 \DeclareMultiCiteCommand{\cites}{\cite}{\setunit{\multicitedelim}}
-\DeclareMultiCiteCommand{\textcites}{\textcite}{\setunit{\compcitedelim}}
-\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\setunit{\multicitedelim}}
+
+\DeclareCiteCommand*{\cite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.12) ampersand separator in parenthetical cites
+
+\DeclareDelimFormat[parencite]{finalnamedelim}
+  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
+
+\DeclareCiteCommand{\parencite}[\mkbibparens]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
 \DeclareMultiCiteCommand{\parencites}[\mkbibparens]{\parencite}
   {\setunit{\multicitedelim}}
+
+\DeclareCiteCommand*{\parencite}[\mkbibparens]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 6.21) No parens round year for cites when the cite is in
+%            parentheses. Use new command \nptextcite for such cites.
+
+\DeclareDelimAlias*[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
+
+\DeclareCiteCommand{\nptextcite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+\DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\setunit{\multicitedelim}}
+
+\DeclareCiteCommand*{\nptextcite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareCiteCommand{\footcite}[\mkbibfootnote]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
 \DeclareMultiCiteCommand{\footcites}[\mkbibfootnote]{\footcite}
   {\setunit{\multicitedelim}}
+
+\DeclareCiteCommand{\footcitetext}[\mkbibfootnotetext]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
 \DeclareMultiCiteCommand{\footcitetexts}[\mkbibfootnotetext]
   {\footcitetext}{\setunit{\multicitedelim}}
+
+
+\DeclareCiteCommand{\smartcite}[\iffootnote\mkbibparens\mkbibfootnote]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {}
+  {\usebibmacro{postnote}}
+
 \DeclareMultiCiteCommand{\smartcites}[\iffootnote\mkbibparens\mkbibfootnote]
   {\smartcite}{\setunit{\multicitedelim}}
+
+
+\DeclareCiteCommand{\cbx@textcite}
+  {\usebibmacro{cite:init}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{textcite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{textcite:postnote}}
+
+\DeclareCiteCommand{\textcite}[\cbx@textcite@init\cbx@textcite]
+  {\gdef\cbx@savedkeys{}%
+   \citetrackerfalse%
+   \pagetrackerfalse%
+   \DeferNextCitekeyHook%
+   \usebibmacro{cite:init}}
+  {\ifthenelse{\iffirstcitekey\AND\value{multicitetotal}>0}
+     {\protected@xappto\cbx@savedcites{()(\thefield{multipostnote})}%
+      \global\clearfield{multipostnote}}
+     {}%
+   \xappto\cbx@savedkeys{\thefield{entrykey},}%
+   \iffieldequals{namehash}{\cbx@lasthash}
+     {}
+     {\stepcounter{textcitetotal}%
+      \savefield{namehash}{\cbx@lasthash}}}
+  {}
+  {\protected@xappto\cbx@savedcites{%
+     [\thefield{prenote}][\thefield{postnote}]{\cbx@savedkeys}}}
+
+% textcite has nested \DeclareCiteCommand definitions for textcite and we want to use
+% the normal textcite context
+\DeclareDelimcontextAlias{cbx@textcite}{textcite}
+
+\newrobustcmd{\cbx@textcite@init}[2]{%
+  \setcounter{textcitetotal}{0}%
+  \setcounter{textcitecount}{0}%
+  \def\cbx@savedcites{#1}#2\cbx@savedcites\empty}
+
+\DeclareMultiCiteCommand{\cbx@textcites}{\cbx@textcite}{}
+\DeclareMultiCiteCommand{\textcites}[\cbx@textcites@init\cbx@textcites]{\textcite}{}
+
+\let\cbx@textcites@init\cbx@textcite@init
+\pretocmd{\cbx@textcites@init}{\UseNextMultiCiteHook}{}{}
 
 \endinput
