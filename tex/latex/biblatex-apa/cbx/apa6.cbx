@@ -287,9 +287,7 @@
        {\iffieldundef{shorthand}%
     % Cite using title
          {\usebibmacro{cite:noname}%
-          \setunit{\ifbool{cbx:np}%
-                   {\printdelim{nameyeardelim}}%
-                   {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
+          \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
           \usebibmacro{cite:plabelyear+extradate}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
@@ -303,9 +301,7 @@
            {\printnames{shortauthor}}
            {\printnames[labelname][-\value{listtotal}]{author}}}%
   % Year
-        \setunit{\ifbool{cbx:np}
-                  {\printdelim{nameyeardelim}}
-                  {\global\booltrue{cbx:parens}\addspace\bibopenparen}}%
+        \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
   % Put the shortauthor inside the year brackets if necessary
         \ifnameundef{shortauthor}
          {}
@@ -375,22 +371,25 @@
 % (APA 6.21) No parens round year for cites when the cite is in
 %            parentheses. Use new command \nptextcite for such cites.
 
-\DeclareDelimFormat[nptextcite]{finalnamedelim}
-  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
+\DeclareDelimAlias*[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
 
 \DeclareCiteCommand{\nptextcite}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \global\booltrue{cbx:np}%
-   \usebibmacro{textcite}%
-   \usebibmacro{cite:post}%
-   \global\boolfalse{cbx:np}}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
   {}
-  {\iffieldundef{postnote}
-     {}
-     {\printdelim{nameyeardelim}%
-      \printfield{postnote}}}
+  {\usebibmacro{postnote}}
+  
+\DeclareCiteCommand*{\nptextcite}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -457,7 +456,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newbool{cbx:parens} % boolean to say we're inside parens
-\newbool{cbx:np} % boolean to say we're using a non-parentheses text cite
 
 \newbibmacro*{textcite:postnote}{%
   \usebibmacro{postnote}%
