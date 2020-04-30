@@ -519,8 +519,7 @@
 % (APA 8.11) No parens round year for cites when the cite is in
 %            parentheses. Use new command \nptextcite for such cites.
 
-\DeclareDelimFormat[nptextcite]{finalnamedelim}
-  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
+\DeclareDelimAlias*[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
 
 \DeclareCiteCommand{\nptextcite}
   {\usebibmacro{cite:init}%
