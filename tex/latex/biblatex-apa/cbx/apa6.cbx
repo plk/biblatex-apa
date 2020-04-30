@@ -268,6 +268,9 @@
       \savefield{fullhash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
+\renewcommand*{\iffinalcitedelim}{%
+  \ifnumequal{\value{textcitecount}}{\value{textcitetotal}-1}}
+
 \newbibmacro*{textcite}{%
   \iffieldequals{fullhash}{\cbx@lasthash}
 % Compact cite - more than one thing for same author
@@ -275,10 +278,10 @@
      \usebibmacro{cite:plabelyear+extradate}}
 % New cite
     {%
-    \ifbool{cbx:parens}
-      {\bibcloseparen\global\boolfalse{cbx:parens}}
-      {}%
-      \setunit{\compcitedelim}%
+      \ifbool{cbx:parens}
+        {\bibcloseparen\global\boolfalse{cbx:parens}}
+        {}%
+      \setunit{\textcitedelim}%
       \ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
   % No author/editor or patent
        {\iffieldundef{shorthand}%
@@ -309,10 +312,15 @@
          {\cbx@apa@ifnamesaved
            {}
            {\printnames{shortauthor}\setunit{\printdelim{nameyeardelim}}}}%
+  % Print prenote (belongs to first cite)
+        \ifnumequal{\value{citecount}}{1}
+           {\usebibmacro{prenote}}
+           {}%
   % Actual year printing
         \usebibmacro{cite:plabelyear+extradate}%
   % Save name hash for checks later
-        \savefield{fullhash}{\cbx@lasthash}}}}
+        \savefield{fullhash}{\cbx@lasthash}}%
+      \stepcounter{textcitecount}}}
 
 \newbibmacro*{cite:plabelyear+extradate}{%
   \iffieldundef{labelyear}{}
@@ -514,14 +522,47 @@
   {}
   {\usebibmacro{postnote}}
 
-\DeclareCiteCommand{\textcite}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
+\DeclareCiteCommand{\cbx@textcite}
+  {\usebibmacro{cite:init}}
   {\usebibmacro{citeindex}%
    \usebibmacro{textcite}%
    \usebibmacro{cite:post}}
   {}
   {\usebibmacro{textcite:postnote}}
+
+\DeclareCiteCommand{\textcite}[\cbx@textcite@init\cbx@textcite]
+  {\gdef\cbx@savedkeys{}%
+   \citetrackerfalse%
+   \pagetrackerfalse%
+   \DeferNextCitekeyHook%
+   \usebibmacro{cite:init}}
+  {\ifthenelse{\iffirstcitekey\AND\value{multicitetotal}>0}
+     {\protected@xappto\cbx@savedcites{()(\thefield{multipostnote})}%
+      \global\clearfield{multipostnote}}
+     {}%
+   \xappto\cbx@savedkeys{\thefield{entrykey},}%
+   \iffieldequals{namehash}{\cbx@lasthash}
+     {}
+     {\stepcounter{textcitetotal}%
+      \savefield{namehash}{\cbx@lasthash}}}
+  {}
+  {\protected@xappto\cbx@savedcites{%
+     [\thefield{prenote}][\thefield{postnote}]{\cbx@savedkeys}}}
+
+% textcite has nested \DeclareCiteCommand definitions for textcite and we want to use
+% the normal textcite context
+\DeclareDelimcontextAlias{cbx@textcite}{textcite}
+
+\newrobustcmd{\cbx@textcite@init}[2]{%
+  \setcounter{textcitetotal}{0}%
+  \setcounter{textcitecount}{0}%
+  \def\cbx@savedcites{#1}#2\cbx@savedcites\empty}
+
+\DeclareMultiCiteCommand{\cbx@textcites}{\cbx@textcite}{}
+\DeclareMultiCiteCommand{\textcites}[\cbx@textcites@init\cbx@textcites]{\textcite}{}
+
+\let\cbx@textcites@init\cbx@textcite@init
+\pretocmd{\cbx@textcites@init}{\UseNextMultiCiteHook}{}{}
 
 \DeclareCiteCommand{\citeauthor}
   {\usebibmacro{cite:init}%
@@ -534,7 +575,6 @@
 
 
 \DeclareMultiCiteCommand{\cites}{\cite}{\setunit{\multicitedelim}}
-\DeclareMultiCiteCommand{\textcites}{\textcite}{\setunit{\compcitedelim}}
 \DeclareMultiCiteCommand{\nptextcites}{\nptextcite}{\setunit{\multicitedelim}}
 \DeclareMultiCiteCommand{\parencites}[\mkbibparens]{\parencite}
   {\setunit{\multicitedelim}}
