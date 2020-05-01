@@ -288,6 +288,7 @@
 \DeclareLabeldate{%
   \field{pubstate}
   \field{date}
+  \field{eventdate}
   \field{year}%legacy - no ISO8601 support
   \literal{nodate}
 }
@@ -391,6 +392,7 @@
 \DeclareFieldFormat*{title}{\mkbibemph{#1}\isdot}
 \DeclareFieldFormat[article,inbook,incollection,periodical,misc,legislation,legadminmaterial,jurisdiction,inproceedings,legal]{title}{#1\isdot}
 \DeclareFieldFormat[audio,video]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}\isdot}{#1}}
+\DeclareFieldFormat[presentation]{title}{\iffieldundef{maintitle}{\mkbibemph{#1}}{#1}\isdot}
 
 % SUBTITLE
 \DeclareFieldFormat[legmaterial]{subtitle}{\mkbibemph{#1}}
@@ -414,8 +416,7 @@
 
 % ORIGTITLE
 \DeclareFieldFormat{origtitle}{\mkbibemph{\bbx@colon@search\MakeSentenceCase*{#1}}\isdot}
-
-\DeclareFieldFormat[article,inbook,incollection,inproceedings,proceedings]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat[article,inbook,incollection,inproceedings,proceedings,presentation]{origtitle}{\bbx@colon@search\MakeSentenceCase*{#1}\isdot}
 
 % VOLUME
 \DeclareFieldFormat{volume}{\iffieldundef{maintitle}
@@ -719,7 +720,7 @@
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}%
      \setunit{\addspace}%
-     \ifentrytype{inbook}{}{\usebibmacro{addinfo1}}% additional info in parens
+     \ifthenelse{\ifentrytype{inbook}\OR\ifentrytype{inproceedings}}{}{\usebibmacro{addinfo1}}% additional info in parens
      \setunit{\addspace}%
      \printfield{titleaddon}%
      \setunit{\addspace}%
@@ -1634,18 +1635,17 @@
   \usebibmacro{title}%
   \setunit{\addspace}\newblock
   \usebibmacro{apa:related}%
-  \newunit\newblock
-  \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
   \newunit\newblock
   \usebibmacro{eventinfo}%
   \newunit\newblock
   \printlist{organization}%
-  \iffieldundef{pages}
-    {\setunit{\addcomma\addspace}}
-    {\newunit}%
-  \newblock
+  \newunit
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \printfield{pages}%
+  \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
   \usebibmacro{doi+url}%
@@ -1851,6 +1851,41 @@
   \newunit\newblock
   \usebibmacro{doi+url}%
   \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{pageref}%
+  \usebibmacro{annotation}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{presentation}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{apa:related}%
+  \newunit\newblock
+  \usebibmacro{editor+trans}%
+  \setunit*{\addcomma\addspace}\newblock
+  \usebibmacro{maintitle+booktitle}%
+  \newunit\newblock
+  \usebibmacro{eventinfo}%
+  \newunit\newblock
+  \printlist{organization}%
+  \newunit
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \printfield{pages}%
+  \newunit\newblock
+  \usebibmacro{origyear}%
+  \newunit\newblock
+  \usebibmacro{doi+url}%
+  \newblock
   \printfield{addendum}%
   \newunit\newblock
   \iftoggle{bbx:related}
