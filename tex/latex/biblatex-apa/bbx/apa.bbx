@@ -780,18 +780,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.1 Example 6) eprints (eLocator)
 
-\renewbibmacro*{eprint}{%
-  \iftoggle{bbx:eprint}
-    {\iffieldundef{eprinttype}
-       {}
-       {\iffieldbibstring{eprinttype}
-          {\bibcplstring{\strfield{eprinttype}}}
-          {\strfield{eprinttype}}%
-        \setunit{\addspace}}%
-     \printfield{eprint}}
-    {}}
-
-\DeclareFieldFormat{eprint}{#1}
+\DeclareFieldFormat[article]{eid}{\bibcpstring{jourarticle}~#1}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -805,8 +794,8 @@
   \setunit*{\addcomma\addspace}%
   \printfield{volume}%
   \printfield{number}%
-  \setunit*{\addcomma\addspace}%
-  \usebibmacro{eprint}%
+  \setunit{\addcomma\addspace}%
+  \printfield{eid}%
   \newunit\newblock
   \usebibmacro{issuename}%
   \newunit}
