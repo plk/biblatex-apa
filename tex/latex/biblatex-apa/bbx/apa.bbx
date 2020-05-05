@@ -1113,7 +1113,11 @@
 \renewbibmacro*{maintitle+booktitle}{%
   \ifthenelse{\iffieldundef{maintitle}\AND\iffieldundef{booktitle}}
     {}
-    {\usebibmacro{in}%
+    {\ifthenelse{\ifnameundef{editor}\AND
+                 \ifnameundef{editora}\AND
+                 \ifnameundef{editorb}\AND
+                 \ifnameundef{editorc}\AND
+                 \(\ifnameundef{groupauthor}\AND\NOT\ifnameundef{author}\)}{}{\usebibmacro{in}}%
      \iffieldundef{maintitle}
       {}
       {\usebibmacro{maintitle}%
@@ -1623,8 +1627,10 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
-  \setunit{\addspace}\newblock
+  \newunit\newblock
   \usebibmacro{apa:related}%
+  \newunit\newblock
+  \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
   \newunit\newblock
