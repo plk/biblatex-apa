@@ -12,7 +12,7 @@
 %%
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.bbx}[2020/05/02\space v9.11\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2020/05/05\space v9.12\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{same} % APA examples all have URLs in same font as text
@@ -352,6 +352,20 @@
       \step[typesource=hardware, typetarget=software]
     }
     \map{
+      \pertype{proceedings}
+      \step[fieldsource=booktitle, fieldtarget=title]
+      \step[typesource=proceedings, typetarget=book]
+    }
+    \map{
+      \pertype{inproceedings}
+      \step[notfield=editor, final]
+      \step[fieldsource=booktitle, fieldtarget=journaltitle]
+      \step[typesource=inproceedings, typetarget=article]
+    }
+    \map{
+      \step[typesource=inproceedings, typetarget=inbook]
+    }
+    \map{
       \step[fieldsource=year, final]
       \step[fieldset=pubstate, null]
     }
@@ -423,7 +437,7 @@
                               {\bibcpstring{volume}~\apanum{#1}}
                               {\mkbibemph{\bibcpstring{volume}~\apanum{#1}}}}
 \DeclareFieldFormat[article]{volume}{\mkbibemph{\apanum{#1}}}
-\DeclareFieldFormat[periodical]{volume}{\mkbibemph{\apanum{#1}}}
+\DeclareFieldFormat[inproceedings,periodical]{volume}{\mkbibemph{\apanum{#1}}}
 
 % VOLUMES
 \DeclareFieldFormat{volumes}{\bibcpstring{volumes}~#1}
@@ -439,7 +453,7 @@
                                {\apanum{#1}}}
                              {\mkbibemph{\apanum{#1}}}}
 \DeclareFieldFormat[report]{number}{\apanum{#1}}
-\DeclareFieldFormat[article,periodical]{number}{\mkbibparens{\apanum{#1}}}
+\DeclareFieldFormat[article,periodical,inproceedings]{number}{\mkbibparens{\apanum{#1}}}
 \DeclareFieldFormat[reprint]{number}{\mkbibbrackets{\apanum{#1}}}
 \DeclareFieldFormat{legmaterialnum}{%
   \ifthenelse{%
@@ -720,7 +734,7 @@
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}%
      \setunit{\addspace}%
-     \ifthenelse{\ifentrytype{inbook}\OR\ifentrytype{inproceedings}}{}{\usebibmacro{addinfo1}}% additional info in parens
+     \ifentrytype{inbook}{}{\usebibmacro{addinfo1}}% additional info in parens
      \setunit{\addspace}%
      \printfield{titleaddon}%
      \setunit{\addspace}%
@@ -1621,41 +1635,6 @@
   \usebibmacro{annotation}%
   \usebibmacro{finentry}}
 
-\DeclareBibliographyDriver{inproceedings}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \newunit\newblock
-  \usebibmacro{apa:related}%
-  \newunit\newblock
-  \usebibmacro{editor+trans}%
-  \setunit*{\addcomma\addspace}\newblock
-  \usebibmacro{maintitle+booktitle}%
-  \newunit\newblock
-  \usebibmacro{eventinfo}%
-  \newunit\newblock
-  \printlist{organization}%
-  \newunit
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
-  \printfield{pages}%
-  \newunit\newblock
-  \usebibmacro{origyear}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{pageref}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
 \DeclareBibliographyDriver{jurisdiction}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
@@ -1879,39 +1858,6 @@
   \printfield{pages}%
   \newunit\newblock
   \usebibmacro{origyear}%
-  \newunit\newblock
-  \usebibmacro{doi+url}%
-  \newblock
-  \printfield{addendum}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{pageref}%
-  \usebibmacro{annotation}%
-  \usebibmacro{finentry}}
-
-\DeclareBibliographyDriver{proceedings}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor}%
-  \setunit{\printdelim{nametitledelim}}\newblock
-  \usebibmacro{title}%
-  \setunit{\addspace}\newblock
-  \usebibmacro{apa:related}%
-  \newunit\newblock
-  \usebibmacro{eventinfo}%
-  \setunit{\addcomma\addspace}%
-  \usebibmacro{booktitle}%
-  \setunit{\addcomma\addspace}%
-  \printfield{volume}%
-  \setunit*{\adddot}%
-  \printfield{number}%
-  \setunit{\addcomma\addspace}
-  \printfield{pages}%
-  \newunit\newblock
-  \printlist{organization}%
   \newunit\newblock
   \usebibmacro{doi+url}%
   \newblock

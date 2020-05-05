@@ -1515,20 +1515,46 @@
   EVENTDATE      = {2018-04-26/2018-04-29}
 }
 
-% Actual conference proceedings examples in web addendum:
-% https://apastyle.apa.org/style-grammar-guidelines/references/examples/conference-proceeding-references)
 % (APA 10.5 Addendum Example 1)
+% Mapped to ARTICLE as per https://apastyle.apa.org/style-grammar-guidelines/references/examples/conference-proceeding-references
+% BOOKTITLE mapped to JOURNALTITLE
 @INPROCEEDINGS{10.5:A1,
   AUTHOR    = {Duckworth, A. L. and  Quirk, A. and Gallop, R. and Hoyle, R. H. and
                Kelly, D. R. and Matthews, M. D.},
   TITLE     = {Cognitive and Noncognitive Predictors of Success},
-  BOOKTITLE = {Proceedings of the National Academy of Sciences},
-  LOCATION  = {USA},
+  BOOKTITLE = {Proceedings of the National Academy of Sciences, USA},
   VOLUME    = {116},
   NUMBER    = {47},
   PAGES     = {23499–-23504},
   DATE      = {2019},
   DOI       = {10.1073/pnas.1910510116}
+}
+
+% (APA 10.5 Addendum Example 2)
+% Mapped to BOOK as per https://apastyle.apa.org/style-grammar-guidelines/references/examples/conference-proceeding-references
+@PROCEEDINGS{10.5:A2,
+  EDITOR       = {Kushilevitz, E. and Malkin, T.},
+  MAINTITLE    = {Lecture Notes in Computer Science},
+  MAINSUBTITLE = {Vol. 9562},
+  BOOKTITLE    = {Theory of Cryptography},
+  PUBLISHER    = {Springer},
+  DATE         = {2016},
+  DOI          = {10.1007/978-3-662-49096-9}
+}
+
+% (APA 10.5 Addendum Example 3)
+% Mapped to INBOOK as per https://apastyle.apa.org/style-grammar-guidelines/references/examples/conference-proceeding-references
+@INPROCEEDINGS{10.5:A3,
+  AUTHOR       = {Bedenel, Alan-Louis. and Jourdan, L. and Biernacki, C.},
+  EDITOR       = {R. Battiti and M. Brunato and I. Kotsireas and P. Pardalos},
+  TITLE        = {Probability Estimation by an Adapted Genetic Algorithm in Web Insurance},
+  MAINTITLE    = {Lecture Notes in Computer Science},
+  MAINSUBTITLE = {Vol. 11353},
+  BOOKTITLE    = {Learning and Intelligent Optimization},
+  PUBLISHER    = {Springer},
+  DATE         = {2019},
+  PAGES        = {225-–240},
+  DOI          = {10.1007/978-3-030-05348-2_21}
 }
 
 % (APA 10.6 Example 64)
