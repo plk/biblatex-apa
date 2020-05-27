@@ -401,6 +401,8 @@
 % HOWPUBLISHED
 \DeclareFieldFormat[unpublished]{howpublished}{\mkbibbrackets{%
   \ifbibstring{#1}{\bibcpstring{#1}}{#1}}}
+\DeclareFieldFormat[article]{howpublished}{%
+  \ifbibstring{#1}{\bibcpstring{#1}}{#1}}
 
 % TITLE
 \DeclareFieldFormat*{title}{\mkbibemph{#1}\isdot}
