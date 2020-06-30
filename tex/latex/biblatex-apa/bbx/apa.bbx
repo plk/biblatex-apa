@@ -761,12 +761,15 @@
     \setunit*{\addcomma\addspace}%
     \ifentrytype{book}{\printfield{volume}}{}}}
 
-% Additional post title information in brackets
+% Additional post title information in brackets unless it's the meta subtype "nonacademic"
+% which is used to conditionalise date formats in the .lbx files
 \newbibmacro*{addinfo2}{%
   \printtexte[brackets]{%
-    \iffieldbibstring{entrysubtype}
-      {\bibcplstring{\thefield{entrysubtype}}}
-      {\printfield{entrysubtype}}%
+   \iffieldequalstr{entrysubtype}{nonacademic}
+     {}
+     {\iffieldbibstring{entrysubtype}
+        {\bibcplstring{\thefield{entrysubtype}}}
+        {\printfield{entrysubtype}}}%
     \setunit*{\addsemicolon\addspace}%
     \printfield{note}}}
 
