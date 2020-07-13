@@ -409,9 +409,13 @@
     \ifthenelse{\value{listcount}=\value{listtotal}}%
       {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
 
+\DeclareDelimFormat[bib,biblist]{nameyeardelim}{\newunitpunct}
+\DeclareDelimAlias*[bib,biblist]{nonameyeardelim}{nameyeardelim}
+
 \renewbibmacro*{author}{%
   \ifnameundef{author}
-    {\usebibmacro{labeltitle}}
+    {\usebibmacro{labeltitle}%
+     \setunit{\printdelim{nonameyeardelim}}}
     {\printnames[apaauthor][-\value{listtotal}]{author}%
      \setunit*{\addspace}%
      \printfield{nameaddon}%
@@ -422,8 +426,9 @@
           \bibstring{with}%
           \setunit{\addspace}%
           \printnames[apaauthor][-\value{listtotal}]{with}}%
-        \setunit{\addspace}}}%
-  \newunit\newblock%
+        \setunit{\addspace}}%
+     \setunit{\printdelim{nameyeardelim}}}%
+  \newblock
   \usebibmacro{labelyear+extradate}}
 
 %
@@ -566,7 +571,7 @@
        \ifnameundef{producer}\AND%
        \ifnameundef{director}\AND%
        \ifnameundef{writer}}
-        {\newunit\newblock
+        {\setunit{\printdelim{nonameyeardelim}}\newblock
          \usebibmacro{labelyear+extradate}}
         {}}}
 
@@ -702,9 +707,9 @@
        % don't lose sight of the fact we once had an editor for
        % various year placement tests
        \clearname{editor}%
-       \setunit{\adddot\addspace}%
+       \setunit{\printdelim{nameyeardelim}}%
        \usebibmacro{labelyear+extradate}%
-       \setunit{\adddot\addspace}}}
+       \newunit}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -871,7 +876,7 @@
   \setunit{\addspace}%
   \printfield{issuetitle}%
   \notbool{bbx:editorinauthpos}
-    {\newunit
+    {\setunit{\printdelim{nonameyeardelim}}%
      \usebibmacro{labelyear+extradate}}
     {}}
 
@@ -1754,7 +1759,7 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \newunit\newblock
+  \setunit{\printdelim{nonameyeardelim}}\newblock
   \ifbool{bbx:noreviewauthor}{\usebibmacro{labelyear+extradate}}{}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
@@ -1894,7 +1899,7 @@
   \usebibmacro{writer}%
   \usebibmacro{director}%
   \usebibmacro{producer}%
-  \newunit\newblock
+  \setunit{\printdelim{nameyeardelim}}\newblock
   \usebibmacro{labelyear+extradate}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
@@ -1923,7 +1928,7 @@
   \usebibmacro{writer}%
   \usebibmacro{director}%
   \usebibmacro{producer}%
-  \newunit\newblock
+  \setunit{\printdelim{nameyeardelim}}\newblock
   \usebibmacro{labelyear+extradate}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
@@ -1952,7 +1957,7 @@
   \usebibmacro{writer}%
   \usebibmacro{director}%
   \usebibmacro{producer}%
-  \newunit\newblock
+  \setunit{\printdelim{nameyeardelim}}\newblock
   \usebibmacro{labelyear+extradate}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
@@ -2125,8 +2130,8 @@
     {}}
 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newbibmacro*{type+institution}{%
   \setunit{\addspace}%
   \ifboolexpr{ test {\iffieldundef{type}} and test {\iflistundef{institution}} }
