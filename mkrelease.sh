@@ -5,6 +5,7 @@ find -E . -regex '.*\.(bbx|cbx|dbx|lbx|pdf|tex|bib)' | xargs -J % cp % biblatex-
 cp README biblatex-apa/
 \rm biblatex-apa/reference.pdf
 # Ignore apa6 docs, if present
+\rm biblatex-apa/reference-apa6.pdf
 \rm -f biblatex-apa/biblatex-apa6.pdf
 \rm -f biblatex-apa/biblatex-apa6-test.pdf
 
