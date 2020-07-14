@@ -1045,14 +1045,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.06) Reviews
 
-% The title of the review depends on the entrytype of the thing reviewed
 \newcommand*{\begrelateddelimreviewof}{\addspace}
-\DeclareFieldFormat[review]{title}{%
-  \entrydata*{\thefield{related}}{%
-    \printtext[title]{%
-      \printtext[apacase]{%
-        \thefield{savedtitle}}}}}
-
+\DeclareFieldFormat[review]{title}{#1}
 \DeclareFieldFormat[review]{pages}{#1}
 \DeclareFieldFormat[review]{volume}{\mkbibemph{\apanum{#1}}}
 \DeclareFieldFormat[review]{number}{\mkbibparens{\apanum{#1}}}
