@@ -28,7 +28,6 @@
 % (APA 6.11) requires comma separator between authors and years
 
 \DeclareDelimFormat{nameyeardelim}{\addcomma\space}
-\DeclareDelimFormat[textcite]{nameyeardelim}{\addcomma\space}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -260,7 +259,9 @@
        {\iffieldundef{shorthand}%
     % Cite using title
          {\usebibmacro{cite:noname}%
-          \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
+          \setunit{\global\booltrue{cbx:parens}%
+                   \printdelim{nameyeardelim}%
+                   \bibopenparen}%
           \usebibmacro{cite:plabelyear+extradate}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
@@ -274,7 +275,9 @@
            {\printnames{shortauthor}}
            {\printnames[labelname][-\value{listtotal}]{author}}}%
   % Year
-        \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
+        \setunit{\global\booltrue{cbx:parens}%
+                 \printdelim{nonameyeardelim}%
+                 \bibopenparen}%
   % Put the shortauthor inside the year brackets if necessary
         \ifnameundef{shortauthor}
          {}
