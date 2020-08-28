@@ -12,7 +12,7 @@
 %% 
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa6.dbx}[2020/05/03\space v8.4\space APA 6th ed. biblatex style data model]
+\ProvidesFile{apa6.dbx}[2020/08/28\space v8.5\space APA 6th ed. biblatex style data model]
 \RequireBiber[3]
 
 \DeclareDatamodelEntrytypes{

@@ -12,7 +12,7 @@
 %%
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa6.cbx}[2020/05/03\space v8.4\space APA 6th ed. biblatex citation style]
+\ProvidesFile{apa6.cbx}[2020/08/28\space v8.5\space APA 6th ed. biblatex citation style]
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -509,7 +509,7 @@
 % (APA 6.21) No parens round year for cites when the cite is in
 %            parentheses. Use new command \nptextcite for such cites.
 
-\DeclareDelimAlias*[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
+\DeclareDelimAlias[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
 
 \DeclareCiteCommand{\nptextcite}
   {\usebibmacro{cite:init}%
