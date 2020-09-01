@@ -1370,9 +1370,16 @@
 \ExecuteBibliographyOptions{annotation=true}
 
 \renewbibmacro*{annotation}{%
-  \ifboolexpr{       test {\iffieldundef{annotation}}
+  \ifboolexpr{test {\iffieldundef{annotation}}
               or not togl {bbx:annotation}}
-    {}
+    {\IfFileExists{\bibannotationprefix\thefield{entrykey}.tex}
+       {\begingroup
+        \togglefalse{blx@bibliography}%
+        \newline
+        \setunit{}%
+        \printfile[annotation]{\bibannotationprefix\thefield{entrykey}.tex}%
+        \endgroup}
+      {}}
     {\begingroup
      \togglefalse{blx@bibliography}%
      \newline
