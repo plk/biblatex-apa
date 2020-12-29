@@ -410,7 +410,7 @@
       {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}
 
 \DeclareDelimFormat[bib,biblist]{nameyeardelim}{\newunitpunct}
-\DeclareDelimAlias*[bib,biblist]{nonameyeardelim}{nameyeardelim}
+\DeclareDelimAlias[bib,biblist]{nonameyeardelim}{nameyeardelim}
 
 \renewbibmacro*{author}{%
   \ifnameundef{author}
