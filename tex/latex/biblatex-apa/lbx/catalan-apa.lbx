@@ -1,0 +1,314 @@
+\ProvidesFile{catalan-apa.lbx}[2020/08/28\space v9.14\space APA biblatex localisation]
+
+% Translation based on:
+% spanish-apa.lbx file (for source to translate from)
+% http://dspace.uvic.cat/xmlui/bitstream/handle/10854/6275/altres_a2020_guia_elaborar_citacions.pdf (for general guidelines)
+% https://estil.llocs.iec.cat/wp-content/uploads/sites/24/2019/02/09_Pag_319-384_p.pdf (for specific queries)
+% https://biblioteca.udg.edu/ca/com-citar-documents/estil-apa?language_content_entity=ca (for normative abbreviations)
+
+\InheritBibliographyExtras{catalan}
+
+\setcounter{smartand}{0} % Turn off "smart and" or ampersands will all be replaced
+
+\NewBibliographyString{jourarticle}
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{with}
+\NewBibliographyString{supplement}
+\NewBibliographyString{commenton}
+\NewBibliographyString{manunpub}
+\NewBibliographyString{maninprep}
+\NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
+\NewBibliographyString{song}
+\NewBibliographyString{album}
+\NewBibliographyString{podcast}
+\NewBibliographyString{podcastepisode}
+\NewBibliographyString{interview}
+\NewBibliographyString{speech}
+\NewBibliographyString{lithograph}
+\NewBibliographyString{map}
+\NewBibliographyString{lecturenotes}
+\NewBibliographyString{powerpoint}
+\NewBibliographyString{photograph}
+\NewBibliographyString{photographs}
+\NewBibliographyString{present}
+\NewBibliographyString{painting}
+\NewBibliographyString{article}
+\NewBibliographyString{unitednations}
+\NewBibliographyString{charter}
+\NewBibliographyString{ofthe}
+\NewBibliographyString{tothe}
+
+\DeclareBibliographyStrings{%
+  inherit          = {catalan},
+  jourarticle      = {{article}{art\adddot}}, 
+%  tothe            = {{to\space the}{to\space the}},%FIXME
+%  ofthe            = {{of\space the}{of\space the}},%FIXME
+  unitednations    = {{Organitzaci\'o\space de\space les\space Nacions\space Unides}{ONU}}, 
+  charter          = {{acta}{acta}}, 
+  article          = {{article}{art\adddot}}, 
+  painting         = {{pintura}{pintura}}, 
+  present          = {{regal}{regal}},
+  song             = {{canç\'o}{canç\'o}}, 
+  album            = {{\`album}{\`album}}, 
+  map              = {{mapa}{mapa}}, 
+  photograph       = {{fotografia}{fot\adddot}}, 
+  photographs      = {{fotografies}{fot\adddot}}, 
+  powerpoint       = {{diapositives\space de\space Powerpoint}{diapositives\space de\space Powerpoint}}, 
+  lecturenotes     = {{apunts}{apunts}}, 
+  podcast          = {{\`audio\space podcast}{\`audio\space podcast}},
+  podcastepisode   = {{episodi\space de\space podcast\space d'\`audio}{episodi\space de\space podcast\space d'\`audio}},
+  interview        = {{entrevista}{entrevista}}, 
+  speech           = {{discurs}{discurs}}, 
+  lithograph       = {{litografia}{litogr\adddot}}, 
+  video            = {{v\'ideo}{v\'ideo}}, 
+  film             = {{pel\textperiodcentered lícula}{pel\textperiodcentered lícula}},
+  tvseries         = {{s\`erie\space de\space televisi\'o}{s\`erie\space de\space televisi\'o}}, 
+  tvepisode        = {{episodi\space de\space s\`erie\space de\space televisi\'o}{episodi\space de\space s\`erie\space de\space televisi\'o}}, 
+  narrator         = {{narrador}{narr\adddot}},
+  narrators        = {{narradors}{narr\adddot}},
+  producer         = {{productor}{prod\adddot}},
+  producers        = {{productors}{prod\adddot}}, 
+  execproducer     = {{productor\space executiu}{productor\space executiu}},
+  execproducers    = {{productors\space executius}{productors\space executius}},
+  execdirector     = {{director\space executiu}{director\space executiu}},
+  execdirectors    = {{directors\space executius}{directors\space executius}},
+  director         = {{director}{dir\adddot}}, 
+  directors        = {{directors}{dir\adddot}}, 
+  writer           = {{guionista}{guion\addot}}, 
+  writers          = {{guionistes}{guion\addot}}, 
+  host             = {{presentador}{presentador}}, 
+  hosts            = {{presentadors}{presentadors}}, 
+  guestexpert      = {{expert\space convidat}{expert\space convidat}}, 
+  guestexperts     = {{experts\space convidats}{experts\space convidats}}, 
+  with             = {{amb}{amb}}, 
+  manunpub         = {{manuscrit\space no\space publicat}{manuscrit\space no\space publicat}}, 
+  maninprep        = {{manuscrit\space en\space preparaci\'o}{manuscrit\space en\space preparaci\'o}}, 
+  mansub           = {{manuscrit\space presentat\space per\space a\space la\space seva\space publicaci\'o}{manuscrit\space presentat\space per\space a\space la\space seva\space publicaci\'o}}, 
+  supplement       = {{suplement}{supl\adddot}}, 
+  part             = {{part}{part}}, 
+  january          = {{gener}{gen\adddot}}, 
+  february         = {{febrer}{febr\adddot}}, 
+  march            = {{març}{març}}, 
+  april            = {{abril}{abr\adddot}}, 
+  may              = {{maig}{maig}}, 
+  june             = {{juny}{juny}}, 
+  july             = {{juliol}{jul\adddot}}, 
+  august           = {{agost}{ag\adddot}}, 
+  september        = {{setembre}{set\adddot}}, 
+  october          = {{octubre}{oc\adddot}}, 
+  november         = {{novembre}{nov\adddot}},  
+  december         = {{desembre}{des\adddot}}, 
+  nodate           = {{sense\space data}{s/ d}}, 
+  mathesis         = {{Treball\space de\space Fi\space de\space M\`aster}{Treball\space de\space Fi\space de\space M\`aster}}, 
+  phdthesis        = {{Tesi\pace doctoral}{Tesi\pace doctoral}}, 
+  revisededition   = {{Edici\'o\space revisada}{Edici\'o\space revisada}},
+  commenton        = {{comentari\space sobre}{comentari\space sobre}}, 
+  page             = {{P\`agina}{{}p\adddot}}, 
+  pages            = {{P\`agines}{{}p\adddot}},
+  on               = {{a}{a}},
+  retrieved        = {{Consultat}{Consultat}},
+  available        = {{disponible}{disponible}}, 
+  from             = {{a\space partir\space de}{a\space partir\space de}},
+  archivedat       = {{arxivat\space a}{arxivat\space a}}, 
+  reviewof         = {{ressenya\space de}{ressenya\space de}}, 
+  paragraph        = {{par\`agraf}{\S}}, 
+  paragraphs       = {{par\`agrafs}{\S}}, 
+  origyear         = {{Data\space inicial\space de\space publicaci\'o}{Data\space inicial\space de\space publicaci\'o}}, 
+  typechair        = {{Coordinador}{Coord\adddot}},
+  typechairs       = {{Coordinadors}{Coord\adddot}}, 
+  typevolume       = {{Editor\space del\space volum}{Ed\adddotspace vol\adddot}},
+  typevolumes      = {{Editors\space del\space volum}{Ed\adddotspace vol\adddot}}, 
+  typeseries       = {{Editor\space de\space la\space s\`erie}{Ed\adddotspace s\adddot}},
+  typeseriess      = {{Editors\space de\space la\space s\`erie}{Ed\adddotspace s\adddot}},
+  typevolseries    = {{Editor\space de\space la\space s\`erie\space i\space del\space volum}{Ed\adddotspace vol\space\ i \space s\adddot}},
+  typevolseriess   = {{Editors\space de\space la\space s\`erie\space i\space del\space volumn}{Ed\adddotspace vol\space\ i \space s\adddot}},
+  annodomini       = {{despr\'es\space de\space Crist}{dC}}, 
+  beforechrist     = {{abans\space de\space Crist}{aC}}, 
+  commonera        = {{era\space comuna}{e\adddot c\adddot}},  
+  beforecommonera  = {{abans\space de\space l'era\space comuna}{a\adddot e\adddot c\adddot}} 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Drop end* when they are the same as *
+% You must use \printdate to get here otherwise it will be ignored
+
+\DeclareBibliographyExtras{%
+  \def\urldatecomma{\addcomma\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+    {\clearfield{labelmonth}%
+      \clearfield{labelday}}
+    {}%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}%
+       \ifboolexpr{test {\iffieldundef{#3}} and test {\iffieldundef{#2}}}
+         {}
+         {\addcomma\space}}%
+    \iffieldundef{#3}%
+      {}%
+      {\stripzeros{\thefield{#3}}%
+       \iffieldundef{#2}
+         {}
+         {\addspace de\space}}%
+    \iffieldundef{#2}%
+      {}%
+      {\mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+    {\clearfield{labelmonth}%
+      \clearfield{labelday}}
+    {}%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}%
+       \printfield{extradate}%
+       \ifboolexpr{test {\iffieldundef{#3}} and test {\iffieldundef{#2}}}
+         {}
+         {\addcomma\space}}%
+    \iffieldundef{#3}%
+      {}%
+      {\stripzeros{\thefield{#3}}%
+       \iffieldundef{#2}
+         {}
+         {\addspace de\space}}%
+    \iffieldundef{#2}%
+      {}%
+      {\mkbibmonth{\thefield{#2}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+    {\clearfield{labelmonth}%
+      \clearfield{labelday}}
+    {}%
+    \iffieldundef{#3}%
+    {}%
+    {el\addspace\stripzeros{\thefield{#3}}}%
+    \iffieldundef{#2}%
+    {\addspace{en}\addspace}%
+    {\iffieldundef{#3}%
+      {en\addspace}%
+      {\addspace{de}\addspace}%
+      \mkbibmonth{\thefield{#2}}{\addspace{de}\addspace}}%
+    \iffieldundef{#1}%
+    {}%
+    {\iffieldundef{#2}%
+      {}%
+      {\addspace}%
+      \thefield{#1}}}%
+  \def\apa@lbx@es@mkdaterangeapalong#1{%
+    \begingroup
+      \blx@metadateinfo{#1}%
+      \iffieldundef{#1year}{}
+        {\datecircaprint
+         \ifstrequal{#1}{url}% URL dates are unlikely to be BCE ...
+           {\printtext{%
+               \iffieldsequal{#1year}{#1endyear}
+                 {\iffieldsequal{#1month}{#1endmonth}
+                    {\mkbibdateapalongmdy{}{}{#1day}}
+                    {\mkbibdateapalongmdy{}{#1month}{#1day}}}
+                 {\mkbibdateapalongmdy{#1year}{#1month}{#1day}}%
+               \iffieldundef{#1endyear}%
+                 {}%
+                 {\iffieldequalstr{#1endyear}{}% open-ended range?
+                   {\mbox{\bibdatedash}}
+                   {\bibdatedash%
+                    \mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}%
+               \dateuncertainprint}}
+           {\printtext{%
+               \ifboolexpr{test {\iffieldsequal{#1year}{#1endyear}}
+                           and test {\iffieldsequal{#1month}{#1endmonth}}}
+                 {\mkbibdateapalong{#1year}{}{#1day}}%
+                 {\mkbibdateapalong{#1year}{#1month}{#1day}}%
+               \dateeraprint{#1year}%
+               \iffieldundef{#1endyear}%
+                 {}%
+                 {\iffieldequalstr{#1endyear}{}% open-ended range?
+                   {\mbox{\bibdatedash}}
+                   {\bibdatedash%
+                    \iffieldsequal{#1year}{#1endyear}%
+                      {\mkbibdateapalong{}{#1endmonth}{#1endday}}%
+                      {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}%
+                     \dateeraprint{#1endyear}}}%
+                 \enddateuncertainprint}}}}%
+    \endgroup}%
+  \def\apa@lbx@es@mkdaterangeapalongextra#1{%
+    \begingroup
+      \blx@metadateinfo{#1}%
+      \iffieldundef{#1year}{}
+        {\printtext{%
+          \datecircaprint
+          \ifboolexpr{test {\iffieldsequal{#1year}{#1endyear}}
+                           and test {\iffieldsequal{#1month}{#1endmonth}}}
+            {\mkbibdateapalongextra{#1year}{}{#1day}}%
+            {\mkbibdateapalongextra{#1year}{#1month}{#1day}}%
+          \dateeraprint{#1year}%
+          \dateuncertainprint
+          \iffieldundef{#1endyear}%
+            {}%
+            {\iffieldequalstr{#1endyear}{}% open-ended range?
+              {\mbox{\bibdatedash}}
+              {\bibdatedash%
+               \iffieldsequal{#1year}{#1endyear}%
+                 {\mkbibdateapalongextra{}{#1endmonth}{#1endday}}
+                 {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}%
+                  \dateeraprint{#1endyear}}}%
+             \enddateuncertainprint}}}%
+    \endgroup}%
+  \savecommand\mkdaterangeapalong
+  \savecommand\mkdaterangeapalongextra
+  \def\mkdaterangeapalong{%
+    \apa@lbx@es@mkdaterangeapalong}%
+  \def\mkdaterangeapalongextra#1{%
+    \apa@lbx@es@mkdaterangeapalongextra{#1}}%
+}
+
+
+\UndeclareBibliographyExtras{%
+  \restorecommand\mkdaterangeapalong
+  \restorecommand\mkdaterangeapalongextra
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
