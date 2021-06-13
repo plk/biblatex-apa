@@ -137,9 +137,7 @@
        {\printnames{labelname}}%
        {\cbx@apa@ifnamesaved
           {\printnames{shortauthor}}
-          {\ifnameundef{groupauthor}
-            {\printnames[labelname]{author}}
-            {\printnames[labelname]{groupauthor}}%
+          {\printnames[labelname]{author}%
            \addspace\printnames[sabrackets]{shortauthor}}}%
         \savefield{fullhash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
@@ -170,9 +168,7 @@
        {\printnames{labelname}}%
        {\cbx@apa@ifnamesaved
          {\printnames{shortauthor}}
-         {\ifnameundef{groupauthor}
-           {\printnames[labelname]{author}}
-           {\printnames[labelname]{groupauthor}}%
+         {\printnames[labelname]{author}%
           \addspace\printnames[sabrackets]{shortauthor}}}%
        \setunit{\printdelim{nameyeardelim}}%
       \usebibmacro{cite:plabelyear+extradate}%
@@ -209,9 +205,7 @@
     % Cite using short author
          {\cbx@apa@ifnamesaved
            {\printnames{shortauthor}}
-           {\ifnameundef{groupauthor}
-             {\printnames[labelname]{author}}
-             {\printnames[labelname]{groupauthor}}}}%
+           {\printnames[labelname]{author}}}%
   % Year
         \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
   % Put the shortauthor inside the year brackets if necessary

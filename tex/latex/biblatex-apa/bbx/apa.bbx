@@ -251,7 +251,6 @@
   \sort{
     \field{sortname}
     \field{author}
-    \field{groupauthor}
     \field{editor}
     \field{sorttitle}
     \field{title}
@@ -282,11 +281,9 @@
   }
 }
 
-% Include groupauthor
 \DeclareLabelname{%
   \field{shortauthor}
   \field{author}
-  \field{groupauthor}
   \field{shorteditor}
   \field{editor}
 }
@@ -339,7 +336,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Enforce ignoring of PUBSTATE if there is a YEAR or DATE field
-% (APA 10.2:32) Remove PUBLISHER if it is the same as GROUPAUTHOR
+% (APA 10.2:32) Remove PUBLISHER if it is the same as AUTHOR
 % Force @COLLECTION, @REFERENCE->@BOOK and @INCOLLECTION,@INREFERENCE->@INBOOK
 
 \DeclareStyleSourcemap{
@@ -358,6 +355,9 @@
     }
     \map{
       \step[typesource=hardware, typetarget=software]
+    }
+    \map{
+      \step[fieldsource=groupauthor, fieldtarget=author]
     }
     \map{
       \pertype{proceedings}
@@ -382,7 +382,7 @@
       \step[fieldset=pubstate, null]
     }
     \map{
-      \step[fieldsource=groupauthor, match=\regexp{([^{}]+)}, final]
+      \step[fieldsource=author, match=\regexp{([^{}]+)}, final]
       \step[fieldsource=publisher, match=\regexp{$1}, final]%$
       \step[fieldset=publisher, null]
    }
@@ -582,7 +582,7 @@
     {}}
 
 \renewbibmacro*{author/editor}{%
-  \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
+  \ifnameundef{author}
     {\ifnameundef{editor}
       {\usebibmacro{title}%
         % need to clear all title fields so we don't get them again later
@@ -595,7 +595,7 @@
   \usebibmacro{labelyear+extradate}}
 
 \newbibmacro*{author/editor:related}{%
-  \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
+  \ifnameundef{author}
     {\ifnameundef{editor}
       {\usebibmacro{title}%
         % need to clear all title fields so we don't get them again later
@@ -624,9 +624,7 @@
      \clearname{editor}}}
 
 \renewbibmacro*{author}{%
-  \ifnameundef{author}
-    {\printnames[apaauthor][-\value{listtotal}]{groupauthor}}
-    {\printnames[apaauthor][-\value{listtotal}]{author}}%
+  \printnames[apaauthor][-\value{listtotal}]{author}%
   \setunit*{\addspace}%
   \printfield{nameaddon}%
   \ifnameundef{with}
@@ -639,9 +637,7 @@
      \setunit{\addspace}}}
 
 \newbibmacro*{author:related}{%
-  \ifnameundef{author}
-    {\printnames[apanames][-\value{listtotal}]{groupauthor}}
-    {\printnames[apanames][-\value{listtotal}]{author}}%
+  \printnames[apanames][-\value{listtotal}]{author}%
   \setunit*{\addspace}}
 
 %
@@ -660,13 +656,6 @@
        {\finalandcomma\addspace\&\space}
        {\addspace\&\space}}}
 
-\DeclareDelimFormat[bib,biblist]{finalnamedelim:apa:family-given}{%
-  \ifthenelse{\value{listcount}>\maxprtauth}
-    {}
-    {\ifthenelse{\ifcurrentname{groupauthor}\AND%
-                 \value{liststop}=2}
-     {\addspace\&\space}
-     {\finalandcomma\addspace\&\space}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -934,26 +923,30 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Name format
 
+\newcommand*{\apablx@ifnotfinalname}{%
+  \ifboolexpr{
+    test {\ifnumless{\value{listcount}}{\value{liststop}}}
+    or
+    test \ifmorenames
+    }}
+
+\newcommand*{\apablx@ifrevnameappcomma}[2]{%
+  \ifdefvoid{#1}
+    {\ifdefvoid{#2}}
+    {\@secondoftwo}
+  {\@secondoftwo}
+  {\apablx@ifnotfinalname}%
+}
+
 % #1 = family name
 % #2 = given name
 % #3 = given name (initials)
 % #4 = name prefix
 % #5 = name suffix
 
-\newbibmacro*{name:delim:apa:family-given}[1]{%
-  \ifnumgreater{\value{listcount}}{\value{liststart}}
-    {\ifboolexpr{
-       test {\ifnumless{\value{listcount}}{\value{liststop}}}
-       or
-       test \ifmorenames
-     }
-       {\printdelim{multinamedelim}}
-       {\printdelim{finalnamedelim:apa:family-given}}}
-    {}}
-
 \newbibmacro*{name:apa:family-given}[5]{%
   \ifuseprefix
-    {\usebibmacro{name:delim:apa:family-given}{#4#1}%
+    {\usebibmacro{name:delim}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
      \ifdefvoid{#4}{}{%
        \mkbibnameprefix{#4}\isdot%
@@ -963,8 +956,11 @@
                       \ifthenelse{\value{uniquename}>1}
                         {\bibnamedelimd\mkbibbrackets{#2}}
                         {}}%
-     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}
-    {\usebibmacro{name:delim:apa:family-given}{#1}%
+     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}%
+     \apablx@ifrevnameappcomma{#2}{#5}
+       {\addcomma}
+       {}}
+    {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
      \mkbibnamefamily{#1}\isdot
      \ifboolexpe{%
@@ -980,7 +976,10 @@
      \ifdefvoid{#4}{}{%
        \bibnamedelimc\mkbibnameprefix{#4}%
        \ifprefchar{}{\bibnamedelimc}}%
-     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}}
+     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}%
+     \apablx@ifrevnameappcomma{#2}{#5}
+       {\addcomma}
+       {}}}
 
 \newbibmacro*{name:apa:given-family}[5]{%
   \usebibmacro{name:delim}{#2#4#1#5}%
@@ -1142,7 +1141,7 @@
                  \ifnameundef{editora}\AND
                  \ifnameundef{editorb}\AND
                  \ifnameundef{editorc}\AND
-                 \(\ifnameundef{groupauthor}\AND\NOT\ifnameundef{author}\)}{}{\usebibmacro{in}}%
+                 \(\NOT\ifnameundef{author}\)}{}{\usebibmacro{in}}%
      \iffieldundef{maintitle}
       {}
       {\usebibmacro{maintitle}%
