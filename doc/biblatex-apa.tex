@@ -312,15 +312,6 @@ states are language dependent and need localisation strings:
   \item[mansub] Manuscript submitted for publication
 \end{description}
 
-\subsubsection{Authors and Group Authors}
-APA 7th edition has a concept of a ``Group'' author \apa{9.11}. The style
-provides the |GROUPAUTHOR| entry field in all entry types. It is
-recommended to use |GROUPAUTHOR| when the author is an organisation or
-group as there are rules for name lists which are different for group
-authors (for example \apa{9.8}). |AUTHOR| is used much more extensively as
-the main agent of a work and the specific roles for particular agents is
-handled using |biber'|'s data annotation feature, see below.
-
 \subsubsection{Roles}
 The main role \apa{9.10} is of course specified by the |AUTHOR| entry
 field. You can attach specialised roles to any name in the |AUTHOR| field as
@@ -396,6 +387,10 @@ the examples.
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{9.15}{2021-??-??}
+\item Remove (need for) |GROUPAUTHOR| field
+\end{release}
 
 \begin{release}{9.14}{2020-08-28}
 \item Bugfixes, compat with biblatex 3.15

@@ -23,7 +23,6 @@
   nameonly}
 
 \DeclareDatamodelFields[type=list, datatype=name]{
-  groupauthor,
   narrator,
   execproducer,
   execdirector,
@@ -41,7 +40,6 @@
 
 \DeclareDatamodelEntryfields{
   with,
-  groupauthor,
   narrator,
   execproducer,
   execdirector}
@@ -147,10 +145,7 @@
 
 \DeclareDatamodelConstraints[book,inbook,article,report]{
   \constraint[type=mandatory]{
-    \constraintfieldsor{
-      \constraintfield{author}
-      \constraintfield{groupauthor}
-    }
+    \constraintfield{author}
     \constraintfield{title}
   }
 }
