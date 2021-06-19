@@ -544,12 +544,7 @@
          {\namepartgiven}%
          {\namepartgiveni}%
          {\namepartprefix}%
-         {\namepartsuffix}%
-       \let\bibstring\bibcplstring
-       \usebibmacro{role}{\addspace}{\mkbibparens}%
-       \hasitemannotation[\currentname][username]
-         {\addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}
-         {}}}%
+         {\namepartsuffix}}}%
   \ifthenelse{\value{listcount}=\value{listtotal}}%
     {\ifmorenames
        {\printdelim{andothersdelim}%
@@ -569,9 +564,7 @@
          {\namepartgiven}%
          {\namepartgiveni}%
          {\namepartprefix}%
-         {\namepartsuffix}%
-       \let\bibstring\bibcpsstring
-       \usebibmacro{role}{\addcomma\space}{\@firstofone}}}%
+         {\namepartsuffix}}}%
   \ifthenelse{\value{listcount}=\value{listtotal}}%
     {\ifmorenames
        {\printdelim{andothersdelim}%
@@ -930,13 +923,12 @@
     test \ifmorenames
     }}
 
-\newcommand*{\apablx@ifrevnameappcomma}[2]{%
-  \ifdefvoid{#1}
-    {\ifdefvoid{#2}}
-    {\@secondoftwo}
-  {\@secondoftwo}
-  {\apablx@ifnotfinalname}%
-}
+\newcommand*{\apablx@ifrevnameappcomma}{%
+  \iftoggle{apablx@wantcomma}
+    {\apablx@ifnotfinalname}
+    {\@secondoftwo}}
+
+\newtoggle{apablx@wantcomma}
 
 % #1 = family name
 % #2 = given name
@@ -945,6 +937,7 @@
 % #5 = name suffix
 
 \newbibmacro*{name:apa:family-given}[5]{%
+  \togglefalse{apablx@wantcomma}%
   \ifuseprefix
     {\usebibmacro{name:delim}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
@@ -952,14 +945,13 @@
        \mkbibnameprefix{#4}\isdot%
        \ifprefchar{}{\bibnamedelimc}}%
      \mkbibnamefamily{#1}\isdot%
-     \ifdefvoid{#2}{}{\revsdnamepunct\bibnamedelimd\mkbibnamegiven{#3}\isdot%
+     \ifdefvoid{#2}{}{\toggletrue{apablx@wantcomma}%
+                      \revsdnamepunct\bibnamedelimd\mkbibnamegiven{#3}\isdot%
                       \ifthenelse{\value{uniquename}>1}
                         {\bibnamedelimd\mkbibbrackets{#2}}
                         {}}%
-     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}%
-     \apablx@ifrevnameappcomma{#2}{#5}
-       {\addcomma}
-       {}}
+     \ifdefvoid{#5}{}{\toggletrue{apablx@wantcomma}%
+                      \addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
      \mkbibnamefamily{#1}\isdot
@@ -969,17 +961,25 @@
        test {\ifdefvoid{#4}}}
        {}
        {\revsdnamepunct}%
-     \ifdefvoid{#2}{}{\bibnamedelimd\mkbibnamegiven{#3}%
+     \ifdefvoid{#2}{}{\toggletrue{apablx@wantcomma}%
+                      \bibnamedelimd\mkbibnamegiven{#3}%
                       \ifthenelse{\value{uniquename}>1}
                         {\bibnamedelimd\mkbibbrackets{#2}}
                         {}}%
      \ifdefvoid{#4}{}{%
+       \toggletrue{apablx@wantcomma}%
        \bibnamedelimc\mkbibnameprefix{#4}%
        \ifprefchar{}{\bibnamedelimc}}%
-     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}%
-     \apablx@ifrevnameappcomma{#2}{#5}
-       {\addcomma}
-       {}}}
+     \ifdefvoid{#5}{}{\toggletrue{apablx@wantcomma}%
+                      \addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}%
+  \let\bibstring\bibcplstring
+  \usebibmacro{role}{\addspace}{\mkbibparens}%
+  \hasitemannotation[\currentname][username]
+    {\addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}
+    {}%
+  \apablx@ifrevnameappcomma
+    {\addcomma}
+    {}}
 
 \newbibmacro*{name:apa:given-family}[5]{%
   \usebibmacro{name:delim}{#2#4#1#5}%
@@ -993,7 +993,9 @@
     \mkbibnameprefix{#4}\isdot
     \ifprefchar{}{\bibnamedelimc}}%
   \mkbibnamefamily{#1}\isdot%
-  \ifdefvoid{#5}{}{\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}
+  \ifdefvoid{#5}{}{\bibnamedelimd\mkbibnamesuffix{#5}\isdot}%
+  \let\bibstring\bibcpsstring
+  \usebibmacro{role}{\addcomma\space}{\@firstofone}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
