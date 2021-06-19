@@ -973,10 +973,9 @@
      \ifdefvoid{#5}{}{\toggletrue{apablx@wantcomma}%
                       \addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}%
   \let\bibstring\bibcplstring
-  \usebibmacro{role}{\toggletrue{apablx@wantcomma}\addspace}{\mkbibparens}%
+  \usebibmacro{role}{\addspace}{\mkbibparens}%
   \hasitemannotation[\currentname][username]
-    {\toggletrue{apablx@wantcomma}%
-     \addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}
+    {\addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}
     {}%
   \apablx@ifrevnameappcomma
     {\addcomma}
