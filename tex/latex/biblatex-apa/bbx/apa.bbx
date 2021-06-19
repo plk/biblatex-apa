@@ -1142,8 +1142,7 @@
     {\ifthenelse{\ifnameundef{editor}\AND
                  \ifnameundef{editora}\AND
                  \ifnameundef{editorb}\AND
-                 \ifnameundef{editorc}\AND
-                 \(\NOT\ifnameundef{author}\)}{}{\usebibmacro{in}}%
+                 \ifnameundef{editorc}}{\usebibmacro{in}}{}%
      \iffieldundef{maintitle}
       {}
       {\usebibmacro{maintitle}%
