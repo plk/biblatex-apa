@@ -574,17 +574,23 @@
      \usebibmacro{roles}{\addspace}{\@firstofone}}
     {}}
 
+\DeclareDelimFormat[bib,biblist]{nameyeardelim}{\newunitpunct}
+\DeclareDelimAlias*[bib,biblist]{nonameyeardelim}{nameyeardelim}
+
 \renewbibmacro*{author/editor}{%
   \ifnameundef{author}
     {\ifnameundef{editor}
       {\usebibmacro{title}%
-        % need to clear all title fields so we don't get them again later
-        \clearfield{title}%
+       % need to clear all title fields so we don't get them again later
+       \clearfield{title}%
        \clearfield{subtitle}%
-       \clearfield{titleaddon}}
-      {\usebibmacro{editorinauthpos}}}
-    {\usebibmacro{author}}%
-  \newunit\newblock%
+       \clearfield{titleaddon}%
+       \setunit{\printdelim{nonameyeardelim}}\newblock}
+      {\usebibmacro{editorinauthpos}%
+       \setunit{\printdelim{nameyeardelim}}\newblock}}
+    {\usebibmacro{author}%
+     \setunit{\printdelim{nameyeardelim}}\newblock}%
+  %
   \usebibmacro{labelyear+extradate}}
 
 \newbibmacro*{author/editor:related}{%
