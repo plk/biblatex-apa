@@ -29,6 +29,7 @@
 % (APA 8.11) requires comma separator between authors and years
 
 \DeclareDelimFormat{nameyeardelim}{\addcomma\space}
+\DeclareDelimAlias[textcite]{innernameyeardelim}[]{nameyeardelim}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -217,7 +218,7 @@
          {\cbx@apa@ifnamesaved
            {}
            {\printnames{shortauthor}%
-            \setunit{\printdelim{nameyeardelim}}}}%
+            \setunit{\printdelim{innernameyeardelim}}}}%
   % Print prenote (belongs to first cite)
         \ifnumequal{\value{citecount}}{1}
            {\usebibmacro{prenote}}
