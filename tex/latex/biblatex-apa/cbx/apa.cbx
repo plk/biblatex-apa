@@ -1,4 +1,4 @@
-%% Copyright 2020 Philip Kime
+%% Copyright 2022 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -12,7 +12,7 @@
 %%
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.cbx}[2020/05/05\space v9.12\space APA biblatex citation style]
+\ProvidesFile{apa.cbx}[2021/12/24\space v9.15\space APA biblatex citation style]
 \RequireBiber[3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,7 +29,7 @@
 % (APA 8.11) requires comma separator between authors and years
 
 \DeclareDelimFormat{nameyeardelim}{\addcomma\space}
-\DeclareDelimFormat[textcite]{nameyeardelim}{\addcomma\space}
+\DeclareDelimAlias[textcite]{innernameyeardelim}[]{nameyeardelim}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -137,9 +137,7 @@
        {\printnames{labelname}}%
        {\cbx@apa@ifnamesaved
           {\printnames{shortauthor}}
-          {\ifnameundef{groupauthor}
-            {\printnames[labelname]{author}}
-            {\printnames[labelname]{groupauthor}}%
+          {\printnames[labelname]{author}%
            \addspace\printnames[sabrackets]{shortauthor}}}%
         \savefield{fullhash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
@@ -170,9 +168,7 @@
        {\printnames{labelname}}%
        {\cbx@apa@ifnamesaved
          {\printnames{shortauthor}}
-         {\ifnameundef{groupauthor}
-           {\printnames[labelname]{author}}
-           {\printnames[labelname]{groupauthor}}%
+         {\printnames[labelname]{author}%
           \addspace\printnames[sabrackets]{shortauthor}}}%
        \setunit{\printdelim{nameyeardelim}}%
       \usebibmacro{cite:plabelyear+extradate}%
@@ -197,7 +193,9 @@
        {\iffieldundef{shorthand}%
     % Cite using title
          {\usebibmacro{cite:noname}%
-          \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
+          \setunit{\global\booltrue{cbx:parens}%
+                   \printdelim{nonameyeardelim}%
+                   \bibopenparen}%
           \usebibmacro{cite:plabelyear+extradate}}
     % Cite using shorthand
          {\usebibmacro{cite:shorthand}}}
@@ -209,18 +207,18 @@
     % Cite using short author
          {\cbx@apa@ifnamesaved
            {\printnames{shortauthor}}
-           {\ifnameundef{groupauthor}
-             {\printnames[labelname]{author}}
-             {\printnames[labelname]{groupauthor}}}}%
+           {\printnames[labelname]{author}}}%
   % Year
-        \setunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}%
+        \setunit{\global\booltrue{cbx:parens}%
+                 \printdelim{nameyeardelim}%
+                 \bibopenparen}%
   % Put the shortauthor inside the year brackets if necessary
         \ifnameundef{shortauthor}
          {}
          {\cbx@apa@ifnamesaved
            {}
            {\printnames{shortauthor}%
-            \setunit{\printdelim{nameyeardelim}}}}%
+            \setunit{\printdelim{innernameyeardelim}}}}%
   % Print prenote (belongs to first cite)
         \ifnumequal{\value{citecount}}{1}
            {\usebibmacro{prenote}}
@@ -519,7 +517,7 @@
 % (APA 8.11) No parens round year for cites when the cite is in
 %            parentheses. Use new command \nptextcite for such cites.
 
-\DeclareDelimAlias*[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
+\DeclareDelimAlias[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
 
 \DeclareCiteCommand{\nptextcite}
   {\usebibmacro{cite:init}%

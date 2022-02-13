@@ -1,4 +1,4 @@
-%% Copyright 2020 Philip Kime
+%% Copyright 2022 Philip Kime
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -12,7 +12,7 @@
 %%
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.bbx}[2020/05/05\space v9.12\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2021/12/24\space v9.15\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{same} % APA examples all have URLs in same font as text
@@ -251,7 +251,6 @@
   \sort{
     \field{sortname}
     \field{author}
-    \field{groupauthor}
     \field{editor}
     \field{sorttitle}
     \field{title}
@@ -265,6 +264,14 @@
     \literal{-2000000000}% APA has "nodates" coming first
   }
   \sort{
+    \field{month}
+    \literal{-2000000000}% APA has "nodates" coming first
+  }
+  \sort{
+    \field{day}
+    \literal{-2000000000}% APA has "nodates" coming first
+  }
+  \sort{
     \field{sorttitle}
     \field{title}
   }
@@ -274,11 +281,9 @@
   }
 }
 
-% Include groupauthor
 \DeclareLabelname{%
   \field{shortauthor}
   \field{author}
-  \field{groupauthor}
   \field{shorteditor}
   \field{editor}
 }
@@ -331,7 +336,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Enforce ignoring of PUBSTATE if there is a YEAR or DATE field
-% (APA 10.2:32) Remove PUBLISHER if it is the same as GROUPAUTHOR
+% (APA 10.2:32) Remove PUBLISHER if it is the same as AUTHOR
 % Force @COLLECTION, @REFERENCE->@BOOK and @INCOLLECTION,@INREFERENCE->@INBOOK
 
 \DeclareStyleSourcemap{
@@ -350,6 +355,9 @@
     }
     \map{
       \step[typesource=hardware, typetarget=software]
+    }
+    \map{
+      \step[fieldsource=groupauthor, fieldtarget=author]
     }
     \map{
       \pertype{proceedings}
@@ -374,7 +382,7 @@
       \step[fieldset=pubstate, null]
     }
     \map{
-      \step[fieldsource=groupauthor, match=\regexp{([^{}]+)}, final]
+      \step[fieldsource=author, match=\regexp{([^{}]+)}, final]
       \step[fieldsource=publisher, match=\regexp{$1}, final]%$
       \step[fieldset=publisher, null]
    }
@@ -538,12 +546,7 @@
          {\namepartgiven}%
          {\namepartgiveni}%
          {\namepartprefix}%
-         {\namepartsuffix}%
-       \let\bibstring\bibcplstring
-       \usebibmacro{role}{\addspace}{\mkbibparens}%
-       \hasitemannotation[\currentname][username]
-         {\addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}
-         {}}}%
+         {\namepartsuffix}}}%
   \ifthenelse{\value{listcount}=\value{listtotal}}%
     {\ifmorenames
        {\printdelim{andothersdelim}%
@@ -563,9 +566,7 @@
          {\namepartgiven}%
          {\namepartgiveni}%
          {\namepartprefix}%
-         {\namepartsuffix}%
-       \let\bibstring\bibcpsstring
-       \usebibmacro{role}{\addcomma\space}{\@firstofone}}}%
+         {\namepartsuffix}}}%
   \ifthenelse{\value{listcount}=\value{listtotal}}%
     {\ifmorenames
        {\printdelim{andothersdelim}%
@@ -575,21 +576,27 @@
      \usebibmacro{roles}{\addspace}{\@firstofone}}
     {}}
 
+\DeclareDelimFormat[bib,biblist]{nameyeardelim}{\newunitpunct}
+\DeclareDelimAlias*[bib,biblist]{nonameyeardelim}{nameyeardelim}
+
 \renewbibmacro*{author/editor}{%
-  \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
+  \ifnameundef{author}
     {\ifnameundef{editor}
       {\usebibmacro{title}%
-        % need to clear all title fields so we don't get them again later
-        \clearfield{title}%
+       % need to clear all title fields so we don't get them again later
+       \clearfield{title}%
        \clearfield{subtitle}%
-       \clearfield{titleaddon}}
-      {\usebibmacro{editorinauthpos}}}
-    {\usebibmacro{author}}%
-  \newunit\newblock%
+       \clearfield{titleaddon}%
+       \setunit{\printdelim{nonameyeardelim}}\newblock}
+      {\usebibmacro{editorinauthpos}%
+       \setunit{\printdelim{nameyeardelim}}\newblock}}
+    {\usebibmacro{author}%
+     \setunit{\printdelim{nameyeardelim}}\newblock}%
+  %
   \usebibmacro{labelyear+extradate}}
 
 \newbibmacro*{author/editor:related}{%
-  \ifthenelse{\ifnameundef{author}\AND\ifnameundef{groupauthor}}
+  \ifnameundef{author}
     {\ifnameundef{editor}
       {\usebibmacro{title}%
         % need to clear all title fields so we don't get them again later
@@ -618,9 +625,7 @@
      \clearname{editor}}}
 
 \renewbibmacro*{author}{%
-  \ifnameundef{author}
-    {\printnames[apaauthor][-\value{listtotal}]{groupauthor}}
-    {\printnames[apaauthor][-\value{listtotal}]{author}}%
+  \printnames[apaauthor][-\value{listtotal}]{author}%
   \setunit*{\addspace}%
   \printfield{nameaddon}%
   \ifnameundef{with}
@@ -633,9 +638,7 @@
      \setunit{\addspace}}}
 
 \newbibmacro*{author:related}{%
-  \ifnameundef{author}
-    {\printnames[apanames][-\value{listtotal}]{groupauthor}}
-    {\printnames[apanames][-\value{listtotal}]{author}}%
+  \printnames[apanames][-\value{listtotal}]{author}%
   \setunit*{\addspace}}
 
 %
@@ -654,13 +657,6 @@
        {\finalandcomma\addspace\&\space}
        {\addspace\&\space}}}
 
-\DeclareDelimFormat[bib,biblist]{finalnamedelim:apa:family-given}{%
-  \ifthenelse{\value{listcount}>\maxprtauth}
-    {}
-    {\ifthenelse{\ifcurrentname{groupauthor}\AND%
-                 \value{liststop}=2}
-     {\addspace\&\space}
-     {\finalandcomma\addspace\&\space}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -763,12 +759,15 @@
     \setunit*{\addcomma\addspace}%
     \ifentrytype{book}{\printfield{volume}}{}}}
 
-% Additional post title information in brackets
+% Additional post title information in brackets unless it's the meta subtype "nonacademic"
+% which is used to conditionalise date formats in the .lbx files
 \newbibmacro*{addinfo2}{%
   \printtexte[brackets]{%
-    \iffieldbibstring{entrysubtype}
-      {\bibcplstring{\thefield{entrysubtype}}}
-      {\printfield{entrysubtype}}%
+   \iffieldequalstr{entrysubtype}{nonacademic}
+     {}
+     {\iffieldbibstring{entrysubtype}
+        {\bibcplstring{\thefield{entrysubtype}}}
+        {\printfield{entrysubtype}}}%
     \setunit*{\addsemicolon\addspace}%
     \printfield{note}}}
 
@@ -925,37 +924,43 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Name format
 
+\newcommand*{\apablx@ifnotfinalname}{%
+  \ifboolexpr{
+    test {\ifnumless{\value{listcount}}{\value{liststop}}}
+    or
+    test \ifmorenames
+    }}
+
+\newcommand*{\apablx@ifrevnameappcomma}{%
+  \iftoggle{apablx@wantcomma}
+    {\apablx@ifnotfinalname}
+    {\@secondoftwo}}
+
+\newtoggle{apablx@wantcomma}
+
 % #1 = family name
 % #2 = given name
 % #3 = given name (initials)
 % #4 = name prefix
 % #5 = name suffix
 
-\newbibmacro*{name:delim:apa:family-given}[1]{%
-  \ifnumgreater{\value{listcount}}{\value{liststart}}
-    {\ifboolexpr{
-       test {\ifnumless{\value{listcount}}{\value{liststop}}}
-       or
-       test \ifmorenames
-     }
-       {\printdelim{multinamedelim}}
-       {\printdelim{finalnamedelim:apa:family-given}}}
-    {}}
-
 \newbibmacro*{name:apa:family-given}[5]{%
+  \togglefalse{apablx@wantcomma}%
   \ifuseprefix
-    {\usebibmacro{name:delim:apa:family-given}{#4#1}%
+    {\usebibmacro{name:delim}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
      \ifdefvoid{#4}{}{%
        \mkbibnameprefix{#4}\isdot%
        \ifprefchar{}{\bibnamedelimc}}%
      \mkbibnamefamily{#1}\isdot%
-     \ifdefvoid{#2}{}{\revsdnamepunct\bibnamedelimd\mkbibnamegiven{#3}\isdot%
+     \ifdefvoid{#2}{}{\toggletrue{apablx@wantcomma}%
+                      \revsdnamepunct\bibnamedelimd\mkbibnamegiven{#3}\isdot%
                       \ifthenelse{\value{uniquename}>1}
                         {\bibnamedelimd\mkbibbrackets{#2}}
                         {}}%
-     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}
-    {\usebibmacro{name:delim:apa:family-given}{#1}%
+     \ifdefvoid{#5}{}{\toggletrue{apablx@wantcomma}%
+                      \addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}
+    {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
      \mkbibnamefamily{#1}\isdot
      \ifboolexpe{%
@@ -964,14 +969,25 @@
        test {\ifdefvoid{#4}}}
        {}
        {\revsdnamepunct}%
-     \ifdefvoid{#2}{}{\bibnamedelimd\mkbibnamegiven{#3}%
+     \ifdefvoid{#2}{}{\toggletrue{apablx@wantcomma}%
+                      \bibnamedelimd\mkbibnamegiven{#3}%
                       \ifthenelse{\value{uniquename}>1}
                         {\bibnamedelimd\mkbibbrackets{#2}}
                         {}}%
      \ifdefvoid{#4}{}{%
+       \toggletrue{apablx@wantcomma}%
        \bibnamedelimc\mkbibnameprefix{#4}%
        \ifprefchar{}{\bibnamedelimc}}%
-     \ifdefvoid{#5}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}}
+     \ifdefvoid{#5}{}{\toggletrue{apablx@wantcomma}%
+                      \addcomma\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}%
+  \let\bibstring\bibcplstring
+  \usebibmacro{role}{\addspace}{\mkbibparens}%
+  \hasitemannotation[\currentname][username]
+    {\addspace\mkbibbrackets{\getitemannotation[\currentname][username]}}
+    {}%
+  \apablx@ifrevnameappcomma
+    {\addcomma}
+    {}}
 
 \newbibmacro*{name:apa:given-family}[5]{%
   \usebibmacro{name:delim}{#2#4#1#5}%
@@ -985,7 +1001,9 @@
     \mkbibnameprefix{#4}\isdot
     \ifprefchar{}{\bibnamedelimc}}%
   \mkbibnamefamily{#1}\isdot%
-  \ifdefvoid{#5}{}{\bibnamedelimd\mkbibnamesuffix{#5}\isdot}}
+  \ifdefvoid{#5}{}{\bibnamedelimd\mkbibnamesuffix{#5}\isdot}%
+  \let\bibstring\bibcpsstring
+  \usebibmacro{role}{\addcomma\space}{\@firstofone}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1132,8 +1150,7 @@
     {\ifthenelse{\ifnameundef{editor}\AND
                  \ifnameundef{editora}\AND
                  \ifnameundef{editorb}\AND
-                 \ifnameundef{editorc}\AND
-                 \(\ifnameundef{groupauthor}\AND\NOT\ifnameundef{author}\)}{}{\usebibmacro{in}}%
+                 \ifnameundef{editorc}}{\usebibmacro{in}}{}%
      \iffieldundef{maintitle}
       {}
       {\usebibmacro{maintitle}%
@@ -1369,9 +1386,16 @@
 \ExecuteBibliographyOptions{annotation=true}
 
 \renewbibmacro*{annotation}{%
-  \ifboolexpr{       test {\iffieldundef{annotation}}
+  \ifboolexpr{test {\iffieldundef{annotation}}
               or not togl {bbx:annotation}}
-    {}
+    {\IfFileExists{\bibannotationprefix\thefield{entrykey}.tex}
+       {\begingroup
+        \togglefalse{blx@bibliography}%
+        \newline
+        \setunit{}%
+        \printfile[annotation]{\bibannotationprefix\thefield{entrykey}.tex}%
+        \endgroup}
+      {}}
     {\begingroup
      \togglefalse{blx@bibliography}%
      \newline
@@ -1775,6 +1799,8 @@
   \usebibmacro{apa:related}%
   \newunit\newblock
   \usebibmacro{eprint}%
+  \newunit\newblock
+  \printlist{organization}%
   \addperiod\addspace
   \newunit\newblock
   \usebibmacro{doi+url}%

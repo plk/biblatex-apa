@@ -1,0 +1,232 @@
+\ProvidesFile{finnish-apa.lbx}[2021/12/24\space v9.15\space APA biblatex localisation]
+
+% Translations based on: 
+% https://libguides.oulu.fi/tieteellinentiedonhankinta/apa
+% http://www.psykologia.fi/kirjoittajille/yleiset-ohjeet-kirjoittajille
+% https://uva.libguides.com/kirjoitusohjeet/esimerkit-APA7
+\InheritBibliographyExtras{finnish}
+
+\NewBibliographyString{jourarticle}
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{with}
+\NewBibliographyString{supplement}
+\NewBibliographyString{commenton}
+\NewBibliographyString{manunpub}
+\NewBibliographyString{maninprep}
+\NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
+\NewBibliographyString{song}
+\NewBibliographyString{album}
+\NewBibliographyString{podcast}
+\NewBibliographyString{podcastepisode}
+\NewBibliographyString{interview}
+\NewBibliographyString{speech}
+\NewBibliographyString{lithograph}
+\NewBibliographyString{map}
+\NewBibliographyString{lecturenotes}
+\NewBibliographyString{powerpoint}
+\NewBibliographyString{photograph}
+\NewBibliographyString{photographs}
+\NewBibliographyString{present}
+\NewBibliographyString{painting}
+\NewBibliographyString{article}
+\NewBibliographyString{unitednations}
+\NewBibliographyString{charter}
+\NewBibliographyString{ofthe}
+\NewBibliographyString{tothe}
+
+\DeclareBibliographyStrings{%
+  inherit          = {finnish},
+% jourarticle      = {{article}{article}},
+% tothe            = {{to\space the}{to\space the}},
+% ofthe            = {{of\space the}{of\space the}},
+% unitednations    = {{United\space Nations}{U\adddot N\adddot}},
+% charter          = {{charter}{charter}},
+% article          = {{article}{art\adddot}},
+% painting         = {{painting}{painting}},
+% present          = {{present}{present}},
+% song             = {{song}{song}},
+% album            = {{album}{album}},
+% map              = {{map}{map}},
+% photograph       = {{photograph}{photograph}},
+% photographs      = {{photographs}{photographs}},
+% powerpoint       = {{Powerpoint\space slides}{Powerpoint\space slides}},
+% lecturenotes     = {{lecturenotes}{lecturenotes}},
+% podcast          = {{audio\space podcast}{audio\space podcast}},
+% podcastepisode   = {{audio\space podcast\space episode}{audio\space podcast\space episode}},
+  interview        = {{haastattelu}{haastattelu}},
+%  speech           = {{speech\space audio\space recording}{speech\space audio\space recording}},
+%  lithograph       = {{lithograph}{lith\adddot}},
+%  video            = {{video}{video}},
+%  film             = {{film}{film}},
+%  tvseries         = {{TV\space series}{TV\space series}},
+%  tvepisode        = {{TV\space series\space episode}{TV\space series\space episode}},
+%  narrator         = {{narrator}{narr\adddot}},
+%  narrators        = {{narrators}{narrs\adddot}},
+%  producer         = {{producer}{producer}},
+%  producers        = {{producers}{producers}},
+%  execproducer     = {{Executive\space Producer}{Exec\adddot\space Prod\adddot}},
+%  execproducers    = {{Executive\space Producers}{Exec\adddot\space Prods\adddot}},
+%  execdirector     = {{Executive\space Director}{Exec\adddot\space Dir\adddot}},
+%  execdirectors    = {{Executive\space Directors}{Exec\adddot\space Dirs\adddot}},
+%  director         = {{director}{dir\adddot}},
+%  directors        = {{directors}{dirs\adddot}},
+  writer           = {{kirjoittaja}{kirjoittaja}},
+  writers          = {{kirjoittajat}{kirjoittajat}},
+%  host             = {{host}{host}},
+%  hosts            = {{hosts}{hosts}},
+%  guestexpert      = {{Guest\space Expert}{Guest\space Expert}},
+%  guestexperts     = {{Guest\space Experts}{Guest\space Experts}},
+  andothers        = {{ym\adddot}{ym\adddot}},
+  with             = {{kanssa}{kanssa}},
+  manunpub         = {{julkaisematon\space k\"asikirjoitus}{julkaisematon\space k\"asikirjoitus}},
+  maninprep        = {{manuscript\space in\space preparation}{manuscript\space in\space preparation}},
+  mansub           = {{k\"asikirjoitus\space l\"ahetetty\space julkaistavaksi}{mk\"asikirjoitus\space l\"ahetetty\space julkaistavaksi}},
+% supplement       = {{supplement}{suppl\adddot}},
+  part             = {{osa}{os\adddot}},
+  revisededition   = {{uudistettu\space painos}{uud.\adddotspace p.\adddot}},
+%  commenton        = {{comment\space on}{comment\space on}},
+% page             = {{Sivu}{{}s\adddot}},
+% pages            = {{Sivut}{{}s\adddot}},
+%  on               = {{on}{on}},
+  retrieved        = {{haettu}{haettu}},
+  available        = {{saatavilla}{saatavilla}},
+  from             = {{osoitteesta}{osoitteesta}},
+%  archivedat       = {{archived\space at}{archived\space at}},
+%  reprintas        = {{reprinted as}{reprinted as}},
+%  reprintfrom      = {{reprinted from}{reprinted from}},
+%  reviewof         = {{review\space of}{review\space of}},
+%  paragraph        = {{paragraph}{para\adddot}},
+%  paragraphs       = {{paragraphs}{paras\adddot}},
+  mathesis         = {{Pro\space gradu\space -ty\"o}{Pro\space gradu\space -ty\"o}},
+  phdthesis        = {{V\"aitoskirja}{V\"aitoskirja}},
+  origyear         = {{alkuper\"ainen\space teos\space julkaistu}{alkuper\"ainen\space teos\space julkaistu}},
+%  typechair        = {{Chair}{Chair}},
+%  typechairs       = {{Chairs}{Chairs}},
+%  typevolume       = {{Volume\space Editor}{Vol\adddotspace Ed\adddot}},
+%  typevolumes      = {{Volume\space Editors}{Vol\adddotspace Eds\adddot}},
+%  typeseries       = {{Series\space Editor}{Series\space Ed\adddot}},
+%  typeseriess      = {{Series\space Editors}{Series\space Eds\adddot}},
+%  typevolseries    = {{Series\space and\space Volume\space Editor}{Series\space\& Vol\adddotspace Ed\adddot}},
+%  typevolseriess   = {{Series\space and\space Volume\space Editors}{Series\space\& Vol\adddotspace Eds\adddot}},
+% annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
+% beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
+% commonera        = {{C\adddot E\adddot}{C\adddot E\adddot}},
+% beforecommonera  = {{B\adddot C\adddot E\adddot}{B\adddot C\adddot E\adddot}}
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Drop end* when they are the same as *
+% You must use \print*date to get here otherwise it will be ignored
+
+\DeclareBibliographyExtras{%
+  \def\urldatecomma{\addcomma\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}%
+      {}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
+    \iffieldundef{#2}%
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#2}%
+      {}%
+      {\mkbibmonth{\thefield{#2}}}%
+    \iffieldundef{#3}%
+      {}%
+      {\addspace}%
+       \stripzeros{\thefield{#3}}%
+    \iffieldundef{#1}%
+      {}%
+      {\ifthenelse{\iffieldundef{#3}}%
+        {\ifthenelse{\iffieldundef{#2}}%
+          {}%
+          {\addspace}}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput

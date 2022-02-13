@@ -5,7 +5,7 @@
 }
 
 @BOOK{9.8:2,
-  GROUPAUTHOR = {{American Psychological Association} and {National Institutes of Health}},
+  AUTHOR = {{American Psychological Association} and {National Institutes of Health}},
   DATE   = {2014}
 }
 
@@ -542,10 +542,10 @@
 }
 
 @ARTICLE{10.1:3b,
+  ENTRYSUBTYPE   = {nonacademic},
   AUTHOR         = {C. Goldman},
   TITLE          = {The Complicated Calibration of Love, Especially in Adoption},
   JOURNALTITLE   = {Chicago Tribune},
-  KEYWORDS       = {nonacademic},
   DATE           = {2018-11-28}
 }
 
@@ -718,57 +718,57 @@
 }
 
 % (APA 10.1 Example 15)
-% Note use of KEYWORDS to indicate non-academic magazine so that dates
+% Note use of ENTRYSUBTYPE to indicate non-academic magazine so that dates
 % are formatted correctly
 @ARTICLE{10.1:15a,
+  ENTRYSUBTYPE   = {nonacademic},
   AUTHOR         = {S. Bergeson},
   TITLE          = {Really Cool Neutral Plasmas},
   JOURNALTITLE   = {Science},
   VOLUME         = {363},
   NUMBER         = {6422},
   PAGES          = {33--34},
-  KEYWORDS       = {nonacademic},
   DATE           = {2019-01-04},
   DOI            = {10.1126/science.aau7988}
 }
 
 @ARTICLE{10.1:15b,
+  ENTRYSUBTYPE   = {nonacademic},
   AUTHOR         = {M. Bustillos},
   TITLE          = {On Video Games and Storytelling},
   SUBTITLE       = {An Interview with {Tom} {Bissell}},
   JOURNALTITLE   = {The New Yorker},
-  KEYWORDS       = {nonacademic},
   DATE           = {2013-03-19},
   URL            = {https://www.newyorker.com/books/page-turner/on-video-games-and-storytelling-an-interview-with-tom-bissell}
 }
 
 @ARTICLE{10.1:15c,
+  ENTRYSUBTYPE   = {nonacademic},
   AUTHOR         = {K. Wier},
   TITLE          = {Forgiveness Can Improve Mental and Physical Health},
   JOURNALTITLE   = {Monitor on Psychology},
   VOLUME         = {48},
   NUMBER         = {1},
-  KEYWORDS       = {nonacademic},
   PAGES          = {30},
   DATE           = {2017-01}
 }
 
 % (APA 10.1 Example 16)
 @ARTICLE{10.1:16a,
+  ENTRYSUBTYPE   = {nonacademic},
   AUTHOR         = {B. Guarino},
   TITLE          = {How Will Humanity React to Alien Life?
                     {Psychologists} Have Some Predictions},
   JOURNALTITLE   = {The Washington Post},
-  KEYWORDS       = {nonacademic},
   DATE           = {2017-12-04},
   URL            = {https://www.washingtonpost.com/news/speaking-of-science/wp/2017/12/04/how-will-humanity-react-to-alien-life-psychologists-have-some-predictions}
 }
 
 @ARTICLE{10.1:16b,
+  ENTRYSUBTYPE   = {nonacademic},
   AUTHOR         = {A. Hess},
   TITLE          = {Cats Who Take Direction},
   JOURNALTITLE   = {The New York Times},
-  KEYWORDS       = {nonacademic},
   DATE           = {2019-01-03},
   PAGES          = {C1}
 }
@@ -788,17 +788,18 @@
 % "Comment on the article" string. A simpler but less general way of getting the same
 % results would be:
 %@ARTICLE{10.1:18,
+%  ENTRYSUBTYPE   = {nonacademic},
 %  AUTHOR         = {{KS in NJ}},
 %  TITLE          = {From this article, it sounds like men are figuring
 %                    something out that women have known forever. {I} know of many},
 %  TITLEADDON     = {Comment on the article ``How workout buddies can help stave off loneliness''},
 %  JOURNALTITLE   = {The Washington Post},
-%  KEYWORDS       = {nonacademic},
 %  DATE           = {2019-01-15},
 %  URL            = {https://wapo.st/2HDToGJ}
 %}
 
 @ARTICLE{10.1:18,
+  ENTRYSUBTYPE   = {nonacademic},
   AUTHOR         = {{KS in NJ}},
   TITLE          = {From this article, it sounds like men are figuring
                     something out that women have known forever. {I} know of many},
@@ -806,7 +807,6 @@
   RELATEDTYPE    = {commenton},
   RELATEDSTRING  = {Comment on the article},
   JOURNALTITLE   = {The Washington Post},
-  KEYWORDS       = {nonacademic},
   DATE           = {2019-01-15},
   URL            = {https://wapo.st/2HDToGJ}
 }
@@ -1000,9 +1000,9 @@
 }
 
 % (APA 10.2 Example 32)
-% Note the use of GROUPAUTHOR instead of AUTHOR here
+% Note the use of AUTHOR instead of AUTHOR here
 @MANUAL{10.2:32a,
-  GROUPAUTHOR    = {{American Psychiatric Association}},
+  AUTHOR    = {{American Psychiatric Association}},
   TITLE          = {Diagnostic and Statistical Manual of Mental Disorders},
   SHORTHAND      = {DSM-5},
   EDITION        = {5},
@@ -1012,7 +1012,7 @@
 }
 
 @MANUAL{10.2:32b,
-  GROUPAUTHOR    = {{World Health Organization}},
+  AUTHOR    = {{World Health Organization}},
   TITLE          = {International Statistical Classification of Diseases and Related Health Problems},
   SHORTHAND      = {ICD-11},
   EDITION        = {11},
@@ -1023,14 +1023,14 @@
 
 % (APA 10.2 Example 33)
 @BOOK{10.2:33a,
-  GROUPAUTHOR    = {{American Psychological Association}},
+  AUTHOR    = {{American Psychological Association}},
   TITLE          = {{APA} Dictionary of Psychology},
   URL            = {https://dictionary.apa.org/},
   URLDATE        = {2019-06-14}
 }
 
 @BOOK{10.2:33b,
-  GROUPAUTHOR    = {{Merriam-Webster}},
+  AUTHOR    = {{Merriam-Webster}},
   TITLE          = {{Merriam-Webster.com} Dictionary},
   URL            = {https://www.merriam-webster.com/},
   URLDATE        = {2019-05-05}
@@ -1058,7 +1058,7 @@
 }
 
 % (APA 10.2 Example 35)
-% No AUTHOR or GROUPAUTHOR - title goes in author position
+% No AUTHOR - title goes in author position
 @BOOK{10.2:35a,
   TITLE           = {{King} {James} {Bible}},
   DATE            = {2017},
@@ -1269,7 +1269,7 @@
 
 % (APA 10.3 Example 47)
 @INBOOK{10.3:47a,
-  GROUPAUTHOR    = {{American Psychological Association}},
+  AUTHOR    = {{American Psychological Association}},
   TITLE          = {Positive Transference},
   BOOKTITLE      = {{APA} Dictionary of Psychology},
   URL            = {https://dictionary.apa.org/positive-transference},
@@ -1277,7 +1277,7 @@
 }
 
 @INBOOK{10.3:47b,
-  GROUPAUTHOR    = {{Merriam-Webster}},
+  AUTHOR    = {{Merriam-Webster}},
   TITLE          = {Self-report},
   BOOKTITLE      = {{Merriam-Webster.com} Dictionary},
   URL            = {https://www.merriam-webster.com/dictionary/self-report},
@@ -1306,7 +1306,7 @@
 
 % (APA 10.4 Example 50)
 @REPORT{10.4:50a,
-  GROUPAUTHOR    = {{Australian Government Productivity Commission} and
+  AUTHOR    = {{Australian Government Productivity Commission} and
                     {New Zealand Productivity Commission}},
   TITLE          = {Strengthening Trans-{Tasman} Economic Relations},
   URL            = {https://www.pc.gov.au/inquiries/completed/australia-new-zealand/report/trans-tasman.pdf},
@@ -1314,7 +1314,7 @@
 }
 
 @REPORT{10.4:50b,
-  GROUPAUTHOR    = {{Canada Council for the Arts}},
+  AUTHOR    = {{Canada Council for the Arts}},
   TITLE          = {What We Heard},
   SUBTITLE       = {Summary of Key Findings: 2013 {Canada} {Council's}
                     {Inter-Arts} {Office} Consultation},
@@ -1325,7 +1325,7 @@
 % NUMBER field has the (localised) "No." prefix as the field is basically
 % numerical. This detection is automatic.
 @REPORT{10.4:50c,
-  GROUPAUTHOR    = {{National Cancer Institute}},
+  AUTHOR    = {{National Cancer Institute}},
   TITLE          = {Facing Forward},
   SUBTITLE       = {Life After Cancer Treatment},
   NUMBER         = {18-2424},
@@ -1365,7 +1365,7 @@
 
 % (APA 10.4 Example 53)
 @REPORT{10.4:53,
-  GROUPAUTHOR    = {{British Cardiovascular Society Working Group}},
+  AUTHOR    = {{British Cardiovascular Society Working Group}},
   TITLE          = {British {Cardiovascular} {Society} {Working} {Group} report},
   SUBTITLE       = {Out-of-hours Cardiovascular Care: {Management} of
                     Cardiac Emergencies and Hospital In-patients},
@@ -1376,7 +1376,7 @@
 
 % (APA 10.4 Example 54)
 @REPORT{10.4:54,
-  GROUPAUTHOR    = {{U.S. Securities and Exchange Commission}},
+  AUTHOR    = {{U.S. Securities and Exchange Commission}},
   TITLE          = {Agency Financial Report},
   SUBTITLE       = {Fiscal Year 2017},
   URL            = {https://www.sec.gov/files/sec-2017-agency-financial-report.pdf},
@@ -1385,21 +1385,21 @@
 
 % (APA 10.4 Example 55)
 @REPORT{10.4:55a,
-  GROUPAUTHOR    = {{American Counseling Association}},
+  AUTHOR    = {{American Counseling Association}},
   TITLE          = {2014 {ACA} code of ethics},
   URL            = {https://www.counseling.org/knowledge-center},
   DATE           = {2014}
 }
 
 @REPORT{10.4:55b,
-  GROUPAUTHOR    = {{American Nurses Association}},
+  AUTHOR    = {{American Nurses Association}},
   TITLE          = {Code of Ethics for Nurses with Interpretive Statements},
   URL            = {https://www.nursingworld.org/coe-view-only},
   DATE           = {2015}
 }
 
 @REPORT{10.4:55c,
-  GROUPAUTHOR    = {{American Psychological Association}},
+  AUTHOR    = {{American Psychological Association}},
   TITLE          = {Ethical Principles of Psychologists and Code of Conduct},
   TYPE           = {2002, amended effective June 1, 2010, and January 1, 2017},
   URL            = {https://www.apa.org/ethics/code/index.aspx},
@@ -1449,17 +1449,17 @@
 }
 
 % (APA 10.4 Example 59)
-% PUBLISHER should be ignored as it is the same as the GROUPAUTHOR
+% PUBLISHER should be ignored as it is the same as the AUTHOR
 % This is enforced by a Biber style source map
 @REPORT{10.4:59,
-  GROUPAUTHOR    = {{U.S. Food and Drug Administration}},
-  TITLE          = {{FDA} Authorizes First Interoperable Insulin Pup
-                    Intended to Allow Patients to Customize Treatment
-                    Through their Individual Diabetes Management Devices},
-  TITLEADDON     = {Press release},
-  PUBLISHER      = {{U.S. Food and Drug Administration}},
-  URL            = {https://www.fds.gov/NewsEvents/Newsroom/PressAnnouncements/ucm631412.htm},
-  DATE           = {2019-02-14}
+  AUTHOR     = {{U.S. Food and Drug Administration}},
+  TITLE      = {{FDA} Authorizes First Interoperable Insulin Pup
+                Intended to Allow Patients to Customize Treatment
+                Through their Individual Diabetes Management Devices},
+  TITLEADDON = {Press release},
+  PUBLISHER  = {{U.S. Food and Drug Administration}},
+  URL        = {https://www.fds.gov/NewsEvents/Newsroom/PressAnnouncements/ucm631412.htm},
+  DATE       = {2019-02-14}
 }
 
 % (APA 10.5 Example 60)
@@ -1619,13 +1619,13 @@
 
 % (APA 10.7 Example 68)
 @ARTICLE{10.7:68,
+  ENTRYSUBTYPE   = {nonacademic},
   AUTHOR         = {F. Santos},
   TITLE          = {Reframing Refugee Children's Stories},
   RELATED        = {10.7:68r},
   RELATEDTYPE    = {reviewof},
   RELATEDSTRING  = {Review of the book},
   JOURNALTITLE   = {The New York Times},
-  KEYWORDS       = {nonacademic},
   DATE           = {2019-01-11},
   URL            = {https://nyt.ms/2Hlgjk3}
 }
@@ -1744,7 +1744,7 @@
 
 @DATASET{10.9:75b,
   ENTRYSUBTYPE   = {Data set and code book},
-  GROUPAUTHOR    = {{National Center for Education Statistics}},
+  AUTHOR    = {{National Center for Education Statistics}},
   TITLE          = {Fast Response Survey System ({FRSS})},
   SUBTITLE       = {Teacher's Use of Educational Technology in {U.S.}
                     Public Schools, 2009},
@@ -1757,7 +1757,7 @@
 
 @DATASET{10.9:75c,
   ENTRYSUBTYPE = {Data set},
-  GROUPAUTHOR  = {{Pew Research Center}},
+  AUTHOR  = {{Pew Research Center}},
   TITLE        = {American Trends Panel {Wave} 26},
   URL          = {https://www.pewsocialtrends.org/dataset/american-trends-panel-wave-26/},
   DATE         = {2018}
@@ -1775,7 +1775,7 @@
 
 @DATASET{10.9:76b,
   ENTRYSUBTYPE = {Unpublished raw data},
-  GROUPAUTHOR  = {{Oregan Youth Authority}},
+  AUTHOR  = {{Oregan Youth Authority}},
   TITLE        = {Recidivism Outcomes},
   DATE         = {2011}
 }
@@ -1976,7 +1976,7 @@
 % ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:88b,
   ENTRYSUBTYPE    = {video},
-  GROUPAUTHOR     = {TED},
+  AUTHOR     = {TED},
   TITLE           = {Brené {Brown}},
   SUBTITLE        = {Listening to Shame},
   PUBLISHER       = {YouTube},
@@ -2022,7 +2022,7 @@
 % ENTRYSUBTYPE is a localisation string
 @VIDEO{10.12:90c,
   ENTRYSUBTYPE       = {video},
-  GROUPAUTHOR        = {{University of Oxford}},
+  AUTHOR        = {{University of Oxford}},
   TITLE              = {How Do Geckos Walk on Water?},
   PUBLISHER          = {YouTube},
   DATE               = {2016-12-06},
@@ -2077,7 +2077,7 @@
 % ENTRYSUBTYPE is a localisation string
 @AUDIO{10.13:92c,
   ENTRYSUBTYPE   = {song},
-  GROUPAUTHOR    = {{Childish Gambino}},
+  AUTHOR    = {{Childish Gambino}},
   TITLE          = {This is {America}},
   PUBLISHER      = {mcDJ and RCA},
   DATE           = {2018}
@@ -2264,28 +2264,28 @@
 % (APA 10.15 Example 103)
 % ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:103a,
-  ENTRYSUBTYPE            = {Tweet},
-  GROUPAUTHOR             = {{APA Education}},
-  GROUPAUTHOR+an:username = {1="@APAEducation"},
-  TITLE                   = {College Students are Forming Mental-Health
+  ENTRYSUBTYPE       = {Tweet},
+  AUTHOR             = {{APA Education}},
+  AUTHOR+an:username = {1="@APAEducation"},
+  TITLE              = {College Students are Forming Mental-Health
                              Clubs--and They're Making a Difference @washingtonpost},
-  TITLEADDON              = {Thumbnail with link attached},
-  EPRINT                  = {Twitter},
-  DATE                    = {2018-06-29},
-  URL                     = {https://twitter.com/apaeducation/status/1012810490530140161}
+  TITLEADDON         = {Thumbnail with link attached},
+  EPRINT             = {Twitter},
+  DATE               = {2018-06-29},
+  URL                = {https://twitter.com/apaeducation/status/1012810490530140161}
 }
 
 % ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:103b,
-  ENTRYSUBTYPE            = {Tweet},
-  GROUPAUTHOR             = {{Badlands National Park}},
-  GROUPAUTHOR+an:username = {1="@BadlandsNPS"},
-  TITLE                   = {Biologists Have Identified More Than 400
+  ENTRYSUBTYPE       = {Tweet},
+  AUTHOR             = {{Badlands National Park}},
+  AUTHOR+an:username = {1="@BadlandsNPS"},
+  TITLE              = {Biologists Have Identified More Than 400
                              Different Plant Species Growing in
                              {@BadlandsNPS} \#{DYK} \#biodoversity},
-  EPRINT                  = {Twitter},
-  DATE                    = {2018-02-26},
-  URL                     = {https://twitter.com/BadlandsNPS/status/968196500412133379}
+  EPRINT             = {Twitter},
+  DATE               = {2018-02-26},
+  URL                = {https://twitter.com/BadlandsNPS/status/968196500412133379}
 }
 
 % ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
@@ -2303,104 +2303,104 @@
 % (APA 10.15 Example 104)
 % ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:104,
-  ENTRYSUBTYPE            = {Twitter profile},
-  GROUPAUTHOR             = {{APA Style}},
-  GROUPAUTHOR+an:username = {1="@APA\_Style"},
-  TITLE                   = {Tweets},
-  EPRINT                  = {Twitter},
-  URL                     = {https://twitter.com/APA_Style},
-  URLDATE                 = {2019-11-01}
+  ENTRYSUBTYPE       = {Twitter profile},
+  AUTHOR             = {{APA Style}},
+  AUTHOR+an:username = {1="@APA\_Style"},
+  TITLE              = {Tweets},
+  EPRINT             = {Twitter},
+  URL                = {https://twitter.com/APA_Style},
+  URLDATE            = {2019-11-01}
 }
 
 % (APA 10.15 Example 105)
 % ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:105a,
-  ENTRYSUBTYPE            = {Status update},
-  AUTHOR                  = {N. Gaiman},
-  TITLE                   = {100,000+ {Rohingya} Refugees Could be at
+  ENTRYSUBTYPE = {Status update},
+  AUTHOR       = {N. Gaiman},
+  TITLE        = {100,000+ {Rohingya} Refugees Could be at
                              Serious Risk during {Bangladesh's} Monsoon
                              Season. {My} Fellow {UNHCR} {Goodwill}
                              {Ambassador} {Cate} {Blanchett} is},
-  TITLEADDON              = {Image attached},
-  EPRINT                  = {Facebook},
-  URL                     = {http://bit.ly/2JQxPAD},
-  DATE                    = {2018-03-22}
+  TITLEADDON   = {Image attached},
+  EPRINT       = {Facebook},
+  URL          = {http://bit.ly/2JQxPAD},
+  DATE         = {2018-03-22}
 }
 
 % ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:105b,
-  ENTRYSUBTYPE            = {Infographic},
-  GROUPAUTHOR             = {{National Institute of Mental Health}},
-  TITLE                   = {Suicide Affects all Ages, Genders, Races, and
+  ENTRYSUBTYPE = {Infographic},
+  AUTHOR       = {{National Institute of Mental Health}},
+  TITLE        = {Suicide Affects all Ages, Genders, Races, and
                              Ethnicities. {Check} out These 5 {Action}
                              {Steps} for {Helping} {Someone} in {Emotional}
                              {Pain}},
-  EPRINT                  = {Facebook},
-  URL                     = {http://bit.ly/321Qstq},
-  DATE                    = {2018-11-28}
+  EPRINT       = {Facebook},
+  URL          = {http://bit.ly/321Qstq},
+  DATE         = {2018-11-28}
 }
 
 % Note protecting of automatic sentence-casing in SUBTITLE for url
 @ONLINE{10.15:105c,
-  ENTRYSUBTYPE            = {video},
-  GROUPAUTHOR             = {{News From Science}},
-  TITLE                   = {These Frogs Walk Instead of Hop},
-  SUBTITLE                = {{h}ttps://scimag.2{K}lriw{H}},
-  EPRINT                  = {Facebook},
-  URL                     = {https://www.facebook.com/ScienceNOW/videos/10155508587605108},
-  DATE                    = {2018-06-26}
+  ENTRYSUBTYPE = {video},
+  AUTHOR       = {{News From Science}},
+  TITLE        = {These Frogs Walk Instead of Hop},
+  SUBTITLE     = {{h}ttps://scimag.2{K}lriw{H}},
+  EPRINT       = {Facebook},
+  URL          = {https://www.facebook.com/ScienceNOW/videos/10155508587605108},
+  DATE         = {2018-06-26}
 }
 
 % (APA 10.15 Example 106)
 % ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:106,
-  ENTRYSUBTYPE            = {Facebook page},
-  GROUPAUTHOR             = {{Smithsonian's National Zoo and Conservation
+  ENTRYSUBTYPE = {Facebook page},
+  AUTHOR       = {{Smithsonian's National Zoo and Conservation
                              Biology Institute}},
-  TITLE                   = {Home},
-  EPRINT                  = {Facebook},
-  URL                     = {https://www.facebookcom/nationalzoo},
-  URLDATE                 = {2019-06-22}
+  TITLE        = {Home},
+  EPRINT       = {Facebook},
+  URL          = {https://www.facebookcom/nationalzoo},
+  URLDATE      = {2019-06-22}
 }
 
 % (APA 10.15 Example 107)
 % ENTRYSUBTYPE is a localisation string
 @ONLINE{10.15:107,
-  ENTRYSUBTYPE            = {photographs},
-  GROUPAUTHOR             = {{Zeitz MOCAA}},
-  GROUPAUTHOR+an:username = {1="@zeitzmocaa"},
-  TITLE                   = {Grade 6 Learners from {Parkfields} {Primary}
-                             {School} in {Hanover} {Park} Visited the
-                             Museum for a Tour and Workshop Hosted by},
-  EPRINT                  = {Instagram},
-  URL                     = {https://www.instagram.com/p/BqpHpjFBs3b},
-  DATE                    = {2018-11-26}
+  ENTRYSUBTYPE       = {photographs},
+  AUTHOR             = {{Zeitz MOCAA}},
+  AUTHOR+an:username = {1="@zeitzmocaa"},
+  TITLE              = {Grade 6 Learners from {Parkfields} {Primary}
+                        {School} in {Hanover} {Park} Visited the
+                         Museum for a Tour and Workshop Hosted by},
+  EPRINT             = {Instagram},
+  URL                = {https://www.instagram.com/p/BqpHpjFBs3b},
+  DATE               = {2018-11-26}
 }
 
 % (APA 10.15 Example 108)
 % ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:108,
-  ENTRYSUBTYPE            = {Highlight},
-  GROUPAUTHOR             = {{The New York Public Library}},
-  GROUPAUTHOR+an:username = {1="@nypl"},
-  TITLE                   = {The Raven},
-  EPRINT                  = {Instagram},
-  URL                     = {https://bitly.com/2FV8bu3},
-  URLDATE                 = {2019-04-16}
+  ENTRYSUBTYPE       = {Highlight},
+  AUTHOR             = {{The New York Public Library}},
+  AUTHOR+an:username = {1="@nypl"},
+  TITLE              = {The Raven},
+  EPRINT             = {Instagram},
+  URL                = {https://bitly.com/2FV8bu3},
+  URLDATE            = {2019-04-16}
 }
 
 % (APA 10.15 Example 109)
 % ENTRYTYPE is not a localisation string for such, unfortunately, universal neologisms
 @ONLINE{10.15:109,
-  ENTRYSUBTYPE            = {Online forum post},
-  GROUPAUTHOR             = {{National Aeronautics Space Administration}},
-  GROUPAUTHOR+an:username = {1="nasa"},
-  TITLE                   = {I'm {NASA} Astronaut {Scott} {Tingle}. {Ask}
-                             me anything about adjusting to being back on
-                             {Earth} after my first spaceflight!},
-  EPRINT                  = {Reddit},
-  URL                     = {https://www.reddit.com/r/IAmA/comments/9fagqy/im_nasa_astronaut_scott_tingle_ask_me_anything/},
-  DATE                    = {2018-09-12}
+  ENTRYSUBTYPE       = {Online forum post},
+  AUTHOR             = {{National Aeronautics Space Administration}},
+  AUTHOR+an:username = {1="nasa"},
+  TITLE              = {I'm {NASA} Astronaut {Scott} {Tingle}. {Ask}
+                         me anything about adjusting to being back on
+                        {Earth} after my first spaceflight!},
+  EPRINT             = {Reddit},
+  URL                = {https://www.reddit.com/r/IAmA/comments/9fagqy/im_nasa_astronaut_scott_tingle_ask_me_anything/},
+  DATE               = {2018-09-12}
 }
 
 % (APA 10.16 Example 110)
@@ -2422,14 +2422,14 @@
 
 % (APA 10.16 Example 111)
 @ONLINE{10.16:111a,
-  GROUPAUTHOR        = {{Centers for Disease Control and Prevention}},
+  AUTHOR        = {{Centers for Disease Control and Prevention}},
   TITLE              = {People at High Risk of Developing Flu-related Complications},
   DATE               = {2018-01-23},
   URL                = {https://www.cdc.gov/flu/about/disease/high_risk.htm}
 }
 
 @ONLINE{10.16:111b,
-  GROUPAUTHOR        = {{World Health Organization}},
+  AUTHOR        = {{World Health Organization}},
   TITLE              = {Questions and Answers on Immunization and Vaccine Safety},
   DATE               = {2018-03},
   URL                = {https://www.who.int/features/qa/84/en/}
@@ -2455,16 +2455,16 @@
 }
 
 @ONLINE{10.16:113b,
-  GROUPAUTHOR   = {{National Nurses United}},
+  AUTHOR   = {{National Nurses United}},
   TITLE         = {What Employers Should do to Protect Nurses from {Zika}},
   URL           = {https://www.nationalnursesunited.org/pages/what-employers-should-do-to-protect-rns-from-zika}
 }
 
 % (APA 10.16 Example 114)
 @ONLINE{10.16:114,
-  GROUPAUTHOR   = {{U.S. Census Bureau}},
+  AUTHOR   = {{U.S. Census Bureau}},
   TITLE         = {{U.S.} and World Population Clock},
-  EPRINT        = {U.S. Department of Commerce},
+  ORGANIZATION  = {U.S. Department of Commerce},
   URL           = {https://www.census.gov/popclock/},
   URLDATE       = {2019-07-03}
 }
@@ -2506,11 +2506,11 @@
 }
 
 % (APA 11.4 Example 5)
-% For courts and year attached to specific elements of the citation list,
+% For courts and years attached to specific elements of the citation list,
 % don't use ORGANIZATION/DATE, use literal citeorg/citedate annotations
 % use the citeinfo annotation with the special annotation value "appeal" for
 % any affirmed/repealed status in the citatation list
-% DATA/ORIGDATE are also included to make citations work
+% DATE/ORIGDATE are also included to make citations work
 @JURISDICTION{11.4:5,
   TITLE                = {Durflinger v. Artiles},
   CITATION             = {563 F.Supp. 332 and aff'd and 727 F.2d 888},

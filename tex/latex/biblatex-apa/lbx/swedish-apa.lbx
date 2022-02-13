@@ -1,4 +1,4 @@
-\ProvidesFile{swedish-apa.lbx}[2020/05/05\space v9.12\space APA biblatex localisation]
+\ProvidesFile{swedish-apa.lbx}[2021/12/24\space v9.15\space APA biblatex localisation]
 \InheritBibliographyExtras{swedish}
 
 \NewBibliographyString{jourarticle}
@@ -151,7 +151,7 @@
   \protected\def\mkbibdateapalong#1#2#3{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
-                 and not test {\ifkeyword{nonacademic}} }
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
       {}%
@@ -175,7 +175,7 @@
   \protected\def\mkbibdateapalongextra#1#2#3{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
-                 and not test {\ifkeyword{nonacademic}} }
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
       {}%
@@ -199,7 +199,7 @@
   \protected\def\mkbibdateapalongmdy#1#2#3{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
-                 and not test {\ifkeyword{nonacademic}} }
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
       {}%
