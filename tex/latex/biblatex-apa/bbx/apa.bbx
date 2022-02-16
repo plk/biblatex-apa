@@ -158,36 +158,40 @@
                      or ( test {\ifentrytype{legadminmaterial}} and
                           test {\ifkeyword{proposed}} ) }
          {\printtext{%
-             \mkbibdateapalongmdy{#1year}{#1month}{#1day}%
+             \mkbibdateapalongmdy{#1year}{#1yeardivision}{#1month}{#1day}%
              \iffieldundef{#1endyear}%
                {}%
                {\iffieldequalstr{#1endyear}{}% open-ended range?
                  {\bibdatedash\bibstring{present}}
-                 {\bibdatedash%
-                  \iffieldsequal{#1year}{#1endyear}%
-                    {\iffieldsequal{#1month}{#1endmonth}%
-                      {\iffieldsequal{#1day}{#1endday}%
-                        {}%
-                        {\mkbibdateapalongmdy{}{}{#1endday}}}%
-                      {\mkbibdateapalongmdy{}{#1endmonth}{#1endday}}}%
-                    {\mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}}%
+                 {\iffieldundef{#1endyeardivision}
+                   {\bibdatedash%
+                    \iffieldsequal{#1year}{#1endyear}%
+                      {\iffieldsequal{#1month}{#1endmonth}%
+                        {\iffieldsequal{#1day}{#1endday}%
+                          {}%
+                          {\mkbibdateapalongmdy{}{}{}{#1endday}}}%
+                        {\mkbibdateapalongmdy{}{}{#1endmonth}{#1endday}}}%
+                      {\mkbibdateapalongmdy{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}}}}
+                   {\addslash\mkbibdateapalongmdy{}{#1endyeardivision}{}{}}}%
              \dateuncertainprint}}
          {\printtext{%
-             \mkbibdateapalong{#1year}{#1month}{#1day}%
+             \mkbibdateapalong{#1year}{#1yeardivision}{#1month}{#1day}%
              \dateeraprint{#1year}%
              \iffieldundef{#1endyear}%
                {}%
                {\iffieldequalstr{#1endyear}{}% open-ended range?
                  {\bibdatedash\bibstring{present}}
-                 {\bibdatedash%
-                  \iffieldsequal{#1year}{#1endyear}%
-                    {\iffieldsequal{#1month}{#1endmonth}%
-                      {\iffieldsequal{#1day}{#1endday}%
-                        {}%
-                        {\mkbibdateapalong{}{}{#1endday}}}%
-                      {\mkbibdateapalong{}{#1endmonth}{#1endday}}}%
-                    {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}%
-                   \dateeraprint{#1endyear}}}%
+                 {\iffieldundef{#1endyeardivision}
+                   {\bibdatedash%
+                    \iffieldsequal{#1year}{#1endyear}%
+                      {\iffieldsequal{#1month}{#1endmonth}%
+                        {\iffieldsequal{#1day}{#1endday}%
+                          {}%
+                          {\mkbibdateapalong{}{}{}{#1endday}}}%
+                        {\mkbibdateapalong{}{}{#1endmonth}{#1endday}}}%
+                      {\mkbibdateapalong{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}%
+                        \dateeraprint{#1endyear}}}
+                   {\addslash\mkbibdateapalongmdy{}{#1endyeardivision}{}{}}}%
                \enddateuncertainprint}}}}%
   \endgroup}
 
@@ -198,22 +202,24 @@
     \iffieldundef{#1year}{}
       {\printtext{%
         \datecircaprint
-        \mkbibdateapalongextra{#1year}{#1month}{#1day}%
+        \mkbibdateapalongextra{#1year}{#1yeardivision}{#1month}{#1day}%
         \dateeraprint{#1year}%
         \dateuncertainprint
         \iffieldundef{#1endyear}%
           {}%
           {\iffieldequalstr{#1endyear}{}% open-ended range?
             {\bibdatedash\bibstring{present}}
-            {\bibdatedash%
-             \iffieldsequal{#1year}{#1endyear}%
-               {\iffieldsequal{#1month}{#1endmonth}%
-                  {\iffieldsequal{#1day}{#1endday}%
-                    {}%
-                    {\mkbibdateapalongextra{}{}{#1endday}}}
-                  {\mkbibdateapalongextra{}{#1endmonth}{#1endday}}}
-               {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}%
-                \dateeraprint{#1endyear}}}%
+            {\iffieldundef{#1endyeardivision}
+              {\bibdatedash%
+               \iffieldsequal{#1year}{#1endyear}%
+                 {\iffieldsequal{#1month}{#1endmonth}%
+                    {\iffieldsequal{#1day}{#1endday}%
+                      {}%
+                      {\mkbibdateapalongextra{}{}{}{#1endday}}}
+                    {\mkbibdateapalongextra{}{}{#1endmonth}{#1endday}}}
+                 {\mkbibdateapalongextra{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}%
+                   \dateeraprint{#1endyear}}}
+              {\addslash\mkbibdateapalongmdy{}{#1endyeardivision}{}{}}}%
            \enddateuncertainprint}}}%
   \endgroup}
 

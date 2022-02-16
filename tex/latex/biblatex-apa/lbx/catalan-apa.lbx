@@ -169,140 +169,90 @@
 
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
-  \protected\def\mkbibdateapalong#1#2#3{%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
-    {\clearfield{labelmonth}%
-      \clearfield{labelday}}
-    {}%
-    \iffieldundef{#1}%
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
       {}%
-      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}%
-       \ifboolexpr{test {\iffieldundef{#3}} and test {\iffieldundef{#2}}}
-         {}
-         {\addcomma\space}}%
-    \iffieldundef{#3}%
+    \iffieldundef{#1}% YEAR
       {}%
-      {\stripzeros{\thefield{#3}}%
-       \iffieldundef{#2}
-         {}
-         {\addspace de\space}}%
-    \iffieldundef{#2}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
+    \iffieldundef{#2}% YEARDIVISION
       {}%
-      {\mkbibmonth{\thefield{#2}}}}%
-  \protected\def\mkbibdateapalongextra#1#2#3{%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
-    {\clearfield{labelmonth}%
-      \clearfield{labelday}}
-    {}%
-    \iffieldundef{#1}%
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
       {}%
-      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}%
-       \printfield{extradate}%
-       \ifboolexpr{test {\iffieldundef{#3}} and test {\iffieldundef{#2}}}
-         {}
-         {\addcomma\space}}%
-    \iffieldundef{#3}%
+    \iffieldundef{#1}% YEAR
       {}%
-      {\stripzeros{\thefield{#3}}%
-       \iffieldundef{#2}
-         {}
-         {\addspace de\space}}%
-    \iffieldundef{#2}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
+    \iffieldundef{#2}% YEARDIVISION
       {}%
-      {\mkbibmonth{\thefield{#2}}}}%
-  \protected\def\mkbibdateapalongmdy#1#2#3{%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
-    {\clearfield{labelmonth}%
-      \clearfield{labelday}}
-    {}%
-    \iffieldundef{#3}%
-    {}%
-    {el\addspace\stripzeros{\thefield{#3}}}%
-    \iffieldundef{#2}%
-    {\addspace{en}\addspace}%
-    {\iffieldundef{#3}%
-      {en\addspace}%
-      {\addspace{de}\addspace}%
-      \mkbibmonth{\thefield{#2}}{\addspace{de}\addspace}}%
-    \iffieldundef{#1}%
-    {}%
-    {\iffieldundef{#2}%
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
       {}%
       {\addspace}%
-      \thefield{#1}}}%
-  \def\apa@lbx@es@mkdaterangeapalong#1{%
-    \begingroup
-      \blx@metadateinfo{#1}%
-      \iffieldundef{#1year}{}
-        {\datecircaprint
-         \ifstrequal{#1}{url}% URL dates are unlikely to be BCE ...
-           {\printtext{%
-               \iffieldsequal{#1year}{#1endyear}
-                 {\iffieldsequal{#1month}{#1endmonth}
-                    {\mkbibdateapalongmdy{}{}{#1day}}
-                    {\mkbibdateapalongmdy{}{#1month}{#1day}}}
-                 {\mkbibdateapalongmdy{#1year}{#1month}{#1day}}%
-               \iffieldundef{#1endyear}%
-                 {}%
-                 {\iffieldequalstr{#1endyear}{}% open-ended range?
-                   {\mbox{\bibdatedash}}
-                   {\bibdatedash%
-                    \mkbibdateapalongmdy{#1endyear}{#1endmonth}{#1endday}}}%
-               \dateuncertainprint}}
-           {\printtext{%
-               \ifboolexpr{test {\iffieldsequal{#1year}{#1endyear}}
-                           and test {\iffieldsequal{#1month}{#1endmonth}}}
-                 {\mkbibdateapalong{#1year}{}{#1day}}%
-                 {\mkbibdateapalong{#1year}{#1month}{#1day}}%
-               \dateeraprint{#1year}%
-               \iffieldundef{#1endyear}%
-                 {}%
-                 {\iffieldequalstr{#1endyear}{}% open-ended range?
-                   {\mbox{\bibdatedash}}
-                   {\bibdatedash%
-                    \iffieldsequal{#1year}{#1endyear}%
-                      {\mkbibdateapalong{}{#1endmonth}{#1endday}}%
-                      {\mkbibdateapalong{#1endyear}{#1endmonth}{#1endday}%
-                     \dateeraprint{#1endyear}}}%
-                 \enddateuncertainprint}}}}%
-    \endgroup}%
-  \def\apa@lbx@es@mkdaterangeapalongextra#1{%
-    \begingroup
-      \blx@metadateinfo{#1}%
-      \iffieldundef{#1year}{}
-        {\printtext{%
-          \datecircaprint
-          \ifboolexpr{test {\iffieldsequal{#1year}{#1endyear}}
-                           and test {\iffieldsequal{#1month}{#1endmonth}}}
-            {\mkbibdateapalongextra{#1year}{}{#1day}}%
-            {\mkbibdateapalongextra{#1year}{#1month}{#1day}}%
-          \dateeraprint{#1year}%
-          \dateuncertainprint
-          \iffieldundef{#1endyear}%
-            {}%
-            {\iffieldequalstr{#1endyear}{}% open-ended range?
-              {\mbox{\bibdatedash}}
-              {\bibdatedash%
-               \iffieldsequal{#1year}{#1endyear}%
-                 {\mkbibdateapalongextra{}{#1endmonth}{#1endday}}
-                 {\mkbibdateapalongextra{#1endyear}{#1endmonth}{#1endday}%
-                  \dateeraprint{#1endyear}}}%
-             \enddateuncertainprint}}}%
-    \endgroup}%
-  \savecommand\mkdaterangeapalong
-  \savecommand\mkdaterangeapalongextra
-  \def\mkdaterangeapalong{%
-    \apa@lbx@es@mkdaterangeapalong}%
-  \def\mkdaterangeapalongextra#1{%
-    \apa@lbx@es@mkdaterangeapalongextra{#1}}%
-}
-
+       \stripzeros{\thefield{#4}}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\ifthenelse{\iffieldundef{#4}}%
+        {\ifthenelse{\iffieldundef{#3}}%
+          {}%
+          {\addspace}}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
 
 \UndeclareBibliographyExtras{%
   \restorecommand\mkdaterangeapalong

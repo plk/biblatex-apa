@@ -276,68 +276,86 @@
 
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
-  \protected\def\mkbibdateapalong#1#2#3{%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
       {}%
-    \iffieldundef{#1}%
+    \iffieldundef{#1}% YEAR
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
-    \iffieldundef{#2}%
+    \iffieldundef{#2}% YEARDIVISION
       {}%
       {\iffieldundef{#1}%
         {}%
         {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#2}}}%
-    \iffieldundef{#3}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
       {}%
-      {\iffieldundef{#2}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
         {}%
         {\addspace}%
-       \stripzeros{\thefield{#3}}}}%
-  \protected\def\mkbibdateapalongextra#1#2#3{%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
       {}%
-    \iffieldundef{#1}%
+    \iffieldundef{#1}% YEAR
       {}%
       {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
-    \iffieldundef{#2}%
+    \iffieldundef{#2}% YEARDIVISION
       {}%
       {\iffieldundef{#1}%
         {}%
         {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#2}}}%
-    \iffieldundef{#3}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
       {}%
-      {\iffieldundef{#2}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
         {}%
         {\addspace}%
-       \stripzeros{\thefield{#3}}}}%
-  \protected\def\mkbibdateapalongmdy#1#2#3{%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
       {}%
-    \iffieldundef{#2}%
+    \iffieldundef{#2}% YEARDIVISION
       {}%
-      {\mkbibmonth{\thefield{#2}}}%
-    \iffieldundef{#3}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
       {}%
       {\addspace}%
-       \stripzeros{\thefield{#3}}%
-    \iffieldundef{#1}%
+       \stripzeros{\thefield{#4}}%
+    \iffieldundef{#1}% YEAR
       {}%
-      {\ifthenelse{\iffieldundef{#3}}%
-        {\ifthenelse{\iffieldundef{#2}}%
+      {\ifthenelse{\iffieldundef{#4}}%
+        {\ifthenelse{\iffieldundef{#3}}%
           {}%
           {\addspace}}%
         {\addcomma\addspace}%
