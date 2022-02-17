@@ -1389,24 +1389,22 @@
   \settoggle{bbx:annotation}{#1}}
 \ExecuteBibliographyOptions{annotation=true}
 
+\long\def\blxapa@appunit#1{%
+  \iftoggle{blx@keepunit}
+    {}
+    {\gappto\blx@unitpunct{#1}%
+     \global\toggletrue{blx@unit}}}
+
 \renewbibmacro*{annotation}{%
-  \ifboolexpr{test {\iffieldundef{annotation}}
-              or not togl {bbx:annotation}}
-    {\IfFileExists{\bibannotationprefix\thefield{entrykey}.tex}
-       {\begingroup
-        \togglefalse{blx@bibliography}%
-        \newline
-        \setunit{}%
-        \printfile[annotation]{\bibannotationprefix\thefield{entrykey}.tex}%
-        \endgroup}
-      {}}
+  \iftoggle{bbx:annotation}
     {\begingroup
      \togglefalse{blx@bibliography}%
-     \newline
-     \setunit{}%
-     \printfield{annotation}%
-     \endgroup}}
-
+     \blxapa@appunit{\newline}%
+     \iffieldundef{annotation}
+       {\printfile[annotation]{\bibannotationprefix\thefield{entrykey}.tex}}
+       {\printfield{annotation}}%
+     \endgroup}
+    {}}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
