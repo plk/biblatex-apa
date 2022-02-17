@@ -118,12 +118,12 @@
 \def\citeresetapa{\global\let\cbx@apa@names\@empty}
 \citeresetapa
 \def\cbx@apa@ifnamesaved{%
-  \xifinlist{\thefield{fullhash}}{\cbx@apa@names}
+  \xifinlist{\thefield{namehash}}{\cbx@apa@names}
     {\@firstoftwo}
     {\@secondoftwo}}
 
 \newbibmacro*{cite:author}{%
-  \iffieldequals{fullhash}{\cbx@lasthash}
+  \iffieldequals{namehash}{\cbx@lasthash}
 % Multiple cites in one command
    {\setunit{\compcitedelim}%
     \usebibmacro{cite:plabelyear+extradate}}%
@@ -131,7 +131,7 @@
    {\ifnameundef{labelname}
 % No author/editor
      {\usebibmacro{cite:noname}%
-       \savefield{fullhash}{\cbx@lasthash}}
+       \savefield{namehash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
        {\printnames{labelname}}%
@@ -139,20 +139,11 @@
           {\printnames{shortauthor}}
           {\printnames[labelname]{author}%
            \addspace\printnames[sabrackets]{shortauthor}}}%
-        \savefield{fullhash}{\cbx@lasthash}}}%
+        \savefield{namehash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
-% Using fullhash instead of namehash otherwise we may omit namelist for
-% lists which are equal only because of minnames truncation i.e:
-%
-% X and Y and Z (2009)
-% X and W and V (2010)
-%
-% which have the same namehash due to minnames visibility truncation to 1
-% would be printed incorrectly as
-% \cite{one, two} -> X, Y & Z 2009, 2010
 \newbibmacro*{cite}{%
-  \iffieldequals{fullhash}{\cbx@lasthash}
+  \iffieldequals{namehash}{\cbx@lasthash}
 % Multiple cites in one command
    {\setunit{\compcitedelim}%
     \usebibmacro{cite:plabelyear+extradate}}%
@@ -162,7 +153,7 @@
      {\usebibmacro{cite:noname}%
        \setunit{\printdelim{nameyeardelim}}%
        \usebibmacro{cite:plabelyear+extradate}%
-       \savefield{fullhash}{\cbx@lasthash}}
+       \savefield{namehash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
        {\printnames{labelname}}%
@@ -172,14 +163,14 @@
           \addspace\printnames[sabrackets]{shortauthor}}}%
        \setunit{\printdelim{nameyeardelim}}%
       \usebibmacro{cite:plabelyear+extradate}%
-      \savefield{fullhash}{\cbx@lasthash}}}%
+      \savefield{namehash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
 \renewcommand*{\iffinalcitedelim}{%
   \ifnumequal{\value{textcitecount}}{\value{textcitetotal}-1}}
 
 \newbibmacro*{textcite}{%
-  \iffieldequals{fullhash}{\cbx@lasthash}
+  \iffieldequals{namehash}{\cbx@lasthash}
 % Compact cite - more than one thing for same author
     {\setunit{\compcitedelim}%
      \usebibmacro{cite:plabelyear+extradate}}
@@ -226,7 +217,7 @@
   % Actual year printing
         \usebibmacro{cite:plabelyear+extradate}%
   % Save name hash for checks later
-        \savefield{fullhash}{\cbx@lasthash}}%
+        \savefield{namehash}{\cbx@lasthash}}%
     \stepcounter{textcitecount}}}
 
 \newbibmacro*{cite:plabelyear+extradate}{%
@@ -364,11 +355,11 @@
 \newbibmacro*{citeyear}{%
   \iffieldundef{labelyear}
     {\usebibmacro{cite:init}}
-    {\iffieldequals{fullhash}{\cbx@lasthash}
+    {\iffieldequals{namehash}{\cbx@lasthash}
        {\setunit{\compcitedelim}%
         \usebibmacro{cite:plabelyear+extradate}}
        {\usebibmacro{cite:plabelyear+extradate}%
-        \savefield{fullhash}{\cbx@lasthash}}}%
+        \savefield{namehash}{\cbx@lasthash}}}%
   \setunit{\multicitedelim}}
 
 %
@@ -424,9 +415,9 @@
   \global\undef\cbx@lasthash}
 
 \newbibmacro*{cite:post}{%
-  \xifinlist{\thefield{fullhash}}{\cbx@apa@names}
+  \xifinlist{\thefield{namehash}}{\cbx@apa@names}
     {}
-    {\listxadd{\cbx@apa@names}{\thefield{fullhash}}}}
+    {\listxadd{\cbx@apa@names}{\thefield{namehash}}}}
 
 \newbibmacro*{cite:labelyear}{%
   \printfield{labelyear}}
