@@ -157,7 +157,7 @@
                      or test {\ifentrytype{legal}}
                      or ( test {\ifentrytype{legadminmaterial}} and
                           test {\ifkeyword{proposed}} ) }
-         {\printtext{%
+         {\printtext[#1date]{%
              \mkbibdateapalongmdy{#1year}{#1yeardivision}{#1month}{#1day}%
              \iffieldundef{#1endyear}%
                {}%
@@ -200,7 +200,7 @@
   \begingroup
     \blx@metadateinfo{#1}%
     \iffieldundef{#1year}{}
-      {\printtext{%
+      {\printtext[#1date]{%
         \datecircaprint
         \mkbibdateapalongextra{#1year}{#1yeardivision}{#1month}{#1day}%
         \dateeraprint{#1year}%
