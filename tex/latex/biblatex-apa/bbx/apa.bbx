@@ -502,10 +502,6 @@
 \DeclareFieldFormat[dataset,software]{version}{\bibcpstring{version}~#1}
 \DeclareFieldFormat[online]{version}{\mkbibparens{#1}}
 
-% URL
-\DeclareFieldFormat{url}{\url{#1}}
-\DeclareFieldFormat{urldate}{#1}
-
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2070,9 +2066,22 @@
 
 
 
-%(APA 9.35) No periods after URLS
+%(APA 9.35) No periods after URLS and DOIs
 % we'll override a global url option for for @online entries
 \ExecuteBibliographyOptions[online]{url=true}
+
+\DeclareFieldFormat{doi}{%
+  \ifhyperref
+    {\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
+    {\nolinkurl{https://doi.org/#1}}%
+  \nopunct}
+
+\DeclareFieldFormat{url}{\url{#1}\nopunct}
+
+\DeclareFieldFormat{urldate}{%
+  \bibstring{retrieved}\space#1%
+  \urldatecomma\bibstring{from}}
+
 \newbibmacro*{doi+url}{%
   \ifboolexpr{          test {\iffieldundef{doi}}
                  or not togl {bbx:doi}}
@@ -2082,7 +2091,6 @@
        {\usebibmacro{url+urldate}%
         \setunit{\addspace}}}
     {\printfield{doi}%
-     \renewcommand*{\finentrypunct}{\relax}%
      \setunit{\addspace}}}
 
 \renewbibmacro*{url+urldate}{%
@@ -2090,18 +2098,9 @@
     {}
     {\iffieldundef{urlyear}
       {}
-      {\bibstring{retrieved}%
-       \setunit{\addspace}%
-       \printurldate
-       \setunit{\urldatecomma}%
-       \bibstring{from}%
+      {\printurldate
        \setunit{\addspace}}%
-     \iffieldundef{url}{}{\printfield{url}\renewcommand*{\finentrypunct}{\relax}}}}
-
-\DeclareFieldFormat{doi}{%
-  \ifhyperref
-    {\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
-    {\nolinkurl{https://doi.org/#1}}}
+     \printfield{url}}}
 
 \newbibmacro*{location+publisher}{%
   \printlist{location}%
