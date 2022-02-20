@@ -232,8 +232,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.12) sort citations
-% (APA 8.17) More than two authors is truncated to one but overriden for list ambiguity to
-%            point of no ambiguity
+% (APA 8.17,8.18) More than two authors is truncated to one but overriden for list ambiguity to
+%                 point of no ambiguity but only when same year.
 % (APA 8.20) Use initials to disambiguate shared surnames
 % (APA 8.19) Use year postfix to disambiguate multiple items in same year
 % (APA 9.44, 9.46, 9.47) Sorting is nyt but we need to account for PUBSTATE which comes
@@ -241,6 +241,25 @@
 % (APA 9.42) Secular Before Common Era dates, approximate dates
 % (APA Figure 9.2) Sorting ignores punctuation in names
 % (APA 9.47) Ignore "The", "An" and "A" when sorting titles
+
+% Used for sorting citations with biblatex option "sortcites" as this needs to use
+% the silly APA standards for name list visibility (8.17, 8.18) in cites which differs from the reference list.
+\DeclareSortingNamekeyTemplate[apasortcite]{
+  \visibility{cite}
+  \keypart{
+    \namepart[use=true]{prefix}
+    \namepart{family}
+  }
+  \keypart{
+    \namepart{given}
+  }
+  \keypart{
+    \namepart{suffix}
+  }
+  \keypart{
+    \namepart[use=false]{prefix}
+  }
+}
 
 \DeclareNosort{
   \nosort{setnames}{\regexp{\p{General_Category=Punctuation}}}
@@ -338,6 +357,22 @@
                             usetranslator=true,%
                             usenarrator=true}
 
+
+% It's not completely obvious but it's implied that names identical apart from a suffix
+% are to be treated as different name lists for extradate calculation so we add suffix
+% to the default definition
+\DeclareUniquenameTemplate{
+  \namepart[use=true, base=true]{prefix}
+  \namepart[base=true]{family}
+  \namepart{given}
+  \namepart{suffix}
+}
+
+% Switch to cite visibility for sorting of citations
+\AtEveryCite{\newrefcontext[sortingnamekeytemplatename=apasortcite]}
+% Switch to defaults, including sort visibility for sorting of reference lists
+\AtBeginBibliography{\GenRefcontextData{}}
+                          
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -523,16 +558,6 @@
 %     max/minnames truncation is done before calling the format so we have
 %     to do \printnames[format][-\value{listtotal}]{field} to ensure we get
 %     all of the names in the list to work on
-
-% It's not completely obvious but it's implied that names identical apart from a suffix
-% are to be treated as different name lists for extradate calculation so we add suffix
-% to the default definition
-\DeclareUniquenameTemplate{
-  \namepart[use=true, base=true]{prefix}
-  \namepart[base=true]{family}
-  \namepart{given}
-  \namepart{suffix}
-}
 
 \DeclareNameAlias{default}{apaauthor}
 
