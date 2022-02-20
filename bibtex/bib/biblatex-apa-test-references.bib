@@ -1384,7 +1384,7 @@
 
 % (APA 10.4 Example 53)
 @REPORT{10.4:53,
-  AUTHOR    = {{British Cardiovascular Society Working Group}},
+  AUTHOR         = {{British Cardiovascular Society Working Group}},
   TITLE          = {British {Cardiovascular} {Society} {Working} {Group} report},
   SUBTITLE       = {Out-of-hours Cardiovascular Care: {Management} of
                     Cardiac Emergencies and Hospital In-patients},
@@ -1395,7 +1395,7 @@
 
 % (APA 10.4 Example 54)
 @REPORT{10.4:54,
-  AUTHOR    = {{U.S. Securities and Exchange Commission}},
+  AUTHOR         = {{U.S. Securities and Exchange Commission}},
   TITLE          = {Agency Financial Report},
   SUBTITLE       = {Fiscal Year 2017},
   URL            = {https://www.sec.gov/files/sec-2017-agency-financial-report.pdf},
@@ -1404,14 +1404,14 @@
 
 % (APA 10.4 Example 55)
 @REPORT{10.4:55a,
-  AUTHOR    = {{American Counseling Association}},
+  AUTHOR         = {{American Counseling Association}},
   TITLE          = {2014 {ACA} code of ethics},
   URL            = {https://www.counseling.org/knowledge-center},
   DATE           = {2014}
 }
 
 @REPORT{10.4:55b,
-  AUTHOR    = {{American Nurses Association}},
+  AUTHOR         = {{American Nurses Association}},
   TITLE          = {Code of Ethics for Nurses with Interpretive Statements},
   URL            = {https://www.nursingworld.org/coe-view-only},
   DATE           = {2015}
@@ -1419,10 +1419,10 @@
 
 @REPORT{10.4:55c,
   AUTHOR    = {{American Psychological Association}},
-  TITLE          = {Ethical Principles of Psychologists and Code of Conduct},
-  TYPE           = {2002, amended effective June 1, 2010, and January 1, 2017},
-  URL            = {https://www.apa.org/ethics/code/index.aspx},
-  DATE           = {2017}
+  TITLE     = {Ethical Principles of Psychologists and Code of Conduct},
+  NOTE      = {2002, amended effective June 1, 2010, and January 1, 2017},
+  URL       = {https://www.apa.org/ethics/code/index.aspx},
+  DATE      = {2017}
 }
 
 % (APA 10.4 Example 56)
@@ -1436,7 +1436,8 @@
   AUTHOR+an:role = {1="Principal Investigator"},
   TITLE          = {Stress, Self-Regulation and Psychopathology in Middle Childhood},
   TITLEADDON     = {Grant},
-  TYPE           = {Project No. 5R01HD081252-04},
+  TYPE           = {Project},
+  NUMBER         = {5R01HD081252-04},
   INSTITUTION    = {Eunice Kennedy Shriver National Institute of Child
                     Health \& Human Development},
   URL            = {https://projectreporter.nih.gov/project_info_details.cfm?aid=9473071&icde=40092311},
@@ -1577,35 +1578,35 @@
 }
 
 % (APA 10.6 Example 64)
-@THESIS{10.6:64,
+% Note the override of the auto-populated "phdthesis" type as this is a
+% non-standard, non-localised string type
+@PHDTHESIS{10.6:64,
   AUTHOR         = {L. Harris},
   TITLE          = {Instructional Leadership Perceptions and Practices of
                     Elementary School Leaders},
-  TITLEADDON     = {Unpublished Doctoral Dissertation},
+  TYPE           = {Unpublished doctoral dissertation},
   INSTITUTION    = {University of Virginia},
   DATE           = {2014}
 }
 
 % (APA 10.6 Example 65)
-@THESIS{10.6:65,
+@PHDTHESIS{10.6:65,
   AUTHOR         = {M. M. Hollander},
   TITLE          = {Resistance to Authority},
-  SUBTITLE       = {Methodological Innovations and New Lessons from the
-                    {Milgram} Experiment},
-  TITLEADDON     = {Doctoral Dissertation, {University} of {Wisconsin}--{Madison}},
-  PUBLISHER      = {{ProQuest Dissertations and Theses Global}},
-  TYPE           = {Publication},
+  SUBTITLE       = {Methodological Innovations and New Lessons from the {Milgram} Experiment},
+  INSTITUTION    = {University of Wisconsin--Madison},
+  PUBLISHER      = {ProQuest Dissertations {and} Theses Global},
   NUMBER         = {10289373},
   DATE           = {2017}
 }
 
 % (APA 10.6 Example 66)
-@THESIS{10.6:66,
+@MASTERSTHESIS{10.6:66,
   AUTHOR         = {V. H. Hutcheson},
   TITLE          = {Dealing with Dual Differences},
   SUBTITLE       = {Social Coping Strategies of Gifted and Lesbian, Gay,
                     Bisexual, Transgender, and Queer Adolescents},
-  TITLEADDON     = {Master's Thesis, {The} {College} of {William} \& {Mary}},
+  INSTITUTION    = {The College of William \& Mary},
   PUBLISHER      = {William \& Mary Digital Archive},
   URL            = {https://digitalarchive.wm.edu/bitstream/handle/10288/16594/HutchesonVirginia2012.pdf},
   DATE           = {2012}

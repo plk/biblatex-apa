@@ -481,7 +481,7 @@
 \DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
 
 % NOTE
-\DeclareFieldFormat[legmaterial,legadminmaterial]{note}{\mkbibparens{#1}}
+\DeclareFieldFormat[legmaterial,legadminmaterial,report]{note}{\mkbibparens{#1}}
 
 % BOOKTITLEADDON
 \DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{\bbx@colon@search\MakeSentenceCase*{#1}}}
@@ -505,7 +505,6 @@
 \DeclareFieldFormat{volumes}{\bibcpstring{volumes}~#1}
 
 % CHAPTER
-
 \DeclareFieldFormat{chapter}{\bibcpstring{chapter}~\apanum{#1}}
 
 % NUMBER
@@ -521,7 +520,8 @@
   \ifthenelse{%
     \iffieldequalstr{type}{report}\OR%
     \iffieldequalstr{type}{execorder}}{\bibcpstring{number}~\apanum{#1}}{\apanum{#1}}}
-
+\DeclareFieldFormat[thesis]{number}{%
+  \bibcpstring{publication}\setunit{\addspace}\bibcpstring{number}~\apanum{#1}}
 
 % PAGES
 \DeclareFieldFormat{pageswithprefix}{\mkpageprefix[bookpagination]{#1}}
@@ -770,7 +770,8 @@
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}%
      \setunit{\addspace}%
-     \ifentrytype{inbook}{}{\usebibmacro{addinfo1}}% additional info in parens
+     \ifthenelse{\ifentrytype{inbook}\OR\ifentrytype{thesis}}{}{\usebibmacro{addinfo1}}% additional info in parens
+     \ifentrytype{thesis}{\usebibmacro{addinfo3}}{}%
      \setunit{\addspace}%
      \printfield{titleaddon}%
      \setunit{\addspace}%
@@ -783,7 +784,6 @@
     \printfield{edition}%
     \setunit*{\addcomma\addspace}%
     \ifthenelse{\ifentrytype{report}\OR%
-                \ifentrytype{thesis}\OR%
                 \ifentrytype{unpublished}\OR%
                 \ifentrytype{dataset}\OR%
                 \ifentrytype{software}\OR%
@@ -807,22 +807,33 @@
         {\bibcplstring{\thefield{entrysubtype}}}
         {\printfield{entrysubtype}}}%
     \setunit*{\addsemicolon\addspace}%
-    \printfield{note}}}
+    \ifentrytype{report}{}{\printfield{note}}}}
 
 % number/issue information
 \newbibmacro*{addinfo3}{%
-  \iffieldundef{type}
-    {\iffieldundef{issue}
-      {\iffieldnums{number}{\bibcpstring{number}~}{}\printfield{number}}
-      {\printfield{issue}\setunit{\addspace}%
-       \iffieldundef{number}
+  \ifentrytype{thesis}
+    {\iffieldundef{number}
+      {}
+      {\printtext[parens]{\printfield{number}}}%
+     \setunit{\addspace}%
+     \iffieldundef{type}
+       {}
+       {% Inconsistent - standard thesis types have institution inside the brackts, manual types outside ...
+        \ifthenelse{\iffieldequalstr{type}{phdthesis}\OR\iffieldequalstr{type}{mathesis}}
+          {\printtext[brackets]{\printfield{type}\setunit*{\addcomma\addspace}\printlist{institution}}}
+          {\printtext[brackets]{\printfield{type}}\setunit*{\adddot\addspace}\printlist{institution}}}}
+    {\iffieldundef{type}
+       {\iffieldundef{issue}
+         {\iffieldnums{number}{\bibcpstring{number}~}{}\printfield{number}}
+         {\printfield{issue}\setunit{\addspace}%
+        \iffieldundef{number}
          {}
          {\iffieldnums{number}{\bibcpstring{number}~}{}\printfield{number}}}}
-    {\printfield{type}\setunit{\addspace}%
-     \iffieldundef{number}
-       {}
-       {\iffieldnums{number}{\bibcpstring{number}~}{}\printfield{number}}}%
-  \ifthenelse{\ifentrytype{dataset}\OR\ifentrytype{software}}
+       {\printfield{type}\setunit{\addspace}%
+        \iffieldundef{number}
+          {}
+          {\bibcpstring{number}~\printfield{number}}}}% Inconsistent - numbers after type aren't necessarily numbers ...
+   \ifthenelse{\ifentrytype{dataset}\OR\ifentrytype{software}}
     {\setunit*{\addsemicolon\addspace}%
      \printfield{version}}
     {}}
@@ -1942,6 +1953,8 @@
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
   \setunit{\addspace}\newblock
+  \printfield{note}%
+  \setunit{\addspace}\newblock
   \usebibmacro{apa:related}%
   \newunit\newblock
   \printlist{institution}%
@@ -1988,8 +2001,6 @@
   \usebibmacro{author/editor}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{title}%
-  \newunit\newblock
-  \printlist{institution}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
