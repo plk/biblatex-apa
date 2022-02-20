@@ -368,12 +368,25 @@
   \namepart{suffix}
 }
 
-% Switch to cite visibility for sorting of citations
-\AtEveryCite{\newrefcontext[sortingnamekeytemplatename=apasortcite]}
-% Switch to defaults, including sort visibility for sorting of reference lists
-\AtBeginBibliography{\GenRefcontextData{}}
-                          
+% Force, in every refsection, the generation of refcontext data with a
+% sorting name key template which works for citation sorting with sortcites. This
+% would not be generated in the .bcf otherwise and therefore no sorted list
+% with this sorting name key tenplate would generated in teh .bbl by biber because no
+% \printbibliography would be executed in this context since it is only
+% used for sorting of citations truncated to one name as per 8.17/8.18.
 %
+% Two things needs to happen in general:
+% 1. Generate the refcontext sorted data list in the .bbl (biber) which requires a datalist
+%    section in the .bcf. This latter is done by \printbibliography/\printbiblist or \GenRefcontextData
+%    when no \printbibliography/\printbiblist is done in the refcontext 
+% 2. Switch to the relevant refcontext at the right time in order to pull the date from the
+%    correct data list (\newrefcontext/\begin{refcontext})
+\AtBeginRefsection{\GenRefcontextData{sortingnamekeytemplatename=apasortcite}}
+% Switch to the reference context using citation visibility setting for sorting of citations
+\AtEveryCite{\newrefcontext[sortingnamekeytemplatename=apasortcite]}
+\AfterEveryCite{\endrefcontext}
+
+% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Enforce ignoring of PUBSTATE if there is a YEAR or DATE field
