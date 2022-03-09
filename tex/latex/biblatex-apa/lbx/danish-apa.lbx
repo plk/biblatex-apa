@@ -109,7 +109,7 @@
   guestexperts     = {{g{\ae}steeksperter}{g{\ae}steeksp\adddot}},
   with             = {{med}{med}},
   manunpub         = {{upubliceret}{upubl\adddot}},
-  maninprep        = {{under\space udarbejdelse}{under\space udarbejdelse}},
+  maninprep        = {{under\space udarbejdelse}{under\space udarbejdelse}},%similar to standard biblatex "inpreparation" translation in danish.lbx
   mansub           = {{indsendt\space til\space bed{\o}mmelse}{indsendt\space til\space bed{\o}mmelse}},
   supplement       = {{supplement}{suppl\adddot}},
   part             = {{del}{del}},
@@ -125,7 +125,7 @@
   reviewof         = {{anmeldelse\space af}{anmeldelse\space af}},
   paragraph        = {{afsnit}{afs\adddot}},
   paragraphs       = {{afsnit}{afs\adddot}},
-  january          = {{januar}{januar}},
+  january          = {{januar}{januar}},%APA does not like abbreviating months, which the standard biblatex.lbx files do. Thus the months are duplicated here.
   february         = {{februar}{februar}},
   march            = {{marts}{marts}},
   april            = {{april}{april}},
@@ -137,9 +137,8 @@
   october          = {{oktober}{oktober}},
   november         = {{november}{november}},
   december         = {{december}{december}},
-  nodate           = {{uden dato}{u\adddotspace d\adddot}},
-  mathesis         = {{Kandidatspeciale}{Kandidatspeciale}},
-  phdthesis        = {{PhD-afhandling}{PhD-afhandling}},
+%  mathesis         = {{Kandidatspeciale}{Kandidatspeciale}},%not necessary as this translation is already provided from the standard biblatex danish.lbx repo
+%  phdthesis        = {{PhD-afhandling}{PhD-afhandling}},%not necessary as this translation is already provided from the standard biblatex danish.lbx repo
   origyear         = {{oprindeligt\space offentliggjort}{opr\adddotspace off\adddot}},
   typechair        = {{ordstyrer}{ordstyrer}},
   typechairs       = {{ordstyrere}{ordstyrere}},
