@@ -353,11 +353,11 @@
     \iffieldundef{#4}% DAY
       {}%
       {\addspace}%
-       \stripzeros{\thefield{#4}}%
+    \stripzeros{\thefield{#4}}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\ifthenelse{\iffieldundef{#4}}%
-        {\ifthenelse{\iffieldundef{#3}}%
+      {\iffieldundef{#4}%
+        {\iffieldundef{#3}%
           {}%
           {\addspace}}%
         {\addcomma\addspace}%

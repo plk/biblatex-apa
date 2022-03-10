@@ -152,7 +152,7 @@
 
 \DeclareBibliographyExtras{%
   \renewcommand{\apashortdash}{~}%
-  \def\urldatecomma{\addcomma\addspace}%
+  \def\urldatecomma{\addspace}%
   \protected\def\mkbibdateapalong#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -162,25 +162,25 @@
       {}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}%
+       \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
+         {}
+         {\addcomma\space}}%
     \iffieldundef{#2}% YEARDIVISION
       {}%
       {\iffieldundef{#1}%
         {}%
         {\addcomma\addspace}%
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
-    \iffieldundef{#3}% MONTH
-      {}%
-      {\iffieldundef{#1}%
-        {}%
-        {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\iffieldundef{#3}%
-        {}%
-        {\addspace}%
-       \stripzeros{\thefield{#4}}}}%
+      {\mkbibordinal{\thefield{#4}}%
+       \iffieldundef{#3}
+         {}
+         {\addspace}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -190,25 +190,25 @@
       {}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}%
+       \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
+         {}
+         {\addcomma\space}}%
     \iffieldundef{#2}% YEARDIVISION
       {}%
       {\iffieldundef{#1}%
         {}%
         {\addcomma\addspace}%
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
-    \iffieldundef{#3}% MONTH
-      {}%
-      {\iffieldundef{#1}%
-        {}%
-        {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\iffieldundef{#3}%
-        {}%
-        {\addspace}%
-       \stripzeros{\thefield{#4}}}}%
+      {\mkbibordinal{\thefield{#4}}%
+       \iffieldundef{#3}
+         {}
+         {\addspace}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -222,21 +222,21 @@
         {}%
         {\addcomma\addspace}%
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
-    \iffieldundef{#3}% MONTH
-      {}%
-      {\mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\addspace}%
-       \stripzeros{\thefield{#4}}%
+      {\mkbibordinal{\thefield{#4}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#4}%
+        {}%
+        {\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\ifthenelse{\iffieldundef{#4}}%
-        {\ifthenelse{\iffieldundef{#3}}%
-          {}%
-          {\addspace}}%
-        {\addcomma\addspace}%
-       \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\thefield{#1}}}}}
 
 \UndeclareBibliographyExtras{%
   \restorecommand\mkdaterangeapalong

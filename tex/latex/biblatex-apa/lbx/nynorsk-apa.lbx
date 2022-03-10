@@ -152,7 +152,6 @@
 
 \DeclareBibliographyExtras{%
   \def\urldatecomma{\addcomma\addspace}%
-  \renewcommand{\apashortdash}{~}%
   \protected\def\mkbibdateapalong#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -169,18 +168,20 @@
         {}%
         {\addcomma\addspace}%
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
-    \iffieldundef{#3}% MONTH
-      {}%
-      {\iffieldundef{#1}%
-        {}%
-        {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\iffieldundef{#3}%
-        {}%
-        {\addspace}%
-       \stripzeros{\thefield{#4}}}}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#4}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#4}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -197,18 +198,20 @@
         {}%
         {\addcomma\addspace}%
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
-    \iffieldundef{#3}% MONTH
-      {}%
-      {\iffieldundef{#1}%
-        {}%
-        {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\iffieldundef{#3}%
-        {}%
-        {\addspace}%
-       \stripzeros{\thefield{#4}}}}%
+      {\iffieldundef{#1}%
+        {}
+        {\addcomma\addspace}%
+       \stripzeros{\thefield{#4}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#4}
+        {\iffieldundef{#1}
+          {}
+          {\addspace}}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -222,20 +225,20 @@
         {}%
         {\addcomma\addspace}%
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
-    \iffieldundef{#3}% MONTH
-      {}%
-      {\mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\addspace}%
-       \stripzeros{\thefield{#4}}%
+      {\stripzeros{\thefield{#4}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#4}%
+        {}%
+        {\adddot\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\ifthenelse{\iffieldundef{#4}}%
-        {\ifthenelse{\iffieldundef{#3}}%
-          {}%
-          {\addspace}}%
-        {\addcomma\addspace}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
        \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
 
 %
