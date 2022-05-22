@@ -66,18 +66,91 @@
 \NewBibliographyString{charter}
 \NewBibliographyString{ofthe}
 \NewBibliographyString{tothe}
+\NewBibliographyString{proposed}
+\NewBibliographyString{repealed}
+\NewBibliographyString{execorder}
+\NewBibliographyString{senate}
+\NewBibliographyString{resolution}
+\NewBibliographyString{houseofrepresentatives}
+\NewBibliographyString{report}
+\NewBibliographyString{us}
+\NewBibliographyString{southcarolina}
+\NewBibliographyString{constitution}
+\NewBibliographyString{amendment}
+\NewBibliographyString{alabama}
+\NewBibliographyString{alaska}
+\NewBibliographyString{arizona}
+\NewBibliographyString{arkansas}
+\NewBibliographyString{california}
+\NewBibliographyString{colorado}
+\NewBibliographyString{connecticut}
+\NewBibliographyString{delaware}
+\NewBibliographyString{florida}
+\NewBibliographyString{georgia}
+\NewBibliographyString{hawaii}
+\NewBibliographyString{idaho}
+\NewBibliographyString{illinois}
+\NewBibliographyString{indiana}
+\NewBibliographyString{iowa}
+\NewBibliographyString{kansas}
+\NewBibliographyString{kentucky}
+\NewBibliographyString{louisiana}
+\NewBibliographyString{maine}
+\NewBibliographyString{maryland}
+\NewBibliographyString{massachusetts}
+\NewBibliographyString{michigan}
+\NewBibliographyString{minnesota}
+\NewBibliographyString{mississippi}
+\NewBibliographyString{missouri}
+\NewBibliographyString{montana}
+\NewBibliographyString{nebraska}
+\NewBibliographyString{nevada}
+\NewBibliographyString{newhampshire}
+\NewBibliographyString{newjersey}
+\NewBibliographyString{newmexico}
+\NewBibliographyString{newyork}
+\NewBibliographyString{northcarolina}
+\NewBibliographyString{northdakota}
+\NewBibliographyString{ohio}
+\NewBibliographyString{oklahoma}
+\NewBibliographyString{oregon}
+\NewBibliographyString{pennsylvania}
+\NewBibliographyString{rhodeisland}
+\NewBibliographyString{southcarolina}
+\NewBibliographyString{southdakota}
+\NewBibliographyString{tennessee}
+\NewBibliographyString{texas}
+\NewBibliographyString{utah}
+\NewBibliographyString{vermont}
+\NewBibliographyString{virginia}
+\NewBibliographyString{washington}
+\NewBibliographyString{westvirginia}
+\NewBibliographyString{wisconsin}
+\NewBibliographyString{wyoming}
 
 \DeclareBibliographyStrings{%
   inherit          = {nswissgerman},
   inpress          = {{\midsentence{}im Druck}{\midsentence{}im Druck}}, % adding \midsentence is a fix as this is supposed to begin lower case in every instance (in citations as well as references) according to the DGP's Richtlinien zur Manuskriptgestaltung (German APA)
   jourarticle      = {{Artikel}{Artikel}},
-%  tothe            = {{to\space the}{to\space the}},%FIXME
-%  ofthe            = {{of\space the}{of\space the}},%FIXME
-%  unitednations    = {{United\space Nations}{U\adddot N\adddot}},
-%  charter          = {{charter}{charter}},
-%  article          = {{article}{art\adddot}},%FIXME
+  tothe            = {{zur}{zur}},
+  ofthe            = {{der}{der}},
+  unitednations    = {{United\space Nations}{U\adddot N\adddot}},
+  charter          = {{Charter}{Charter}}, % Let's not translate everything and just capitalize some terms or else we run into problems because we would have to merge some existing definitions (e.g., the two terms "U.N." and "Charter" would actually need to be merged to "U.N.-Charta" for a proper translation).
+  proposed         = {{vorgeschlagen}{vorgeschlagen}},
+  repealed         = {{ist\space weggefallen\space in}{weggefallen}},
+  execorder        = {{Executive\space Order}{Exec\adddot\space Order}},
+  senate           = {{Senate}{S\adddot}},
+  resolution       = {{Resolution}{Res\adddot}},
+  houseofrepresentatives = {{House\space of\space Representatives}{H\adddot R\adddot}},
+  report           = {{Report}{Rep\adddot}},
+  us               = {{U\adddot S\adddot}{U\adddot S\adddot}},
+  southcarolina    = {{South\space Carolina}{S\adddot C\adddot}},
+  constitution     = {{Constitution}{Const\adddot}},
+  section          = {{Paragraph}{§}},
+  amendment        = {{Zusatzartikel}{Zusatzart\adddot}},
+  article          = {{Artikel}{Art\adddot}},
   painting         = {{Gem\"alde}{Gem\"alde}},
-%  present          = {{present}{present}},%FIXME
+  present          = {{Gegenwart}{Gegenwart}},
   song             = {{Song}{Song}},
   album            = {{Album}{Album}},
   map              = {{Landkarte}{Landkarte}},
@@ -127,8 +200,8 @@
   from             = {{unter}{unter}},
   archivedat       = {{archiviert\space unter}{archiviert\space unter}},
   reviewof         = {{Resprechung\space des}{Resprechung\space des}}, % "Rezension" isn't wrong, but according to DGP's Richtlinien zur Manuskriptgestaltung this is supposed to be called "Besprechung"
-%  paragraph        = {{paragraph}{para\adddot}},%FIXME
-%  paragraphs       = {{paragraphs}{paras\adddot}},%FIXME
+  paragraph        = {{Absatz}{Abs.\adddot}},
+  paragraphs       = {{Abs\"atze}{Abs.\adddot}},
   origyear         = {{Original\space erschienen}{Original\space erschienen}},
   typechair        = {{Leitung}{Leitung}},
   typechairs       = {{Leitung}{Leitung}},
@@ -142,7 +215,57 @@
 %  beforechrist     = {{B\adddot\addabthinspace C\adddot}{B\adddot\addabthinspace C\adddot}},
 %  commonera        = {{C\adddot E\adddot}{C\adddot E\adddot}},
 %  beforecommonera  = {{B\adddot C\adddot E\adddot}{B\adddot C\adddot E\adddot}},
-%  publication   = {{Publication}{Publication}}
+%  publication   = {{Publication}{Publication}},
+  alabama       = {{Alabama}{{A\adddot L\adddot}}},
+  alaska        = {{Alaska}{{A\adddot K\adddot}}},
+  arizona       = {{Arizona}{{A\adddot Z\adddot}}},
+  arkansas      = {{Arkansas}{{A\adddot R\adddot}}},
+  california    = {{California}{{C\adddot A\adddot}}},
+  colorado      = {{Colorado}{{C\adddot O\adddot}}},
+  connecticut   = {{Connecticut}{{C\adddot T\adddot}}},
+  delaware      = {{Delaware}{{D\adddot E\adddot}}},
+  florida       = {{Florida}{{F\adddot L\adddot}}},
+  georgia       = {{Georgia}{{G\adddot A\adddot}}},
+  hawaii        = {{Hawaii}{{H\adddot I\adddot}}},
+  idaho         = {{Idaho}{{I\adddot D\adddot}}},
+  illinois      = {{Illinois}{{I\adddot L\adddot}}},
+  indiana       = {{Indiana}{{I\adddot N\adddot}}},
+  iowa          = {{Iowa}{{I\adddot A\adddot}}},
+  kansas        = {{Kansas}{{K\adddot S\adddot}}},
+  kentucky      = {{Kentucky}{{K\adddot Y\adddot}}},
+  louisiana     = {{Louisiana}{{L\adddot A\adddot}}},
+  maine         = {{Maine}{{M\adddot E\adddot}}},
+  maryland      = {{Maryland}{{M\adddot D\adddot}}},
+  massachusetts = {{Massachusetts}{{M\adddot A\adddot}}},
+  michigan      = {{Michigan}{{M\adddot I\adddot}}},
+  minnesota     = {{Minnesota}{{M\adddot N\adddot}}},
+  mississippi   = {{Mississippi}{{M\adddot S\adddot}}},
+  missouri      = {{Missouri}{{M\adddot O\adddot}}},
+  montana       = {{Montana}{{M\adddot T\adddot}}},
+  nebraska      = {{Nebraska}{{N\adddot E\adddot}}},
+  nevada        = {{Nevada}{{N\adddot V\adddot}}},
+  newhampshire  = {{New Hampshire}{{N\adddot H\adddot}}},
+  newjersey     = {{New Jersey}{{N\adddot J\adddot}}},
+  newmexico     = {{New Mexico}{{N\adddot M\adddot}}},
+  newyork       = {{New York}{{N\adddot Y\adddot}}},
+  northcarolina = {{North Carolina}{{N\adddot C\adddot}}},
+  northdakota   = {{North Dakota}{{N\adddot D\adddot}}},
+  ohio          = {{Ohio}{{O\adddot H\adddot}}},
+  oklahoma      = {{Oklahoma}{{O\adddot K\adddot}}},
+  oregon        = {{Oregon}{{O\adddot R\adddot}}},
+  pennsylvania  = {{Pennsylvania}{{P\adddot A\adddot}}},
+  rhodeisland   = {{Rhode Island}{{R\adddot I\adddot}}},
+  southcarolina = {{South Carolina}{{S\adddot C\adddot}}},
+  southdakota   = {{South Dakota}{{S\adddot D\adddot}}},
+  tennessee     = {{Tennessee}{{T\adddot N\adddot}}},
+  texas         = {{Texas}{{T\adddot X\adddot}}},
+  utah          = {{Utah}{{U\adddot T\adddot}}},
+  vermont       = {{Vermont}{{V\adddot T\adddot}}},
+  virginia      = {{Virginia}{{V\adddot A\adddot}}},
+  washington    = {{Washington}{{W\adddot A\adddot}}},
+  westvirginia  = {{West Virginia}{{W\adddot V\adddot}}},
+  wisconsin     = {{Wisconsin}{{W\adddot I\adddot}}},
+  wyoming       = {{Wyoming}{{W\adddot Y\adddot}}}
 }
 
 
