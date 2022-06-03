@@ -383,8 +383,7 @@
 %    correct data list (\newrefcontext/\begin{refcontext})
 \AtBeginRefsection{\GenRefcontextData{sortingnamekeytemplatename=apasortcite}}
 % Switch to the reference context using citation visibility setting for sorting of citations
-\AtEveryCite{\newrefcontext[sortingnamekeytemplatename=apasortcite]}
-\AfterEveryCite{\endrefcontext}
+\AtEveryCite{\localrefcontext[sortingnamekeytemplatename=apasortcite]}
 
 % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
