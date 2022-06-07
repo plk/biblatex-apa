@@ -1334,7 +1334,9 @@
     {\usebibmacro{in}%
      \printnames[apanames][-\value{listtotal}]{execproducer}%
      \setunit{\addspace}%
-     \bibcplstring[\mkbibparens]{execproducers}%
+     \ifthenelse{\the\c@execproducer=1}%
+       {\bibcplstring[\mkbibparens]{execproducer}}
+       {\bibcplstring[\mkbibparens]{execproducers}}%
      \setunit{\addcomma\addspace}%
      \printfield{maintitle}}}
 
