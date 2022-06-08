@@ -1943,6 +1943,13 @@
 
 % (APA 10.12 Example 86)
 % ENTRYSUBTYPE is a localisation string
+% Note that if there were only one author, the annotation would be
+% "1=execproducer" to get the singular form and apply it only to the first
+% item in the name list, even though there is only one. List item
+% annotations (those of the form "n=<annotation>" should be the singular form
+% whereas whole field annotations (those of the form "=<annotation>" should usually
+% be the plural form. So, when using the singular form, a list item index
+% is mandatory.
 @VIDEO{10.12:86,
   ENTRYSUBTYPE    = {tvseries},
   AUTHOR          = {D. Simon and R. F. Colesberry and Kostroff Noble, N.},
