@@ -131,7 +131,7 @@
 
 \DeclareBibliographyStrings{%
   inherit          = {ngerman},
-  inpress          = {{\midsentence{}im Druck}{\midsentence{}im Druck}}, % adding \midsentence is a fix as this is supposed to begin lower case in every instance (in citations as well as references) according to the DGP's Richtlinien zur Manuskriptgestaltung (German APA)
+  inpress          = {{im Druck}{im Druck}},
   jourarticle      = {{Artikel}{Artikel}},
   tothe            = {{zur}{zur}},
   ofthe            = {{der}{der}},
@@ -288,7 +288,7 @@
       {}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}%
        \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
          {}
          {\addcomma\space}}%
@@ -316,7 +316,7 @@
       {}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}%
        \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
          {}
          {\addcomma\space}}%
