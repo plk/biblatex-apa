@@ -83,45 +83,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 8.17) 3+ authors have "et al."
-% (APA 8.18) "et al" is plural and so when listcount-uniquelist=1, uniquelist=listcount
-
-\def\blx@namesetup#1#2#3{%
-  \def\currentname{#3}%
-  \c@listcount\@ne
-  \c@listtotal\csname c@#3\endcsname
-  \blx@namesetup@i{#3}%
-  \ifblank{#1}
-    {\c@liststart\@ne}
-    {\ifnum#1<\@ne
-       \c@liststart\@ne
-     \else
-       \c@liststart#1\relax
-     \fi}%
-  \ifblank{#2}
-    {\c@liststop\c@listtotal
-     \ifnum\c@liststop>\c@maxnames
-       \c@liststop\c@minnames
-       \ifnum\c@uniquelist>\c@liststop
-         \c@liststop\c@uniquelist
-         \ifnumcomp{\value{listtotal}-\value{uniquelist}}{=}{1}
-           {\c@liststop\c@listtotal}
-           {}%
-       \fi
-     \fi}
-    {\ifnum#2>\c@listtotal
-       \c@liststop\c@listtotal
-     \else
-       \ifnum#2<\@ne
-         \c@liststop\@ne
-       \else
-         \c@liststop#2\relax
-       \fi
-     \fi}%
-  \blx@namecodes}
-
-  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.21) Groups as names
 %            SHORTAUTHOR brackets in parencites
 
