@@ -421,6 +421,7 @@
     \map{
       \pertype{inproceedings}
       \step[notfield=editor, final]
+      \step[notfield=crossref, final]% A bit suspect but assuming that any crossref contains EDITOR
       \step[fieldsource=booktitle, fieldtarget=journaltitle]
       \step[typesource=inproceedings, typetarget=article]
     }
