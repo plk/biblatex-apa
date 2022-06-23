@@ -288,7 +288,7 @@
       {}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}%
        \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
          {}
          {\addcomma\space}}%
@@ -316,7 +316,7 @@
       {}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}%
        \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
          {}
          {\addcomma\space}}%
