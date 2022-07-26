@@ -1,0 +1,249 @@
+\ProvidesFile{hungarian-apa.lbx}[2022/07/25\space APA biblatex localisation - Hungarian]
+\InheritBibliographyExtras{hungarian}
+
+\NewBibliographyString{publication}
+\NewBibliographyString{jourarticle}
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{with}
+\NewBibliographyString{supplement}
+\NewBibliographyString{commenton}
+\NewBibliographyString{manunpub}
+\NewBibliographyString{maninprep}
+\NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
+\NewBibliographyString{song}
+\NewBibliographyString{album}
+\NewBibliographyString{podcast}
+\NewBibliographyString{podcastepisode}
+\NewBibliographyString{interview}
+\NewBibliographyString{speech}
+\NewBibliographyString{lithograph}
+\NewBibliographyString{map}
+\NewBibliographyString{lecturenotes}
+\NewBibliographyString{powerpoint}
+\NewBibliographyString{photograph}
+\NewBibliographyString{photographs}
+\NewBibliographyString{present}
+\NewBibliographyString{painting}
+\NewBibliographyString{article}
+\NewBibliographyString{unitednations}
+\NewBibliographyString{charter}
+\NewBibliographyString{ofthe}
+\NewBibliographyString{tothe}
+
+\DeclareBibliographyStrings{%
+  inherit          = {hungarian},
+  % deviations from biblatex.lbx
+  andothers        = {{\'es munkat\'arsai}{\'es mtsai\adddot}},
+  % continuation of ~-apa.lbx
+  jourarticle      = {{foly\'oirat cikk}{cikk}},
+%  tothe            = {{to\space the}{to\space the}}, % need example
+%  ofthe            = {{of\space the}{of\space the}}, % need example
+  unitednations    = {{Egyesült\space Nemzetek\space Szervezete}{ENSZ}},
+  charter          = {{okirat}{okirat}},
+  article          = {{\'ujs\'agcikk}{\'ujs\'agcikk}},
+  painting         = {{festm\'eny}{festm\'eny}},
+  present          = {{jelenkor}{jelen}},
+  song             = {{dal}{dal}},
+  album            = {{album}{album}},
+  map              = {{t\'erk\'ep}{t\'erk\'ep}},
+  photograph       = {{f\'enyk\'ep}{f\'enyk\'ep}},
+  photographs      = {{f\'enyk\'epek}{f\'enyk\'epek}},
+  powerpoint       = {{Powerpoint\space dia}{Powerpoint\space dia}},
+  lecturenotes     = {{el\H{o}adas jegyzet}{jegyzet}},
+  podcast          = {{podcast}{podcast}},
+  podcastepisode   = {{podcast\space epiz\'od}{podcast\space ep.}},
+  interview        = {{interj\'u}{interj\'u}},
+  speech           = {{hangfelv\'etel}{hangfelv\adddot}},
+  lithograph       = {{k\H{o}nyomat}{k\H{onyomat}}},
+  video            = {{vide\'o}{vide\'o}},
+  film             = {{film}{film}},
+  tvseries         = {{t\'elev\'izi\'os\space sorozat}{t\'ev\'esorozat}},
+  tvepisode        = {{t\'elev\'izi\'ossorozat-epiz\'od}{t\'ev\'esorozat-epiz\'od}},
+  narrator         = {{narr\'ator}{narr\adddot}},
+  narrators        = {{narr\'ator}{narr\adddot},
+  producer         = {{gy\'art\'svezet\H{o}}{producer}},
+  producers        = {{gy\'art\'svezet\H{o}k}{producerek}},
+  execproducer     = {{f\H{o}gy\'art\'svezet\H{o}}{Exec\adddot\space Prod\adddot}},
+  execproducers    = {{f\H{o}gy\'art\'svezet\H{o}k}{Exec\adddot\space Prod\adddot}},
+  execdirector     = {{\"ugyvezet\H{o}\space igazgat\'o}{\"ugyv\adddot\space ig\adddot}},
+  execdirectors    = {{\"ugyvezet\H{o}\space igazgat\'ok}{\"ugyv\adddot\space ig\adddot}},
+  director         = {{igazgat\'o}{ig\adddot}},
+  directors        = {{igazgat\'ok}{ig\adddot}},
+  writer           = {{\'ir\'o}{\'ir\'o}},
+  writers          = {{\'ir\'ok}{\'ir\'ok}},
+  host             = {{m\H{u}sorvezet\H{o}}{m\H{u}sorvez\adddot}},
+  hosts            = {m\H{u}sorvezet\H{o}k}{m\H{u}sorvez\adddot}},
+  guestexpert      = {{vend\'egszak\'ert\H{o}}{vend\'egszak\'ert\H{o}}},
+  guestexperts     = {{vend\'egszak\'ert\H{o}k}{vend\'egszak\'ert\H{o}k}},
+  % with             = {{with}{with}}, % in Hungarian syntax might be "and" unless order is changed since agglutinative
+  manunpub         = {{kiadatlan\space k\'ezirat}{kiadatlan\space k\'ezirat}},
+  maninprep        = {{k\'ezirat\space szerkeszt\'es\space alatt}{k\'ezirat\space szerkeszt\'es\space alatt}},
+  mansub           = {{k\'ezirat\space kiad\'as\space alatt}{k\'ezirat\space kiad\'as\space alatt}},
+  supplement       = {{p\'otk\"otet}{p\'otk\"otet}},
+  part             = {{r\'esz}{r\adddot}},
+  revisededition   = {{\'atdolgozott\space kiad\'as}{\'atdolg.\adddotspace kiad\adddot}},
+  % commenton        = {{comment\space on}{comment\space on}}, % need example
+  page             = {{oldal}{{}o\adddot}}, % some Hungarian APA7 guidances quote "p." instead of Hungarian "o."
+  pages            = {{oldal}{{}o\adddot}}, % some Hungarian APA7 guidances quote "p." instead of Hungarian "o."
+  % on               = {{on}{on}}, % FIXME example needed, also word order
+  retrieved        = {{retrieved}{retrieved}},
+  available        = {{available}{available}},
+  % from             = {{from}{from}}, % FIXME example needed, also word order
+  archivedat       = {{archiv\'al\'as\space ideje}{arch\adddotspace id.}},
+  reprintas        = {{ut\'annyom\'as\space c\'ime}{ut\'anny\adddotspace c\'ime}},
+  reprintfrom      = {{ut\'annyom\'as\space forr\'asa}{ut\'anny\adddotspace forr\'asa}},
+  reviewof         = {{recenz\'alt\space m\H{u}}{recenz\'alt\space m\H{u}}},
+  paragraph        = {{bekezd\'es}{bek\adddot}},
+  paragraphs       = {{bekezd\'es}{bek\adddot}},
+  mathesis         = {{szakdolgozat}{szakdolg.}},
+  phdthesis        = {{doktori\space disszert\'aci\'o}{disszert\adddot},
+  origyear         = {{eredeti\space kiad\'as\space ideje}{eredetileg\space kiadva}},
+  typechair        = {{tansz\'ekvezet\H{o}}{tansz\'ekv\adddot}},
+  typechairs       = {{tansz\'ekvezet\H{o}}{tansz\'ekv\adddot}},
+  typevolume       = {{k\"otetszerkeszt\H{o}}}{k\"otetszerk\adddot}},
+  typevolumes      = {{k\"otetszerkeszt\H{o}k}}{k\"otetszerk\adddot}}},
+  typeseries       = {{sorozatszerkeszt\H{o}}{sorozatszerk\adddot}},
+  typeseriess      = {{sorozatszerkeszt\H{o}k}{sorozatszerk\adddot}},
+  typevolseries    = {{sorozat-\space \'es\space k\"otetszerkeszt\H{o}}{sor\adddotspace \'es\space k\"otetszerk\adddot}},
+  typevolseriess   = {{sorozat-\space \'es\space k\"otetszerkeszt\H{o}k}{sor\adddotspace \'es\space k\"otetszerk\adddot}},
+  annodomini       = {{Kr\adddotspace u\adddot}{Kr\adddotspace u\adddot}},
+  beforechrist     = {{Kr\adddotspace e\adddot}{Kr\adddotspace e\adddot}},
+  commonera        = {{i\adddotspace sz\adddot}{i\adddotspace sz\adddot}},
+  beforecommonera  = {{i\adddotspace e\adddot}{i\adddotspace e\adddot}},
+  publication      = {{publik\'aci\'o}{publ\adddot}}
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Drop end* when they are the same as *
+% You must use \print*date to get here otherwise it will be ignored
+
+\DeclareBibliographyExtras{%
+  \def\urldatecomma{\addcomma\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\addspace}%
+       \stripzeros{\thefield{#4}}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldundef{#4}%
+        {\iffieldundef{#3}%
+          {}%
+          {\addspace}}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
