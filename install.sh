@@ -1,6 +1,6 @@
 #!/bin/bash
 
-find -E . -regex '.*\.(bbx|cbx|dbx|lbx)' | xargs -J % cp % ~/texmf/tex/latex/biblatex-apa/
+find -E . -regex '.*\.(bbx|cbx|dbx|lbx|lua)' | xargs -J % cp % ~/texmf/tex/latex/biblatex-apa/
 cp bibtex/bib/*.bib ~/texmf/bibtex/bib/biblatex-apa/
 
 if [[ "$1" == "all" ]]

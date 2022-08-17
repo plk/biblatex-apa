@@ -507,7 +507,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.11) No parens round year for cites when the cite is in
-%            parentheses. Use new command \nptextcite for such cites.
+%            parentheses. Use new command \nptextcite for such cites
+%            unless using luatex which does it automatically
 
 \DeclareDelimAlias[nptextcite]{finalnamedelim}[parencite]{finalnamedelim}
 
@@ -619,5 +620,12 @@
 
 \let\cbx@textcites@init\cbx@textcite@init
 \pretocmd{\cbx@textcites@init}{\UseNextMultiCiteHook}{}{}
+
+\ifdef\luatexversion
+  {\directlua{require'apa'}
+   \glet\textcitei\textcite
+   \gdef\textcite{\ifInParensTF{\nptextcite}{\textcitei}}%
+  }
+  {}
 
 \endinput

@@ -116,13 +116,17 @@ year printed:\\
 Within a paragraph, not in the narrative sense:\\
 \apaex{\autocite{8.11a}}
 
-\noindent Within parentheses, use the |\nptextcite| command which is equivalent to
-the |\textcite| command but omits the parenthesis and uses commas instead.
+\noindent Within parentheses, use the |\nptextcite| command which is
+equivalent to the |\textcite| command but omits the parenthesis and uses
+commas instead. |\nptextcite| is not necessary when using a \texttt{luatex}
+based engine because with \texttt{luatex}, the style contains Lua code to
+do this automatically when using just |\textcite|.
 See the |biblatex-apa| docs.\\
 \apaex{(\nptextcite[see][for more detail]{8.11a})}\\
 \apaex{(e.g., falsely balanced news coverage; \nptextcite{8.11a})}\\
 \apaex{\textcite{8.11a} noted the dangers of falsely balanced news coverage.}\\
-\apaex{In \citeyear{8.11a}, \citeauthor{8.11a} noted the dangers of falsely balanced news coverage.}
+\apaex{In \citeyear{8.11a}, \citeauthor{8.11a} noted the dangers of falsely
+  balanced news coverage.}
 
 \noindent\apa{8.12}\\
 Citing multiple works:\\

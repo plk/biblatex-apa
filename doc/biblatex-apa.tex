@@ -143,7 +143,8 @@ localisation. Thanks to Sebastian Ørsted for the Danish localisation.
 Thanks to Jürgen Spitzmüller for the DGPs localisation hints. Thanks to
 Sergei Golovan for the Russian localisation. Thanks to Vítor Míguez for the
 Galacian localisation. Thanks to Abdulkerim Gok for the Turkish
-localisation. Thanks for Robert Fodor the Hungarian localisation.
+localisation. Thanks for Robert Fodor the Hungarian localisation. Thanks to
+Marcel Krüger for the Lua code for automating parentheses level checks.
 
 \section{Use}\label{ref:use}
 \label{use}
@@ -288,7 +289,9 @@ command
 but does not put parentheses around the year and separates items with
 commas. See examples using this command in \path{biblatex-apa-test.tex}.
 There is also a multi-cite version |\nptextcites| that works in the same
-way as |\textcites|.
+way as |\textcites|. \textbf{NOTE}: it is not necessary to use |\nptextcite| when
+using a \texttt{luatex} based engine. The style contains Lua code to manage
+this situation automatically when using |\textcite|.
 
 The |\fullcite| command uses ampersands, like the references section
 and there is also a |\fullcitebib| command which is the same as
@@ -392,6 +395,11 @@ the examples.
 \section{Revision history}\label{rev}
 
 \begin{changelog}
+
+\begin{release}{9.16}{2022-06-22}
+\item Added Lua to automate what |\nptextcite| does when using
+  \texttt{luatex} engines.
+\end{release}
 
 \begin{release}{9.16}{2022-06-22}
 \item Minor documentation and bug fixes
