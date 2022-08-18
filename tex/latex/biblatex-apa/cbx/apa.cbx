@@ -622,10 +622,11 @@
 \pretocmd{\cbx@textcites@init}{\UseNextMultiCiteHook}{}{}
 
 \ifdef\luatexversion
-  {\directlua{require'apa'}
+  {\directlua{require'apa'}%
    \glet\textcitei\textcite
+   \glet\parencitei\parencite
    \gdef\textcite{\ifInParensTF{\nptextcite}{\textcitei}}%
-  }
+   \gdef\parencite{\ifInParensTF{\nptextcite}{\parencitei}}}
   {}
 
 \endinput
