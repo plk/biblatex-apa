@@ -26,8 +26,11 @@ lua.get_functions_table()[id] = function()
         level = level - 1
       else
         -- Negative levels don't make sense, so we ignore the ) instead. Print a warning though to avoid surprises.
-        texio.write_nl'WARNING: Unable to reliably determine if inside parentheses since the paragraphs contains an unmatched right parentheses.'
-        texio.write_nl'The unmatched parentheses will be ignored.'
+        luatexbase.module_warning('find_parens', '\z
+          Unable to reliably determine if inside parentheses\n\z
+          since the paragraphs contains an unmatched `)`.\n\z
+          It will be ignored\z
+        ')
       end
     end
   end
