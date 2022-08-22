@@ -8,8 +8,8 @@ local left_paren = string.byte'('
 local right_paren = string.byte')'
 
 -- Some boilerplate to define an unexpandable command sequence from Lua
-local id = luatexbase.new_luafunction'ifInParensTF'
-token.set_lua('ifInParensTF', id, 'protected')
+local id = luatexbase.new_luafunction'BLTXAPAifInParensTF'
+token.set_lua('BLTXAPAifInParensTF', id, 'protected')
 lua.get_functions_table()[id] = function()
 
   -- We want to look at the current list
@@ -26,10 +26,9 @@ lua.get_functions_table()[id] = function()
         level = level - 1
       else
         -- Negative levels don't make sense, so we ignore the ) instead. Print a warning though to avoid surprises.
-        luatexbase.module_warning('find_parens', '\z
-          Unable to reliably determine if inside parentheses\n\z
-          since the paragraphs contains an unmatched `)`.\n\z
-          It will be ignored\z
+        luatexbase.module_warning('biblatex-apa', '\z
+          Unable to reliably determine if inside parentheses\z
+          since the paragraphs contains an unmatched `)` - will be ignored\z
         ')
       end
     end

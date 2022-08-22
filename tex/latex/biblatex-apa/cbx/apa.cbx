@@ -625,8 +625,8 @@
   {\directlua{require'apa'}%
    \glet\textcitei\textcite
    \glet\parencitei\parencite
-   \gdef\textcite{\ifInParensTF{\nptextcite}{\textcitei}}%
-   \gdef\parencite{\ifInParensTF{\nptextcite}{\parencitei}}}
+   \gdef\textcite{\BLTXAPAifInParensTF{\nptextcite}{\textcitei}}%
+   \gdef\parencite{\BLTXAPAifInParensTF{\nptextcite}{\parencitei}}}
   {}
 
 \endinput
