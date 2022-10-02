@@ -1102,6 +1102,18 @@
   ORIGDATE       = {1962}
 }
 
+% See https://github.com/plk/biblatex-apa/issues/192
+% IN* should still put title in the front, even when there is an EDITOR
+% requires labelnametemplate for INBOOK (IN* is mapped to INBOOK) and
+% sorting changes (so title sorts before editor for IN*)
+@INREFERENCE{10.2:35d,
+  TITLE	       = {Cleveland {FreeNet}},
+  BOOKTITLE    = {Encyclopedia of {Cleveland} History},
+  EDITOR       = {John J. Grabowski},
+  PUBLISHER    = {Case Western Reserve University},
+  DATE	       = {2022}
+}
+
 % (APA 10.2 Example 36)
 % Note the special format of the ORIGDATE field and the resulting output.
 % Biber supports considerable ISO8601 date formats like this with full
@@ -2449,14 +2461,14 @@
 
 % (APA 10.16 Example 111)
 @ONLINE{10.16:111a,
-  AUTHOR        = {{Centers for Disease Control and Prevention}},
+  AUTHOR             = {{Centers for Disease Control and Prevention}},
   TITLE              = {People at High Risk of Developing Flu-related Complications},
   DATE               = {2018-01-23},
   URL                = {https://www.cdc.gov/flu/about/disease/high_risk.htm}
 }
 
 @ONLINE{10.16:111b,
-  AUTHOR        = {{World Health Organization}},
+  AUTHOR             = {{World Health Organization}},
   TITLE              = {Questions and Answers on Immunization and Vaccine Safety},
   DATE               = {2018-03},
   URL                = {https://www.who.int/features/qa/84/en/}
@@ -2482,7 +2494,7 @@
 }
 
 @ONLINE{10.16:113b,
-  AUTHOR   = {{National Nurses United}},
+  AUTHOR        = {{National Nurses United}},
   TITLE         = {What Employers Should do to Protect Nurses from {Zika}},
   URL           = {https://www.nationalnursesunited.org/pages/what-employers-should-do-to-protect-rns-from-zika}
 }

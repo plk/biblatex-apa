@@ -306,11 +306,22 @@
   }
 }
 
+% Don't sort on EDITOR for INBOOK (IN* since IN* is mapped to INBOOK) as TITLE is used in place of author
+% if there is no AUTHOR
+\DeclareSortExclusion{inbook}{editor}
+
 \DeclareLabelname{%
   \field{shortauthor}
   \field{author}
   \field{shorteditor}
   \field{editor}
+}
+
+% Don't use EDITOR as labelname in INBOOK (IN* since IN* is mapped to INBOOK) as citations should be
+% via TITLE if there is no AUTHOR
+\DeclareLabelname[inbook]{%
+  \field{shortauthor}
+  \field{author}
 }
 
 % Don't fall back on other year fields if there is no year, use
@@ -620,7 +631,7 @@
 
 \renewbibmacro*{author/editor}{%
   \ifnameundef{author}
-    {\ifnameundef{editor}
+    {\ifthenelse{\ifnameundef{editor}\OR\ifentrytype{inbook}}
       {\usebibmacro{title}%
        % need to clear all title fields so we don't get them again later
        \clearfield{title}%
@@ -636,7 +647,7 @@
 
 \newbibmacro*{author/editor:related}{%
   \ifnameundef{author}
-    {\ifnameundef{editor}
+    {\ifthenelse{\ifnameundef{editor}\OR\ifentrytype{inbook}}
       {\usebibmacro{title}%
         % need to clear all title fields so we don't get them again later
         \clearfield{title}%
