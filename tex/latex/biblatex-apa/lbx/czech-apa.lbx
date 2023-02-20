@@ -1,0 +1,372 @@
+\ProvidesFile{czech-apa.lbx}[2022/06/22\space v9.16\space APA biblatex localisation]
+\InheritBibliographyExtras{czech}
+
+\NewBibliographyString{publication}
+\NewBibliographyString{jourarticle}
+\NewBibliographyString{revisededition}
+\NewBibliographyString{typechair}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{with}
+\NewBibliographyString{supplement}
+\NewBibliographyString{commenton}
+\NewBibliographyString{manunpub}
+\NewBibliographyString{maninprep}
+\NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
+\NewBibliographyString{song}
+\NewBibliographyString{album}
+\NewBibliographyString{podcast}
+\NewBibliographyString{podcastepisode}
+\NewBibliographyString{interview}
+\NewBibliographyString{speech}
+\NewBibliographyString{lithograph}
+\NewBibliographyString{map}
+\NewBibliographyString{lecturenotes}
+\NewBibliographyString{powerpoint}
+\NewBibliographyString{photograph}
+\NewBibliographyString{photographs}
+\NewBibliographyString{present}
+\NewBibliographyString{painting}
+\NewBibliographyString{paragraf}
+\NewBibliographyString{article}
+\NewBibliographyString{execorder}
+\NewBibliographyString{senate}
+\NewBibliographyString{resolution}
+\NewBibliographyString{houseofrepresentatives}
+\NewBibliographyString{report}
+\NewBibliographyString{us}
+\NewBibliographyString{southcarolina}
+\NewBibliographyString{constitution}
+\NewBibliographyString{section}
+\NewBibliographyString{amendment}
+\NewBibliographyString{proposed}
+\NewBibliographyString{repealed}
+\NewBibliographyString{unitednations}
+\NewBibliographyString{charter}
+\NewBibliographyString{ofthe}
+\NewBibliographyString{tothe}
+\NewBibliographyString{alabama}
+\NewBibliographyString{alaska}
+\NewBibliographyString{arizona}
+\NewBibliographyString{arkansas}
+\NewBibliographyString{california}
+\NewBibliographyString{colorado}
+\NewBibliographyString{connecticut}
+\NewBibliographyString{delaware}
+\NewBibliographyString{florida}
+\NewBibliographyString{georgia}
+\NewBibliographyString{hawaii}
+\NewBibliographyString{idaho}
+\NewBibliographyString{illinois}
+\NewBibliographyString{indiana}
+\NewBibliographyString{iowa}
+\NewBibliographyString{kansas}
+\NewBibliographyString{kentucky}
+\NewBibliographyString{louisiana}
+\NewBibliographyString{maine}
+\NewBibliographyString{maryland}
+\NewBibliographyString{massachusetts}
+\NewBibliographyString{michigan}
+\NewBibliographyString{minnesota}
+\NewBibliographyString{mississippi}
+\NewBibliographyString{missouri}
+\NewBibliographyString{montana}
+\NewBibliographyString{nebraska}
+\NewBibliographyString{nevada}
+\NewBibliographyString{newhampshire}
+\NewBibliographyString{newjersey}
+\NewBibliographyString{newmexico}
+\NewBibliographyString{newyork}
+\NewBibliographyString{northcarolina}
+\NewBibliographyString{northdakota}
+\NewBibliographyString{ohio}
+\NewBibliographyString{oklahoma}
+\NewBibliographyString{oregon}
+\NewBibliographyString{pennsylvania}
+\NewBibliographyString{rhodeisland}
+\NewBibliographyString{southcarolina}
+\NewBibliographyString{southdakota}
+\NewBibliographyString{tennessee}
+\NewBibliographyString{texas}
+\NewBibliographyString{utah}
+\NewBibliographyString{vermont}
+\NewBibliographyString{virginia}
+\NewBibliographyString{washington}
+\NewBibliographyString{westvirginia}
+\NewBibliographyString{wisconsin}
+\NewBibliographyString{wyoming}
+
+\DeclareBibliographyStrings{%
+  inherit          = {czech},
+  jourarticle      = {{článek}{čl.}},
+  ofthe            = {{of\space the}{of\space the}},
+  tothe            = {{to\space the}{to\space the}},
+  unitednations    = {{Organizace\space Spojených\space Národů}{O\addot S\adddot N\adddot}},
+  charter          = {{znak}{znak}},
+  proposed         = {{navržen}{navržen}},
+  repealed         = {{was repealed in}{repealed}},
+  % execorder        = {{Executive\space Order}{Exec\adddot\space Order}},
+  % senate           = {{Senát}{Senát}},
+  resolution       = {{Rezoluce}{Rez.\adddot}},
+  % houseofrepresentatives = {{House\space of\space Representatives}{H\adddot R\adddot}},
+  report           = {{Zpráva}{Zpr\adddot}},
+  % us               = {{U\adddot S\adddot}{U\adddot S\adddot}},
+  % southcarolina    = {{South\space Carolina}{S\adddot C\adddot}},
+  % constitution     = {{Constitution}{Const\adddot}},
+  section          = {{Oddíl}{Odd.}},
+  paragraf          = {{Paragraf}{§}},
+  amendment        = {{dodatek}{dod\adddot}},
+  article          = {{článek}{čl\adddot}},
+  painting         = {{malba}{malba}},
+  present          = {{současnost}{současnost}},
+  song             = {{píseň}{píseň}},
+  album            = {{album}{album}},
+  map              = {{mapa}{mapa}},
+  photograph       = {{fotografie}{fot.}},
+  photographs      = {{fotografie}{fot.}},
+  powerpoint       = {{Powerpointová\space prezentace}{Powerpointová\space prezentace}},
+  lecturenotes     = {{poznámky z přednášky}{poznámky z přednášky}},
+  podcast          = {{audio\space podcast}{audio\space podcast}},
+  podcastepisode   = {{díl\space audio\space podcastu}{díl\space audio\space podcastu}},
+  interview        = {{rozhovor}{rozhovor}},
+  speech           = {{záznam\space veřejné\space řeči}{záznam\space veřejné\space řeči}},
+  lithograph       = {{litografie}{litografie}},
+  video            = {{video}{video}},
+  film             = {{film}{film}},
+  tvseries         = {{televizní\space seriál}{televizní\space seriál}},
+  tvepisode        = {{epizoda\space televizního\space seriálu}{epizoda\space televizního\space seriálu}},
+  manunpub         = {{nepublikovaný\space rukopis}{nepublikovaný\space rukopis}},
+  maninprep        = {{připravovaný\space rukopis}{připravovaný\space rukopis}},
+  mansub           = {{rukopis\space v\space přípravě\space k\space publikaci}{rukopis\space v\space přípravě\space k\space publikaci}},
+  supplement       = {{dodatek}{dod\adddot}},
+  revisededition   = {{Doplněné\space Vydání}{dopl\adddotspace vyd\adddot}},
+  reviewof         = {{recenze}{rec\adddotspace of}},
+  page             = {{Strana}{{}s\adddot}},
+  pages            = {{Strany}{{}s\adddot}},
+  on               = {{na}{na}},
+  retrieved        = {{získaný}{získaný}},
+  available        = {{dostupný}{dostupný}},
+  from             = {{od}{od}},
+  archivedat       = {{archivován\space v}{archivován\space v}},
+  with             = {{s}{s}},
+  reprintas        = {{reprinted as}{reprinted as}},
+  reprintfrom      = {{reprinted from}{reprinted from}},
+  commenton        = {{komentář\space k}{komentář\space k}},
+  part             = {{část}{č\adddot}},
+  paragraph        = {{odstavec}{odst\adddot}},
+  paragraphs       = {{odstavce}{odst\adddot}},
+  narrator         = {{vypravěč}{vypravěč}},
+  narrators        = {{vypravěči}{vypravěči}},
+  producer         = {{producent}{producent}},
+  producers        = {{producenti}{producenti}},
+  execproducer     = {{Výkonný\space Producent}{Výkonný\space Producent}},
+  execproducers    = {{Výkonní\space Producenti}{Výkonní\space Producenti}},
+  execdirector     = {{Výkonný\space Ředitel}{Výkonný\space Ředitel}},
+  execdirectors    = {{Výkonní\space Ředitelé}{Výkonní\space Ředitelé}},
+  director         = {{režie}{rež\adddot}},
+  directors        = {{režie}{rež\adddot}},
+  writer           = {{scénář}{scénář}},
+  writers          = {{scénář}{scénář}},
+  host             = {{hostitel}{hostitel}},
+  hosts            = {{hostitelé}{hostitelé}},
+  guestexpert      = {{Pozvaný\space Odborník}{Pozvaný\space Odborník}},
+  guestexperts     = {{Pozvaní\space Odborníci}{Pozvaní\space Odborníci}},
+  mathesis         = {{Diplomová\addabbrvspace práce}{Diplomová\addabbrvspace práce}},
+  phdthesis        = {{Doktorská\addabbrvspace práce}{Doktorská\addabbrvspace práce}},
+  origyear         = {{původně\space vydáno}{původně\space vydáno}},
+  typechair        = {{Vedoucí}{Vedoucí}},
+  typechairs       = {{Vedoucí}{Vedoucí}},
+  typevolume       = {{Editor\space Vydání}{Ed\adddotspace Vyd\adddot}},
+  typevolumes      = {{Editoři\space Vydání}{Ed\adddotspace Vyd\adddot}},
+  typeseries       = {{Editor\space Ročníku}{Ed\space Roč\adddot}},
+  typeseriess      = {{Editoři\space Ročníku}{Ed\space Roč\adddot}},
+  % typevolseries    = {{Series\space and\space Volume\space Editor}{Series\space\& Vol\adddotspace Ed\adddot}},
+  % typevolseriess   = {{Series\space and\space Volume\space Editors}{Series\space\& Vol\adddotspace Eds\adddot}},
+  annodomini       = {{n\adddot l\adddot}{n\adddot l\adddot}},
+  beforechrist     = {{před\space n\adddot l\adddot}{př\addotspace n\adddot l\adddot}},
+  % commonera        = {{C\adddot E\adddot}{C\adddot E\adddot}},
+  % beforecommonera  = {{B\adddot C\adddot E\adddot}{B\adddot C\adddot E\adddot}},
+  alabama       = {{Alabama}{{A\adddot L\adddot}}},
+  alaska        = {{Alaska}{{A\adddot K\adddot}}},
+  arizona       = {{Arizona}{{A\adddot Z\adddot}}},
+  arkansas      = {{Arkansas}{{A\adddot R\adddot}}},
+  california    = {{California}{{C\adddot A\adddot}}},
+  colorado      = {{Colorado}{{C\adddot O\adddot}}},
+  connecticut   = {{Connecticut}{{C\adddot T\adddot}}},
+  delaware      = {{Delaware}{{D\adddot E\adddot}}},
+  florida       = {{Florida}{{F\adddot L\adddot}}},
+  georgia       = {{Georgia}{{G\adddot A\adddot}}},
+  hawaii        = {{Hawaii}{{H\adddot I\adddot}}},
+  idaho         = {{Idaho}{{I\adddot D\adddot}}},
+  illinois      = {{Illinois}{{I\adddot L\adddot}}},
+  indiana       = {{Indiana}{{I\adddot N\adddot}}},
+  iowa          = {{Iowa}{{I\adddot A\adddot}}},
+  kansas        = {{Kansas}{{K\adddot S\adddot}}},
+  kentucky      = {{Kentucky}{{K\adddot Y\adddot}}},
+  louisiana     = {{Louisiana}{{L\adddot A\adddot}}},
+  maine         = {{Maine}{{M\adddot E\adddot}}},
+  maryland      = {{Maryland}{{M\adddot D\adddot}}},
+  massachusetts = {{Massachusetts}{{M\adddot A\adddot}}},
+  michigan      = {{Michigan}{{M\adddot I\adddot}}},
+  minnesota     = {{Minnesota}{{M\adddot N\adddot}}},
+  mississippi   = {{Mississippi}{{M\adddot S\adddot}}},
+  missouri      = {{Missouri}{{M\adddot O\adddot}}},
+  montana       = {{Montana}{{M\adddot T\adddot}}},
+  nebraska      = {{Nebraska}{{N\adddot E\adddot}}},
+  nevada        = {{Nevada}{{N\adddot V\adddot}}},
+  newhampshire  = {{New Hampshire}{{N\adddot H\adddot}}},
+  newjersey     = {{New Jersey}{{N\adddot J\adddot}}},
+  newmexico     = {{New Mexico}{{N\adddot M\adddot}}},
+  newyork       = {{New York}{{N\adddot Y\adddot}}},
+  northcarolina = {{North Carolina}{{N\adddot C\adddot}}},
+  northdakota   = {{North Dakota}{{N\adddot D\adddot}}},
+  ohio          = {{Ohio}{{O\adddot H\adddot}}},
+  oklahoma      = {{Oklahoma}{{O\adddot K\adddot}}},
+  oregon        = {{Oregon}{{O\adddot R\adddot}}},
+  pennsylvania  = {{Pennsylvania}{{P\adddot A\adddot}}},
+  rhodeisland   = {{Rhode Island}{{R\adddot I\adddot}}},
+  southcarolina = {{South Carolina}{{S\adddot C\adddot}}},
+  southdakota   = {{South Dakota}{{S\adddot D\adddot}}},
+  tennessee     = {{Tennessee}{{T\adddot N\adddot}}},
+  texas         = {{Texas}{{T\adddot X\adddot}}},
+  utah          = {{Utah}{{U\adddot T\adddot}}},
+  vermont       = {{Vermont}{{V\adddot T\adddot}}},
+  virginia      = {{Virginia}{{V\adddot A\adddot}}},
+  washington    = {{Washington}{{W\adddot A\adddot}}},
+  westvirginia  = {{West Virginia}{{W\adddot V\adddot}}},
+  wisconsin     = {{Wisconsin}{{W\adddot I\adddot}}},
+  wyoming       = {{Wyoming}{{W\adddot Y\adddot}}},
+  publication   = {{Publication}{Publication}}
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Drop end* when they are the same as *
+% You must use \printdate to get here otherwise it will be ignored
+
+\DeclareBibliographyExtras{%
+  \def\urldatecomma{\addcomma\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ test {\ifentrytype{article}}
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\addspace}%
+    \stripzeros{\thefield{#4}}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldundef{#4}%
+        {\iffieldundef{#3}%
+          {}%
+          {\addspace}}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
