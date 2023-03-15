@@ -272,106 +272,38 @@
 }
 
 \DeclareBibliographyExtras{%
-  \renewcommand*{\mkdaterangeapalong}[1]{%
-    \begingroup
-      \blx@metadateinfo{#1}%
-      \iffieldundef{#1year}{}
-        {\datecircaprint
-         \ifboolexpr{ test {\ifstrequal{#1}{url}}
-                      or test {\ifentrytype{legal}}
-                      or ( test {\ifentrytype{legadminmaterial}} and
-                           test {\ifkeyword{proposed}} ) }
-           {\printtext[#1date]{%
-              \mkbibdateapalongmdy{#1year}{#1yeardivision}{}{#1day}%
-              \ifboolexpr{ test  {\iffieldsequal{#1year}{#1endyear}}
-                           and test {\iffieldsequal{#1month}{#1endmonth}}}
-                {\iffieldundef{#1endday}
-                   {}
-                   {\bibdatedash%
-                    \mkbibdateapalongmdy{}{}{}{#1endday}}}%
-                {}
-              \iffieldundef{#1month}
-                {}
-                {\mkbibdateapalongmdy{}{}{#1month}{}
-                 \dateeraprint{#1year}%
-                 \dateuncertainprint}%
-              \ifboolexpr{ not test  {\iffieldsequal{#1year}{#1endyear}}
-                           or not test  {\iffieldsequal{#1month}{#1endmonth}}}
-                {\bibdatedash
-                 \iffieldequalstr{#1endyear}% open-ended range?
-                   {}
-                   {\bibstring{present}}}
-                {}%
-              \iffieldsequal{#1year}{#1endyear}
-                {\iffieldsequal{#1month}{#1endmonth}
-                   {}
-                   {\mkbibdateapalongmdy{}{}{#1endmonth}{#1endday}}}
-                {\mkbibdateapalongmdy{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}}%
-              \dateeraprint{#1endyear}%
-              \enddateuncertainprint}}
-           {\printtext{%
-              \mkbibdateapalong{#1year}{#1yeardivision}{}{#1day}%
-              \ifboolexpr{ test  {\iffieldsequal{#1year}{#1endyear}}
-                           and test {\iffieldsequal{#1month}{#1endmonth}}}
-                {\iffieldundef{#1endday}
-                   {}
-                   {\bibdatedash%
-                    \mkbibdateapalong{}{}{}{#1endday}}}%
-                {}%
-              \iffieldundef{#1month}
-                {}
-                {\mkbibdateapalong{}{}{#1month}{}
-                 \dateeraprint{#1year}%
-                 \dateuncertainprint}%
-              \ifboolexpr{ not test  {\iffieldsequal{#1year}{#1endyear}}
-                           or not test  {\iffieldsequal{#1month}{#1endmonth}}}
-                {\bibdatedash
-                 \iffieldequalstr{#1endyear}% open-ended range?
-                   {}
-                   {\bibstring{present}}}
-                {}%
-              \iffieldsequal{#1year}{#1endyear}
-                {\iffieldsequal{#1month}{#1endmonth}
-                   {}
-                   {\mkbibdateapalong{}{}{#1endmonth}{#1endday}}}
-                {\mkbibdateapalong{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}}%
-              \dateeraprint{#1endyear}%
-              \enddateuncertainprint}}}
-            \endgroup}%
   \renewcommand*{\mkdaterangeapalongextra}[1]{%
     \begingroup
-      \blx@metadateinfo{#1}%
-      \iffieldundef{#1year}{}
-        {\printtext[#1date]{%
-          \datecircaprint
-          \mkbibdateapalongextra{#1year}{#1yeardivision}{}{#1day}%
-          \ifboolexpr{ test  {\iffieldsequal{#1year}{#1endyear}}
-                       and test {\iffieldsequal{#1month}{#1endmonth}}}
-            {\iffieldundef{#1endday}
-               {}
-               {\bibdatedash%
-                \mkbibdateapalongextra{}{}{}{#1endday}}}%
+    \blx@metadateinfo{#1}%
+    \iffieldundef{#1year}{}
+      {\printtext[#1date]{%
+        \datecircaprint
+        \ifboolexpr{ test  {\iffieldsequal{#1year}{#1endyear}}
+                     and test {\iffieldsequal{#1month}{#1endmonth}}}
+          {\iffieldundef{#1endday}
+             {\mkbibdateapalongextra{#1year}{#1yeardivision}{#1month}{#1day}}
+             {\mkbibdateapalongextra{#1year}{#1yeardivision}{}{#1day}%
+              \bibdatedash%
+              \mkbibdateapalongextra{}{}{#1month}{#1endday}}}%
+          {\mkbibdateapalongextra{#1year}{#1yeardivision}{#1month}{#1day}}%
+        \dateeraprint{#1year}%
+        \dateuncertainprint%
+        \ifboolexpr{ not test {\iffieldundef{#1endyear}}
+                     and (not test {\iffieldsequal{#1year}{#1endyear}}
+                     or not test {\iffieldsequal{#1month}{#1endmonth}})}
+          {\bibdatedash
+           \iffieldequalstr{#1endyear}% open-ended range?
+             {}
+             {\bibstring{present}}}
+          {}%
+        \iffieldsequal{#1year}{#1endyear}
+          {\iffieldsequal{#1month}{#1endmonth}
             {}
-          \iffieldundef{#1month}
-            {}
-            {\mkbibdateapalongextra{}{}{#1month}{}
-             \dateeraprint{#1year}%
-             \dateuncertainprint}%
-          \ifboolexpr{ not test  {\iffieldsequal{#1year}{#1endyear}}
-                       or not test  {\iffieldsequal{#1month}{#1endmonth}}}
-           {\bibdatedash
-            \iffieldequalstr{#1endyear}% open-ended range?
-              {}
-              {\bibstring{present}}}
-           {}%
-         \iffieldsequal{#1year}{#1endyear}
-           {\iffieldsequal{#1month}{#1endmonth}
-              {}
-              {\mkbibdateapalongextra{}{}{#1endmonth}{#1endday}}}
-           {\mkbibdateapalongextra{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}}%
-         \dateeraprint{#1endyear}%
-         \enddateuncertainprint}%
-    \endgroup}}%
+            {\mkbibdateapalongextra{}{}{#1endmonth}{#1endday}}}
+         {\mkbibdateapalongextra{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}}%
+       \dateeraprint{#1endyear}%
+       \enddateuncertainprint}%
+  \endgroup}}%
   \renewcommand{\apashortdash}{~}%
   \def\urldatecomma{\addspace}%
   \protected\def\mkbibdateapalong#1#2#3#4{%
