@@ -1,5 +1,5 @@
 \documentclass[paper=a4]{article}
-\usepackage[american]{babel}
+\usepackage[ngerman,american]{babel}
 \usepackage{csquotes}
 \usepackage{shortvrb}
 \usepackage{ifthen}
@@ -1197,6 +1197,14 @@ addendum here: \url{https://apastyle.apa.org/style-grammar-guidelines/references
 
 \printbibliography[title={APA 11.9 References}]
 \end{refsection}
+\newpage
+\subsection{Misc tests}
+\begin{refsection}[../bibtex/bib/biblatex-apa-test-misc.bib]
+\begin{otherlanguage}{ngerman}
+  \nocite{datetest1,datetest2,datetest3,datetest4,datetest5,datetest6}
+  \printbibliography[title={German date tests}]
+\end{otherlanguage}
+\end{refsection}  
 
 \end{document}
 

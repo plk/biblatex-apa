@@ -177,6 +177,7 @@
          {\printtext{%
              \mkbibdateapalong{#1year}{#1yeardivision}{#1month}{#1day}%
              \dateeraprint{#1year}%
+             \dateuncertainprint
              \iffieldundef{#1endyear}%
                {}%
                {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -191,7 +192,7 @@
                         {\mkbibdateapalong{}{}{#1endmonth}{#1endday}}}%
                       {\mkbibdateapalong{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}%
                         \dateeraprint{#1endyear}}}
-                   {\addslash\mkbibdateapalongmdy{}{#1endyeardivision}{}{}}}%
+                   {\addslash\mkbibdateapalong{}{#1endyeardivision}{}{}}}%
                \enddateuncertainprint}}}}%
   \endgroup}
 
