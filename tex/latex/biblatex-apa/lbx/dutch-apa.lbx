@@ -120,7 +120,7 @@
   page             = {{Pagina}{{}p\adddot}},
   pages            = {{Pagina's}{{}pp\adddot}},
   on               = {{op}{op}},
-  retrieved        = {{verkregen}{verkregen}},
+  retrieved        = {{geraadpleegd\space op}{geraadpleegd \space op}},
   available        = {{beschikbaar}{beschikbaar}},
   from             = {{van}{van}},
   archivedat       = {{gearchiveerd\space onder}{gearchiveerd\space onder}},
@@ -177,13 +177,13 @@
       {\iffieldundef{#1}%
         {}%
         {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#4}}}%
+       \stripzeros{\thefield{#4}}}%
     \iffieldundef{#3}% MONTH
       {}%
       {\iffieldundef{#3}%
         {}%
         {\addspace}%
-       \stripzeros{\thefield{#3}}}}%
+       \mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -205,13 +205,13 @@
       {\iffieldundef{#1}%
         {}%
         {\addcomma\addspace}%
-       \mkbibmonth{\thefield{#4}}}%
+       \stripzeros{\thefield{#4}}}%
     \iffieldundef{#3}% MONTH
       {}%
       {\iffieldundef{#3}%
         {}%
         {\addspace}%
-       \stripzeros{\thefield{#3}}}}%
+       \mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -225,13 +225,13 @@
         {}%
         {\addcomma\addspace}%
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
-    \iffieldundef{#3}% MONTH
-      {}%
-      {\mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#4}% DAY
       {}%
+      {\stripzeros{\thefield{#4}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
       {\addspace}%
-       \stripzeros{\thefield{#4}}%
+       \mkbibmonth{\thefield{#3}}%
     \iffieldundef{#1}% YEAR
       {}%
       {\iffieldundef{#4}%
