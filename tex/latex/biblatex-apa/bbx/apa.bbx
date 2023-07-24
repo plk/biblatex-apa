@@ -806,9 +806,11 @@
     \setunit*{\addcomma\addspace}%
     \ifentrytype{inbook}{\printfield{pages}}{}%
     \setunit*{\addcomma\addspace}%
-    \ifthenelse{\ifentrytype{book}\OR\ifentrytype{inbook}}{\printfield{volumes}}{}%
-    \setunit*{\addcomma\addspace}%
-    \ifthenelse{\ifentrytype{book}\OR\ifentrytype{inbook}}{\printfield{volume}}{}}}
+    \iffieldundef{maintitle}
+      {\ifthenelse{\ifentrytype{book}\OR\ifentrytype{inbook}}{\printfield{volumes}}{}%
+       \setunit*{\addcomma\addspace}%
+       \ifthenelse{\ifentrytype{book}\OR\ifentrytype{inbook}}{\printfield{volume}}{}}
+      {}}}
 
 % Additional post title information in brackets unless it's the meta subtype "nonacademic"
 % which is used to conditionalise date formats in the .lbx files
