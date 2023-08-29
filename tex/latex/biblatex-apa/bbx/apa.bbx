@@ -543,16 +543,28 @@
 \DeclareFieldFormat*{part}{#1}
 
 % ORGANIZATION
-\DeclareListFormat[misc]{organization}{\mkbibemph{#1}}
+\DeclareListFormat[misc]{organization}{%
+  \usebibmacro{organization:delim}%
+  \mkbibemph{#1}\isdot}
+
+\newbibmacro*{organization:delim}{%
+  \ifnumgreater{\value{listcount}}{\value{liststart}}
+    {\printdelim[misc]{multilistdelim}}
+    {}}
+
+\DeclareDelimFormat[organization]{multilistdelim}{\addcomma\space}
+
 
 % LOCATION
-\DeclareListFormat[periodical]{location}{\mkbibemph{#1}}
 \DeclareListFormat{publisher}{%
-  \usebibmacro{publisher:delim}{#1}%
+  \usebibmacro{publisher:delim}%
   #1\isdot}
 \DeclareListFormat{location}{%
-  \usebibmacro{location:delim}{#1}%
+  \usebibmacro{location:delim}%
   #1\isdot}
+\DeclareListFormat[periodical]{location}{%
+  \usebibmacro{location:delim}%
+  \mkbibemph{#1}\isdot}
 
 % NAMEADDON
 \DeclareFieldFormat[misc]{nameaddon}{\mkbibparens{#1}}
@@ -1144,6 +1156,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Special journal issues are periodicals
 
+\newbibmacro*{periodical:delim}{%
+  \ifnumgreater{\value{listcount}}{\value{liststart}}
+    {\printdelim[periodical]{multilistdelim}}
+    {}}
+ 
 \renewbibmacro*{periodical}{%
   \iffieldundef{title}
     {}
@@ -1261,7 +1278,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 10.2.24) Multiple publishers, semi-colon sep
 
-\newbibmacro*{publisher:delim}[1]{%
+\newbibmacro*{publisher:delim}{%
   \ifnumgreater{\value{listcount}}{\value{liststart}}
     {\printdelim[publisher]{multilistdelim}}
     {}}
@@ -1515,7 +1532,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 11.6) Legislative Material and Admin Material
 
-\newbibmacro*{location:delim}[1]{%
+\newbibmacro*{location:delim}{%
   \ifnumgreater{\value{listcount}}{\value{liststart}}
     {\printdelim[location]{multilistdelim}}
     {}}
