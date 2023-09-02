@@ -155,6 +155,7 @@
 % You must use \printdate to get here otherwise it will be ignored
 
 \DeclareBibliographyExtras{%
+  \def\finalandcomma{\addcomma}%
   \def\urldatecomma{\addcomma\addspace}%
   \protected\def\mkbibdateapalong#1#2#3#4{%
     % As per 10.1, Articles only have year
