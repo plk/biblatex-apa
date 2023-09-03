@@ -1349,7 +1349,9 @@
 
 \newbibmacro*{mainaudio}{%
   \iffieldundef{maintitle}{}
-    {\iffieldequalstr{entrysubtype}{podcastepisode}{\bibcpstring{in}}{\bibcpstring{on}}%
+    {\ifthenelse{\iffieldequalstr{entrysubtype}{podcastepisode}\OR\iffieldequalstr{entrysubtype}{videopodcastepisode}}
+       {\bibcpstring{in}}
+       {\bibcpstring{on}}%
      \setunit{\addspace}%
      \printfield{maintitle}}}
 
