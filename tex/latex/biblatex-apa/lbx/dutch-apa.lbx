@@ -155,6 +155,38 @@
 % You must use \printdate to get here otherwise it will be ignored
 
 \DeclareBibliographyExtras{%
+  \renewcommand*{\mkdaterangeapalongextra}[1]{%
+    \begingroup
+    \blx@metadateinfo{#1}%
+    \iffieldundef{#1year}{}
+      {\printtext[#1date]{%
+        \datecircaprint
+        \ifboolexpr{ test  {\iffieldsequal{#1year}{#1endyear}}
+                     and test {\iffieldsequal{#1month}{#1endmonth}}}
+          {\iffieldundef{#1endday}
+             {\mkbibdateapalongextra{#1year}{#1yeardivision}{#1month}{#1day}}
+             {\mkbibdateapalongextra{#1year}{#1yeardivision}{}{#1day}%
+              \bibdatedash%
+              \mkbibdateapalongextra{}{}{#1month}{#1endday}}}%
+          {\mkbibdateapalongextra{#1year}{#1yeardivision}{#1month}{#1day}}%
+        \dateeraprint{#1year}%
+        \dateuncertainprint%
+        \ifboolexpr{ not test {\iffieldundef{#1endyear}}
+                     and (not test {\iffieldsequal{#1year}{#1endyear}}
+                     or not test {\iffieldsequal{#1month}{#1endmonth}})}
+          {\bibdatedash
+           \iffieldequalstr{#1endyear}% open-ended range?
+             {}
+             {\bibstring{present}}}
+          {}%
+        \iffieldsequal{#1year}{#1endyear}
+          {\iffieldsequal{#1month}{#1endmonth}
+            {}
+            {\mkbibdateapalongextra{}{}{#1endmonth}{#1endday}}}
+         {\mkbibdateapalongextra{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}}%
+       \dateeraprint{#1endyear}%
+       \enddateuncertainprint}%
+  \endgroup}}%
   \def\finalandcomma{\addcomma}%
   \def\urldatecomma{\addcomma\addspace}%
   \protected\def\mkbibdateapalong#1#2#3#4{%
@@ -166,7 +198,10 @@
       {}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}%
+       \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
+         {}
+         {\addcomma\space}}%
     \iffieldundef{#2}% YEARDIVISION
       {}%
       {\iffieldundef{#1}%
@@ -175,16 +210,13 @@
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\iffieldundef{#3}%
-        {}%
-        {\addcomma\addspace}%
-        \stripzeros{\thefield{#4}}}%
+      {\thefield{#4}%
+       \iffieldundef{#3}
+         {}
+         {\addspace}}%
     \iffieldundef{#3}% MONTH
       {}%
-      {\iffieldundef{#1}%
-        {}%
-        {\addspace}%
-       \mkbibmonth{\thefield{#3}}}}%
+      {\mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -194,7 +226,10 @@
       {}%
     \iffieldundef{#1}% YEAR
       {}%
-      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}%
+       \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
+         {}
+         {\addcomma\space}}%
     \iffieldundef{#2}% YEARDIVISION
       {}%
       {\iffieldundef{#1}%
@@ -203,16 +238,13 @@
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\iffieldundef{#3}%
-        {}%
-        {\addcomma\addspace}%
-        \stripzeros{\thefield{#4}}}%
-     \iffieldundef{#3}% MONTH
+      {\thefield{#4}%
+       \iffieldundef{#3}
+         {}
+         {\addspace}}%
+    \iffieldundef{#3}% MONTH
       {}%
-      {\iffieldundef{#1}%
-        {}%
-        {\addspace}%
-       \mkbibmonth{\thefield{#3}}}}%
+      {\mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
@@ -226,21 +258,21 @@
         {}%
         {\addcomma\addspace}%
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
-    \iffieldundef{#3}% MONTH
-      {}%
-      {\mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\addspace}%
-       \stripzeros{\thefield{#4}}%
-    \iffieldundef{#1}% YEAR
+      {\thefield{#4}}%
+    \iffieldundef{#3}% MONTH
       {}%
       {\iffieldundef{#4}%
-        {\iffieldundef{#3}%
-          {}%
-          {\addspace}}%
-        {\addcomma\addspace}%
-       \iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}}}
+        {}%
+        {\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\thefield{#1}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
