@@ -165,7 +165,7 @@
 \DeclareBibliographyExtras{%
   \renewrobustcmd*{\bibdatesep}{\adddot}%
   \def\urldatecomma{\addspace}%
-    \protected\def\mkbibdateapalong#1#2#3#4{%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ test {\ifentrytype{article}}
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
