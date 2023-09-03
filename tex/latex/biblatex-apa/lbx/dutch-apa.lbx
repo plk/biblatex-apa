@@ -176,7 +176,11 @@
           {\mkbibdateapalongextra{#1year}{#1yeardivision}{#1month}{#1day}}%
         \dateeraprint{#1year}%
         \dateuncertainprint%
-        \ifboolexpr{ test {\iffieldundef{#1endyeardivision}}
+        \iffieldundef{#1endyear}%
+          {}
+          {\iffieldequalstr{#1endyear}{}% open-ended range?
+            {\bibdatedash\bibstring{present}}
+            {\ifboolexpr{ test {\iffieldundef{#1endyeardivision}}
                      not test {\iffieldundef{#1endyear}}
                      and (not test {\iffieldsequal{#1year}{#1endyear}}
                      or not test {\iffieldsequal{#1month}{#1endmonth}})}
@@ -191,7 +195,7 @@
               \dateeraprint{#1endyear}}}
           {\iffieldundef{#1endyeardivision}
             {}
-            {\addslash\mkbibdateapalongmdy{}{#1endyeardivision}{}{}}}%
+            {\addslash\mkbibdateapalongmdy{}{#1endyeardivision}{}{}}}}}%
        \enddateuncertainprint}}%
   \endgroup}%
 
