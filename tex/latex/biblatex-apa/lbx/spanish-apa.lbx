@@ -170,7 +170,8 @@
   \def\urldatecomma{\addcomma\addspace}%
   \protected\def\mkbibdateapalong#1#2#3#4{%
     % As per 10.1, Articles only have year
-    \ifboolexpr{ test {\ifentrytype{article}}
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
@@ -198,7 +199,8 @@
       {\mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongextra#1#2#3#4{%
     % As per 10.1, Articles only have year
-    \ifboolexpr{ test {\ifentrytype{article}}
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
@@ -226,7 +228,8 @@
       {\mkbibmonth{\thefield{#3}}}}%
   \protected\def\mkbibdateapalongmdy#1#2#3#4{%
     % As per 10.1, Articles only have year
-    \ifboolexpr{ test {\ifentrytype{article}}
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
                  and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
       {\clearfield{labelmonth}%
        \clearfield{labelday}}
