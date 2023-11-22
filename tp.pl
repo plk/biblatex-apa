@@ -1,4 +1,4 @@
-#!/opt/local/bin/perl
+#!/opt/homebrew/bin/perl
 
 use Test::More;
 use Test::Deep;
