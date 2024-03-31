@@ -1310,11 +1310,17 @@
 % (APA 10.1 Example 18) Comment on article
 
 \newcommand*{\begrelateddelimcommenton}{\addspace}
-\DeclareFieldFormat{related:commenton}{\def\bibstring{\blx@imc@bibcpstring}\mkbibbrackets{#1}}
+\DeclareFieldFormat{related:commenton}{\mkbibbrackets{\bibsentence #1}}
 
 \newbibmacro*{related:commenton}[1]{%
   \entrydata*{#1}{%
-    \printtext{\mkbibquote{\printfield[apacase]{title}}}}}
+    \iffieldundef{savedrelatedstring}{%
+      \iffieldundef{entrysubtype}{%
+        \ifbibxstring{\strfield{entrytype}comment}{%
+          \bibstring[\mkrelatedstringtext]{\strfield{entrytype}comment}}{}}{%
+        \ifbibxstring{\strfield{entrysubtype}comment}{%
+          \bibstring[\mkrelatedstringtext]{\strfield{entrysubtype}comment}}{}}}{}
+    \printtext[citetitle]{\printfield[apacase]{title}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
