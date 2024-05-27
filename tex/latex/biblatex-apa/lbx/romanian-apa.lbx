@@ -1,0 +1,265 @@
+\ProvidesFile{romanian-apa.lbx}[2024/05/26\space v9.17\space APA biblatex localisation]
+\InheritBibliographyExtras{romanian}
+
+\setcounter{smartand}{0} % Turn off "smart and" or ampersands will all be replaced
+
+\NewBibliographyString{publication}
+\NewBibliographyString{jourarticle}
+\NewBibliographyString{revisededition}
+\NewBibliographyString{chair}
+\NewBibliographyString{chairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{with}
+\NewBibliographyString{supplement}
+\NewBibliographyString{commenton}
+\NewBibliographyString{manunpub}
+\NewBibliographyString{maninprep}
+\NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
+\NewBibliographyString{song}
+\NewBibliographyString{album}
+\NewBibliographyString{podcast}
+\NewBibliographyString{podcastepisode}
+\NewBibliographyString{interview}
+\NewBibliographyString{speech}
+\NewBibliographyString{lithograph}
+\NewBibliographyString{map}
+\NewBibliographyString{lecturenotes}
+\NewBibliographyString{powerpoint}
+\NewBibliographyString{photograph}
+\NewBibliographyString{photographs}
+\NewBibliographyString{present}
+\NewBibliographyString{painting}
+\NewBibliographyString{article}
+\NewBibliographyString{unitednations}
+\NewBibliographyString{charter}
+\NewBibliographyString{ofthe}
+\NewBibliographyString{tothe}
+
+\DeclareBibliographyStrings{%
+  inherit          = {romanian},
+  jourarticle      = {{articol}{articol}},
+  tothe            = {{la\space la}{la\space la}},%FIXME
+  ofthe            = {{a\space la}{a\space la}},%FIXME
+  unitednations    = {{Organizația\space Națiunilor\space Unite}{ONU}},
+  charter          = {{cartă}{cartă}},
+  article          = {{articol}{art\adddot}},
+  painting         = {{pictură}{pictură}},
+  present          = {{prezent}{prezent}},
+  song             = {{cântec}{cântec}},
+  album            = {{album}{album}},
+  map              = {{hartă}{hartă}},
+  photograph       = {{fotografie}{fotografie}},
+  photographs      = {{fotografii}{fotografii}},
+  powerpoint       = {{diapozitive\space PowerPoint}{diapozitive\space PowerPoint}},
+  lecturenotes     = {{note\space de\space curs}{note\space de\space curs}},
+  podcast          = {{podcast\space audio}{podcast\space audio}},
+  podcastepisode   = {{episod\space de\space podcast\space audio}{episod\space de\space podcast\space audio}},
+  interview        = {{interviu}{interviu}},
+  speech           = {{înregistrare\space audio}{înregistrare\space audio}},
+  lithograph       = {{litografie}{litogr\adddot}},
+  video            = {{video}{video}},
+  film             = {{film}{film}},
+  tvseries         = {{serial\space TV}{serial\space TV}},
+  tvepisode        = {{episod\space de\space serial\space TV}{episod\space de\space serial\space TV}},
+  narrator         = {{narator}{nar\adddot}},
+  narrators        = {{naratori}{nar\adddot}},
+  producer         = {{producător}{producător}},
+  producers        = {{producători}{producători}},
+  execproducer     = {{producător\space executiv}{prod\adddot\space ejec\adddot}},
+  execproducers    = {{producători\space executivi}{prods\adddot\space ejec\adddot}},
+  execdirector     = {{director\space executiv}{dirs\adddot\space ejec\adddot}},
+  execdirectors    = {{directori\space executivi}{dirs\adddot\space ejec\adddot}},
+  director         = {{director}{dir\adddot}},
+  directors        = {{directori}{dirs\adddot}},
+  writer           = {{scriitor}{scriitor}},
+  writers          = {{scriitori}{scriitori}},
+  host             = {{prezentator}{prezentator}},
+  hosts            = {{prezentatori}{prezentatori}},
+  guestexpert      = {{expert\space invitat}{expert\space invitat}},
+  guestexperts     = {{experți\space invitați}{experți\space invitați}},
+  with             = {{cu}{cu}},
+  manunpub         = {{manuscris\space nepublicat}{manuscris\space nepublicat}},
+  maninprep        = {{manuscris\space în\space pregătire}{manuscris\space în\space pregătire}},
+  mansub           = {{manuscris\space trimis\space pentru\space publicare}{manuscris\space trimis\space pentru\space publicare}},
+  supplement       = {{supliment}{supl\adddot}},
+  part             = {{parte}{parte}},
+  january          = {{ianuarie}{ianuarie}},
+  february         = {{februarie}{februarie}},
+  march            = {{martie}{martie}},
+  april            = {{aprilie}{aprilie}},
+  may              = {{mai}{mai}},
+  june             = {{iunie}{iunie}},
+  july             = {{iulie}{iulie}},
+  august           = {{august}{august}},
+  september        = {{septembrie}{septembrie}},
+  october          = {{octombrie}{octombrie}},
+  november         = {{noiembrie}{noiembrie}},
+  december         = {{decembrie}{decembrie}},
+  nodate           = {{f\adddot\space a\adddot}{f\adddot\space a\adddot}},
+  mathesis         = {{Teză\addabbrvspace de\addabbrvspace masterat}{Teză\addabbrvspace de\addabbrvspace masterat}},
+  phdthesis        = {{Teză\addabbrvspace doctorală}{Teză\addabbrvspace doctorală}},
+  revisededition   = {{Ediție\space revizuită}{Ediție\space revizuită}},
+  commenton        = {{comentariu\space pe}{comentariu\space pe}},
+  page             = {{Pagină}{pag\adddot}},
+  pages            = {{Pagini}{pp\adddot}},
+  on               = {{pe}{pe}},
+  retrieved        = {{Consultat}{Consultat}},
+  available        = {{disponibil}{disponibil}},
+  from             = {{de\space la}{de\space la}},
+  archivedat       = {{arhivat\space la}{arhivat\space la}},
+  reviewof         = {{recenzie\space a}{recenzie\space a}},
+  paragraph        = {{paragraf}{par\adddot}},
+  paragraphs       = {{paragrafe}{pars\adddot}},
+  origyear         = {{Data\space inițială\space a\space publicării}{Data\space inițială\space a\space publicării}},
+  chair            = {{Coordonator}{Coord\adddot}},
+  chairs           = {{Coordonatori}{Coords\adddot}},
+  typevolume       = {{Editor\space al\space volumului}{Ed\adddot\space vol\adddot}},
+  typevolumes      = {{Editorii\space volumului}{Eds\adddot\space vol\adddot}},
+  typeseries       = {{Editor\space al\space seriei}{Ed\adddot\space ser\adddot}},
+  typeseriess      = {{Editorii\space seriei}{Eds\adddot\space ser\adddot}},
+  typevolseries    = {{Editor\space al\space seriei\space și\space al\space volumului}{Ed\adddot\space vol\space\&\space ser\adddot}},
+  typevolseriess   = {{Editorii\space seriei\space și\space al\space volumului}{Eds\adddot\space vol\space\&\space ser\adddot}},
+  annodomini       = {{d.Hr.}{d.Hr.}},
+  beforechrist     = {{î.Hr.}{î.Hr.}},
+  commonera        = {{e.n.}{e.n.}},
+  beforecommonera  = {{î.e.n.}{î.e.n.}},
+  publication      = {{Publicație}{Publicație}}
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Drop end* when they are the same as *
+% You must use \printdate to get here otherwise it will be ignored
+
+\DeclareBibliographyExtras{%
+  \def\urldatecomma{\addcomma\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}%
+       \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
+         {}
+         {\addcomma\space}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\stripzeros{\thefield{#4}}%
+       \iffieldundef{#3}
+         {}
+         {\addspace de\space}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}%
+       \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
+         {}
+         {\addcomma\space}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\stripzeros{\thefield{#4}}%
+       \iffieldundef{#3}
+         {}
+         {\addspace de\space}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {el\addspace\stripzeros{\thefield{#4}}}%
+    \iffieldundef{#3}% MONTH
+      {\addspace{en}\addspace}%
+      {\iffieldundef{#4}%
+        {en\addspace}%
+        {\addspace{de}\addspace}%
+       \mkbibmonth{\thefield{#3}}{\addspace{de}\addspace}}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldundef{#2}%
+        {}%
+        {\addspace}%
+       \iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+\UndeclareBibliographyExtras{%
+  \restorecommand\mkdaterangeapalong
+  \restorecommand\mkdaterangeapalongextra
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
