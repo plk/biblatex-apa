@@ -1,0 +1,249 @@
+\ProvidesFile{english-apa.lbx}[2023/03/20\space v9.17\space APA biblatex localisation]
+\InheritBibliographyExtras{english}
+
+\NewBibliographyString{publication}
+\NewBibliographyString{jourarticle}
+\NewBibliographyString{revisededition}
+\NewBibliographyString{chair}
+\NewBibliographyString{chairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{with}
+\NewBibliographyString{supplement}
+\NewBibliographyString{commenton}
+\NewBibliographyString{manunpub}
+\NewBibliographyString{maninprep}
+\NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
+\NewBibliographyString{song}
+\NewBibliographyString{album}
+\NewBibliographyString{podcast}
+\NewBibliographyString{podcastepisode}
+\NewBibliographyString{interview}
+\NewBibliographyString{speech}
+\NewBibliographyString{lithograph}
+\NewBibliographyString{map}
+\NewBibliographyString{lecturenotes}
+\NewBibliographyString{powerpoint}
+\NewBibliographyString{photograph}
+\NewBibliographyString{photographs}
+\NewBibliographyString{present}
+\NewBibliographyString{painting}
+\NewBibliographyString{article}
+\NewBibliographyString{unitednations}
+\NewBibliographyString{charter}
+\NewBibliographyString{ofthe}
+\NewBibliographyString{tothe}
+
+\DeclareBibliographyStrings{%
+  inherit          = {american},
+  jourarticle      = {{article}{article}},
+  tothe            = {{to\space the}{to\space the}},
+  ofthe            = {{of\space the}{of\space the}},
+  unitednations    = {{United\space Nations}{U\adddot N\adddot}},
+  charter          = {{charter}{charter}},
+  article          = {{article}{art\adddot}},
+  painting         = {{painting}{painting}},
+  present          = {{present}{present}},
+  song             = {{song}{song}},
+  album            = {{album}{album}},
+  map              = {{map}{map}},
+  photograph       = {{photograph}{photograph}},
+  photographs      = {{photographs}{photographs}},
+  powerpoint       = {{Powerpoint\space slides}{Powerpoint\space slides}},
+  lecturenotes     = {{lecturenotes}{lecturenotes}},
+  podcast          = {{audio\space podcast}{audio\space podcast}},
+  podcastepisode   = {{audio\space podcast\space episode}{audio\space podcast\space episode}},
+  interview        = {{interview}{interview}},
+  speech           = {{speech\space audio\space recording}{speech\space audio\space recording}},
+  lithograph       = {{lithograph}{lith\adddot}},
+  video            = {{video}{video}},
+  film             = {{film}{film}},
+  tvseries         = {{TV\space series}{TV\space series}},
+  tvepisode        = {{TV\space series\space episode}{TV\space series\space episode}},
+  narrator         = {{narrator}{narr\adddot}},
+  narrators        = {{narrators}{narrs\adddot}},
+  producer         = {{producer}{producer}},
+  producers        = {{producers}{producers}},
+  execproducer     = {{Executive\space Producer}{Exec\adddot\space Prod\adddot}},
+  execproducers    = {{Executive\space Producers}{Exec\adddot\space Prods\adddot}},
+  execdirector     = {{Executive\space Director}{Exec\adddot\space Dir\adddot}},
+  execdirectors    = {{Executive\space Directors}{Exec\adddot\space Dirs\adddot}},
+  director         = {{director}{dir\adddot}},
+  directors        = {{directors}{dirs\adddot}},
+  writer           = {{writer}{writer}},
+  writers          = {{writers}{writers}},
+  host             = {{host}{host}},
+  hosts            = {{hosts}{hosts}},
+  guestexpert      = {{Guest\space Expert}{Guest\space Expert}},
+  guestexperts     = {{Guest\space Experts}{Guest\space Experts}},
+  with             = {{with}{with}},
+  manunpub         = {{unpublished\space manuscript}{unpublished\space manuscript}},
+  maninprep        = {{manuscript\space in\space preparation}{manuscript\space in\space preparation}},
+  mansub           = {{manuscript\space submitted\space for\space publication}{manuscript\space submitted\space for\space publication}},
+  supplement       = {{supplement}{suppl\adddot}},
+  part             = {{part}{pt\adddot}},
+  revisededition   = {{Revised\space Edition}{rev\adddotspace ed\adddot}},
+  commenton        = {{comment\space on}{comment\space on}},
+  page             = {{Page}{{}p\adddot}},
+  pages            = {{Pages}{{}pp\adddot}},
+  on               = {{on}{on}},
+  retrieved        = {{retrieved}{retrieved}},
+  available        = {{available}{available}},
+  from             = {{from}{from}},
+  archivedat       = {{archived\space at}{archived\space at}},
+  reprintas        = {{reprinted as}{reprinted as}},
+  reprintfrom      = {{reprinted from}{reprinted from}},
+  reviewof         = {{review\space of}{review\space of}},
+  paragraph        = {{paragraph}{para\adddot}},
+  paragraphs       = {{paragraphs}{paras\adddot}},
+  mathesis         = {{Master's\addabbrvspace thesis}{Master's\addabbrvspace thesis}},
+  phdthesis        = {{Doctoral\addabbrvspace dissertation}{Doctoral\addabbrvspace dissertation}},
+  origyear         = {{original\space work\space published}{original\space work\space published}},
+  chair            = {{Chair}{Chair}},
+  chairs           = {{Chairs}{Chairs}},
+  typevolume       = {{Volume\space Editor}{Vol\adddotspace Ed\adddot}},
+  typevolumes      = {{Volume\space Editors}{Vol\adddotspace Eds\adddot}},
+  typeseries       = {{Series\space Editor}{Series\space Ed\adddot}},
+  typeseriess      = {{Series\space Editors}{Series\space Eds\adddot}},
+  typevolseries    = {{Series\space and\space Volume\space Editor}{Series\space\& Vol\adddotspace Ed\adddot}},
+  typevolseriess   = {{Series\space and\space Volume\space Editors}{Series\space\& Vol\adddotspace Eds\adddot}},
+  annodomini       = {{A\adddot D\adddot}{A\adddot D\adddot}},
+  beforechrist     = {{B\adddot C\adddot}{B\adddot C\adddot}},
+  commonera        = {{C\adddot E\adddot}{C\adddot E\adddot}},
+  beforecommonera  = {{B\adddot C\adddot E\adddot}{B\adddot C\adddot E\adddot}},
+  publication      = {{Publication}{Publication}}
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Drop end* when they are the same as *
+% You must use \print*date to get here otherwise it will be ignored
+
+\DeclareBibliographyExtras{%
+  \def\urldatecomma{\addcomma\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\addspace}%
+       \stripzeros{\thefield{#4}}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldundef{#4}%
+        {\iffieldundef{#3}%
+          {}%
+          {\addspace}}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
