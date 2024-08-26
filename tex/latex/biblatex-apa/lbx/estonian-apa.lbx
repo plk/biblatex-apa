@@ -1,8 +1,8 @@
 \ProvidesFile{estonian-apa.lbx}[2024/08/23\space v9.17\space APA biblatex localisation]
 \InheritBibliographyExtras{estonian}
 
-\NewBibliographyString{andothers}
-\NewBibliographyString{andmore}
+% Translated by @artjom3729
+
 \NewBibliographyString{publication}
 \NewBibliographyString{jourarticle}
 \NewBibliographyString{revisededition}
@@ -141,9 +141,7 @@
 \NewBibliographyString{wyoming}
 
 \DeclareBibliographyStrings{%
-  inherit          = {estonian},  
-  andothers        = {{ja teised}{jt\adddot}},
-  andmore          = {{ja teised}{jt\adddot}},
+  inherit          = {estonian},
   jourarticle      = {{artikkel}{artikkel}},
   tothe            = {{}{}},% doesn't exist in Estonian
   ofthe            = {{}{}},% doesn't exist in Estonian
@@ -181,10 +179,10 @@
   directors        = {{\lowercase{r}ežissöörid}{\lowercase{r}ežissöörid}},
   writer           = {{\lowercase{s}tsenarist}{\lowercase{s}tsenarist}},
   writers          = {{\lowercase{s}tsenaristid}{\lowercase{s}tsenaristid}},
-  host             = {{saatejuht}{saateejuht}},
-  hosts            = {{saatejuhid}{saatejuhid}},
-  guestexpert      = {{Külalisekspert}{Külalisekspert}},
-  guestexperts     = {{Külaliseksperdid}{Külaliseksperdid}},
+  host             = {{\lowercase{s}aatejuht}{\lowercase{s}aateejuht}},
+  hosts            = {{\lowercase{s}aatejuhid}{\lowercase{s}aatejuhid}},
+  guestexpert      = {{\lowercase{k}ülalisekspert}{\lowercase{k}ülalisekspert}},
+  guestexperts     = {{\lowercase{k}ülaliseksperdid}{\lowercase{k}ülaliseksperdid}},
   with             = {{koos}{koos}},
   manunpub         = {{avaldamata\space käsikiri}{avaldamata\space käsikiri}},
   maninprep        = {{käsikiri\space ettevalmistamisel}{käsikiri\space ettevalmistamisel}},
@@ -207,9 +205,9 @@
   paragraphs       = {{lõigud}{lõigud}},
   mathesis         = {{Magistritöö}{Magistritöö}},
   phdthesis        = {{Doktoritöö}{Doktoritöö}},
-  origyear         = {{algupärane\space teos\space avaldatud}{algupärane\space teos\space avaldatud}},
-  chair            = {{Esimees}{Esimees}},
-  chairs           = {{Esimehed}{Esimehed}},
+  origyear         = {{esmatrükitud}{esmatrükitud}},
+  chair            = {{\lowercase{e}simees}{\lowercase{e}simees}},
+  chairs           = {{\lowercase{e}simehed}{\lowercase{e}simehed}},
   typevolume       = {{Köide\space toimetaja}{Kd\space toim\adddot}},
   typevolumes      = {{Köide\space toimetajad}{Kd\space toim\adddot}},
   typeseries       = {{Sarja\space toimetaja}{Sr\space toim\adddot}},
@@ -228,16 +226,16 @@
   resolution       = {{\lowercase{o}tsus}{\lowercase{o}tsus}},
   us               = {{Ameerika Ühendriigid}{USA}},
   constitution     = {{\lowercase{k}onstitutsioon}{\lowercase{k}onst\adddot}},
-  amendment        = {{muudatus}{muud\adddot}},
+  amendment        = {{parandus}{parand}},
   typechair        = {{Esimees}{Esimees}},
   typechairs       = {{Esimehed}{Esimehed}},
   proposed         = {{kavandatav}{kavandatav}},
   repealed         = {{v\"alja j\"aetud}{v\"alja j\"aetud}},
   enacted          = {{vastu v\~oetud}{vastu v\~oetud}},
   nodate           = {{s\adddot a}{s\adddot a}},
-  volume           = {{\thefield{volume}\adddot\addspace\lowercase{k}\"oide}{\thefield{volume}\adddot\addspace\lowercase{k}d}},
-  volumes          = {{\thefield{volume}\adddot\addspace\lowercase{k}\"oited}{\thefield{volume}\adddot\addspace\lowercase{k}d\hyphen{}d}},
-  jourvol          = {{\thefield{volume}\adddot\addspace\lowercase{k}\"oide}{\thefield{volume}\adddot\addspace\lowercase{k}d}},
+  volume           = {{\lowercase{k}\"oide}{\lowercase{k}d}},
+  volumes          = {{\lowercase{k}\"oited}{\lowercase{k}d\hyphen{}d}},
+  jourvol          = {{\lowercase{k}\"oide}{\lowercase{k}d}},
   alabama       = {{Alabama}{{A\adddot L\adddot}}},
   alaska        = {{Alaska}{{A\adddot K\adddot}}},
   arizona       = {{Arizona}{{A\adddot Z\adddot}}},
