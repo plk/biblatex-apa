@@ -15,6 +15,7 @@
 \NewBibliographyString{typevolseries}
 \NewBibliographyString{typevolseriess}
 \NewBibliographyString{on}
+\NewBibliographyString{in}
 \NewBibliographyString{retrieved}
 \NewBibliographyString{available}
 \NewBibliographyString{from}
@@ -78,6 +79,12 @@
 \NewBibliographyString{typechairs}
 \NewBibliographyString{typechair}
 \NewBibliographyString{proposed}
+\NewBibliographyString{repealed}
+\NewBibliographyString{enacted}
+\NewBibliographyString{nodate}
+\NewBibliographyString{volume}
+\NewBibliographyString{volumes}
+\NewBibliographyString{jourvol}
 
 \NewBibliographyString{southcarolina}
 \NewBibliographyString{constitution}
@@ -140,8 +147,9 @@
   jourarticle      = {{artikkel}{artikkel}},
   tothe            = {{}{}},% doesn't exist in Estonian
   ofthe            = {{}{}},% doesn't exist in Estonian
+  in               = {{}{}},% doesn't exist in Estonian
   unitednations    = {{Ühinenud\space Rahvaste\space Organisatsioon}{\"{U}RO}},
-  charter          = {{tšarter}{tšarter}},
+  charter          = {{\lowercase{t}šarter}{\lowercase{t}šarter}},
   article          = {{artikkel}{art}},
   painting         = {{maal}{maal}},
   present          = {{kingitus}{kingitus}},
@@ -159,20 +167,20 @@
   lithograph       = {{litograafia}{lito}},
   video            = {{video}{video}},
   film             = {{film}{film}},
-  tvseries         = {{Telesaade}{Telesaade}},
-  tvepisode        = {{Telesaade\space episood}{Telesaade\space episood}},
-  narrator         = {{jutustaja}{jut}},
-  narrators        = {{jutustajad}{jut}},
-  producer         = {{produtsent}{produtsent}},
-  producers        = {{produtsendid}{produtsendid}},
-  execproducer     = {{tegevprodutsent}{tegevprod}},
-  execproducers    = {{tegevprodutsendid}{tegevprod}},
-  execdirector     = {{tegevjuht}{tegevjuht}},
-  execdirectors    = {{tegevjuhid}{tegevjuhid}},
-  director         = {{direktor}{dir}},
-  directors        = {{direktorid}{dir}},
-  writer           = {{kirjanik}{kirjanik}},
-  writers          = {{kirjanikud}{kirjanikud}},
+  tvseries         = {{Telesari}{Telesari}},
+  tvepisode        = {{Telesarja\space osa}{Telesarja\space osa}},
+  narrator         = {{\lowercase{j}utustaja}{\lowercase{}utustaja}},
+  narrators        = {{\lowercase{j}utustajad}{\lowercase{j}utustajad}},
+  producer         = {{\lowercase{p}rodutsent}{\lowercase{p}rodutsent}},
+  producers        = {{\lowercase{p}rodutsendid}{\lowercase{p}rodutsendid}},
+  execproducer     = {{\lowercase{p}rodutsent}{\lowercase{p}rodutsent}},
+  execproducers    = {{\lowercase{p}rodutsendid}{\lowercase{p}rodutsendid}},
+  execdirector     = {{\lowercase{r}ežissöör}{\lowercase{r}ežissöör}},
+  execdirectors    = {{\lowercase{r}ežissöörid}{\lowercase{r}ežissöörid}},
+  director         = {{\lowercase{r}ežissöör}{\lowercase{r}ežissöör}},
+  directors        = {{\lowercase{r}ežissöörid}{\lowercase{r}ežissöörid}},
+  writer           = {{\lowercase{s}tsenarist}{\lowercase{s}tsenarist}},
+  writers          = {{\lowercase{s}tsenaristid}{\lowercase{s}tsenaristid}},
   host             = {{saatejuht}{saateejuht}},
   hosts            = {{saatejuhid}{saatejuhid}},
   guestexpert      = {{Külalisekspert}{Külalisekspert}},
@@ -185,8 +193,8 @@
   part             = {{osa}{osa}},
   revisededition   = {{Läbivaadatud trükk}{Läbivaad trükk}},
   commenton        = {{kommentaar}{kommentaar}},
-  page             = {{Lehekülg}{{}lk}},
-  pages            = {{Leheküljed}{{}lk}},
+  page             = {{Lehekülg}{\lowercase{l}k}},
+  pages            = {{Leheküljed}{\lowercase{l}k\hyphen{}d}},
   on               = {{}{}},
   retrieved        = {{vaadatud}{vaadatud}},
   available        = {{kättesaadav}{kättesaadav}},
@@ -202,28 +210,34 @@
   origyear         = {{algupärane\space teos\space avaldatud}{algupärane\space teos\space avaldatud}},
   chair            = {{Esimees}{Esimees}},
   chairs           = {{Esimehed}{Esimehed}},
-  typevolume       = {{Köide\space toimetaja}{Kd\space toim}},
-  typevolumes      = {{Köide\space toimetajad}{Kd\space toim}},
-  typeseries       = {{Sarja\space toimetaja}{Sr\space toim}},
-  typeseriess      = {{Sarja\space toimetajad}{Sr\space toim}},
-  typevolseries    = {{Sarja\space ja\space köide\space toimetaja}{Sr\space ja kd\space toim}},
-  typevolseriess   = {{Sarja\space ja\space köide\space toimetajad}{Sr\space ja kd\space toim}},
+  typevolume       = {{Köide\space toimetaja}{Kd\space toim\adddot}},
+  typevolumes      = {{Köide\space toimetajad}{Kd\space toim\adddot}},
+  typeseries       = {{Sarja\space toimetaja}{Sr\space toim\adddot}},
+  typeseriess      = {{Sarja\space toimetajad}{Sr\space toim\adddot}},
+  typevolseries    = {{Sarja\space ja\space köide\space toimetaja}{Sr\space ja kd\space toim\adddot}},
+  typevolseriess   = {{Sarja\space ja\space köide\space toimetajad}{Sr\space ja kd\space toim\adddot}},
   annodomini       = {{pKr}{pKr}},
   beforechrist     = {{eKr}{eKr}},
   commonera        = {{m\adddot a\adddot j}{m\adddot a\adddot j}},
   beforecommonera  = {{e\adddot m\adddot a}{e\adddot m\adddot a}},
   publication      = {{Trükis}{Trükis}},
-  execorder        = {{Täitevkorraldus}{Täitevkor}},
-  houseofrepresentatives = {{Esindajatekoda}{EK}},
-  report           = {{aruanne}{aruanne}},
-  senate           = {{Senati}{Senati}},
-  resolution       = {{otsus}{otsus}},
+  execorder        = {{Täitevkorraldus}{Täitevkorraldus}},
+  houseofrepresentatives = {{Esindajatekoda}{Esindajatekoda}},
+  report           = {{\lowercase{a}ruanne}{\lowercase{a}ruanne}},
+  senate           = {{senati}{senati}},
+  resolution       = {{\lowercase{o}tsus}{\lowercase{o}tsus}},
   us               = {{Ameerika Ühendriigid}{USA}},
-  constitution     = {{konstitutsioon}{konstitusioon}},
-  amendment        = {{muudatus}{muudatus}},
+  constitution     = {{\lowercase{k}onstitutsioon}{\lowercase{k}onst\adddot}},
+  amendment        = {{muudatus}{muud\adddot}},
   typechair        = {{Esimees}{Esimees}},
   typechairs       = {{Esimehed}{Esimehed}},
   proposed         = {{kavandatav}{kavandatav}},
+  repealed         = {{v\"alja j\"aetud}{v\"alja j\"aetud}},
+  enacted          = {{vastu v\~oetud}{vastu v\~oetud}},
+  nodate           = {{s\adddot a}{s\adddot a}},
+  volume           = {{\thefield{volume}\adddot\addspace\lowercase{k}\"oide}{\thefield{volume}\adddot\addspace\lowercase{k}d}},
+  volumes          = {{\thefield{volume}\adddot\addspace\lowercase{k}\"oited}{\thefield{volume}\adddot\addspace\lowercase{k}d\hyphen{}d}},
+  jourvol          = {{\thefield{volume}\adddot\addspace\lowercase{k}\"oide}{\thefield{volume}\adddot\addspace\lowercase{k}d}},
   alabama       = {{Alabama}{{A\adddot L\adddot}}},
   alaska        = {{Alaska}{{A\adddot K\adddot}}},
   arizona       = {{Arizona}{{A\adddot Z\adddot}}},
@@ -282,6 +296,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Drop end* when they are the same as *
 % You must use \print*date to get here otherwise it will be ignored
+
+\DeclareFieldFormat[article,book,incollection,inproceedings]{volume+number+series}{%
+  \ifvolume{\thefield{volume}\adddot\addspace k\"oide}{}%
+  \iffieldsequal{volume}{number}{}{, \bibstring{number}~\printfield{number}}%
+  \iffieldundef{series}{}{\newunitpunct\printfield{series}}}
 
 \DeclareBibliographyExtras{%
   \renewcommand*{\mkdaterangeapalongextra}[1]{%
@@ -410,7 +429,6 @@
   \restorecommand\mkdaterangeapalong
   \restorecommand\mkdaterangeapalongextra
 }
-
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
