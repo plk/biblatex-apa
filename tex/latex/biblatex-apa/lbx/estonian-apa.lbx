@@ -1,0 +1,437 @@
+\ProvidesFile{estonian-apa.lbx}[2024/08/28\space v9.17\space APA biblatex localisation]
+\InheritBibliographyExtras{estonian}
+
+% Translated by @artjom3729
+% Sources used:
+% https://sonaveeb.ee/
+% https://dspace.ut.ee/server/api/core/bitstreams/1c55960d-9a7d-4280-938e-0c7e6339d36f/content
+% https://nerg.ee/wp-content/uploads/2024/03/nerg-upt-juhend-2023-2024.pdf
+% https://apastyle.apa.org/style-grammar-guidelines/references/examples
+% https://www.tlu.ee/sites/default/files/Instituudid/BFM/Dokumendid/APA%207%20viitamise%20juhend%20BFMile.pdf
+% https://www.ester.ee/
+
+\NewBibliographyString{publication}
+\NewBibliographyString{jourarticle}
+\NewBibliographyString{revisededition}
+\NewBibliographyString{chair}
+\NewBibliographyString{chairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{in}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{with}
+\NewBibliographyString{supplement}
+\NewBibliographyString{commenton}
+\NewBibliographyString{manunpub}
+\NewBibliographyString{maninprep}
+\NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
+\NewBibliographyString{song}
+\NewBibliographyString{album}
+\NewBibliographyString{podcast}
+\NewBibliographyString{podcastepisode}
+\NewBibliographyString{interview}
+\NewBibliographyString{speech}
+\NewBibliographyString{lithograph}
+\NewBibliographyString{map}
+\NewBibliographyString{lecturenotes}
+\NewBibliographyString{powerpoint}
+\NewBibliographyString{photograph}
+\NewBibliographyString{photographs}
+\NewBibliographyString{present}
+\NewBibliographyString{painting}
+\NewBibliographyString{article}
+\NewBibliographyString{unitednations}
+\NewBibliographyString{charter}
+\NewBibliographyString{ofthe}
+\NewBibliographyString{tothe}
+
+\NewBibliographyString{execorder}
+\NewBibliographyString{houseofrepresentatives}
+\NewBibliographyString{report}
+\NewBibliographyString{senate}
+\NewBibliographyString{resolution}
+\NewBibliographyString{us}
+\NewBibliographyString{constitution}
+\NewBibliographyString{amendment}
+\NewBibliographyString{typechairs}
+\NewBibliographyString{typechair}
+\NewBibliographyString{proposed}
+\NewBibliographyString{repealed}
+\NewBibliographyString{enacted}
+\NewBibliographyString{nodate}
+\NewBibliographyString{volume}
+\NewBibliographyString{volumes}
+\NewBibliographyString{jourvol}
+
+\NewBibliographyString{southcarolina}
+\NewBibliographyString{constitution}
+\NewBibliographyString{amendment}
+\NewBibliographyString{alabama}
+\NewBibliographyString{alaska}
+\NewBibliographyString{arizona}
+\NewBibliographyString{arkansas}
+\NewBibliographyString{california}
+\NewBibliographyString{colorado}
+\NewBibliographyString{connecticut}
+\NewBibliographyString{delaware}
+\NewBibliographyString{florida}
+\NewBibliographyString{georgia}
+\NewBibliographyString{hawaii}
+\NewBibliographyString{idaho}
+\NewBibliographyString{illinois}
+\NewBibliographyString{indiana}
+\NewBibliographyString{iowa}
+\NewBibliographyString{kansas}
+\NewBibliographyString{kentucky}
+\NewBibliographyString{louisiana}
+\NewBibliographyString{maine}
+\NewBibliographyString{maryland}
+\NewBibliographyString{massachusetts}
+\NewBibliographyString{michigan}
+\NewBibliographyString{minnesota}
+\NewBibliographyString{mississippi}
+\NewBibliographyString{missouri}
+\NewBibliographyString{montana}
+\NewBibliographyString{nebraska}
+\NewBibliographyString{nevada}
+\NewBibliographyString{newhampshire}
+\NewBibliographyString{newjersey}
+\NewBibliographyString{newmexico}
+\NewBibliographyString{newyork}
+\NewBibliographyString{northcarolina}
+\NewBibliographyString{northdakota}
+\NewBibliographyString{ohio}
+\NewBibliographyString{oklahoma}
+\NewBibliographyString{oregon}
+\NewBibliographyString{pennsylvania}
+\NewBibliographyString{rhodeisland}
+\NewBibliographyString{southcarolina}
+\NewBibliographyString{southdakota}
+\NewBibliographyString{tennessee}
+\NewBibliographyString{texas}
+\NewBibliographyString{utah}
+\NewBibliographyString{vermont}
+\NewBibliographyString{virginia}
+\NewBibliographyString{washington}
+\NewBibliographyString{westvirginia}
+\NewBibliographyString{wisconsin}
+\NewBibliographyString{wyoming}
+
+\DeclareBibliographyStrings{%
+  inherit          = {estonian},
+  jourarticle      = {{artikkel}{artikkel}},
+  tothe            = {{}{}},% doesn't exist in Estonian
+  ofthe            = {{}{}},% doesn't exist in Estonian
+  in               = {{}{}},% doesn't exist in Estonian
+  unitednations    = {{\"{U}hinenud Rahvaste Organisatsioon}{\"{U}RO}},
+  charter          = {{{}p\~{o}hikiri}{{}p\~{o}hikiri}},
+  article          = {{artikkel}{art}},
+  painting         = {{maal}{maal}},
+  present          = {{kingitus}{kingitus}},
+  song             = {{laul}{laul}},
+  album            = {{album}{album}},
+  map              = {{kaart}{kaart}},
+  photograph       = {{pilt}{pilt}},
+  photographs      = {{pildid}{pildid}},
+  powerpoint       = {{esitlus}{esitlus}},
+  lecturenotes     = {{loengu m\"{a}rkmed}{loengu m\"{a}rkmed}},
+  podcast          = {{taskuh\"{a}\"{a}ling}{taskuh\"{a}\"{a}ling}},
+  podcastepisode   = {{taskuh\"{a}\"{a}lingu jagu}{taskuh\"{a}\"{a}lingu jagu}},
+  interview        = {{intervjuu}{intervjuu}},
+  speech           = {{k\~{o}ne}{k\~{o}ne}},
+  lithograph       = {{litograafia}{lito}},
+  video            = {{video}{video}},
+  film             = {{film}{film}},
+  tvseries         = {{telesari}{telesari}},
+  tvepisode        = {{telesarja jagu}{telesarja jagu}},
+  narrator         = {{{}jutustaja}{{}jutustaja}},
+  narrators        = {{{}jutustajad}{{}jutustajad}},
+  producer         = {{{}produtsent}{{}produtsent}},
+  producers        = {{{}produtsendid}{{}produtsendid}},
+  execproducer     = {{{}produtsent}{{}produtsent}},
+  execproducers    = {{{}produtsendid}{{}produtsendid}},
+  execdirector     = {{{}režiss\"{o}\"{o}r}{{}režiss\"{o}\"{o}r}},
+  execdirectors    = {{{}režiss\"{o}\"{o}rid}{{}režiss\"{o}\"{o}rid}},
+  director         = {{{}režiss\"{o}\"{o}r}{{}režiss\"{o}\"{o}r}},
+  directors        = {{{}režiss\"{o}\"{o}rid}{{}režiss\"{o}\"{o}rid}},
+  writer           = {{{}stsenarist}{{}stsenarist}},
+  writers          = {{{}stsenaristid}{{}stsenaristid}},
+  host             = {{{}saatejuht}{{}saateejuht}},
+  hosts            = {{{}saatejuhid}{{}saatejuhid}},
+  guestexpert      = {{{}k\"{u}lalisekspert}{{}k\"{u}lalisekspert}},
+  guestexperts     = {{{}k\"{u}laliseksperdid}{{}k\"{u}laliseksperdid}},
+  with             = {{koos}{koos}},
+  manunpub         = {{avaldamata k\"{a}sikiri}{avaldamata k\"{a}sikiri}},
+  maninprep        = {{k\"{a}sikiri ettevalmistamisel}{k\"{a}sikiri ettevalmistamisel}},
+  mansub           = {{avaldamiseks esitatud k\"{a}sikiri}{avaldamiseks esitatud k\"{a}sikiri}},
+  supplement       = {{kaasanne}{kaasanne}},
+  part             = {{osa}{osa}},
+  revisededition   = {{l\"{a}bivaadatud tr\"{u}kk}{l\"{a}bivaad tr\"{u}kk}},
+  commenton        = {{kommentaar}{kommentaar}},
+  page             = {{lehek\"{u}lg}{{}lk}},
+  pages            = {{lehek\"{u}ljed}{{}lk\hyphen{}d}},
+  on               = {{}{}},% doesn't exist in Estonian
+  retrieved        = {{vaadatud}{vaadatud}},
+  available        = {{k\"{a}ttesaadav}{k\"{a}ttesaadav}},
+  from             = {{}{}},
+  archivedat       = {{arhiveeritud}{arhiveeritud}},
+  reprintas        = {{kordustr\"{u}kitud kui}{kordustr\"{u}kitud kui}},
+  reprintfrom      = {{kordustr\"{u}kitud}{kordustr\"{u}kitud}},
+  reviewof         = {{arvustus}{arvustus}},
+  paragraph        = {{l\~{o}ik}{l\~{o}ik}},
+  paragraphs       = {{l\~{o}igud}{l\~{o}igud}},
+  mathesis         = {{Magistrit\"{o}\"{o}}{Magistrit\"{o}\"{o}}},
+  phdthesis        = {{Doktorit\"{o}\"{o}}{Doktorit\"{o}\"{o}}},
+  origyear         = {{esmatr\"{u}kitud}{esmatr\"{u}kitud}},
+  chair            = {{\lowercase{e}simees}{\lowercase{e}simees}},
+  chairs           = {{\lowercase{e}simehed}{\lowercase{e}simehed}},
+  typevolume       = {{K\"{o}ide toimetaja}{Kd toim\adddot}},
+  typevolumes      = {{K\"{o}ide toimetajad}{Kd toim\adddot}},
+  typeseries       = {{Sarja toimetaja}{Sr toim\adddot}},
+  typeseriess      = {{Sarja toimetajad}{Sr toim\adddot}},
+  typevolseries    = {{Sarja ja k\"{o}ide toimetaja}{Sr ja kd toim\adddot}},
+  typevolseriess   = {{Sarja ja k\"{o}ide toimetajad}{Srd ja kd toim\adddot}},
+  annodomini       = {{p\"{a}rast Kristust}{pKr}},
+  beforechrist     = {{enne Kristust}{eKr}},
+  commonera        = {{meie ajaarvamise j\"{a}rgi}{m\adddot a\adddot j}},
+  beforecommonera  = {{enne meie ajaarvamist}{e\adddot m\adddot a}},
+  publication      = {{publikatsioon}{publikatsioon}},
+  execorder        = {{T\"{a}itevkorraldus}{T\"{a}itevkorraldus}},
+  houseofrepresentatives = {{Esindajatekoda}{Esindajatekoda}},
+  report           = {{{}aruanne}{{}aruanne}},
+  senate           = {{senati}{senati}},
+  resolution       = {{{}otsus}{{}otsus}},
+  us               = {{Ameerika \"{U}hendriigid}{USA}},
+  constitution     = {{{}konstitutsioon}{{}konst\adddot}},
+  amendment        = {{parandus}{parand}},
+  typechair        = {{esimees}{esimees}},
+  typechairs       = {{esimehed}{esimehed}},
+  proposed         = {{kavandatav}{kavandatav}},
+  repealed         = {{v\"{a}lja j\"{a}etud}{v\"{a}lja j\"{a}etud}},
+  enacted          = {{vastu v\~{o}etud}{vastu v\~{o}etud}},
+  nodate           = {{s\adddot a}{s\adddot a}},
+  volume           = {{{}k\"{o}ide}{{}kd}},
+  volumes          = {{{}k\"{o}ited}{{}kdd}},
+  jourvol          = {{{}k\"{o}ide}{{}kd}},
+  % USA states
+  alabama       = {{Alabama}{{A\adddot L\adddot}}},
+  alaska        = {{Alaska}{{A\adddot K\adddot}}},
+  arizona       = {{Arizona}{{A\adddot Z\adddot}}},
+  arkansas      = {{Arkansas}{{A\adddot R\adddot}}},
+  california    = {{California}{{C\adddot A\adddot}}},
+  colorado      = {{Colorado}{{C\adddot O\adddot}}},
+  connecticut   = {{Connecticut}{{C\adddot T\adddot}}},
+  delaware      = {{Delaware}{{D\adddot E\adddot}}},
+  florida       = {{Florida}{{F\adddot L\adddot}}},
+  georgia       = {{Georgia}{{G\adddot A\adddot}}},
+  hawaii        = {{Hawaii}{{H\adddot I\adddot}}},
+  idaho         = {{Idaho}{{I\adddot D\adddot}}},
+  illinois      = {{Illinois}{{I\adddot L\adddot}}},
+  indiana       = {{Indiana}{{I\adddot N\adddot}}},
+  iowa          = {{Iowa}{{I\adddot A\adddot}}},
+  kansas        = {{Kansas}{{K\adddot S\adddot}}},
+  kentucky      = {{Kentucky}{{K\adddot Y\adddot}}},
+  louisiana     = {{Louisiana}{{L\adddot A\adddot}}},
+  maine         = {{Maine}{{M\adddot E\adddot}}},
+  maryland      = {{Maryland}{{M\adddot D\adddot}}},
+  massachusetts = {{Massachusetts}{{M\adddot A\adddot}}},
+  michigan      = {{Michigan}{{M\adddot I\adddot}}},
+  minnesota     = {{Minnesota}{{M\adddot N\adddot}}},
+  mississippi   = {{Mississippi}{{M\adddot S\adddot}}},
+  missouri      = {{Missouri}{{M\adddot O\adddot}}},
+  montana       = {{Montana}{{M\adddot T\adddot}}},
+  nebraska      = {{Nebraska}{{N\adddot E\adddot}}},
+  nevada        = {{Nevada}{{N\adddot V\adddot}}},
+  newhampshire  = {{New Hampshire}{{N\adddot H\adddot}}},
+  newjersey     = {{New Jersey}{{N\adddot J\adddot}}},
+  newmexico     = {{New Mexico}{{N\adddot M\adddot}}},
+  newyork       = {{New York}{{N\adddot Y\adddot}}},
+  northcarolina = {{North Carolina}{{N\adddot C\adddot}}},
+  northdakota   = {{North Dakota}{{N\adddot D\adddot}}},
+  ohio          = {{Ohio}{{O\adddot H\adddot}}},
+  oklahoma      = {{Oklahoma}{{O\adddot K\adddot}}},
+  oregon        = {{Oregon}{{O\adddot R\adddot}}},
+  pennsylvania  = {{Pennsylvania}{{P\adddot A\adddot}}},
+  rhodeisland   = {{Rhode Island}{{R\adddot I\adddot}}},
+  southcarolina = {{South Carolina}{{S\adddot C\adddot}}},
+  southdakota   = {{South Dakota}{{S\adddot D\adddot}}},
+  tennessee     = {{Tennessee}{{T\adddot N\adddot}}},
+  texas         = {{Texas}{{T\adddot X\adddot}}},
+  utah          = {{Utah}{{U\adddot T\adddot}}},
+  vermont       = {{Vermont}{{V\adddot T\adddot}}},
+  virginia      = {{Virginia}{{V\adddot A\adddot}}},
+  washington    = {{Washington}{{W\adddot A\adddot}}},
+  westvirginia  = {{West Virginia}{{W\adddot V\adddot}}},
+  wisconsin     = {{Wisconsin}{{W\adddot I\adddot}}},
+  wyoming       = {{Wyoming}{{W\adddot Y\adddot}}}
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Drop end* when they are the same as *
+% You must use \print*date to get here otherwise it will be ignored
+
+\DeclareBibliographyExtras{%
+  \renewcommand*{\mkdaterangeapalongextra}[1]{%
+    \begingroup
+    \blx@metadateinfo{#1}%
+    \iffieldundef{#1year}{}
+      {\printtext[#1date]{%
+        \datecircaprint
+        \ifboolexpr{ test  {\iffieldsequal{#1year}{#1endyear}}
+                     and test {\iffieldsequal{#1month}{#1endmonth}}}
+          {\iffieldundef{#1endday}
+             {\mkbibdateapalongextra{#1year}{#1yeardivision}{#1month}{#1day}}
+             {\mkbibdateapalongextra{#1year}{#1yeardivision}{}{#1day}%
+              \bibdatedash%
+              \mkbibdateapalongextra{}{}{#1month}{#1endday}}}%
+          {\mkbibdateapalongextra{#1year}{#1yeardivision}{#1month}{#1day}}%
+        \dateeraprint{#1year}%
+        \dateuncertainprint%
+        \ifboolexpr{ not test {\iffieldundef{#1endyear}}
+                     and (not test {\iffieldsequal{#1year}{#1endyear}}
+                     or not test {\iffieldsequal{#1month}{#1endmonth}})}
+          {\bibdatedash
+           \iffieldequalstr{#1endyear}% open-ended range?
+             {}
+             {\bibstring{present}}}
+          {}%
+        \iffieldsequal{#1year}{#1endyear}
+          {\iffieldsequal{#1month}{#1endmonth}
+            {}
+            {\mkbibdateapalongextra{}{}{#1endmonth}{#1endday}}}
+         {\mkbibdateapalongextra{#1endyear}{#1endyeardivision}{#1endmonth}{#1endday}}%
+       \dateeraprint{#1endyear}%
+       \enddateuncertainprint}%
+  \endgroup}}%
+\renewcommand{\apashortdash}{~}%
+  \def\urldatecomma{\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}%
+       \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
+         {}
+         {\addcomma\space}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\mkbibordinal{\thefield{#4}}%
+       \iffieldundef{#3}
+         {}
+         {\addspace}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}%
+       \ifboolexpr{test {\iffieldundef{#4}} and test {\iffieldundef{#3}}}
+         {}
+         {\addcomma\space}}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\mkbibordinal{\thefield{#4}}%
+       \iffieldundef{#3}
+         {}
+         {\addspace}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\mkbibmonth{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3#4{%
+    % As per 10.1, Articles only have year
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#2}% YEARDIVISION
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#4}% DAY
+      {}%
+      {\mkbibordinal{\thefield{#4}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\iffieldundef{#4}%
+        {}%
+        {\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#1}% YEAR
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+\UndeclareBibliographyExtras{%
+  \restorecommand\mkdaterangeapalong
+  \restorecommand\mkdaterangeapalongextra
+}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
