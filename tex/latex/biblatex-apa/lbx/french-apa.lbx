@@ -205,6 +205,7 @@
         {}%
         {\addspace}%
        \stripzeros{\thefield{#4}}}}%
+  % map mdy to dmy for french
   \protected\def\mkbibdateapalongmdy#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ (test {\ifentrytype{article}}
@@ -219,13 +220,13 @@
         {}%
         {\addcomma\addspace}%
        \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
-    \iffieldundef{#3}% MONTH
-      {}%
-      {\mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#4}% DAY
       {}%
-      {\addspace}%
-       \stripzeros{\thefield{#4}}%
+      {\stripzeros{\thefield{#4}}}%
+    \iffieldundef{#3}% MONTH
+      {}%
+      {\addspace
+       \mkbibmonth{\thefield{#3}}}%
     \iffieldundef{#1}% YEAR
       {}%
       {\iffieldundef{#4}%
