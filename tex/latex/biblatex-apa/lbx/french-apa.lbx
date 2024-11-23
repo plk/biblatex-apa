@@ -118,9 +118,9 @@
   page             = {{Page}{{}p\adddot}},
   pages            = {{Pages}{{}p\adddot}},
   on               = {{le}{le}},
-  retrieved        = {{R\'ecup\'er\'ee}{R\'ecup\'er\'ee}},
+  retrieved        = {{Consult\'e}{Consult\'e}},
   available        = {{disponible}{disponible}},
-  from             = {{\`a\space partir\space de}{\`a\space partir\space de}},
+  from             = {{\`a}{\`a}},
   archivedat       = {{archiv\'es\space \`a}{archiv\'es\space \`a}},
   reviewof         = {{critique\space de}{critique\space de}},
 %  paragraph        = {{paragraph}{para\adddot}},%FIXME
@@ -146,7 +146,10 @@
 % You must use \printdate to get here otherwise it will be ignored
 
 \DeclareBibliographyExtras{%
-  \def\urldatecomma{\addcomma\addspace}%
+  \DeclareFieldFormat{urldate}{%
+    \bibstring{retrieved}\space\bibstring{on}\space#1%
+    \urldatecomma\bibstring{from}}%
+  \def\urldatecomma{\addspace}%
   \protected\def\mkbibdateapalong#1#2#3#4{%
     % As per 10.1, Articles only have year
     \ifboolexpr{ (test {\ifentrytype{article}}
@@ -233,7 +236,7 @@
         {\iffieldundef{#3}%
           {}%
           {\addspace}}%
-        {\addcomma\addspace}%
+        {\addspace}%
        \iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}}}
 
 %
