@@ -370,7 +370,7 @@
 % every bib item but since these aren't bib items, they are not reset
 
 \DeclareDelimFormat[fullcite,fullcitebib]{finalnamedelim}
-   {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
+   {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\bibstring{and}\space}
 
 \DeclareCiteCommand{\fullcite}
   {\usebibmacro{prenote}}
@@ -473,7 +473,7 @@
 \newtoggle{apa:inpcite}
 
 \DeclareDelimFormat[parencite]{finalnamedelim}
-  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}
+  {\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\bibstring{and}\space}
 
 \DeclareCiteCommand{\parencite}[\mkbibparens]
   {\usebibmacro{cite:init}%
