@@ -513,7 +513,6 @@
 \DeclareFieldFormat{volume}{\iffieldundef{maintitle}
                               {\bibcpstring{volume}~\apanum{#1}}
                               {\mkbibemph{\bibcpstring{volume}~\apanum{#1}}}}
-\DeclareFieldFormat[book]{volume}{\bibcpstring{volume}~\apanum{#1}}
 \DeclareFieldFormat[article]{volume}{\mkbibemph{\apanum{#1}}}
 \DeclareFieldFormat[inproceedings,periodical]{volume}{\mkbibemph{\apanum{#1}}}
 
@@ -1221,7 +1220,8 @@
       {\usebibmacro{maintitle}%
        \iffieldundef{volume}
          {\newunit\newblock}
-         {\printtext{\mkbibparens{\printfield{volume}\printfield{part}}}%
+         {\setunit{\addcolon\space}\printfield{volume}%
+          \printfield{part}%
           \setunit{\adddot\space}}}}%
   \usebibmacro{title}%
   \newunit}
@@ -1239,7 +1239,7 @@
        \newunit\newblock
        \iffieldundef{volume}
          {}
-         {\printfield{volume}%
+         {\setunit{\addcolon\space}\printfield{volume}%
           \printfield{part}%
           \setunit{\adddot\addspace}}}%
       \usebibmacro{booktitle}%
