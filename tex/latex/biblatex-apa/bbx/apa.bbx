@@ -127,11 +127,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Force roman numerals into arabic using
-% etoolbox macros
-
-\newcommand{\apanum}[1]{\ifrmnum{#1}{\rmntonum{#1}}{#1}}
-
+% This does nothing currently
+\newcommand{\apanum}[1]{#1}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -536,8 +533,8 @@
 
 % NUMBER
 \DeclareFieldFormat{number}{\iffieldundef{volume}
-                             {\ifinteger{\thefield{number}}
-                               {\addspace\mkbibemph{\bibcpstring{number}~\apanum{#1}}\adddot}
+                             {\iffieldint{number}
+                               {\bibcpstring{number}~\apanum{#1}}
                                {\apanum{#1}}}
                              {\mkbibemph{\apanum{#1}}}}
 \DeclareFieldFormat[report]{number}{\apanum{#1}}
@@ -865,11 +862,11 @@
           {\printtext[brackets]{\printfield{type}}\setunit*{\adddot\addspace}\printlist{institution}}}}
     {\iffieldundef{type}
        {\iffieldundef{issue}
-         {\iffieldnums{number}{\bibcpstring{number}~}{}\printfield{number}}
+         {\printfield{number}}
          {\printfield{issue}\setunit{\addspace}%
-        \iffieldundef{number}
-         {}
-         {\iffieldnums{number}{\bibcpstring{number}~}{}\printfield{number}}}}
+          \iffieldundef{number}
+            {}
+            {\printfield{number}}}}
        {\printfield{type}\setunit{\addspace}%
         \iffieldundef{number}
           {}
