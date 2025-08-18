@@ -463,8 +463,20 @@
 % been placed already in IN*
 % Reset every bibitem.
 
-\newbool{bbx:in}
-\AtEveryBibitem{\global\boolfalse{bbx:in}}
+\newbool{bbx@in}
+\AtEveryBibitem{\global\boolfalse{bbx@in}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Flag to say whether editors were present
+% and have been printed already (as they are
+% cleared)
+% Reset every bibitem.
+
+\newbool{bbx@doneed}
+\AtEveryBibitem{\global\boolfalse{bbx@doneed}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -911,9 +923,9 @@
 % than one potential location
 
 \newbibmacro*{in}{%
-  \ifbool{bbx:in}%
+  \ifbool{bbx@in}%
     {}%
-    {\global\booltrue{bbx:in}%
+    {\global\booltrue{bbx@in}%
      \bibcpstring{in}\setunit{\space}}}
 
 %
@@ -1229,10 +1241,10 @@
 \renewbibmacro*{maintitle+booktitle}{%
   \ifthenelse{\iffieldundef{maintitle}\AND\iffieldundef{booktitle}}
     {}
-    {\ifthenelse{\ifnameundef{editor}\AND
-                 \ifnameundef{editora}\AND
-                 \ifnameundef{editorb}\AND
-                 \ifnameundef{editorc}}{\usebibmacro{in}}{}%
+    {\ifbool{bbx@doneed}
+        {\setunit{\addcomma\addspace}}
+        {\usebibmacro{in}%
+          \setunit{\addspace}}%
      \iffieldundef{maintitle}
       {}
       {\usebibmacro{maintitle}%
@@ -1242,9 +1254,9 @@
          {\setunit{\addcolon\space}\printfield{volume}%
           \printfield{part}%
           \setunit{\adddot\addspace}}}%
-      \usebibmacro{booktitle}%
-      \setunit{\addspace}%
-      \usebibmacro{addinfo1}}}
+     \usebibmacro{booktitle}%
+     \setunit{\addspace}%
+     \usebibmacro{addinfo1}}}
 
 \renewbibmacro*{maintitle}{%
   \ifthenelse{\iffieldundef{maintitle}\AND\iffieldundef{mainsubtitle}}
@@ -2118,6 +2130,7 @@
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{apaeditorstrg}{editor}}
      \clearname{editor}%
+     \booltrue{bbx@doneed}%
      \newunit}%
   \ifnameundef{editora}
     {}
@@ -2125,6 +2138,7 @@
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{apaeditorstrg}{editora}}
      \clearname{editora}%
+     \booltrue{bbx@doneed}%
      \newunit}%
   \ifnameundef{editorb}
     {}
@@ -2132,6 +2146,7 @@
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{apaeditorstrg}{editorb}}
      \clearname{editorb}%
+     \booltrue{bbx@doneed}%
      \newunit}%
   \ifnameundef{editorc}
     {}
@@ -2139,6 +2154,7 @@
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{apaeditorstrg}{editorc}}
      \clearname{editorc}%
+     \booltrue{bbx@doneed}%
      \newunit}}
 
 \newbibmacro*{apaeditorstrg}[1]{%

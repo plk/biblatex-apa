@@ -376,7 +376,7 @@
   {\usebibmacro{prenote}}
   {\usedriver
     {\DeclareNameAlias{sortname}{default}%
-      \global\boolfalse{bbx:in}%
+      \global\boolfalse{bbx@in}%
       \global\let\blx@related@loop\@empty}
     {\thefield{entrytype}}%
    \usebibmacro{cite:post}}
@@ -391,7 +391,7 @@
      \setlength{\parsep}{\bibparsep}}\item}
   {\usedriver
     {\DeclareNameAlias{sortname}{default}%
-      \global\boolfalse{bbx:in}}
+      \global\boolfalse{bbx@in}}
     {\thefield{entrytype}}%
    \finentry
    \usebibmacro{cite:post}}
