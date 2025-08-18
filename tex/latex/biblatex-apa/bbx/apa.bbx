@@ -1451,7 +1451,7 @@
        \setunit{\addcomma\addspace}%
        \usebibmacro{doi+url}%
        \setunit{}}
-   {\ifentrytype{book}
+   {\ifthenelse{\ifentrytype{book}\OR\ifentrytype{inbook}}
       {\mkbibemph{%
          \printfield[apacase]{title}%
          \setunit{\subtitlepunct}%
@@ -1459,10 +1459,28 @@
        \setunit{\addcomma\addspace}%
        \printfield[pageswithprefix]{pages}%
        \setunit{\addcomma\addspace}%
-       \biblstring{byauthor}\space
-       \printnames[apanames][-\value{listtotal}]{editor}%
-       \setunit{\addcomma\addspace}%
-       \usebibmacro{apaeditorstrg}{editor}%
+       \ifthenelse{\ifnameundef{author}\AND%
+                   \ifnameundef{editor}\AND%
+                   \ifnameundef{translator}}
+                   {}
+                   {}%
+       \ifthenelse{\ifnameundef{author}\OR%
+                   \ifnamesequal{author}{savedauthor}}
+         {}
+         {\biblstring{byauthor}\space%
+          \printnames[apanames][-\value{listtotal}]{author}%
+          \setunit{\addcomma\addspace}}%
+       \ifthenelse{\ifnameundef{editor}}
+         {}
+         {\biblstring{byauthor}\space%
+          \printnames[apanames][-\value{listtotal}]{editor}%
+          \setunit{\addcomma\addspace}%
+          \usebibmacro{apaeditorstrg}{editor}}%
+       \ifthenelse{\ifnameundef{translator}}
+         {}
+         {\printnames[apanames][-\value{listtotal}]{translator}%
+          \setunit{\addcomma\addspace}%
+          \bibcpstring{translator}}%
        \setunit{\addcomma\addspace}%
        \printlabeldateextra
        \setunit{\addcomma\addspace}%
