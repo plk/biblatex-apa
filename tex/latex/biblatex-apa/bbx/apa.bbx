@@ -1450,6 +1450,10 @@
        \setunit{}}
    {\ifthenelse{\ifentrytype{book}\OR\ifentrytype{inbook}}
       {\mkbibemph{%
+         \iffieldundef{booktitle}
+           {}
+           {\printfield[apacase]{booktitle}%
+            \setunit{\subtitlepunct}}%
          \printfield[apacase]{title}%
          \setunit{\subtitlepunct}%
          \printfield[apacase]{subtitle}}%
