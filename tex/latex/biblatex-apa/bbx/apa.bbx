@@ -1449,22 +1449,19 @@
        \usebibmacro{doi+url}%
        \setunit{}}
    {\ifthenelse{\ifentrytype{book}\OR\ifentrytype{inbook}}
-      {\mkbibemph{%
-         \iffieldundef{booktitle}
-           {}
-           {\printfield[apacase]{booktitle}%
-            \setunit{\subtitlepunct}}%
+      {\mkbibquote{%
          \printfield[apacase]{title}%
          \setunit{\subtitlepunct}%
          \printfield[apacase]{subtitle}}%
+         \iffieldundef{booktitle}
+           {}
+           {\setunit{\addspace}%
+            \biblcstring{in}\setunit{\addspace}%
+            \mkbibemph{
+              \printfield[apacase]{booktitle}}}%
        \setunit{\addcomma\addspace}%
        \printfield[pageswithprefix]{pages}%
        \setunit{\addcomma\addspace}%
-       \ifthenelse{\ifnameundef{author}\AND%
-                   \ifnameundef{editor}\AND%
-                   \ifnameundef{translator}}
-                   {}
-                   {}%
        \ifthenelse{\ifnameundef{author}\OR%
                    \ifnamesequal{author}{savedauthor}}
          {}
