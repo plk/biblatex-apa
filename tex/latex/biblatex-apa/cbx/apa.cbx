@@ -41,6 +41,27 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (APA 8.17) - Ampersand between names in both parenthetical
+%              and narrative citations when in tables
+\newif\ifintable
+
+\DeclareDelimFormat[textcite]{finalnamedelim}{%
+  \ifintable
+    \ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space
+  \else
+    \ifnum\value{liststop}>2 \finalandcomma\fi\addspace\bibstring{and}\space
+  \fi}
+
+\AddToHook{env/table/begin}{\intabletrue}
+\AddToHook{env/figure/begin}{\intabletrue}
+\AddToHook{cmd/@makecaption/before}{\intablefalse}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 8.10) Suffices are not shown in citations
 % (APA 8.20) Initials only for primary author and only when not unique across all *primary* authors
