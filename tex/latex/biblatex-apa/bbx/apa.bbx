@@ -1450,15 +1450,15 @@
        \setunit{}}
    {\ifthenelse{\ifentrytype{book}\OR\ifentrytype{inbook}}
       {\mkbibemph{%
-         \printfield[apacase]{title}%
-         \setunit{\subtitlepunct}%
-         \printfield[apacase]{subtitle}}%
          \iffieldundef{booktitle}
-           {}
-           {\setunit{\addspace}%
-            \biblcstring{in}\setunit{\addspace}%
-            \mkbibemph{
-              \printfield[apacase]{booktitle}}}%
+           {\iffieldundef{title}
+             {}
+             {\printfield[apacase]{title}%
+              \setunit{\subtitlepunct}%
+              \printfield[apacase]{subtitle}}}
+           {\printfield[apacase]{booktitle}%
+            \setunit{\subtitlepunct}%
+            \printfield[apacase]{booksubtitle}}}%
        \setunit{\addcomma\addspace}%
        \printfield[pageswithprefix]{pages}%
        \setunit{\addcomma\addspace}%
