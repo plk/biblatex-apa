@@ -728,8 +728,8 @@
   \ifthenelse{\value{listcount}>\maxprtauth}
     {}
     {\ifthenelse{\value{liststop}>2}
-       {\finalandcomma\addspace\&\space}
-       {\addspace\&\space}}}
+       {\finalandcomma\addspace\bibstring{and}\space}
+       {\addspace\bibstring{and}\space}}}
 
 
 %
@@ -944,7 +944,7 @@
 \newcommand*{\apabbx@printrole@item@i}[1]{%
   \ifitemannotation[\currentname][role]{#1}
     {\iftoggle{apabbx:role:item:punct}
-       {\addspace\&\space}
+       {\addspace\bibstring{and}\space}
        {}%
      \bibstring{#1}%
      \toggletrue{apabbx:role:item:punct}}
@@ -981,7 +981,7 @@
 \newcommand*{\apabbx@printrole@field@i}[1]{%
   \iffieldannotation[\currentname][role]{#1}
     {\iftoggle{apabbx:role:field:punct}
-       {\addspace\&\space}
+       {\addspace\bibstring{and}\space}
        {}%
      \bibstring{#1}%
      \toggletrue{apabbx:role:field:punct}}
@@ -1113,7 +1113,7 @@
        {\printnames[apanames][-\value{listtotal}]{editor}%
         \setunit*{\addcomma\addspace}%
         \usebibmacro{apaeditorstrg}{editor}%
-        \setunit*{\addspace\&\space}%
+        \setunit*{\addspace\bibstring{and}\space}%
         \bibcpstring{translator}}
        {\ifnameundef{editor}%
           {}%
@@ -1149,7 +1149,7 @@
        \setunit{\addspace}%
        \printtext[parens]{%
          \usebibmacro{apaeditorstrg}{editor}%
-         \setunit*{\addspace\&\space}%
+         \setunit*{\addspace\bibstring{and}\space}%
          \bibcpstring{translator}}}
       {\ifnameundef{translator}%
         {}%
@@ -1557,7 +1557,7 @@
   \iffieldundef{origyear}
     {\printtext[parens]{\printlabeldateextra}}
     {\printtext[parens]{\printorigdate%
-                        \addspace\&\addspace rev\adddot\addspace\printlabeldateextra}}}
+                        \addspace\bibstring{and}\addspace rev\adddot\addspace\printlabeldateextra}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
