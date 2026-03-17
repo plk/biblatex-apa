@@ -1018,9 +1018,23 @@
     test \ifmorenames
     }}
 
+\newtoggle{apablx@serialcomma}
+\toggletrue{apablx@serialcomma}
+
+\DeclareBibliographyOption{apaserialcomma}[true]{%
+  \ifstrequal{#1}{true}
+    {\toggletrue{apablx@serialcomma}}
+    {\togglefalse{apablx@serialcomma}}}
+
 \newcommand*{\apablx@ifrevnameappcomma}{%
   \iftoggle{apablx@wantcomma}
-    {\apablx@ifnotfinalname}
+    {\iftoggle{apablx@serialcomma}
+      {\apablx@ifnotfinalname}
+      {\ifboolexpr{
+         test {\ifnumless{\value{listcount}}{\numexpr\value{liststop}-1\relax}}
+         or
+         test \ifmorenames
+       }}}
     {\@secondoftwo}}
 
 \newtoggle{apablx@wantcomma}
