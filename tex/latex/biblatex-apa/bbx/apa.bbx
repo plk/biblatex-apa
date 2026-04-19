@@ -856,10 +856,9 @@
      \setunit{\addspace}%
      \iffieldundef{type}
        {}
-       {% Inconsistent - standard thesis types have institution inside the brackts, manual types outside ...
-        \ifthenelse{\iffieldequalstr{type}{phdthesis}\OR\iffieldequalstr{type}{mathesis}}
-          {\printtext[brackets]{\printfield{type}\setunit*{\addcomma\addspace}\printlist{institution}}}
-          {\printtext[brackets]{\printfield{type}}\setunit*{\adddot\addspace}\printlist{institution}}}}
+       {\ifthenelse{\(\iffieldequalstr{type}{phdthesis}\OR\iffieldequalstr{type}{mathesis}\)\AND\NOT\iffieldequalstr{howpublished}{unpublished}}
+          {\printtext[brackets]{\bibsentence\iffieldundef{howpublished}{}{\bibstring{\thefield{howpublished}}\setunit{\addspace}}\printfield{type}\setunit*{\addcomma\addspace}\printlist{institution}}}
+          {\printtext[brackets]{\bibsentence\iffieldundef{howpublished}{}{\bibstring{\thefield{howpublished}}\setunit{\addspace}}\printfield{type}}\setunit*{\adddot\addspace}\printlist{institution}}}}
     {\iffieldundef{type}
        {\iffieldundef{issue}
          {\printfield{number}}
