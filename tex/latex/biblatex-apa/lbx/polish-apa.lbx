@@ -1,0 +1,250 @@
+\ProvidesFile{polish-apa.lbx}[2023/03/20\space v9.17\space APA biblatex localisation]
+\InheritBibliographyExtras{polish}
+
+\NewBibliographyString{publication}
+\NewBibliographyString{jourarticle}
+\NewBibliographyString{revisededition}
+\NewBibliographyString{chair}
+\NewBibliographyString{chairs}
+\NewBibliographyString{typevolume}
+\NewBibliographyString{typevolumes}
+\NewBibliographyString{typeseries}
+\NewBibliographyString{typeseriess}
+\NewBibliographyString{typevolseries}
+\NewBibliographyString{typevolseriess}
+\NewBibliographyString{on}
+\NewBibliographyString{retrieved}
+\NewBibliographyString{available}
+\NewBibliographyString{from}
+\NewBibliographyString{archivedat}
+\NewBibliographyString{origyear}
+\NewBibliographyString{reviewof}
+\NewBibliographyString{with}
+\NewBibliographyString{supplement}
+\NewBibliographyString{commenton}
+\NewBibliographyString{manunpub}
+\NewBibliographyString{maninprep}
+\NewBibliographyString{mansub}
+\NewBibliographyString{producer}
+\NewBibliographyString{producers}
+\NewBibliographyString{execproducer}
+\NewBibliographyString{execproducers}
+\NewBibliographyString{execdirector}
+\NewBibliographyString{execdirectors}
+\NewBibliographyString{director}
+\NewBibliographyString{directors}
+\NewBibliographyString{writer}
+\NewBibliographyString{writers}
+\NewBibliographyString{host}
+\NewBibliographyString{hosts}
+\NewBibliographyString{guestexpert}
+\NewBibliographyString{guestexperts}
+\NewBibliographyString{narrator}
+\NewBibliographyString{narrators}
+\NewBibliographyString{film}
+\NewBibliographyString{tvseries}
+\NewBibliographyString{tvepisode}
+\NewBibliographyString{video}
+\NewBibliographyString{song}
+\NewBibliographyString{album}
+\NewBibliographyString{podcast}
+\NewBibliographyString{podcastepisode}
+\NewBibliographyString{interview}
+\NewBibliographyString{speech}
+\NewBibliographyString{lithograph}
+\NewBibliographyString{map}
+\NewBibliographyString{lecturenotes}
+\NewBibliographyString{powerpoint}
+\NewBibliographyString{photograph}
+\NewBibliographyString{photographs}
+\NewBibliographyString{present}
+\NewBibliographyString{painting}
+\NewBibliographyString{article}
+\NewBibliographyString{unitednations}
+\NewBibliographyString{charter}
+\NewBibliographyString{ofthe}
+\NewBibliographyString{tothe}
+
+
+\DeclareBibliographyStrings{%
+  inherit          = {polish},
+  jourarticle      = {{artyku³{}}{art\adddot{}}},
+  tothe            = {{do}{do}},
+  ofthe            = {{z}{z}},
+  unitednations    = {{Organizacja\space Narodów\space Zjednoczonych}{ONZ}},
+  charter          = {{karta}{karta}},
+  article          = {{artyku³{}}{art\adddot}},
+  painting         = {{obraz}{obraz}},
+  present          = {{prezent}{prezent}},
+  song             = {{piosenka}{piosenka}},
+  album            = {{album}{album}},
+  map              = {{mapa}{mapa}},
+  photograph       = {{fotografia}{fotografia}},
+  photographs      = {{fotografie}{fotografie}},
+  powerpoint       = {{prezentacja\space PowerPoint}{prezentacja\space PowerPoint}},
+  lecturenotes     = {{notatki\space z\space wyk³adu}{notatki\space z\space wyk³adu}},
+  podcast          = {{podcast\space audio}{podcast\space audio}},
+  podcastepisode   = {{odcinek\space podcastu\space audio}{odcinek\space podcastu\space audio}},
+  interview        = {{wywiad}{wywiad}},
+  speech           = {{wyst¹pienie}{wyst¹pienie}},
+  lithograph       = {{litografia}{litogr\adddot}},
+  video            = {{wideo}{wideo}},
+  film             = {{film}{film}},
+  tvseries         = {{serial\space telewizyjny}{serial\space telewizyjny}},
+  tvepisode        = {{odcinek\space serialu\space telewizyjnego}{odc\adddot}},
+  narrator         = {{narrator}{narr\adddot}},
+  narrators        = {{narratorzy}{narr\adddot}},
+  producer         = {{producent}{producent}},
+  producers        = {{producenci}{producenci}},
+  execproducer     = {{Producent\space wykonawczy}{Prod\adddot\space wyk\adddot}},
+  execproducers    = {{Producenci\space wykonawczy}{Prods\adddot\space wyk\adddot}},
+  execdirector     = {{Dyrektor\space wykonawczy}{Dir\adddot\space wyk\adddot}},
+  execdirectors    = {{Dyrektorzy\space wykonawczy}{Dirs\adddot\space wyk\adddot}},
+  director         = {{re¿yser}{re¿\adddot}},
+  directors        = {{re¿yserzy}{re¿\adddot}},
+  writer           = {{autor}{autor}},
+  writers          = {{autorzy}{autorzy}},
+  host             = {{prowadz¹cy}{prowadz¹cy}},
+  hosts            = {{prowadz¹cy}{prowadz¹cy}},
+  guestexpert      = {{ekspert\space goœcinny}{ekspert\space goœcinny}},
+  guestexperts     = {{eksperci\space goœcinni}{eksperci\space goœcinni}},
+  with             = {{z}{z}},
+  manunpub         = {{niepublikowany\space manuskrypt}{niepublikowany\space manuskrypt}},
+  maninprep        = {{manuskrypt\space w\space przygotowaniu}{manuskrypt\space w\space przygotowaniu}},
+  mansub           = {{manuskrypt\space z³{}o\z{'}ony\space do\space publikacji}{manuskrypt\space z³{}o\z{'}ony\space do\space publikacji}},
+  supplement       = {{dodatek}{dod\adddot}},
+  part             = {{czêœc}{cz\adddot}},
+  revisededition   = {{wydanie\space poprawione}{wyd\adddot\space pop\adddot}},
+  commenton        = {{komentarz\space do}{komentarz\space do}},
+  page             = {{Strona}{{}s\adddot}},
+  pages            = {{Strony}{{}ss\adddot}},
+  on               = {{na}{na}},
+  retrieved        = {{pobrano}{pobrano}},
+  available        = {{dostêpne}{dostêpne}},
+  from             = {{z}{z}},
+  archivedat       = {{zarchiwizowano\space w}{zarchiwizowano\space w}},
+  reprintas        = {{przedrukowano\space jako}{przedrukowano\space jako}},
+  reprintfrom      = {{przedrukowano\space z}{przedrukowano\space z}},
+  reviewof         = {{recenzja\space pracy}{recenzja\space pracy}},
+  paragraph        = {{akapit}{akapit}},
+  paragraphs       = {{akapity}{akapity}},
+  mathesis         = {{praca\space magisterska}{praca\space magisterska}},
+  phdthesis        = {{praca\space doktorska}{praca\space doktorska}},
+  origyear         = {{oryginalna\space praca\space opublikowana}{oryginalna\space praca\space opublikowana}},
+  chair            = {{przewodnicz¹cy}{przewodnicz¹cy}},
+  chairs           = {{przewodnicz¹cy}{przewodnicz¹cy}},
+  typevolume       = {{Redaktor\space tomu}{Red\adddot\space tomu}},
+  typevolumes      = {{Redaktorzy\space tomu}{Red\adddot\space tomu}},
+  typeseries       = {{Redaktor\space serii}{Red\adddot\space serii}},
+  typeseriess      = {{Redaktorzy\space serii}{Red\adddot\space serii}},
+  typevolseries    = {{Redaktor\space serii\space i\space tomu}{Red\adddot\space serii\space i\space tomu}},
+  typevolseriess   = {{Redaktorzy\space serii\space i\space tomu}{Red\adddot\space serii\space i\space tomu}},
+  annodomini       = {{n.e.}{n.e.}},
+  beforechrist     = {{p.n.e.}{p.n.e.}},
+  commonera        = {{n.e.}{n.e.}},
+  beforecommonera  = {{p.n.e.}{p.n.e.}},
+  publication      = {{Publikacja}{Publikacja}}
+}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Drop end* when they are the same as *
+% You must use \print*date to get here otherwise it will be ignored
+
+\DeclareBibliographyExtras{%
+  \def\urldatecomma{\addcomma\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
+    % Zgodnie z APA 7, artyku³y zawieraj¹ tylko rok
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% ROK
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}%
+    \iffieldundef{#2}% PODZIA£ ROKU
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MIESI¥C
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DZIEÑ
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3#4{%
+    % Zgodnie z APA 7, artyku³y zawieraj¹ tylko rok
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}% ROK
+      {}%
+      {\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
+    \iffieldundef{#2}% PODZIA£ ROKU
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MIESI¥C
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DZIEÑ
+      {}%
+      {\iffieldundef{#3}%
+        {}%
+        {\addspace}%
+       \stripzeros{\thefield{#4}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3#4{%
+    % Zgodnie z APA 7, artyku³y zawieraj¹ tylko rok
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#2}% PODZIA£ ROKU
+      {}%
+      {\iffieldundef{#1}%
+        {}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}% MIESI¥C
+      {}%
+      {\mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#4}% DZIEÑ
+      {}%
+      {\addspace}%
+       \stripzeros{\thefield{#4}}%
+    \iffieldundef{#1}% ROK
+      {}%
+      {\iffieldundef{#4}%
+        {\iffieldundef{#3}%
+          {}%
+          {\addspace}}%
+        {\addcomma\addspace}%
+       \iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput
